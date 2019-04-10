@@ -1,0 +1,32 @@
+<script src="../js/pregunta.js"></script>
+<script>
+    let nav;
+    let preguntas = document.createElement('div');
+    preguntas.className = "preguntas";
+    loadJson("../data/preguntas.1.json", (r)=>{
+        console.log(r);
+        let preguntas_total = [];
+        r.preguntas.forEach(p => {
+        
+            let opciones = [];
+            
+            p.opciones.forEach(o => {
+                let opcion = new Opcion(o.opcion, o.valor.categorias);
+                opciones.push(opcion);
+            });
+            let pregunta = new Pregunta(p.pregunta, opciones);
+            
+            preguntas.appendChild(pregunta.getElement());
+            preguntas_total.push(pregunta.getElement());
+        });
+        nav = new Navegable(preguntas_total);
+        $(".principal").append(preguntas);
+    });
+    console.log(preguntas.childNodes);
+
+    function sig(){
+        nav.siguiente();
+    }
+</script>
+
+<button onclick="sig()">Siguiente</button>

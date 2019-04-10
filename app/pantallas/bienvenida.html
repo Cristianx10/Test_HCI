@@ -1,0 +1,64 @@
+<style>
+  .espaciado__left {
+    position: absolute;
+    width: 350px;
+    left: 250px;
+    top: 250px;
+    color: #eff5ff;
+    color: black;
+
+    
+  }
+
+  .titulo{
+    position: absolute;
+width: 468px;
+height: 175px;
+left: 95px;
+top: 458px;
+
+font-family: Heebo;
+font-style: normal;
+font-weight: 900;
+font-size: 64px;
+line-height: 56px;
+text-align: center;
+
+color: #E64973;
+
+
+
+  }
+
+  .parrafo{
+    position: absolute;
+width: 162px;
+height: 28px;
+left: 98px;
+top: 181px;
+
+font-family: Muli;
+font-style: normal;
+font-weight: normal;
+font-size: 9px;
+line-height: 9px;
+
+color: #000000;
+
+  }
+
+  .espaciado__left *{
+    margin-bottom: 25px;
+    }
+</style>
+
+<h1 class="titulo">Orientación vocacional</h1>
+
+
+<script>
+  $(document).ready(function() {
+    $("#btn_bienvenida_empezar").click(function() {
+      $(".principal").load("../pantallas/tarjetas.html");
+    });
+  });
+</script>

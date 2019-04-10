@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Test Interactivo</title>
+    <link
+      rel="shortcut icon"
+      href="/includes/img/favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../sass/general/main.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Heebo"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div
+      class="cont-principal"
+      style="background-image: url('./img/background_principal.png')"
+    >
+      <div class="principal">
+       
+      </div>
+    </div>
+
+    <script src="./lib/jquery.js"></script>
+    <script src="./lib/easeljs.js"></script>
+    <script src="./lib/preloadjs.js"></script>
+    <script src="./js/main.js"></script>
+    
+    <script type="text/javascript">
+      $(document).ready(function() {
+
+       $(".principal").load("./pantallas/preguntas.html");
+      //$(".principal").load("./pantallas/modulos/rompecabeza-piezas.html");
+      //  $(".principal").load("./pantallas/modulos/tarjetas.html");
+      });
+    </script>
+  </body>
+</html>

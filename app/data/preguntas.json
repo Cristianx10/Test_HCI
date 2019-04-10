@@ -1,0 +1,52 @@
+{
+    "preguntas;":[
+        {   "pregunta":"La Empresa Eléctrica va instalar postes equidistantes cada 5m a lo largo de un pasaje de 95m de tal forma que haya uno al inicio y otro al final. Además emplean 15 minutos para colocar cada poste. ¿Cuánto tiempo demorarán en colocar todos los postes?",
+            "opciones":[
+                {
+                    "opcion":"4 horas y 45 minutos",
+                    "valor":{
+                        "categorias":[
+                            {
+                                "area":"arte",
+                                "valor":5
+                            }
+                        ]
+                    }
+                },
+                {
+                    "opcion":"4 horas y 45 minutos",
+                    "valor":{
+                        "categorias":[
+                            {
+                                "area":"arte",
+                                "valor":0
+                            }
+                        ]
+                    }
+                },
+                {
+                    "opcion":"4 horas y 45 minutos",
+                    "valor":{
+                        "categorias":[
+                            {
+                                "area":"arte",
+                                "valor":0
+                            }
+                        ]
+                    }
+                },
+                {
+                    "opcion":"4 horas y 45 minutos",
+                    "valor":{
+                        "categorias":[
+                            {
+                                "area":"arte",
+                                "valor":0
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

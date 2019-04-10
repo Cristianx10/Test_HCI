@@ -1,0 +1,137 @@
+$color-morado: #020963;
+$color-beach:#FFFEEA;
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: 'Heebo', sans-serif;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 5em;
+    line-height: 65px;
+}
+
+p {
+    font-size: 1.5em;
+    line-height: 25px;
+}
+
+.cont-principal {
+    height: 100%;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.boton {
+    background: #FFF97C;
+    border: 1px solid #FFF97C;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    width: 200px;
+    height: 50px;
+
+    font-weight: bold;
+    font-size: 1.3em;
+    color: $color-morado;
+
+    transition: all .5s ease;
+
+    &:hover {
+        cursor: pointer;
+        background: yellow;
+    }
+}
+
+.principal {
+    position: relative;
+    max-width: 1280px;
+    max-height: 720px;
+    border: 5px solid rgb(240, 89, 89);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input[type=radio] {
+    transform: scale(2.5);
+}
+
+.cuestionario {
+    width: 50%;
+    height: 50%;
+    display: flex;
+    background: $color-beach;
+    flex-direction: column;
+    border-radius: 15px;
+    border: 5px solid blue;
+
+
+    &__preguntas {
+        width: 100%;
+        height: 80%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+       
+
+        .pregunta {
+            color: black;
+            width: 100%;
+            height: 100%;
+
+            &__titulo {
+                text-align: center;
+                margin: 30px 0;
+            }
+
+            &__opciones{
+                
+                border: 2px solid green;
+                margin: 0 20px;
+                border-radius: 10px;
+                padding: 20px 10px;
+               
+
+                form{
+                    display: flex;
+                    justify-content: center;
+                    flex-wrap: wrap;
+                }
+                label{
+                    display: block;
+                    margin: 0 20px;
+
+                    input{
+                        margin: 15px;
+                    }
+                }
+
+    
+            }
+        }
+    }
+
+    &__navegacion {
+        width: 100%;
+        height: 20%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+}

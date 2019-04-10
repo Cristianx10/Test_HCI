@@ -1,0 +1,56 @@
+.tablero {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.tablero__bloque {
+  background: lightcoral;
+  position: relative;
+  -webkit-perspective: 1000px;
+          perspective: 1000px;
+  height: 150px;
+  width: 100px;
+  margin: 20px 10px;
+}
+
+.tablero__bloque .bloque {
+  height: 100%;
+  width: 100%;
+  border: 2px solid blue;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transition: all 1s linear;
+  transition: all 1s linear;
+}
+
+.tablero__bloque .bloque img {
+  width: 100%;
+  height: 100%;
+}
+
+.tablero__bloque .bloque__cara {
+  background: red;
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.tablero__bloque .bloque__sello {
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+  width: 100%;
+  height: 100%;
+}
+
+.tablero__bloque:hover {
+  background: yellow;
+}
+/*# sourceMappingURL=targetas.css.map */
