@@ -1,8 +1,5 @@
-sass/aplicaciones/target.css
-sass/aplicaciones/target.css.map
-sass/aplicaciones/pizarras.css
-sass/aplicaciones/pizarras.css.map
-sass/aplicaciones/target.css.map
-sass/general/main.css
-sass/general/main.css.map
+sass/aplicaciones/*css
+sass/aplicaciones/*map
+sass/general/*css
+sass/general/*map
 node_modules
