@@ -39,10 +39,20 @@ var Navegable = /** @class */ (function () {
     Navegable.prototype.ocultar = function (seccion) {
         seccion.style.display = "none";
     };
-    Navegable.prototype.siguiente = function () {
+    Navegable.prototype.siguiente = function (accion, final) {
         this.ocultar(this.secciones[this.actual]);
-        this.actual++;
-        this.mostrar(this.secciones[this.actual]);
+        if (this.actual < this.secciones.length - 1) {
+            this.actual++;
+            this.mostrar(this.secciones[this.actual]);
+            if (accion) {
+                accion();
+            }
+        }
+        else {
+            if (final) {
+                final();
+            }
+        }
     };
     return Navegable;
 }());

@@ -65,8 +65,8 @@ class Pregunta {
 
     validar() {
         this.opciones.forEach((opcion: any) => {
-        if (opcion.valor === opcion.check.checked) {
-            console.log("verdadero");
+        if (opcion.check.checked) {
+            return this;
         }
         });
     }
@@ -74,28 +74,10 @@ class Pregunta {
     getElement(){
         return this.elemento;
     }
-
-
     
 }
 
 $(document).ready(function() {
 
-  var preguntas:HTMLElement = <any>document.querySelector(".cuestionario__preguntas");
-/*
-
-  var opcionA = new Opcion("Opcion A", []);
-  var opcionB= new Opcion("Opcion B", 5);
-  var opcionC = new Opcion("Opcion C", 5);
-  var opcionD = new Opcion("Opcion D", 5);
- 
-
-  var opciones = [opcionA, opcionB, opcionC, opcionD];
-
-  var pregunta = new Pregunta("Cual es la capital de", opciones);
-
-
-  preguntas.appendChild(preguntas.appendChild(pregunta.getElement()));
-*/
 
 });

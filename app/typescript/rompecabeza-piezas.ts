@@ -1,5 +1,7 @@
 function startgame() {
 
+  var intentos = 0;
+
   var tablero__rompecabeza: HTMLElement = <HTMLElement>document.querySelector(".table__rompecabezas");
 
   var temp_seleccion: any;
@@ -195,6 +197,7 @@ function startgame() {
 
       for (let i = 0; i < this.fichas.length; i++) {
         let o = this.fichas[this.fichas[i].posicion].original;
+        
         o.style.left = this.posiciones[i].x + "px";
         o.style.top = this.posiciones[i].y + "px";
         this.tablero__zonas.appendChild(o);
@@ -202,12 +205,13 @@ function startgame() {
         let e = this.fichas[i].elemento;
         e.style.left = this.posiciones[this.fichas[i].orden].x + "px";
         e.style.top = this.posiciones[this.fichas[i].orden].y + "px";
+        console.log(this.posiciones[i].x, this.posiciones[this.fichas[i].orden].x);
 
         this.tablero__fichas.appendChild(e);
 
       }
     }
-
+ 
     validacion() {
       let con = 0;
       for (let i = 0; i < this.fichas.length; i++) {
@@ -223,7 +227,12 @@ function startgame() {
         return true;
       } else {
         console.log("Sigue intentando");
-        RESULTADO.sumar("ingenieria", -1);
+        intentos++;
+        if(intentos > 5){
+          RESULTADO.sumar("ingenieria", -1);
+          RESULTADO.sumar("diseño", 2);
+        }
+        
         return false;
       }
 
@@ -307,8 +316,13 @@ function startgame() {
       rota.push(90*i);
     }
 
+    /*
+    console.log(orden);
     shuffle(orden);
-   // console.log(rota);
+    orden[0] = 1;
+    orden[1] = 0;
+    console.log(rota);
+    */
 
     for (let i = 0; i < imagenes.length; i++) {
       let e = imagenes[i];
@@ -326,5 +340,5 @@ function startgame() {
 
 $(document).ready(() => {
   startgame();
-
+  console.log(window.location.origin);
 });

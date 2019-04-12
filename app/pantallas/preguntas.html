@@ -2,10 +2,11 @@
 <script>
     let nav;
     let preguntas = document.createElement('div');
+    let preguntas_total = [];
     preguntas.className = "preguntas";
     loadJson("../data/preguntas.1.json", (r)=>{
         console.log(r);
-        let preguntas_total = [];
+        
         r.preguntas.forEach(p => {
         
             let opciones = [];
@@ -25,7 +26,11 @@
     console.log(preguntas.childNodes);
 
     function sig(){
-        nav.siguiente();
+        nav.siguiente(()=>{
+            console.log("Siguiente Pantalla");
+        }, ()=>{
+            console.log("Finalizo");
+        });
     }
 </script>
 

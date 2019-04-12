@@ -1,5 +1,6 @@
 "use strict";
 function startgame() {
+    var intentos = 0;
     var tablero__rompecabeza = document.querySelector(".table__rompecabezas");
     var temp_seleccion;
     var sobre;
@@ -145,6 +146,7 @@ function startgame() {
                 var e = this.fichas[i].elemento;
                 e.style.left = this.posiciones[this.fichas[i].orden].x + "px";
                 e.style.top = this.posiciones[this.fichas[i].orden].y + "px";
+                console.log(this.posiciones[i].x, this.posiciones[this.fichas[i].orden].x);
                 this.tablero__fichas.appendChild(e);
             }
         };
@@ -163,7 +165,11 @@ function startgame() {
             }
             else {
                 console.log("Sigue intentando");
-                RESULTADO.sumar("ingenieria", -1);
+                intentos++;
+                if (intentos > 5) {
+                    RESULTADO.sumar("ingenieria", -1);
+                    RESULTADO.sumar("diseño", 2);
+                }
                 return false;
             }
         };
@@ -224,8 +230,13 @@ function startgame() {
             orden.push(i);
             rota.push(90 * i);
         }
+        /*
+        console.log(orden);
         shuffle(orden);
-        // console.log(rota);
+        orden[0] = 1;
+        orden[1] = 0;
+        console.log(rota);
+        */
         for (var i = 0; i < imagenes.length; i++) {
             var e = imagenes[i];
             fichas.push(new Ficha(e, orden[i], i, rota[i]));
@@ -237,4 +248,5 @@ function startgame() {
 }
 $(document).ready(function () {
     startgame();
+    console.log(window.location.origin);
 });

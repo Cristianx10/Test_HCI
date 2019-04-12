@@ -50,13 +50,26 @@ class Navegable{
         seccion.style.display = "none";
     }
 
-    siguiente(){
+    siguiente(accion?:Function, final?:Function):void{
         this.ocultar(this.secciones[this.actual]);
-        this.actual++;
-        this.mostrar(this.secciones[this.actual]);
+        if(this.actual < this.secciones.length-1){
+            this.actual++;
+            this.mostrar(this.secciones[this.actual]);
+            if(accion){
+                accion();
+            }
+        }else{
+            if(final){
+                final();
+            }
+        }
+        
+       
 
+        
     }
 
+   
     
 }
 
