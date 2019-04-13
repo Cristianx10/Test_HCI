@@ -5,6 +5,7 @@ var Opcion = /** @class */ (function () {
         this.check = document.createElement("input");
         this.check.type = "radio";
         this.check.name = "opcion";
+        this.check.checked = false;
         this.opcion.append(this.check);
         this.opcion.append(info);
         this.valor = valor;
@@ -42,9 +43,11 @@ var Pregunta = /** @class */ (function () {
         div_seccionB.appendChild(formulario);
     }
     Pregunta.prototype.validar = function () {
+        var _this = this;
         this.opciones.forEach(function (opcion) {
             if (opcion.check.checked) {
                 opcion.validacion();
+                RESULTADO.pruebas.push({ pregunta: _this.elemento.innerText, respuesta: opcion.opcion.innerText });
             }
         });
     };

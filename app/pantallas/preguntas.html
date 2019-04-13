@@ -37,13 +37,15 @@
 
         siguiente.addEventListener('click', () => {
 
-            preguntas_total.getObjectIndex(navegacion.actual).validar();
+           
 
             navegacion.siguiente(() => {
                 
-
+                preguntas_total.getObjectIndex(navegacion.actual).validar();
+                
             }, () => {
                 console.log("Finalizo");
+                $(".principal").load("./pantallas/modulos/tarjetas.html");
             });
 
         });

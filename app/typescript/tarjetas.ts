@@ -1,4 +1,4 @@
-function init(): void {
+
   function selector(id: string) {
     let elemento: HTMLElement = <any>document.querySelector(id);
     if (elemento == null) {
@@ -162,10 +162,13 @@ function init(): void {
     tarjetas: Array<HTMLElement>;
     tablero:HTMLElement;
     tab_global:HTMLElement;
+    posiciones:Array<number>;
 
-    constructor(fichas:Array<Pareja>){
+    constructor(fichas:Array<Pareja>, posiciones:Array<number>){
       this.fichas = fichas;
       this.tarjetas= new Array();
+      this.posiciones = posiciones;
+      console.log(this.posiciones);
       
       this.tablero = document.createElement("div");
       this.tablero.className = "tablero";
@@ -181,10 +184,11 @@ function init(): void {
         this.tarjetas.push(par.getElementoB());
       }
 
-      shuffle(this.tarjetas);
+      //shuffle(this.tarjetas);
+      
 
       for (let i = 0; i < this.tarjetas.length; i++) {
-        this.tablero.appendChild(this.tarjetas[i]);
+        this.tablero.appendChild(this.tarjetas[this.posiciones[i]]);
       }
 
     }
@@ -207,9 +211,13 @@ function init(): void {
 
   
 
-  var bloques = selector(".tableros");
+ /* var bloques = selector(".tableros");
   var carga = new createjs.LoadQueue(true);
+
+  
+ 
   carga.loadFile({ src: "../../data/emparejado.json" });
+
 
   carga.on("fileload", function(event: any) {
     if (event.item.type == "json") {
@@ -245,10 +253,11 @@ function init(): void {
       console.log(n);
     }
   });
+  */
 
-}
 
-$(document).ready(init);
+
+//$(document).ready(init);
 
 /*
   bloques.forEach(element => {

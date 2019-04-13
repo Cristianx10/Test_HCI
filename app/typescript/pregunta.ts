@@ -9,6 +9,7 @@ class Opcion {
         this.check = document.createElement("input");
         this.check.type = "radio";
         this.check.name = "opcion";
+        this.check.checked = false;
 
         this.opcion.append(this.check);
         this.opcion.append(info);
@@ -16,6 +17,8 @@ class Opcion {
     }
 
     validacion() {
+
+    
 
         this.valor.forEach(v => {
             RESULTADO.sumar(v.area, v.valor);
@@ -69,6 +72,7 @@ class Pregunta {
         this.opciones.forEach((opcion: any) => {
             if (opcion.check.checked) {
                 opcion.validacion();
+                RESULTADO.pruebas.push({pregunta:this.elemento.innerText,respuesta:opcion.opcion.innerText});
             }
         });
     }
