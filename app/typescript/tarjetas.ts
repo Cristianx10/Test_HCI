@@ -28,6 +28,7 @@
     public padre: Pareja;
     public tablero:any;
     public tarjeta: HTMLElement;
+    
 
     constructor(ficha: HTMLElement, padre: Pareja) {
       this.ficha = ficha;
@@ -97,11 +98,13 @@
     ocultar() {
       this.cliqueado = false;
       this.tarjeta.style.transform = "rotateY(0deg)";
+
     }
 
     mostrar() {
       this.cliqueado = true;
       this.tarjeta.style.transform = "rotateY(180deg)";
+   
     }
 
     getBloque() {
@@ -188,6 +191,8 @@
       
 
       for (let i = 0; i < this.tarjetas.length; i++) {
+        this.tarjetas[this.posiciones[i]].draggable = false;
+ 
         this.tablero.appendChild(this.tarjetas[this.posiciones[i]]);
       }
 

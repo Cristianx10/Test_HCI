@@ -146,6 +146,7 @@ var tablero_tarjetas = /** @class */ (function () {
         }
         //shuffle(this.tarjetas);
         for (var i = 0; i < this.tarjetas.length; i++) {
+            this.tarjetas[this.posiciones[i]].draggable = false;
             this.tablero.appendChild(this.tarjetas[this.posiciones[i]]);
         }
     }

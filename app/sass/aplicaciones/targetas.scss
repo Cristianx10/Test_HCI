@@ -3,6 +3,8 @@ body {}
 
 .tablero {
     display: flex;
+    width: 90%;
+    margin: auto;
     flex-wrap: wrap;
     justify-content: center;
 
@@ -11,8 +13,8 @@ body {}
         position: relative;
         perspective: 1000px;
 
-        height: 150px;
-        width: 100px;
+        height: 130px;
+        width: 90px;
         margin: 20px 10px;
 
         .bloque {
@@ -51,4 +53,8 @@ body {}
           //  transform: rotateY(180deg);
         }
     }
+}
+
+.tablerog:nth-child(2) > .tablero{
+    width: 50%;
 }
