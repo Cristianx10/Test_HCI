@@ -42,10 +42,9 @@ var Pregunta = /** @class */ (function () {
         div_seccionB.appendChild(formulario);
     }
     Pregunta.prototype.validar = function () {
-        var _this = this;
         this.opciones.forEach(function (opcion) {
             if (opcion.check.checked) {
-                return _this;
+                opcion.validacion();
             }
         });
     };

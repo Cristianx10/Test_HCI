@@ -1,37 +1,51 @@
 <script src="../js/pregunta.js"></script>
 <script>
-    let nav;
+    //Navegacion principal
+    let navegacion;
     let preguntas = document.createElement('div');
-    let preguntas_total = [];
+    let siguiente = document.createElement('button');
+    siguiente.innerHTML = "Siguiente";
+
+    let preguntas_total;
     preguntas.className = "preguntas";
-    loadJson("../data/preguntas.1.json", (r)=>{
-        console.log(r);
-        
+    loadJson("../data/preguntas.1.json", (r) => {
+
+        let con_preguntas = [];
+
         r.preguntas.forEach(p => {
-        
+
             let opciones = [];
-            
+
             p.opciones.forEach(o => {
                 let opcion = new Opcion(o.opcion, o.valor.categorias);
                 opciones.push(opcion);
             });
-            let pregunta = new Pregunta(p.pregunta, opciones);
-            
-            preguntas.appendChild(pregunta.getElement());
-            preguntas_total.push(pregunta.getElement());
+
+            let obj_pregunta = new Pregunta(p.pregunta, opciones);
+            con_preguntas.push(new ContenidoA(obj_pregunta.getElement(), obj_pregunta));
+
         });
-        nav = new Navegable(preguntas_total);
-        $(".principal").append(preguntas);
+
+        preguntas_total = new Contenedor(con_preguntas);
+        preguntas_total.foreachElementos(preguntas);
+
+        navegacion = new Navegable(preguntas_total);
+
+        $(".principal").append(preguntas, siguiente);
+        
+
+        siguiente.addEventListener('click', () => {
+
+            preguntas_total.getObjectIndex(navegacion.actual).validar();
+
+            navegacion.siguiente(() => {
+                
+
+            }, () => {
+                console.log("Finalizo");
+            });
+
+        });
     });
-    console.log(preguntas.childNodes);
 
-    function sig(){
-        nav.siguiente(()=>{
-            console.log("Siguiente Pantalla");
-        }, ()=>{
-            console.log("Finalizo");
-        });
-    }
 </script>
-
-<button onclick="sig()">Siguiente</button>

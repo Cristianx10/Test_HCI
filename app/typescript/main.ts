@@ -25,13 +25,20 @@ class Resultados{
 
 var RESULTADO:Resultados = new Resultados();
 
+interface Validable{
+    getElementosHTML():Array<HTMLElement>;
+}
+
 class Navegable{
 
+    elementos:Validable;
     secciones:Array<HTMLElement>;
     actual:number;
 
-    constructor(secciones:Array<HTMLElement>){
-        this.secciones = secciones;
+    constructor(elementos:Validable){
+        this.elementos = elementos;
+
+        this.secciones = elementos.getElementosHTML();
         this.actual = 0;
         this.secciones.forEach((s, i) => {
             if(i == 0){
@@ -40,6 +47,10 @@ class Navegable{
                 s.style.display = "none";
             }
         });
+    }
+
+    getElement(){
+        return this.secciones;
     }
 
     mostrar(seccion:HTMLElement){
@@ -63,14 +74,59 @@ class Navegable{
                 final();
             }
         }
-        
-       
+           
+    }
+    
+}
 
-        
+class Contenedor implements Validable{
+
+    elementos:Array<ContenidoA>;
+
+    constructor(elementos:Array<ContenidoA>){
+        this.elementos = elementos;
     }
 
-   
+    foreachElementos(elemento:HTMLElement){
+        this.elementos.forEach(e => {
+            elemento.appendChild(e.elementoHTML);
+        });
+    }
+
+    getObjectIndex(index:number){
+        let ElementoHTML:Object = this.elementos[index].getObjeto();
+        return ElementoHTML;
+    }
+
+    getElementosHTML(): Array<HTMLElement>{
+        let ElementosHTML:Array<HTMLElement> = new Array();
+        this.elementos.forEach(e => {
+            ElementosHTML.push(e.getElementoHTML());
+        });
+        this.elementos;
+        return ElementosHTML;
+    }
     
+}
+
+class ContenidoA{
+
+    objeto:Object;
+    elementoHTML:HTMLElement;
+
+    constructor(elementoHTML:HTMLElement, objeto:Object){
+        this.elementoHTML = elementoHTML;
+        this.objeto = objeto;
+    }
+
+    getElementoHTML(){
+        return this.elementoHTML;
+    }
+
+    getObjeto(){
+        return this.objeto;
+    }
+
 }
 
 function shuffle(array: any) {

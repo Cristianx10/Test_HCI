@@ -21,8 +21,9 @@ var Resultados = /** @class */ (function () {
 }());
 var RESULTADO = new Resultados();
 var Navegable = /** @class */ (function () {
-    function Navegable(secciones) {
-        this.secciones = secciones;
+    function Navegable(elementos) {
+        this.elementos = elementos;
+        this.secciones = elementos.getElementosHTML();
         this.actual = 0;
         this.secciones.forEach(function (s, i) {
             if (i == 0) {
@@ -33,6 +34,9 @@ var Navegable = /** @class */ (function () {
             }
         });
     }
+    Navegable.prototype.getElement = function () {
+        return this.secciones;
+    };
     Navegable.prototype.mostrar = function (seccion) {
         seccion.style.display = "block";
     };
@@ -55,6 +59,42 @@ var Navegable = /** @class */ (function () {
         }
     };
     return Navegable;
+}());
+var Contenedor = /** @class */ (function () {
+    function Contenedor(elementos) {
+        this.elementos = elementos;
+    }
+    Contenedor.prototype.foreachElementos = function (elemento) {
+        this.elementos.forEach(function (e) {
+            elemento.appendChild(e.elementoHTML);
+        });
+    };
+    Contenedor.prototype.getObjectIndex = function (index) {
+        var ElementoHTML = this.elementos[index].getObjeto();
+        return ElementoHTML;
+    };
+    Contenedor.prototype.getElementosHTML = function () {
+        var ElementosHTML = new Array();
+        this.elementos.forEach(function (e) {
+            ElementosHTML.push(e.getElementoHTML());
+        });
+        this.elementos;
+        return ElementosHTML;
+    };
+    return Contenedor;
+}());
+var ContenidoA = /** @class */ (function () {
+    function ContenidoA(elementoHTML, objeto) {
+        this.elementoHTML = elementoHTML;
+        this.objeto = objeto;
+    }
+    ContenidoA.prototype.getElementoHTML = function () {
+        return this.elementoHTML;
+    };
+    ContenidoA.prototype.getObjeto = function () {
+        return this.objeto;
+    };
+    return ContenidoA;
 }());
 function shuffle(array) {
     array.sort(function () { return Math.random() - 0.5; });

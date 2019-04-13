@@ -1,34 +1,34 @@
-
-
 class Opcion {
-  opcion: HTMLElement;
-  //categorias:Array<>;
-  valor: Array<any>;
-  check: any;
+    opcion: HTMLElement;
+    //categorias:Array<>;
+    valor: Array<any>;
+    check: any;
 
+    constructor(info: string, valor: Array<any>, ) {
+        this.opcion = document.createElement("label");
+        this.check = document.createElement("input");
+        this.check.type = "radio";
+        this.check.name = "opcion";
 
-  constructor(info: string, valor: Array<any>) {
-    this.opcion = document.createElement("label");
-    this.check = document.createElement("input");
-    this.check.type = "radio";
-    this.check.name = "opcion";
-    this.opcion.append(this.check);
-    this.opcion.append(info);
-    this.valor = valor;
-  }
+        this.opcion.append(this.check);
+        this.opcion.append(info);
+        this.valor = valor;
+    }
 
-  validacion(){
-      this.valor.forEach(v => {
-          RESULTADO.sumar(v.area, v.valor);
-      });
-  }
+    validacion() {
 
-  getElement(){
-      return this.opcion;
-  }
+        this.valor.forEach(v => {
+            RESULTADO.sumar(v.area, v.valor);
+        });
+    }
+
+    getElement() {
+        return this.opcion;
+    }
 }
 
 class Pregunta {
+
     elemento: HTMLElement;
     pregunta: string;
     opciones: Array<Opcion>;
@@ -51,12 +51,13 @@ class Pregunta {
 
         this.elemento.appendChild(div_seccionA);
         this.elemento.appendChild(div_seccionB);
-        
+
         div_seccionA.appendChild(div_seccionA_h1);
         div_seccionA.appendChild(document.createElement('hr'));
-        
+
 
         opciones.forEach(element => {
+   
             formulario.appendChild(element.getElement());
         });
 
@@ -64,20 +65,21 @@ class Pregunta {
     }
 
     validar() {
+
         this.opciones.forEach((opcion: any) => {
-        if (opcion.check.checked) {
-            return this;
-        }
+            if (opcion.check.checked) {
+                opcion.validacion();
+            }
         });
     }
-
-    getElement(){
+    
+   
+    getElement() {
         return this.elemento;
     }
-    
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
 
 
 });
