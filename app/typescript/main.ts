@@ -64,11 +64,13 @@ class Navegable{
     siguiente(accion?:Function, final?:Function):void{
         this.ocultar(this.secciones[this.actual]);
         if(this.actual < this.secciones.length-1){
-            this.actual++;
-            this.mostrar(this.secciones[this.actual]);
+            
+            
             if(accion){
                 accion();
             }
+            this.actual++;
+            this.mostrar(this.secciones[this.actual]);
         }else{
             if(final){
                 final();
