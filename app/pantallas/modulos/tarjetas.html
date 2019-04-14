@@ -4,52 +4,69 @@
 </div>
 
 
- 
+
 
 <script src="../js/tarjetas.js"></script>
 
 <script>
- 
- loadJson("./data/tarjetas.json",(r)=>{
- 
-      let con_tarjetas;
-      let contenido = [];
-      for (let i = 0; i < r.secciones.length; i++) {
-        let sec = r.secciones[i];
-        let fichas = [];
 
-        for (let j = 0; j < sec.recursos.length; j++) {
-          let recur = sec.recursos[j];
-          let a = document.createElement("div");
-          a.innerHTML = `<div style="background-image:url('${recur}'); width:100%; height:100%;background-size: contain;
+  loadJson("./data/tarjetas.json", (r) => {
+
+    let con_tarjetas;
+    let contenido = [];
+    for (let i = 0; i < r.secciones.length; i++) {
+      let sec = r.secciones[i];
+      let fichas = [];
+
+      for (let j = 0; j < sec.recursos.length; j++) {
+        let recur = sec.recursos[j];
+        let a = document.createElement("div");
+        a.innerHTML = `<div style="background-image:url('${recur}'); width:100%; height:100%;background-size: contain;
     background-repeat: no-repeat;
 "></div>`;
 
-          fichas.push(a);
-        }
+        fichas.push(a);
+      }
 
-        let parejas = [];
-        for (let i = 0; i < fichas.length; i++) {
-          let a = fichas[i];
-          i++;
-          let b = fichas[i];
-          let par = new Pareja(a, b);
-          parejas.push(par);
-      
-        }
-
-        let tab = new tablero_tarjetas(parejas, sec.posiciones);
-        contenido.push(new ContenidoA(tab.tab_global, tab));
-        
-        $(".tableros").append(tab.tab_global);
+      let parejas = [];
+      for (let i = 0; i < fichas.length; i++) {
+        let a = fichas[i];
+        i++;
+        let b = fichas[i];
+        let par = new Pareja(a, b);
+        parejas.push(par);
 
       }
-      con_tarjetas = new Contenedor(contenido);
 
-      nav = new Navegable(con_tarjetas);
-    
-    
- 
+      let tab = new tablero_tarjetas(parejas, sec.posiciones);
+      contenido.push(new ContenidoA(tab.tab_global, tab));
+
+      $(".tableros").append(tab.tab_global);
+
+    }
+    con_tarjetas = new Contenedor(contenido);
+
+    nav = new Navegable(con_tarjetas);
+
+    nav.asignarCondiciones((o) => {
+      o.setValidacion(() => {
+        console.log('ganador');
+
+        nav.siguiente(() => { }, () => {
+          $(".principal").load("./pantallas/modulos/pizarra.html");
+        });
+
+      });
+
+      o.setIntentoAcierto(() => {
+        console.log("Valido");
+      });
+
+      o.setIntentoFallo(() => {
+        console.log("Fallo");
+      });
+    });
+
   });
 
 </script>

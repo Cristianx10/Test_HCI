@@ -26,7 +26,7 @@
     public bloque: HTMLElement;
     public validado: boolean;
     public padre: Pareja;
-    public tablero:any;
+    public tablero?:tablero_tarjetas;
     public tarjeta: HTMLElement;
     
 
@@ -55,7 +55,7 @@
       this.tarjeta = bloque;
 
       this.bloque.addEventListener("click", () => {
-        console.log(this.padre);
+        //console.log(this.padre);
         this.tablero = this.padre.tablero;
         if (bloquear == false) {
           if (this.validado === false && bloqueActual !== this) {
@@ -66,7 +66,12 @@
 
               if (this.padre.validar(bloqueActual)) {
                 this.padre.confirmado();
-                console.log("Valido");
+                
+                if(this.tablero != null){
+                  if(this.tablero.intentoAcierto != null){
+                    this.tablero.intentoAcierto();
+                  }
+                }
                 bloqueActual = nulo;
               } else if (bloqueActual !== null && bloqueActual !== undefined) {
                 bloquear = true;
@@ -75,7 +80,11 @@
                   this.ocultar();
                   bloqueActual = nulo;
                   bloquear = false;
-                  console.log("Fallo");
+                  if(this.tablero != null){
+                    if(this.tablero.intentoFallo != null){
+                      this.tablero.intentoFallo();
+                    }
+                  }
                 }, 1000);
               } else {
                 bloqueActual = this;
@@ -86,9 +95,10 @@
             this.bloque.style.transform = "rotateY(0deg)";
           }
         }
-        if(this.tablero.verificar()){
-          alert("ganaste");
-          nav.siguiente();
+        if(this.tablero != null && this.tablero.verificar()){
+          if(this.tablero.validacion != null){
+            this.tablero.validacion();
+          }
         }
       });
    
@@ -124,7 +134,8 @@
   class Pareja {
     public elementos: Bloque[];
     public validado:boolean;
-    public tablero:any;
+    public tablero?:tablero_tarjetas;
+    
 
     constructor(elementoA: HTMLElement, elementoB: HTMLElement) {
       this.elementos = new Array<Bloque>();
@@ -133,7 +144,6 @@
       this.elementos.push(a);
       this.elementos.push(b);
       this.validado = false;
-      this.tablero = null;
     }
 
     getElementoA(): HTMLElement {
@@ -166,12 +176,15 @@
     tablero:HTMLElement;
     tab_global:HTMLElement;
     posiciones:Array<number>;
+    validacion?:Function;
+    intentoAcierto?:Function;
+    intentoFallo?:Function;
 
     constructor(fichas:Array<Pareja>, posiciones:Array<number>){
       this.fichas = fichas;
       this.tarjetas= new Array();
       this.posiciones = posiciones;
-      console.log(this.posiciones);
+      //console.log(this.posiciones);
       
       this.tablero = document.createElement("div");
       this.tablero.className = "tablero";
@@ -211,6 +224,18 @@
       }else{
         return false;
       }
+    }
+
+    setValidacion(validacion:Function){
+      this.validacion = validacion;
+    }
+
+    setIntentoAcierto(intentoAcierto:Function){
+      this.intentoAcierto = intentoAcierto;
+    }
+
+    setIntentoFallo(intentoFallo:Function){
+      this.intentoFallo = intentoFallo;
     }
   }
 

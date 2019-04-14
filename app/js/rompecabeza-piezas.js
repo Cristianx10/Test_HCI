@@ -4,28 +4,6 @@ function startgame() {
     var tablero__rompecabeza = document.querySelector(".table__rompecabezas");
     var temp_seleccion;
     var sobre;
-    function crearMatrix(colum, fil, wid, hei) {
-        var columnas = colum;
-        var filas = fil;
-        var columna = -1;
-        var fila = 0;
-        var width = wid;
-        var height = hei;
-        var length = columnas * filas;
-        var arreglo = [];
-        for (var i = 0; i < length; i++) {
-            columna++;
-            var posx = columna * width;
-            var posy = fila;
-            if ((columna + 1) == columnas) {
-                columna = -1;
-                fila += height;
-            }
-            var pos = { x: posx, y: posy, width: width, height: height };
-            arreglo.push(pos);
-        }
-        return arreglo;
-    }
     function getDistance(lat1, lon1, lat2, lon2) {
         var R = 6371;
         var dLat = (lat2 - lat1) * (Math.PI / 180);
@@ -178,34 +156,6 @@ function startgame() {
         };
         return Tablero;
     }());
-    function cargarImagen(url, width, height, columnas, filas) {
-        var imagenes = new Array();
-        var c = -1;
-        var f = 0;
-        var image = new Image();
-        image.src = url; // load the image
-        image.style.position = "absolute";
-        // console.log("ejecutando");
-        var total = filas * columnas;
-        for (var i = 0; i < total; i++) {
-            var contenedor = document.createElement('div');
-            contenedor.style.position = "relative";
-            contenedor.style.width = width + "px";
-            contenedor.style.height = height + "px";
-            contenedor.style.overflow = "hidden";
-            var fragmentoImg = image.cloneNode();
-            c++;
-            fragmentoImg.style.left = -(c * width) + "px";
-            fragmentoImg.style.top = f + "px";
-            if ((c + 1) == columnas) {
-                c = -1;
-                f -= height;
-            }
-            contenedor.appendChild(fragmentoImg);
-            imagenes.push(contenedor);
-        }
-        return imagenes;
-    }
     var carga = new createjs.LoadQueue();
     var info;
     carga.loadFile({ src: "../data/rompecabezas.json" });

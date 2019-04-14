@@ -38,7 +38,7 @@ var Bloque = /** @class */ (function () {
         this.bloque = element;
         this.tarjeta = bloque;
         this.bloque.addEventListener("click", function () {
-            console.log(_this.padre);
+            //console.log(this.padre);
             _this.tablero = _this.padre.tablero;
             if (bloquear == false) {
                 if (_this.validado === false && bloqueActual !== _this) {
@@ -49,7 +49,11 @@ var Bloque = /** @class */ (function () {
                         _this.mostrar();
                         if (_this.padre.validar(bloqueActual)) {
                             _this.padre.confirmado();
-                            console.log("Valido");
+                            if (_this.tablero != null) {
+                                if (_this.tablero.intentoAcierto != null) {
+                                    _this.tablero.intentoAcierto();
+                                }
+                            }
                             bloqueActual = nulo;
                         }
                         else if (bloqueActual !== null && bloqueActual !== undefined) {
@@ -59,7 +63,11 @@ var Bloque = /** @class */ (function () {
                                 _this.ocultar();
                                 bloqueActual = nulo;
                                 bloquear = false;
-                                console.log("Fallo");
+                                if (_this.tablero != null) {
+                                    if (_this.tablero.intentoFallo != null) {
+                                        _this.tablero.intentoFallo();
+                                    }
+                                }
                             }, 1000);
                         }
                         else {
@@ -72,9 +80,10 @@ var Bloque = /** @class */ (function () {
                     _this.bloque.style.transform = "rotateY(0deg)";
                 }
             }
-            if (_this.tablero.verificar()) {
-                alert("ganaste");
-                nav.siguiente();
+            if (_this.tablero != null && _this.tablero.verificar()) {
+                if (_this.tablero.validacion != null) {
+                    _this.tablero.validacion();
+                }
             }
         });
     }
@@ -105,7 +114,6 @@ var Pareja = /** @class */ (function () {
         this.elementos.push(a);
         this.elementos.push(b);
         this.validado = false;
-        this.tablero = null;
     }
     Pareja.prototype.getElementoA = function () {
         return this.elementos[0].getBloque();
@@ -132,7 +140,7 @@ var tablero_tarjetas = /** @class */ (function () {
         this.fichas = fichas;
         this.tarjetas = new Array();
         this.posiciones = posiciones;
-        console.log(this.posiciones);
+        //console.log(this.posiciones);
         this.tablero = document.createElement("div");
         this.tablero.className = "tablero";
         this.tab_global = document.createElement("div");
@@ -164,6 +172,15 @@ var tablero_tarjetas = /** @class */ (function () {
         else {
             return false;
         }
+    };
+    tablero_tarjetas.prototype.setValidacion = function (validacion) {
+        this.validacion = validacion;
+    };
+    tablero_tarjetas.prototype.setIntentoAcierto = function (intentoAcierto) {
+        this.intentoAcierto = intentoAcierto;
+    };
+    tablero_tarjetas.prototype.setIntentoFallo = function (intentoFallo) {
+        this.intentoFallo = intentoFallo;
     };
     return tablero_tarjetas;
 }());
