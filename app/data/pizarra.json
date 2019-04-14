@@ -1,0 +1,628 @@
+{
+    "secciones": [
+        {
+            "tablero": "../../img/pizarra/tabla.png",
+            "lider":19,
+            "inicio":3,
+            "final":15,
+            "fichas": [
+                {
+                    "posicion": 0,
+                    "tipo":1,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": false,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 1,
+                    "tipo":1,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": false,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 2,
+                    "tipo":1,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": false,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 3,
+                    "tipo":1,
+                    "entradas": {
+                        "up": false,
+                        "down": true,
+                        "left": false,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 4,
+                    "tipo":1,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": false,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 5,
+                    "tipo":1,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": false,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 6,
+                    "tipo":0,
+                    "entradas": {
+                        "up": false,
+                        "down": true,
+                        "left": false,
+                        "right": true
+                    }
+                },
+                {
+                    "posicion": 7,
+                    "tipo":0,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": true,
+                        "right": true
+                    }
+                },
+                {
+                    "posicion": 8,
+                    "tipo":0,
+                    "entradas": {
+                        "up": true,
+                        "down": true,
+                        "left": false,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 9,
+                    "tipo":0,
+                    "entradas": {
+                        "up": false,
+                        "down": true,
+                        "left": true,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 10,
+                    "tipo":1,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": false,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 11,
+                    "tipo":0,
+                    "entradas": {
+                        "up": false,
+                        "down": true,
+                        "left": false,
+                        "right": true
+                    }
+                },
+                {
+                    "posicion": 12,
+                    "tipo":0,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": true,
+                        "right": true
+                    }
+                },
+                {
+                    "posicion": 13,
+                    "tipo":0,
+                    "entradas": {
+                        "up": true,
+                        "down": true,
+                        "left": false,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 14,
+                    "tipo":0,
+                    "entradas": {
+                        "up": true,
+                        "down": false,
+                        "left": true,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 15,
+                    "tipo":1,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": false,
+                        "right": true
+                    }
+                },
+                {
+                    "posicion": 16,
+                    "tipo":0,
+                    "entradas": {
+                        "up": true,
+                        "down": false,
+                        "left": true,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 17,
+                    "tipo":0,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": true,
+                        "right": true
+                    }
+                },
+                {
+                    "posicion": 18,
+                    "tipo":0,
+                    "entradas": {
+                        "up": true,
+                        "down": false,
+                        "left": true,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 19,
+                    "tipo":0,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": false,
+                        "right": false
+                    }
+                }
+            ]
+        },
+        {
+            "tablero": "../../img/pizarra/tabla.png",
+            "lider":19,
+            "inicio":3,
+            "final":15,
+            "fichas": [
+                {
+                    "posicion": 0,
+                    "tipo":1,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": false,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 1,
+                    "tipo":1,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": false,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 2,
+                    "tipo":1,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": false,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 3,
+                    "tipo":1,
+                    "entradas": {
+                        "up": false,
+                        "down": true,
+                        "left": false,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 4,
+                    "tipo":1,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": false,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 5,
+                    "tipo":1,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": false,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 6,
+                    "tipo":0,
+                    "entradas": {
+                        "up": false,
+                        "down": true,
+                        "left": false,
+                        "right": true
+                    }
+                },
+                {
+                    "posicion": 7,
+                    "tipo":0,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": true,
+                        "right": true
+                    }
+                },
+                {
+                    "posicion": 8,
+                    "tipo":0,
+                    "entradas": {
+                        "up": true,
+                        "down": true,
+                        "left": false,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 9,
+                    "tipo":0,
+                    "entradas": {
+                        "up": false,
+                        "down": true,
+                        "left": true,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 10,
+                    "tipo":1,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": false,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 11,
+                    "tipo":0,
+                    "entradas": {
+                        "up": false,
+                        "down": true,
+                        "left": false,
+                        "right": true
+                    }
+                },
+                {
+                    "posicion": 12,
+                    "tipo":0,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": true,
+                        "right": true
+                    }
+                },
+                {
+                    "posicion": 13,
+                    "tipo":0,
+                    "entradas": {
+                        "up": true,
+                        "down": true,
+                        "left": false,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 14,
+                    "tipo":0,
+                    "entradas": {
+                        "up": true,
+                        "down": false,
+                        "left": true,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 15,
+                    "tipo":1,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": false,
+                        "right": true
+                    }
+                },
+                {
+                    "posicion": 16,
+                    "tipo":0,
+                    "entradas": {
+                        "up": true,
+                        "down": false,
+                        "left": true,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 17,
+                    "tipo":0,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": true,
+                        "right": true
+                    }
+                },
+                {
+                    "posicion": 18,
+                    "tipo":0,
+                    "entradas": {
+                        "up": true,
+                        "down": false,
+                        "left": true,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 19,
+                    "tipo":0,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": false,
+                        "right": false
+                    }
+                }
+            ]
+        },
+        {
+            "tablero": "../../img/pizarra/tabla.png",
+            "lider":19,
+            "inicio":3,
+            "final":15,
+            "fichas": [
+                {
+                    "posicion": 0,
+                    "tipo":1,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": false,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 1,
+                    "tipo":1,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": false,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 2,
+                    "tipo":1,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": false,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 3,
+                    "tipo":1,
+                    "entradas": {
+                        "up": false,
+                        "down": true,
+                        "left": false,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 4,
+                    "tipo":1,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": false,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 5,
+                    "tipo":1,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": false,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 6,
+                    "tipo":0,
+                    "entradas": {
+                        "up": false,
+                        "down": true,
+                        "left": false,
+                        "right": true
+                    }
+                },
+                {
+                    "posicion": 7,
+                    "tipo":0,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": true,
+                        "right": true
+                    }
+                },
+                {
+                    "posicion": 8,
+                    "tipo":0,
+                    "entradas": {
+                        "up": true,
+                        "down": true,
+                        "left": false,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 9,
+                    "tipo":0,
+                    "entradas": {
+                        "up": false,
+                        "down": true,
+                        "left": true,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 10,
+                    "tipo":1,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": false,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 11,
+                    "tipo":0,
+                    "entradas": {
+                        "up": false,
+                        "down": true,
+                        "left": false,
+                        "right": true
+                    }
+                },
+                {
+                    "posicion": 12,
+                    "tipo":0,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": true,
+                        "right": true
+                    }
+                },
+                {
+                    "posicion": 13,
+                    "tipo":0,
+                    "entradas": {
+                        "up": true,
+                        "down": true,
+                        "left": false,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 14,
+                    "tipo":0,
+                    "entradas": {
+                        "up": true,
+                        "down": false,
+                        "left": true,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 15,
+                    "tipo":1,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": false,
+                        "right": true
+                    }
+                },
+                {
+                    "posicion": 16,
+                    "tipo":0,
+                    "entradas": {
+                        "up": true,
+                        "down": false,
+                        "left": true,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 17,
+                    "tipo":0,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": true,
+                        "right": true
+                    }
+                },
+                {
+                    "posicion": 18,
+                    "tipo":0,
+                    "entradas": {
+                        "up": true,
+                        "down": false,
+                        "left": true,
+                        "right": false
+                    }
+                },
+                {
+                    "posicion": 19,
+                    "tipo":0,
+                    "entradas": {
+                        "up": false,
+                        "down": false,
+                        "left": false,
+                        "right": false
+                    }
+                }
+            ]
+        }
+    ]
+}

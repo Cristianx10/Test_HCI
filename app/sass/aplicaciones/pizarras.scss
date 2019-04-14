@@ -12,7 +12,7 @@
     min-height: 550px;
     overflow: auto;
     
-    &__ficha, &__click{
+    .ficha, .click{
         position: absolute;
         width: 100px;
         height: 100px;
@@ -28,12 +28,12 @@
     }
 
     
-    &__click{
+    .click{
         
         background: rgba(0, 128, 0, 0.219);
     }
 
-    &__ficha{
+    .ficha{
         transition: all .5s ease;
         position: absolute;
         background: red;

@@ -31,11 +31,11 @@ interface Validable{
 
 class Navegable{
 
-    elementos:Validable;
+    elementos:Contenedor;
     secciones:Array<HTMLElement>;
     actual:number;
 
-    constructor(elementos:Validable){
+    constructor(elementos:Contenedor){
         this.elementos = elementos;
 
         this.secciones = elementos.getElementosHTML();
@@ -46,6 +46,12 @@ class Navegable{
             }else{
                 s.style.display = "none";
             }
+        });
+    }
+
+    asignarCondiciones(recorrer:Function){
+        this.elementos.elementos.forEach(e => {
+            recorrer(e.objeto);    
         });
     }
 
@@ -150,6 +156,71 @@ function loadJson(ruta:string, result:Function){
 
 
 
+function crearMatrix(colum: number, fil: number, wid: number, hei: number) {
+    let columnas = colum;
+    let filas = fil;
+
+    let columna = -1;
+    let fila = 0;
+    let width = wid;
+    let height = hei;
+    let length = columnas * filas;
+    let arreglo: any = [];
+
+
+    for (let i = 0; i < length; i++) {
+      columna++;
+      let posx = columna * width;
+      let posy = fila;
+      if ((columna + 1) == columnas) {
+        columna = -1;
+        fila += height;
+      }
+      let pos = { x: posx, y: posy, width: width, height: height };
+      arreglo.push(pos);
+    }
+    return arreglo;
+  }
+
+  function cargarImagen(url: string, width: number, height: number, columnas: number, filas: number) {
+
+    let imagenes = new Array<HTMLElement>();
+    let c = -1;
+    let f = 0;
+
+    let image = new Image();
+    image.src = url; // load the image
+
+    image.style.position = "absolute";
+
+    // console.log("ejecutando");
+    let total = filas * columnas;
+    for (let i = 0; i < total; i++) {
+
+      let contenedor = document.createElement('div');
+      contenedor.style.position = "relative";
+      contenedor.style.width = width + "px";
+      contenedor.style.height = height + "px";
+      contenedor.style.overflow = "hidden";
+
+      let fragmentoImg: HTMLElement = <any>image.cloneNode();
+
+      c++;
+      fragmentoImg.style.left = -(c * width) + "px";
+      fragmentoImg.style.top = f + "px";
+
+      if ((c + 1) == columnas) {
+        c = -1;
+        f -= height;
+      }
+
+      contenedor.appendChild(fragmentoImg);
+      imagenes.push(contenedor);
+    }
+
+    return imagenes;
+  }
+
 
 
 
@@ -162,3 +233,40 @@ function askConfirmation (evt:any) {
 
 //window.addEventListener('beforeunload', askConfirmation);
 
+
+/*
+
+validacion?:Function;
+    intentoAcierto?:Function;
+    intentoFallo?:Function;
+
+
+setValidacion(validacion:Function){
+      this.validacion = validacion;
+    }
+
+    setIntentoAcierto(intentoAcierto:Function){
+      this.intentoAcierto = intentoAcierto;
+    }
+
+    setIntentoFallo(intentoFallo:Function){
+      this.intentoFallo = intentoFallo;
+    }
+
+
+    //Implementacion
+    con_tablero.getObjectIndex(nav.actual).setValidacion(()=>{
+        
+    });
+
+    con_tablero.getObjectIndex(nav.actual).setIntentoAcierto(()=>{
+        
+    });
+
+    con_tablero.getObjectIndex(nav.actual).setIntentoFallo(()=>{
+        
+    });
+
+
+
+*/

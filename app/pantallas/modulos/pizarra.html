@@ -1,0 +1,61 @@
+<link rel="stylesheet" href="../../sass/aplicaciones/pizarras.css" />
+
+
+<script src="../../js/pizarra.js"></script>
+
+<script>
+
+    loadJson("../../data/pizarra.json", (r) => {
+
+        let con_tab = [];
+        for (let i = 0; i < r.secciones.length; i++) {
+            let s = r.secciones[i];
+            var pizarra_fichas = [];
+
+            let img = cargarImagen(s.tablero, 103, 103, 5, 4);
+
+            for (let j = 0; j < s.fichas.length; j++) {
+                let f = s.fichas[j];
+                let e = f.entradas;
+
+                let a = new Casilla(img[j], e.up, e.down, e.left, e.right, f.posicion, f.tipo);
+                pizarra_fichas.push(a);
+            }
+
+            let tab = new Pizarra(pizarra_fichas, s.inicio, s.final, s.lider);
+            con_tab.push(new ContenidoA(tab.getElemento(), tab));
+            tab.cargarTablero(5, 4, 103, 103);
+        }
+
+        let html_contenedor = document.createElement('div');
+        html_contenedor.className = "pizarras";
+
+        let con_tablero = new Contenedor(con_tab);
+        con_tablero.foreachElementos(html_contenedor);
+
+        nav = new Navegable(con_tablero);
+
+        nav.asignarCondiciones((o) => {
+
+            o.setValidacion(() => {
+                console.log("Validado");
+                nav.siguiente(()=>{}, ()=>{
+                    
+                });
+            });
+
+            o.setIntentoFallo(() => {
+                console.log("Intento");
+            });
+
+
+        });
+
+
+
+        $(".principal").append(html_contenedor);
+
+
+    });
+
+</script>
