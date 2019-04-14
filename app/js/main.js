@@ -34,6 +34,11 @@ var Navegable = /** @class */ (function () {
             }
         });
     }
+    Navegable.prototype.asignarCondiciones = function (recorrer) {
+        this.elementos.elementos.forEach(function (e) {
+            recorrer(e.objeto);
+        });
+    };
     Navegable.prototype.getElement = function () {
         return this.secciones;
     };
@@ -108,9 +113,95 @@ function loadJson(ruta, result) {
         result(valor);
     });
 }
+function crearMatrix(colum, fil, wid, hei) {
+    var columnas = colum;
+    var filas = fil;
+    var columna = -1;
+    var fila = 0;
+    var width = wid;
+    var height = hei;
+    var length = columnas * filas;
+    var arreglo = [];
+    for (var i = 0; i < length; i++) {
+        columna++;
+        var posx = columna * width;
+        var posy = fila;
+        if ((columna + 1) == columnas) {
+            columna = -1;
+            fila += height;
+        }
+        var pos = { x: posx, y: posy, width: width, height: height };
+        arreglo.push(pos);
+    }
+    return arreglo;
+}
+function cargarImagen(url, width, height, columnas, filas) {
+    var imagenes = new Array();
+    var c = -1;
+    var f = 0;
+    var image = new Image();
+    image.src = url; // load the image
+    image.style.position = "absolute";
+    // console.log("ejecutando");
+    var total = filas * columnas;
+    for (var i = 0; i < total; i++) {
+        var contenedor = document.createElement('div');
+        contenedor.style.position = "relative";
+        contenedor.style.width = width + "px";
+        contenedor.style.height = height + "px";
+        contenedor.style.overflow = "hidden";
+        var fragmentoImg = image.cloneNode();
+        c++;
+        fragmentoImg.style.left = -(c * width) + "px";
+        fragmentoImg.style.top = f + "px";
+        if ((c + 1) == columnas) {
+            c = -1;
+            f -= height;
+        }
+        contenedor.appendChild(fragmentoImg);
+        imagenes.push(contenedor);
+    }
+    return imagenes;
+}
 function askConfirmation(evt) {
     var msg = 'Si recarga la página perdera todos los datos ingresados.\n¿Deseas recargar la página?';
     evt.returnValue = msg;
     return msg;
 }
 //window.addEventListener('beforeunload', askConfirmation);
+/*
+
+validacion?:Function;
+    intentoAcierto?:Function;
+    intentoFallo?:Function;
+
+
+setValidacion(validacion:Function){
+      this.validacion = validacion;
+    }
+
+    setIntentoAcierto(intentoAcierto:Function){
+      this.intentoAcierto = intentoAcierto;
+    }
+
+    setIntentoFallo(intentoFallo:Function){
+      this.intentoFallo = intentoFallo;
+    }
+
+
+    //Implementacion
+    con_tablero.getObjectIndex(nav.actual).setValidacion(()=>{
+        
+    });
+
+    con_tablero.getObjectIndex(nav.actual).setIntentoAcierto(()=>{
+        
+    });
+
+    con_tablero.getObjectIndex(nav.actual).setIntentoFallo(()=>{
+        
+    });
+
+
+
+*/
