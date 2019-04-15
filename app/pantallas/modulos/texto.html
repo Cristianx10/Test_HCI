@@ -1,0 +1,49 @@
+<script src="../../js/texto.js"></script>
+
+<script>
+
+/*
+    //Aqui hay un ejemplo------------------------------------------------------------------------------------------------
+    let original = "Mi cara es cuadrada.";
+    let usuario = "Mi Cara Es";
+
+    var texto = new Texto_validar(origin, usuario);
+
+    //Da los errores sin tener encuenta mayusculas o puntuacion y las que faltaron
+    console.log("General: " + texto.getErrores());
+
+    //Da los errores de coincidencia exacta
+    console.log("Estricto: " + texto.getErroresStrict());
+
+    //Da los errores de Mayusculas
+    console.log("Mayuscula: " + texto.getErroresMayusculas());
+
+    //Da los errores de Puntuacion, solo "," y "."
+    console.log("Puntuacion: " + texto.getErroresPuntuacion());
+
+    //Da los errores de palabras que faltaron
+    console.log("Faltan: " + texto.getErroresFalto());
+
+*/
+
+let original = "Mi cara es cuadrada.";
+let usuario = "Mi Cara Es cuadtra";
+
+let texto = new Texto_validar(original, usuario);
+
+//Da los errores sin tener encuenta mayusculas o puntuacion y las que faltaron
+console.log("Errores: " + texto.getErrores());
+
+//Da los errores de coincidencia exacta
+console.log("Estricto: " + texto.getErroresStrict());
+
+//Da los errores de Mayusculas
+console.log("Mayuscula: " + texto.getErroresMayusculas());
+
+//Da los errores de Puntuacion, solo "," y "."
+console.log("Puntuacion: " + texto.getErroresPuntuacion());
+
+//Da los errores de palabras que faltaron
+console.log("Faltan: " + texto.getErroresFalto());
+
+</script>
