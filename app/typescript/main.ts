@@ -236,7 +236,7 @@ function askConfirmation (evt:any) {
 
 /*
 
-validacion?:Function;
+    validacion?:Function;
     intentoAcierto?:Function;
     intentoFallo?:Function;
 

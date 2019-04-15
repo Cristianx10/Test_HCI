@@ -18,11 +18,11 @@
             let opciones = [];
 
             p.opciones.forEach(o => {
-                let opcion = new Opcion(o.opcion, o.valor.categorias);
+                let opcion = new OpcionB(o.opcion, o.valor.categorias);
                 opciones.push(opcion);
             });
 
-            let obj_pregunta = new Pregunta(p.pregunta, opciones);
+            let obj_pregunta = new PreguntaB(p.pregunta, opciones);
             con_preguntas.push(new ContenidoA(obj_pregunta.getElement(), obj_pregunta));
 
         });
@@ -33,6 +33,21 @@
         navegacion = new Navegable(preguntas_total);
 
         $(".principal").append(preguntas, siguiente);
+
+        navegacion.asignarCondiciones((e)=>{
+            e.setValidacion(()=>{
+                
+                navegacion.siguiente(() => {
+                
+                preguntas_total.getObjectIndex(navegacion.actual).validar();
+                
+            }, () => {
+                console.log("Finalizo");
+                $(".principal").load("./pantallas/modulos/tarjetas.html");
+            });
+
+            });
+        });
         
 
         siguiente.addEventListener('click', () => {

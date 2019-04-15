@@ -171,7 +171,7 @@ function askConfirmation(evt) {
 //window.addEventListener('beforeunload', askConfirmation);
 /*
 
-validacion?:Function;
+    validacion?:Function;
     intentoAcierto?:Function;
     intentoFallo?:Function;
 
