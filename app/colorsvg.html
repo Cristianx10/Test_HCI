@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+        <svg id="circulo" xmlns="http://www.w3.org/2000/svg" style="width: 3.5in; height: 1in">
+            <circle id="circle1" r="30" cx="34" cy="34" 
+                      style="stroke: blue; stroke-width: 2"/>
+            </svg>
+
+            <svg id="estrella" width="260" height="247" viewBox="0 0 260 247" xmlns="http://www.w3.org/2000/svg">
+                <path d="M130 0L160.534 93.9737L259.344 93.9737L179.405 152.053L209.939 246.026L130 187.947L50.0612 246.026L80.5951 152.053L0.656311 93.9737L99.4661 93.9737L130 0Z"/>
+                </svg>
+                
+
+            <button class="boton">Click to change to yellow</button>
+
+            <script>
+            
+            function cambiarColor(){
+
+                let circulo = document.querySelector("#circulo");
+                circulo.style.fill = 'yellow';
+
+                let estrella = document.querySelector("#estrella");
+                estrella.style.fill = 'yellow';
+            }
+
+            let boton = document.querySelector(".boton");
+            boton.addEventListener("click", cambiarColor);
+
+            </script>
+    
+</body>
+</html>
+
+
+
+
+   
+
+ 
