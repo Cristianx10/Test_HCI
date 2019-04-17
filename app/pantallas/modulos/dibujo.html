@@ -1,0 +1,50 @@
+<style>
+
+#base_dibujo{
+        display: flex;
+        
+        width: 100%;
+        justify-content: center;
+    }
+
+    #base_dibujo  canvas{
+        border: 2px solid #00DED3;
+    }
+
+    #interacion_Arte{
+        padding: 100px;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+    }
+
+
+</style>
+
+<div id="interacion_Arte" style="background-image: url('../../img/arte/fondo.png')">
+    <h2>
+        Copia el dibujo de la izquierda siguiendo los puntos guía que están en el cuadro derecho
+    </h2>
+    <br>
+    <div id="base_dibujo">
+        <div>
+            <img src="../../img/arte/dibujo.png" alt="">
+        </div>
+        <div id="lienzo_pintar"></div>
+    </div>
+    
+    
+</div>
+<script src="../../js/dibujo.js"></script>
+<script>
+
+loadJson("../../data/dibujo_arte.json", (r)=>{
+
+    let matrix = r.dibujo;
+    let tablero = new Tablero_lienzo();
+    tablero.dibujar(matrix);
+
+    $("#lienzo_pintar").append(tablero.canvas);
+});
+</script>
+

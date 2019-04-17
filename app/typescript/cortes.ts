@@ -1,12 +1,4 @@
-// Converts from degrees to radians.
-function radians(degrees: number) {
-    return degrees * Math.PI / 180;
-};
 
-// Converts from radians to degrees.
-function degrees(radians: number) {
-    return radians * 180 / Math.PI;
-};
 
 function raizN(x: number, n: number) {
     return Math.exp(Math.log(x) / n);

@@ -1,4 +1,14 @@
 "use strict";
+// Converts from degrees to radians.
+function radians(degrees) {
+    return degrees * Math.PI / 180;
+}
+;
+// Converts from radians to degrees.
+function degrees(radians) {
+    return radians * 180 / Math.PI;
+}
+;
 var Resultados = /** @class */ (function () {
     function Resultados() {
         this.categorias = {};

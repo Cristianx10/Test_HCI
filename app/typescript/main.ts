@@ -1,3 +1,13 @@
+// Converts from degrees to radians.
+function radians(degrees: number) {
+    return degrees * Math.PI / 180;
+};
+
+// Converts from radians to degrees.
+function degrees(radians: number) {
+    return radians * 180 / Math.PI;
+};
+
 class Resultados{
     categorias: any = {};
     pruebas:any = [];
