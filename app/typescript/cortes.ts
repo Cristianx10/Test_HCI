@@ -62,9 +62,7 @@ class salaCirugia {
                         corte.graphics.beginFill("red").drawCircle(x, y, 1);
                     }  
                     this.sala.update();
-                });
-
-           
+                });  
         });
     }
 
