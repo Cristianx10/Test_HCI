@@ -81,10 +81,19 @@ class Navegable{
             if(final){
                 final();
             }
-        }
-           
+        }      
     }
-    
+}
+
+class PantallaHTML{
+    elemento:HTMLElement;
+
+    constructor(elemento:HTMLElement){
+        this.elemento = elemento;
+    }
+    getElemento(){
+        return this.elemento;
+    }
 }
 
 class Contenedor implements Validable{

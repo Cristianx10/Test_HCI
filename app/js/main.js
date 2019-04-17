@@ -65,6 +65,15 @@ var Navegable = /** @class */ (function () {
     };
     return Navegable;
 }());
+var PantallaHTML = /** @class */ (function () {
+    function PantallaHTML(elemento) {
+        this.elemento = elemento;
+    }
+    PantallaHTML.prototype.getElemento = function () {
+        return this.elemento;
+    };
+    return PantallaHTML;
+}());
 var Contenedor = /** @class */ (function () {
     function Contenedor(elementos) {
         this.elementos = elementos;

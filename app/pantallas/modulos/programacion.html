@@ -1,0 +1,357 @@
+<style>
+    #id_cajaComando {
+        position: absolute;
+        width: 319px;
+        height: 66px;
+        left: 856px;
+        top: 196px;
+
+    }
+
+    #id_leftcontenido {
+        position: absolute;
+        width: 396.38px;
+        height: 289px;
+        left: 272px;
+        top: 200px;
+
+
+    }
+
+    #id_leftcontenido_img {
+        position: absolute;
+        width: 307px;
+        height: 309px;
+        left: 857px;
+        top: 266px;
+    }
+
+    .pantalla {
+        width: 100%;
+        height: 100%;
+        color: white;
+    }
+
+    h1 {
+        font-size: 50px;
+    }
+
+    .enfasisCode {
+        color: #FF9900;
+        font-weight: bold;
+    }
+
+    #id_conlistado {
+        position: absolute;
+        width: 661px;
+        height: 571px;
+        left: 176px;
+        top: 51px;
+    }
+
+    #id_listado {}
+
+    #id_listado>li,
+    #id_conlistado>h1 {
+        margin-bottom: 60px;
+    }
+
+    #id_listado2>li,
+    #id_conlistado2>h1 {
+        margin-bottom: 70px;
+    }
+
+    #id_siguiente {
+        position: absolute;
+        width: 170px;
+        height: 53px;
+        left: 1033px;
+        top: 622px;
+    }
+
+    #id_sintaxis {
+        position: absolute;
+        width: 232px;
+        height: 155.5px;
+        left: 910px;
+        top: 301px;
+    }
+
+    #id_img_a {
+        position: absolute;
+        width: 175px;
+        height: 100px;
+        left: 745px;
+        top: 175px;
+    }
+
+    #id_img_b {
+        position: absolute;
+        width: 63px;
+        height: 63px;
+        left: 863px;
+        top: 334px;
+    }
+
+    #id_img_c {
+        position: absolute;
+        width: 77px;
+        height: 70px;
+        left: 855px;
+        top: 438px;
+    }
+
+    #id_img_d {
+        position: absolute;
+        width: 140px;
+        height: 140px;
+        left: 1094px;
+        top: 53px;
+    }
+
+    #cuadroComandos {
+        position: absolute;
+        display: flex;
+        width: 319px;
+        height: 66px;
+        left: 47px;
+        top: 59px;
+    }
+
+    #cuadroComandos input {
+        position: absolute;
+        width: 335px;
+        height: 54px;
+        font-size: 3em;
+    }
+
+    #cuadroComandos button {
+        position: absolute;
+        width: 64px;
+        height: 54px;
+        right: -73px;
+        background-image: url('../../img/programacion/ejecutar.png');
+        background-size: contain;
+
+    }
+
+    #btnAyuda {
+        position: absolute;
+        width: 140px;
+        height: 140px;
+        left: 1184px;
+        top: 32px;
+        width: 60px;
+        height: 60px;
+    }
+
+    #btnAyuda div {
+        display: none;
+        position: absolute;
+        background: #FF9900;
+        left: -330px;
+        font-size: 15px;
+        width: 400px;
+        text-align: left;
+    }
+
+    #btnAyuda:hover div {
+        display: block;
+
+    }
+
+    #btnAyuda span {
+        color: #F26469;
+    }
+</style>
+
+<div class="pantalla" style=" background-image: url('../../img/programacion/fondo.png')">
+    <div id="id_leftcontenido">
+        <h1>Encuentra las gafas de Pingui</h1>
+        <br>
+        <p>Ayuda a Pingui a encontrar sus gafas escribiendo codigo. No caigas en las trampas de los arcos</p>
+        <br>
+        <button class="boton" onclick="seguir()">Comenzar</button>
+    </div>
+    <img id="id_leftcontenido_img" src="../../img/programacion/pingui.png">
+
+
+</div>
+
+<div class="pantalla" style=" background-image: url('../../img/programacion/fondoB.png')">
+    <div id="id_conlistado">
+        <h1 id="id_titulo">Instrucciones</h1>
+        <ul id="id_listado">
+            <li>
+                <p>
+                    1. Escribe código en la línea de comandos para mover a Pingui de lugar. El objetivo es desplazarlo
+                    hacia donde se encuentran sus gafas antes de que se agote el tiempo. No caigas en los agujeros con
+                    orcas.
+                </p>
+            </li>
+            <li>
+                <p>
+                    2 . El comando que escribas debe estar compuesto de dos partes separadas por un punto: la dirección
+                    del movimiento y el número de pasos.
+                </p>
+            </li>
+            <li>
+                <p>
+                    3. Estas son las direcciones de movimiento disponibles:
+                </p>
+                <br>
+                <ul>
+                    <li>
+                        <p><span class="enfasisCode">PinUp =</span> movimiento hacia arriba.</p>
+                    </li>
+                    <li>
+                        <p><span class="enfasisCode">PinDown =</span> movimiento hacia abajo.</p>
+                    </li>
+                    <li>
+                        <p><span class="enfasisCode">PinLeft =</span> movimiento hacia izquierda.</p>
+                    </li>
+                    <li>
+                        <p><span class="enfasisCode">PinRight =</span> movimiento hacia derecha.</p>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+    <div>
+        <button id="id_siguiente" onclick="seguir()" class="boton">Siguiente</button>
+    </div>
+    <img id="id_cajaComando" src="../../img/programacion/caja_comando.png">
+    <img id="id_sintaxis" src="../../img/programacion/sintaxis.png" alt="">
+</div>
+
+<div class="pantalla" style=" background-image: url('../../img/programacion/fondoB.png')">
+    <div id="id_conlistado">
+        <h1 id="id_titulo">Instrucciones</h1>
+        <div style="height: 40px"></div>
+        <ul id="id_listado2">
+            <li>
+                <p>
+                    4. Puedes realizar de 1 a 5 pasos por comando.
+                </p>
+            </li>
+            <li>
+                <p>
+                    5. Haz click en el botón de ayuda para recordar las direcciones de movimiento disponibles
+                </p>
+            </li>
+            <li>
+                <p>
+                    6. Cuando estés seguro de tu comando, haz click en la flecha para ejecutar el código y prepárate
+                    para escribir el siguiente comando
+                </p>
+            </li>
+            <li>
+                <p>
+                    7. Se te indicará si tu comando está incorrecto para que lo escribas de nuevo
+                </p>
+            </li>
+        </ul>
+
+    </div>
+    <div>
+        <button id="id_siguiente" class="boton" onclick="seguir()">Siguiente</button>
+    </div>
+    <img id="id_img_a" src="../../img/programacion/sintaxis2.png">
+    <img id="id_img_b" src="../../img/programacion/ayuda.png">
+    <img id="id_img_c" src="../../img/programacion/ejecutar.png">
+    <img id="id_img_d" src="../../img/programacion/peligro.png">
+</div>
+
+
+<div id="juegopinguino" class="pantalla">
+
+    <form id="cuadroComandos" method="dialog">
+        <input type="text" name="com" id="comando">
+        <button id="btn_comando"></button>
+    </form>
+    <div id="btnAyuda">
+        <img src="../../img/programacion/ayuda.png" alt="">
+        <div>
+            <p><span class="enfasisCode">PinUp =</span> movimiento hacia arriba.</p>
+            <p><span class="enfasisCode">PinDown =</span> movimiento hacia abajo.</p>
+            <p><span class="enfasisCode">PinLeft =</span> movimiento hacia izquierda.</p>
+            <p><span class="enfasisCode">PinRight =</span> movimiento hacia derecha.</p>
+        </div>
+    </div>
+
+</div>
+
+
+<script src="../../js/programacion.js"></script>
+<script>
+
+    let pantallas = document.querySelectorAll(".pantalla");
+    console.log(pantallas);
+    let contenido = [];
+    for (let i = 0; i < pantallas.length; i++) {
+        let p = pantallas[i];
+        let o = new PantallaHTML(p);
+        contenido.push(new ContenidoA(p, o));
+    }
+
+    let contenedorPadre = new Contenedor(contenido);
+    let navegable = new Navegable(contenedorPadre);
+
+    function seguir() {
+        navegable.siguiente();
+    }
+
+    let comando = document.querySelector("#comando");
+    let btn_comando = document.querySelector("#btn_comando");
+
+    let tablero = new Tablero_hielo();
+
+    let pinguino = new Piguino(tablero);
+
+    function validacion(texto) {
+        let t = texto.value.split(".");
+        texto.setCustomValidity("");
+        if (t.length == 2) {
+            let coman = t[0];
+            let numero = t[1];
+            if (numero > 0 && numero < 6) {
+                if (coman == "PinUp") {
+                    pinguino.up(numero);
+                    return;
+                } else if (coman == "PinDown") {
+                    pinguino.down(numero);
+                    return;
+                } else if (coman == "PinLeft") {
+                    pinguino.left(numero);
+                    return;
+                } else if (coman == "PinRight") {
+                    pinguino.right(numero);
+                    return;
+                }
+                texto.setCustomValidity("El numero de pasos excede lo permitido. Intente de nuevo");
+            }
+        }
+
+        texto.setCustomValidity("No se reconoce el comando. Intente de nuevo");
+
+
+    }
+
+    comando.addEventListener('keyup', (e) => {
+        comando.setCustomValidity("");
+        console.log(e);
+        if (e.key == "Enter") {
+            validacion(comando);
+            comando.value = "";
+        }
+    });
+
+    btn_comando.addEventListener('click', (e) => {
+        validacion(comando);
+        comando.value = "";
+    });
+
+    $('#juegopinguino').append(tablero.canvas);
+
+</script>
