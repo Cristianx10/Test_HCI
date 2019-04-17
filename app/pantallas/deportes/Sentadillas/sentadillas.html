@@ -1,0 +1,218 @@
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .contenedor {
+        width: 1280px;
+        height: 720px;
+        background-image: url("../../../img/deporte/fondo.png");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .contenido {
+        width: 937px;
+        height: 499px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 80px;
+        margin-bottom: 30px;
+    }
+
+    p {
+        font-family: 'Heebo', sans-serif;
+        font-weight: bold;
+    }
+
+    .time {
+        font-size: 36px;
+        color: rgba(0, 222, 211);
+        margin-top: 50px;
+        margin-bottom: 5px;
+        font-family: 'Heebo', sans-serif;
+        font-weight: bold;
+    }
+
+    #tiempo {
+        margin: 0;
+        line-height: 1.5;
+        height: 115px;
+        font-size: 80px;
+        color: rgba(0, 222, 211);
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-family: 'Heebo', sans-serif;
+        font-weight: bold;
+        font-size: 26px;
+        color: rgba(230, 73, 115, 1);
+        margin-bottom: 15px;
+    }
+
+    .ingreso {
+        width: 350px;
+        height: 40px;
+        border-radius: 15px;
+        border: solid rgba(230, 73, 115, 1);
+        border-width: 2px;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    #mensaje {
+        color: rgba(230, 73, 115, 1);
+    }
+
+    /*p {
+            text-align: center;
+            font-size: 60px;
+            margin-top: 10px;
+        }*/
+
+    /*input {
+            margin-left: 30%;
+            width: 30%;
+        }*/
+</style>
+
+</head>
+
+<body>
+
+    <div class="contenedor">
+        <div class="contenido">
+            <h1 class="time">Tiempo:</h1>
+            <p id="tiempo">00:00</p>
+            <label for="">Pulsaciones</label>
+            <input class="ingreso" type="text"
+                placeholder="Ingresa aqui tus pulsaciones cuando el tiempo termine"></input>
+            <p id="mensaje"></p>
+        </div>
+    </div>
+
+
+    <script>
+
+        var pulsaciones1 = 0, pulsaciones2 = 0, pulsaciones3 = 0;
+        var etapa = 0;
+        var minutosDeseados = 1;
+        var ingreso = document.querySelector('.ingreso');
+        document.getElementById("mensaje").innerHTML = "Todavia no ingreses las pulsaciones :D";
+
+        function startTimer(duracion) {
+
+            var temporizador = duracion, minutos, segundos;
+
+            var refreshintervalID = setInterval(function () {
+                minutos = parseInt(temporizador / 60, 10)
+                segundos = parseInt(temporizador % 60, 10);
+
+                minutos = minutos < 10 ? "0" + minutos : minutos;
+                segundos = segundos < 10 ? "0" + segundos : segundos;
+
+                document.getElementById("tiempo").innerHTML = minutos + ": " + segundos;
+                document.getElementById("mensaje").innerHTML = "Todavia no ingreses las pulsaciones :D";
+
+                temporizador--;
+
+                if (segundos === "00" && minutos == "00") {
+                    document.getElementById("tiempo").innerHTML = "00:00";
+                    if (etapa === 1) {
+                        document.getElementById("mensaje").innerHTML = "Ingresa el numero de pulsaciones :D";
+                    } else if (etapa === 2) {
+                        document.getElementById("mensaje").innerHTML = "Ingresa el numero de pulsaciones :D";
+                    } else if (etapa === 3) {
+                        document.getElementById("mensaje").innerHTML = "Ingresa el numero de pulsaciones :D";
+                    }
+                    clearInterval(refreshintervalID);
+                }
+
+            }, 1000);
+        }
+
+        function puntaje() {
+
+            var rendimiento, puntuacion, puntuacionNatacion, puntuacionCiclismo, puntuacionKungFu, puntuacionTenis;
+            var p1 = parseInt(pulsaciones1, 10), p2 = parseInt(pulsaciones2, 10), p3 = parseInt(pulsaciones3, 10);
+
+            rendimiento = ((p1 + p2 + p3) - 200) / 10
+            console.log("rendi = " + rendimiento);
+
+            if (rendimiento >= 15.1 && rendimiento <= 20) {
+                puntuacion = 20;
+            } else if (rendimiento >= 10.1 && rendimiento <= 15) {
+                puntuacion = 40;
+            } else if (rendimiento >= 5.1 && rendimiento <= 10) {
+                puntuacion = 60;
+            } else if (rendimiento >= 0.1 && rendimiento <= 5) {
+                puntuacion = 80;
+            } else if (rendimiento < 0.1) {
+                puntuacion = 100;
+            }
+            console.log("puntuacion = " + puntuacion);
+
+            puntuacionNatacion = puntuacion / 2;
+            puntuacionCiclismo = puntuacion;
+            puntuacionKungFu = puntuacion / 5;
+            puntuacionTenis = puntuacion / 2;
+
+        }
+
+        window.onload = function teclas() {
+
+            document.body.onkeyup = function (e) {
+                if (e.keyCode == 13) {
+
+                    if (etapa == 1) {
+                        pulsaciones1 = ingreso.value;
+                    } else if (etapa == 2) {
+                        pulsaciones2 = ingreso.value;
+                    } if (etapa == 3) {
+                        pulsaciones3 = ingreso.value;
+                    }
+                    if (etapa <= 3) {
+                        etapa += 1;
+                        ingreso.value = "";
+                    }
+                    if (etapa === 1) {
+                        minutosDeseados = 1;
+                    }
+                    else if (etapa === 2) {
+                        minutosDeseados = 0.75;
+                    }
+                    else if (etapa === 3) {
+                        minutosDeseados = 1;
+                    } else if (etapa === 4) {
+                        puntaje();
+                        document.getElementById("mensaje").innerHTML = "Termino lo prueba :D";
+                    }
+
+                    var segundosDeseados = 60 * minutosDeseados;
+                    if (etapa <= 3) {
+                        startTimer(segundosDeseados);
+                    }
+
+                }
+                if (e.keyCode == 32) {
+                    console.log("etapa: " + etapa);
+                    console.log("minutos: " + minutosDeseados);
+                    console.log("pulsaciones ingresadas: " + ingreso.value);
+                    console.log("pulsaciones 1: " + pulsaciones1);
+                    console.log("pulsaciones 2: " + pulsaciones2);
+                    console.log("pulsaciones 3: " + pulsaciones3);
+                }
+            }
+
+        };
+
+    </script>

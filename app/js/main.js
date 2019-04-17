@@ -182,6 +182,9 @@ function cargarImagen(url, width, height, columnas, filas) {
     }
     return imagenes;
 }
+function irA(url) {
+    $(".principal").load(url);
+}
 function askConfirmation(evt) {
     var msg = 'Si recarga la página perdera todos los datos ingresados.\n¿Deseas recargar la página?';
     evt.returnValue = msg;

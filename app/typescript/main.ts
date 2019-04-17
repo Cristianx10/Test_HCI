@@ -241,6 +241,9 @@ function crearMatrix(colum: number, fil: number, wid: number, hei: number) {
   }
 
 
+function irA(url:string){
+    $(".principal").load(url);
+}
 
 
 

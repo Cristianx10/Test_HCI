@@ -1,0 +1,279 @@
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #contenedor {
+            /*margin: 10px auto;
+            width: 540px;
+            height: 115px;*/
+            width: 1280px;
+            height: 720px;
+            background-image: url("../../../img/deporte/fondo.png");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .contenido {
+            width: 937px;
+            height: 499px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 80px;
+            margin-bottom: 30px;
+        }
+
+        p {
+            font-family: 'Heebo', sans-serif;
+            font-weight: bold;
+        }
+
+        #time {
+            font-size: 36px;
+            color: rgba(0, 222, 211);
+            margin-top: 50px;
+            margin-bottom: 5px;
+        }
+
+        .contenedorReloj {
+            margin-bottom: 35px;
+            line-height: 1.2;
+            height: 85px;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .reloj {
+            float: left;
+            font-size: 80px;
+            color: rgba(0, 222, 211);
+            font-family: 'Heebo', sans-serif;
+            font-weight: bold;
+        }
+
+        .saltos{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .salto{
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 15px;
+        }
+
+        .titulo{
+            font-size: 36px;
+            color: rgba(230, 73, 115, 1);
+        }
+
+        #primero {
+            margin-left: 15px;
+            font-size: 36px;
+            color: rgba(230, 73, 115, 1);
+        }
+
+        #segundo {
+            margin-left: 15px;
+            font-size: 36px;
+            color: rgba(230, 73, 115, 1);
+        }
+
+        #tercero {
+            margin-left: 15px;
+            font-size: 36px;
+            color: rgba(230, 73, 115, 1);
+        }
+
+        #final{
+            font-size: 25px;
+            color: rgba(0, 222, 211);
+        }
+
+        .boton {
+            width: 170.38px;
+            height: 52px;
+            border: solid rgba(230, 73, 115, 1);
+            border-radius: 10px;
+            border-width: 2px;
+            font-family: 'Heebo', sans-serif;
+            font-size: 20px;
+            text-decoration: none;
+            line-height: 2.5;
+            text-align: center;
+            color: rgba(230, 73, 115, 1);
+        }
+    </style>
+
+
+    <div id="contenedor">
+        <div class="contenido">
+            <p id="time">Tiempo de salto:</p>
+            <section class="contenedorReloj">
+                <div class="reloj" id="Segundos">00</div>
+                <div class="reloj" id="Centesimas">:00</div>
+            </section>
+
+            <section class="saltos">
+
+                <div class="salto">
+                    <p class="titulo">Salto 1: </p>
+                    <p id="primero"></p>
+                </div>
+
+                <div class="salto">
+                    <p class="titulo">Salto 2: </p>
+                    <p id="segundo"></p>
+                </div>
+
+                <div class="salto">
+                    <p class="titulo">Salto 3: </p>
+                    <p id="tercero"></p>
+                </div>
+
+                <p id="final"></p>
+            </section>
+
+        </div>
+        <a class="boton" onclick="irA('./pantallas/deportes/Sentadillas/intro.html')">Siguiente</a>
+    </div>
+
+    <script>
+
+            var centesimas = 0;
+            var segundos = 0;
+            var intentos = 0;
+            var salto1,salto2,salto3;
+    
+            function inicio () {
+                control = setInterval(cronometro,10);
+                document.getElementById("parar").disabled = false;
+                document.getElementById("continuar").disabled = true;
+                document.getElementById("reinicio").disabled = false;
+            }
+    
+            function parar () {
+                clearInterval(control);
+                document.getElementById("parar").disabled = true;
+                document.getElementById("continuar").disabled = false;
+            }
+    
+            function reinicio () {
+                clearInterval(control);
+                centesimas = 0;
+                segundos = 0;
+                Centesimas.innerHTML = ":00";
+                Segundos.innerHTML = "00";
+    
+                document.getElementById("inicio").disabled = false;
+                document.getElementById("parar").disabled = true;
+                document.getElementById("continuar").disabled = true;
+                document.getElementById("reinicio").disabled = true;
+            }
+    
+            function cronometro () {
+                if (centesimas < 99) {
+                    centesimas++;
+                    if (centesimas < 10) { centesimas = "0"+centesimas }
+                    Centesimas.innerHTML = ":"+centesimas;
+                }
+                if (centesimas == 99) {
+                    centesimas = -1;
+                }
+                if (centesimas == 0) {
+                    segundos ++;
+                    if (segundos < 10) { segundos = "0"+segundos }
+                    Segundos.innerHTML = segundos;
+                }
+                if (segundos == 59) {
+                    segundos = -1;
+                }
+            
+            }
+            
+            function puntaje(){
+    
+                var mejorSalto, altura, puntuacion, puntuacionNatacion,puntuacionCiclismo, puntuacionKungFu, puntuacionTenis ;
+    
+                if(salto1> salto2 && salto1>salto3){
+                    mejorSalto =salto1;
+                } else if(salto2> salto1 && salto2>salto3){
+                    mejorSalto =salto2;
+                } else if(salto3> salto1 && salto3>salto2){
+                    mejorSalto =salto3;
+                }
+                console.log("mejor salto = " +mejorSalto);
+    
+                altura = ( (9.81*( (mejorSalto)*mejorSalto) ) /8)*100 ;
+    
+                console.log("altura = " +altura);
+    
+                    if(altura <=20){
+                                    puntuacion = 20;
+                    }else if(altura >=21 && altura <=30 ){
+                                    puntuacion = 40;
+                       }else if(altura >=31 && altura <=45 ){
+                                    puntuacion = 60;
+                    }else if(altura >=46 && altura <=60 ){
+                                    puntuacion = 80;
+                    }else if(altura >60 ){
+                                    puntuacion = 100;
+                    }
+                    console.log("puntuacion = " +puntuacion);
+    
+                        puntuacionNatacion = puntuacion/2;
+                        puntuacionCiclismo= puntuacion;
+                        puntuacionKungFu = puntuacion;
+                        puntuacionTenis = puntuacion/2;
+                    
+            }
+    
+            window.onload = function teclas() {
+               
+               document.body.onkeyup = function(e){
+                          if(e.keyCode == 32 && intentos <3 ){
+                            intentos +=1;
+                            inicio();
+                          }else{
+                            document.getElementById("final").innerHTML = "Ha terminado la prueba :D";
+                          }
+                }
+    
+                document.body.onkeydown = function(e){
+                          if(e.keyCode == 32 && intentos ==1){
+                            document.getElementById("primero").innerHTML = segundos+":"+centesimas;
+                            salto1= parseInt(segundos, 10) + parseInt((centesimas), 10)/100 ;
+                            reinicio();
+    
+                          } else if(e.keyCode == 32 && intentos ==2){
+                            document.getElementById("segundo").innerHTML = segundos+":"+centesimas;
+                            salto2= parseInt(segundos, 10) + parseInt((centesimas), 10)/100 ;
+                            reinicio();
+    
+                          }else if(e.keyCode == 32 && intentos ==3){
+                            document.getElementById("tercero").innerHTML = segundos+":"+centesimas;
+                            salto3= parseInt(segundos, 10) + parseInt((centesimas), 10)/100 ;
+                            puntaje();
+                            reinicio();
+                          }
+                          
+                }
+               };
+    
+            </script>

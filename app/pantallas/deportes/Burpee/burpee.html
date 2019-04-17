@@ -1,0 +1,158 @@
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .contenedor {
+        width: 1280px;
+        height: 720px;
+        background-image: url("../../../img/deporte/fondo.png");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .contenido {
+        width: 937px;
+        height: 499px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 80px;
+        margin-bottom: 30px;
+    }
+
+    p {
+        font-family: 'Heebo', sans-serif;
+        font-weight: bold;
+    }
+
+    #time {
+        font-size: 36px;
+        color: rgba(0, 222, 211);
+        margin-top: 50px;
+        margin-bottom: 5px;
+    }
+
+    #tiempo {
+        margin: 0;
+        line-height: 1;
+        height: 115px;
+        font-size: 140px;
+        color: rgba(0, 222, 211);
+    }
+
+    #titulo1 {
+        margin-top: 75px;
+        margin-bottom: 20px;
+        font-size: 36px;
+        color: rgba(230, 73, 115, 1);
+    }
+
+    #burpees {
+        margin: 0;
+        margin-bottom: 50px;
+        font-size: 64px;
+        line-height: 1;
+        color: rgba(230, 73, 115, 1);
+    }
+
+    .boton {
+        width: 170.38px;
+        height: 52px;
+        border: solid rgba(230, 73, 115, 1);
+        border-radius: 10px;
+        border-width: 2px;
+        font-family: 'Heebo', sans-serif;
+        font-size: 20px;
+        text-decoration: none;
+        line-height: 2.5;
+        text-align: center;
+        color: rgba(230, 73, 115, 1);
+    }
+</style>
+
+
+<div class="contenedor">
+    <div class="contenido">
+        <p id="time">Tiempo:</p>
+        <p id="tiempo">00:00</p>
+        <p id="titulo1">Burpees:</p>
+        <p id="burpees">0</p>
+        <p id="final"></p>
+    </div>
+    <a class="boton" onclick="irA('./pantallas/deportes/salto/intro.html')">Siguiente</a>
+</div>
+
+<script>
+
+    var burpees = 0;
+    var puntuacion, puntuacionNatacion, puntuacionCiclismo, puntuacionKungFu, puntuacionTenis;
+    var minutosDeseados = 1;
+    var segundosDeseados = 60 * minutosDeseados;
+
+    function startTimer(duracion) {
+
+        var temporizador = duracion, minutos, segundos;
+
+        var refreshintervalID = setInterval(function () {
+            minutos = parseInt(temporizador / 60, 10)
+            segundos = parseInt(temporizador % 60, 10);
+
+            minutos = minutos < 10 ? "0" + minutos : minutos;
+            segundos = segundos < 10 ? "0" + segundos : segundos;
+
+            document.getElementById("tiempo").innerHTML = minutos + ": " + segundos;
+            document.getElementById("burpees").innerHTML = burpees;
+
+            if (burpees <= 30) {
+                puntuacion = 20;
+            } else if (burpees >= 31 && burpees <= 40) {
+                puntuacion = 40;
+            } else if (burpees >= 41 && burpees <= 50) {
+                puntuacion = 60;
+            } else if (burpees >= 51 && burpees <= 60) {
+                puntuacion = 80;
+            } else if (burpees > 60) {
+                puntuacion = 100;
+            }
+
+            puntuacionNatacion = puntuacion / 2;
+            puntuacionCiclismo = puntuacion / 5;
+            puntuacionKungFu = puntuacion;
+            puntuacionTenis = puntuacion / 2;
+
+            temporizador--;
+
+            if (segundos === "00" && minutos == "00") {
+                document.getElementById("tiempo").innerHTML = "00:00";
+                document.getElementById("burpees").innerHTML = burpees;
+                document.getElementById("final").innerHTML = "Ha terminado la prueba :D";
+                clearInterval(refreshintervalID);
+            }
+
+        }, 1000);
+    }
+
+
+    window.onload = function teclas() {
+
+        document.body.onkeyup = function (e) {
+            if (e.keyCode == 13) {
+                startTimer(segundosDeseados);
+            }
+            if (e.keyCode == 32) {
+                burpees += 1;
+                console.log(burpees);
+                console.log(puntuacion);
+            }
+        }
+    };
+
+</script>
