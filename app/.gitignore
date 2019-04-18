@@ -1,9 +1,11 @@
-sass/aplicaciones/*css
-sass/aplicaciones/*map
-sass/especificas/*css
-sass/especificas/*map
-sass/especificas/linguistica*css
-sass/especificas/linguistica*map
+sass/aplicaciones/pizarras.1.css
+sass/aplicaciones/pizarras.1.map
+sass/aplicaciones/pizarras.css
+sass/aplicaciones/pizarras.map
+sass/aplicaciones/rompecabeza-piezas.css
+sass/aplicaciones/rompecabeza-piezas.map
+sass/aplicaciones/targetas.css
+sass/aplicaciones/targetas.map
 sass/general/main.css
 sass/general/main.map
 sass/general/porcentaje.css
