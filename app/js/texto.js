@@ -10,6 +10,7 @@ var Texto_palabra = /** @class */ (function () {
         this.coincidencia_strict = false;
         this.coincidencia_mayus = true;
         this.puntuacion = true;
+        this.tildes = true;
     }
     return Texto_palabra;
 }());
@@ -22,6 +23,7 @@ var Texto_validar = /** @class */ (function () {
         this.coincidencias_strict = 0;
         this.coincidencias_mayusculas = 0;
         this.erroresPuntuacion = 0;
+        this.erroresTildes = 0;
         this.palabras_original = new Array();
         this.palabras_texto = new Array();
         var palabras_o = this.original.split(" ");
@@ -42,8 +44,26 @@ var Texto_validar = /** @class */ (function () {
             for (var j = 0; j < this.palabras_original.length; j++) {
                 var o = this.palabras_original[j];
                 if (o.coincidencia == false) {
-                    var temp_p = p.palabra.replace(",", "");
-                    var temp_o = o.palabra.replace(",", "");
+                    var temp_p = p.palabra.replace(",", "").replace("Á", "A")
+                        .replace("É", "E")
+                        .replace("Í", "I")
+                        .replace("Ó", "O")
+                        .replace("Ú", "U")
+                        .replace("á", "a")
+                        .replace("é", "e")
+                        .replace("í", "i")
+                        .replace("ó", "o")
+                        .replace("ú", "u");
+                    var temp_o = o.palabra.replace(",", "").replace("Á", "A")
+                        .replace("É", "E")
+                        .replace("Í", "I")
+                        .replace("Ó", "O")
+                        .replace("Ú", "U")
+                        .replace("á", "a")
+                        .replace("é", "e")
+                        .replace("í", "i")
+                        .replace("ó", "o")
+                        .replace("ú", "u");
                     temp_p = temp_p.replace(".", "");
                     temp_o = temp_o.replace(".", "");
                     if (temp_p.toLowerCase() == temp_o.toLowerCase()) {
@@ -97,26 +117,62 @@ var Texto_validar = /** @class */ (function () {
             var p = this.palabras_texto[i];
             for (var j = 0; j < this.palabras_original.length; j++) {
                 var o = this.palabras_original[j];
-                if (o.coincidencia_mayus && p.palabra.toLowerCase() == o.palabra.toLowerCase()) {
-                    //console.log("n: "  + this.palabras_texto.length);
-                    if (p.palabra == o.palabra) {
-                    }
-                    else {
+                var pa = p.palabra.replace("Á", "A")
+                    .replace("É", "E")
+                    .replace("Í", "I")
+                    .replace("Ó", "O")
+                    .replace("Ú", "U")
+                    .replace("á", "a")
+                    .replace("é", "e")
+                    .replace("í", "i")
+                    .replace("ó", "o")
+                    .replace("ú", "u");
+                var oa = o.palabra.replace("Á", "A")
+                    .replace("É", "E")
+                    .replace("Í", "I")
+                    .replace("Ó", "O")
+                    .replace("Ú", "U")
+                    .replace("á", "a")
+                    .replace("é", "e")
+                    .replace("í", "i")
+                    .replace("ó", "o")
+                    .replace("ú", "u");
+                if (o.coincidencia_mayus && pa.toLowerCase() == oa.toLowerCase()) {
+                    if (pa == oa) {
                         o.coincidencia_mayus = false;
                         p.coincidencia_mayus = false;
                         j = this.palabras_original.length;
                     }
                 }
+                if (o.tildes && pa.toLowerCase() == oa.toLowerCase()) {
+                    if ((o.palabra.indexOf("Á") != -1 && p.palabra.indexOf("Á") == -1)
+                        || (o.palabra.indexOf("É") != -1 && p.palabra.indexOf("É") == -1)
+                        || (o.palabra.indexOf("Í") != -1 && p.palabra.indexOf("Í") == -1)
+                        || (o.palabra.indexOf("Ó") != -1 && p.palabra.indexOf("Ó") == -1)
+                        || (o.palabra.indexOf("Ú") != -1 && p.palabra.indexOf("Ú") == -1)
+                        || (o.palabra.indexOf("á") != -1 && p.palabra.indexOf("á") == -1)
+                        || (o.palabra.indexOf("é") != -1 && p.palabra.indexOf("é") == -1)
+                        || (o.palabra.indexOf("í") != -1 && p.palabra.indexOf("í") == -1)
+                        || (o.palabra.indexOf("ó") != -1 && p.palabra.indexOf("ó") == -1)
+                        || (o.palabra.indexOf("ú") != -1 && p.palabra.indexOf("ú") == -1)) {
+                        o.tildes = false;
+                        p.tildes = false;
+                    }
+                }
             }
         }
         var erroresMayus = 0;
+        var erroresTilde = 0;
         this.palabras_texto.forEach(function (p) {
             if (p.coincidencia_mayus) {
-            }
-            else {
+                console.log("Error: " + p.palabra);
                 erroresMayus++;
             }
+            if (p.tildes == false) {
+                erroresTilde++;
+            }
         });
+        this.erroresTildes = erroresTilde;
         this.coincidencias_mayusculas = erroresMayus;
     };
     Texto_validar.prototype.getErrores = function () {
@@ -124,6 +180,9 @@ var Texto_validar = /** @class */ (function () {
     };
     Texto_validar.prototype.getErroresStrict = function () {
         return this.palabras_original.length - this.coincidencias_strict;
+    };
+    Texto_validar.prototype.getErroresTilde = function () {
+        return this.erroresTildes;
     };
     Texto_validar.prototype.getErroresMayusculas = function () {
         return this.coincidencias_mayusculas;

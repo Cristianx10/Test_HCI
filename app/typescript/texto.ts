@@ -10,6 +10,7 @@ class Texto_palabra {
     coincidencia_strict:boolean;
     coincidencia_mayus:boolean;
     puntuacion:boolean;
+    tildes:boolean;
 
     constructor(palabra: string) {
         this.palabra = palabra;
@@ -18,6 +19,7 @@ class Texto_palabra {
         this.coincidencia_strict = false;
         this.coincidencia_mayus = true;
         this.puntuacion = true;
+        this.tildes = true;
     }
 }
 
@@ -31,6 +33,7 @@ class Texto_validar {
     coincidencias_strict: number;
     coincidencias_mayusculas: number;
     erroresPuntuacion: number;
+    erroresTildes:number;
 
     constructor(original: string, texto: string) {
         this.original = original.replace("  ", " ").replace("  ", " ");
@@ -39,6 +42,7 @@ class Texto_validar {
         this.coincidencias_strict = 0;
         this.coincidencias_mayusculas = 0;
         this.erroresPuntuacion = 0;
+        this.erroresTildes = 0;
 
         this.palabras_original = new Array();
         this.palabras_texto = new Array();
@@ -68,12 +72,29 @@ class Texto_validar {
                 let o = this.palabras_original[j];
 
                 if (o.coincidencia == false) {
-                    let temp_p = p.palabra.replace(",", "");
-                    let temp_o = o.palabra.replace(",", "");
+                    let temp_p = p.palabra.replace(",", "").replace("Á", "A")
+                    .replace("É", "E")
+                    .replace("Í", "I")
+                    .replace("Ó", "O")
+                    .replace("Ú", "U")
+                    .replace("á", "a")
+                    .replace("é", "e")
+                    .replace("í", "i")
+                    .replace("ó", "o")
+                    .replace("ú", "u");
+                    let temp_o = o.palabra.replace(",", "").replace("Á", "A")
+                    .replace("É", "E")
+                    .replace("Í", "I")
+                    .replace("Ó", "O")
+                    .replace("Ú", "U")
+                    .replace("á", "a")
+                    .replace("é", "e")
+                    .replace("í", "i")
+                    .replace("ó", "o")
+                    .replace("ú", "u");
 
                     temp_p = temp_p.replace(".", "");
                     temp_o = temp_o.replace(".", "");
-
                     
                     if (temp_p.toLowerCase() == temp_o.toLowerCase()) {
                      
@@ -147,33 +168,71 @@ class Texto_validar {
             for (let j = 0; j < this.palabras_original.length; j++) {
                 let o = this.palabras_original[j];
 
+                let pa = p.palabra.replace("Á", "A")
+                .replace("É", "E")
+                .replace("Í", "I")
+                .replace("Ó", "O")
+                .replace("Ú", "U")
+                .replace("á", "a")
+                .replace("é", "e")
+                .replace("í", "i")
+                .replace("ó", "o")
+                .replace("ú", "u");
+
+                let oa = o.palabra.replace("Á", "A")
+                .replace("É", "E")
+                .replace("Í", "I")
+                .replace("Ó", "O")
+                .replace("Ú", "U")
+                .replace("á", "a")
+                .replace("é", "e")
+                .replace("í", "i")
+                .replace("ó", "o")
+                .replace("ú", "u");
                 
-                if (o.coincidencia_mayus && p.palabra.toLowerCase() == o.palabra.toLowerCase()) {
-                    //console.log("n: "  + this.palabras_texto.length);
-                    if (p.palabra == o.palabra) {
-
-
-                    } else {
+                if (o.coincidencia_mayus && pa.toLowerCase() == oa.toLowerCase()) {
+                 
+                    if (pa == oa) {
                         o.coincidencia_mayus = false;
                         p.coincidencia_mayus = false;
-               
                         j = this.palabras_original.length;
+                    }
+                }
+                if (o.tildes && pa.toLowerCase() == oa.toLowerCase()) {
+                    if((o.palabra.indexOf("Á") != -1 && p.palabra.indexOf("Á") ==-1)
+                    || (o.palabra.indexOf("É") != -1 && p.palabra.indexOf("É") ==-1)
+                    || (o.palabra.indexOf("Í") != -1 && p.palabra.indexOf("Í") ==-1)
+                    || (o.palabra.indexOf("Ó") != -1 && p.palabra.indexOf("Ó") ==-1)
+                    || (o.palabra.indexOf("Ú") != -1 && p.palabra.indexOf("Ú") ==-1)
+                    || (o.palabra.indexOf("á") != -1 && p.palabra.indexOf("á") ==-1)
+                    || (o.palabra.indexOf("é") != -1 && p.palabra.indexOf("é") ==-1)
+                    || (o.palabra.indexOf("í") != -1 && p.palabra.indexOf("í") ==-1)
+                    || (o.palabra.indexOf("ó") != -1 && p.palabra.indexOf("ó") ==-1)
+                    || (o.palabra.indexOf("ú") != -1 && p.palabra.indexOf("ú") ==-1)
+                    ){
+                        o.tildes = false;
+                        p.tildes = false;
                     }
                 }
             }
         }
 
+
         let erroresMayus = 0;
+        let erroresTilde = 0;
         
         this.palabras_texto.forEach(p => {
             
             if (p.coincidencia_mayus) {
-                
-            }else{
+                console.log("Error: " + p.palabra);
                 erroresMayus++;
             }
+
+            if(p.tildes == false){
+                erroresTilde++;
+            }
         });
-        
+        this.erroresTildes = erroresTilde;
         this.coincidencias_mayusculas = erroresMayus;
 
     }
@@ -184,6 +243,10 @@ class Texto_validar {
 
     getErroresStrict() {
         return this.palabras_original.length - this.coincidencias_strict;
+    }
+
+    getErroresTilde() {
+        return this.erroresTildes;
     }
 
     getErroresMayusculas() {

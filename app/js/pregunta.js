@@ -3,6 +3,8 @@ var Opcion = /** @class */ (function () {
     function Opcion(info, valor) {
         this.opcion = document.createElement("label");
         this.check = document.createElement("input");
+        this.opcion.className = "opcion";
+        this.check.className = "marcador";
         this.check.type = "radio";
         this.check.name = "opcion";
         this.check.checked = false;
@@ -30,6 +32,7 @@ var Pregunta = /** @class */ (function () {
         var div_seccionA_h1 = document.createElement('h2');
         var div_seccionB = document.createElement('section');
         var formulario = document.createElement('form');
+        formulario.className = "formulario_opciones";
         div_seccionA.className = "pregunta__titulo";
         div_seccionB.className = "pregunta__opciones";
         div_seccionA_h1.innerHTML = this.pregunta;
@@ -60,6 +63,7 @@ var OpcionB = /** @class */ (function () {
     function OpcionB(info, valor) {
         var _this = this;
         this.opcion = document.createElement("div");
+        this.opcion.className = "opcion";
         this.validado = false;
         this.valor = valor;
         this.opcion.innerHTML = info;

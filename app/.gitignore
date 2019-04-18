@@ -1,5 +1,9 @@
 sass/aplicaciones/*css
 sass/aplicaciones/*map
+sass/especificas/*css
+sass/especificas/*map
+sass/especificas/linguistica*css
+sass/especificas/linguistica*map
 sass/general/*css
 sass/general/*map
 node_modules

@@ -1,19 +1,54 @@
+<link rel="stylesheet" href="../../sass/especificas/linguistica/main.css">
+<div class="portada">
+    <div class="contenedorBoton">
+        <button class="contenedorBoton__comenzar">Comenzar</button>
+    </div>
+</div>
+
+<div class="tiempo">
+    <h2 class="tiempo__vista">00:00</h2>
+
+</div>
+
+<div class="contenido">
+
+
+    <div class="campo-texto">
+        <textarea class="campo-texto__dictado" name="" placeholder="Escriba aquí" id="" cols="30" rows="10"></textarea>
+    </div>
+
+
+    <audio id="demo" src="../../audios/especificos/linguistica/audiodictado.mp3">
+        Tu navegador no soporta el elemento <code>audio</code>.
+    </audio>
+    <div class="btn">
+
+        <button id="demo" class="btn-reproducir" name="btn" onclick="document.getElementById('demo').play()">Reproducir
+            el Audio</button>
+        <button class="btn-enviar" type="submit">Enviar</button>
+
+    </div>
+
+</div>
+
 <script src="../../js/texto.js"></script>
+<script src="../../js/especificos/linguistica/index.js"></script>
 
 <script>
 
-/*
-    //Aqui hay un ejemplo------------------------------------------------------------------------------------------------
-    let original = "Mi cara es cuadrada.";
-    let usuario = "Mi Cara Es";
+    let original = "Se arrojó al agua, nadando para alejarse de la cercanía del pueblo. Llegó a un lugar donde encontró tranquilidad, aunque se le veía siempre triste por estar sola. A veces, permanecía por largas horas dentro de su caparazón, saliendo sólo para darse un chapuzón en las frescas aguas del río.";
+    let usuario = "Se arrojo al agua, nadando para alejarse de la cercanía del pueblo. Llegó a un lugar donde encontró tranquilidad, aunque se le veía siempre triste por estar sola. A veces, permanecía por largas horas dentro de su caparazón, saliendo sólo para darse un chapuzón en las frescas aguas del río.";
 
-    var texto = new Texto_validar(origin, usuario);
+    let texto = new Texto_validar(original, usuario);
 
     //Da los errores sin tener encuenta mayusculas o puntuacion y las que faltaron
-    console.log("General: " + texto.getErrores());
+    console.log("Errores: " + texto.getErrores());
 
     //Da los errores de coincidencia exacta
     console.log("Estricto: " + texto.getErroresStrict());
+
+    //Da los errores de coincidencia exacta
+    console.log("Tildes: " + texto.getErroresTilde());
 
     //Da los errores de Mayusculas
     console.log("Mayuscula: " + texto.getErroresMayusculas());
@@ -23,27 +58,5 @@
 
     //Da los errores de palabras que faltaron
     console.log("Faltan: " + texto.getErroresFalto());
-
-*/
-
-let original = "Mi cara es cuadrada.";
-let usuario = "Mi Cara Es cuadtra";
-
-let texto = new Texto_validar(original, usuario);
-
-//Da los errores sin tener encuenta mayusculas o puntuacion y las que faltaron
-console.log("Errores: " + texto.getErrores());
-
-//Da los errores de coincidencia exacta
-console.log("Estricto: " + texto.getErroresStrict());
-
-//Da los errores de Mayusculas
-console.log("Mayuscula: " + texto.getErroresMayusculas());
-
-//Da los errores de Puntuacion, solo "," y "."
-console.log("Puntuacion: " + texto.getErroresPuntuacion());
-
-//Da los errores de palabras que faltaron
-console.log("Faltan: " + texto.getErroresFalto());
 
 </script>

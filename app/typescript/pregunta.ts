@@ -7,6 +7,8 @@ class Opcion {
     constructor(info: string, valor: Array<any> ) {
         this.opcion = document.createElement("label");
         this.check = document.createElement("input");
+        this.opcion.className = "opcion";
+        this.check.className = "marcador";
         this.check.type = "radio";
         this.check.name = "opcion";
         this.check.checked = false;
@@ -44,6 +46,7 @@ class Pregunta {
         let div_seccionA_h1 = document.createElement('h2');
         let div_seccionB = document.createElement('section');
         let formulario = document.createElement('form');
+        formulario.className = "formulario_opciones";
 
         div_seccionA.className = "pregunta__titulo";
         div_seccionB.className = "pregunta__opciones";
@@ -89,6 +92,7 @@ class OpcionB{
 
     constructor(info: string, valor: Array<any> ) {
         this.opcion = document.createElement("div");
+        this.opcion.className = "opcion";
         this.validado = false;
         this.valor = valor;
         this.opcion.innerHTML = info;
