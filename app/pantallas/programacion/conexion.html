@@ -1,0 +1,75 @@
+<link rel="stylesheet" href="../../sass/aplicaciones/rompecabeza-piezas.css" />
+
+<div class="pantalla oscuro" style="background-image: url('../../img/background_principal-2.png')">
+    <div class="cont_intro">
+        <h1>Conexión Panda</h1>
+        <div>Conecta todos los cuadros haciendo click sobre cada uno para girarlos. Debes realizar toda la conexión en 17
+            movimientos o menos, y dentro de un tiempo de 30 segundos. </div>
+            <button class="boton" onclick="seguir()">Siguiente</button>
+
+    </div>
+</div>
+
+<div class="pantalla" style="background-image: url('../../img/background-claro.png')">
+    <div class="tab_conexiones table__rompecabezas centrado"></div>
+
+</div>
+
+<script src="../../js/rompecabeza-piezas.js"></script>
+
+<script>
+    loadJson("../../data/programacion/conexion.json", (r) => {
+        let width = r.secciones.width;
+        let columnas = r.secciones.columnas;
+        let filas = r.secciones.filas;
+        let url = r.secciones.rompecabeza;
+
+        let fichas = [];
+        let imagenes = cargarImagen(url, width, width, columnas, filas);
+
+        let orden = [];
+        let indexRotate = r.secciones.rotacion;
+        let rota = [];
+        for (let i = 0; i < imagenes.length; i++) {
+            orden.push(i);
+            console.log(90 * indexRotate[i]);
+            rota.push(indexRotate[i]);
+        }
+
+
+
+        for (let i = 0; i < imagenes.length; i++) {
+            let e = imagenes[i];
+            fichas.push(new Ficha(e, orden[i], i, rota[i]));
+        }
+
+        var tab = new Tablero(fichas, columnas, filas, width);
+        tab.setTamano(width*columnas, width *filas);
+        $(".tab_conexiones").append(tab.getTablero());
+        //tab.activarArrastre();
+        tab.activarRotacion();
+        tab.setPlaceholder(r.secciones.placeholder);
+
+        tab.setValidacion(() => {
+            alert("Felicitaciones Ganaste");
+            RESULTADO.sumar("ingenieria", 5);
+        });
+
+        tab.setIntentoFallo((i) => {
+            console.log("Sigue intentando: " + i);
+            if (i > 5) {
+                RESULTADO.sumar("ingenieria", -1);
+                RESULTADO.sumar("diseño", 2);
+            }
+        });
+
+    });
+
+    let pantallas = document.querySelectorAll(".pantalla");
+    let navegable = new Navegable(toPantallas(pantallas));
+
+    function seguir() {
+        navegable.siguiente();
+    }
+
+</script>

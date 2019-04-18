@@ -9,6 +9,9 @@ function degrees(radians) {
     return radians * 180 / Math.PI;
 }
 ;
+function shuffle(array) {
+    array.sort(function () { return Math.random() - 0.5; });
+}
 var Resultados = /** @class */ (function () {
     function Resultados() {
         this.categorias = {};
@@ -84,6 +87,16 @@ var PantallaHTML = /** @class */ (function () {
     };
     return PantallaHTML;
 }());
+function toPantallas(pantallas) {
+    var contenido = [];
+    for (var i = 0; i < pantallas.length; i++) {
+        var p = pantallas[i];
+        var o = new PantallaHTML(p);
+        contenido.push(new ContenidoA(p, o));
+    }
+    var contenedorPadre = new Contenedor(contenido);
+    return contenedorPadre;
+}
 var Contenedor = /** @class */ (function () {
     function Contenedor(elementos) {
         this.elementos = elementos;
@@ -120,9 +133,6 @@ var ContenidoA = /** @class */ (function () {
     };
     return ContenidoA;
 }());
-function shuffle(array) {
-    array.sort(function () { return Math.random() - 0.5; });
-}
 function loadJson(ruta, result) {
     var valor;
     var carga = new createjs.LoadQueue();
@@ -158,8 +168,10 @@ function cargarImagen(url, width, height, columnas, filas) {
     var imagenes = new Array();
     var c = -1;
     var f = 0;
-    var image = new Image();
-    image.src = url; // load the image
+    var image = document.createElement("div");
+    image.style.backgroundImage = "url(" + url + ")"; // load the image
+    image.style.width = width * columnas + "px";
+    image.style.height = height * filas + "px";
     image.style.position = "absolute";
     // console.log("ejecutando");
     var total = filas * columnas;
@@ -194,21 +206,21 @@ function askConfirmation(evt) {
 /*
 
     validacion?:Function;
-    intentoAcierto?:Function;
     intentoFallo?:Function;
+    intentoAcierto?:Function;
 
 
 setValidacion(validacion:Function){
       this.validacion = validacion;
+    }
+    setIntentoFallo(intentoFallo:Function){
+      this.intentoFallo = intentoFallo;
     }
 
     setIntentoAcierto(intentoAcierto:Function){
       this.intentoAcierto = intentoAcierto;
     }
 
-    setIntentoFallo(intentoFallo:Function){
-      this.intentoFallo = intentoFallo;
-    }
 
 
     //Implementacion

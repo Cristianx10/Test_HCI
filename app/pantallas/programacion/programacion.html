@@ -14,8 +14,6 @@
         height: 289px;
         left: 272px;
         top: 200px;
-
-
     }
 
     #id_leftcontenido_img {
@@ -287,16 +285,7 @@
 <script>
 
     let pantallas = document.querySelectorAll(".pantalla");
-    console.log(pantallas);
-    let contenido = [];
-    for (let i = 0; i < pantallas.length; i++) {
-        let p = pantallas[i];
-        let o = new PantallaHTML(p);
-        contenido.push(new ContenidoA(p, o));
-    }
-
-    let contenedorPadre = new Contenedor(contenido);
-    let navegable = new Navegable(contenedorPadre);
+    let navegable = new Navegable(toPantallas(pantallas));
 
     function seguir() {
         navegable.siguiente();

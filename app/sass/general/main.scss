@@ -219,3 +219,38 @@ hr{
     }
 
 }
+
+.pantalla{
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+  }
+
+  .oscuro{
+      h1{
+          color: white;
+      }
+
+      div{
+          color: white;
+      }
+      p{
+          color: white;
+      };
+  }
+
+  .centrado{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+  }
+
+  .cont_intro{
+    position: absolute;
+    width: 396.38px;
+    height: 289px;
+    left: 272px;
+    top: 200px;
+}
+  

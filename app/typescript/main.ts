@@ -8,6 +8,10 @@ function degrees(radians: number) {
     return radians * 180 / Math.PI;
 };
 
+function shuffle(array:any) {
+    array.sort(function () { return Math.random() - 0.5; });
+}
+
 class Resultados{
     categorias: any = {};
     pruebas:any = [];
@@ -106,6 +110,19 @@ class PantallaHTML{
     }
 }
 
+function toPantallas(pantallas:Array<HTMLElement>){
+
+    let contenido = [];
+    for (let i = 0; i < pantallas.length; i++) {
+        let p = pantallas[i];
+        let o = new PantallaHTML(p);
+        contenido.push(new ContenidoA(p, o));
+    }
+
+    let contenedorPadre = new Contenedor(contenido);
+    return contenedorPadre;
+}
+
 class Contenedor implements Validable{
 
     elementos:Array<ContenidoA>;
@@ -156,9 +173,6 @@ class ContenidoA{
 
 }
 
-function shuffle(array: any) {
-    array.sort(() => Math.random() - 0.5);
-}
 
 function loadJson(ruta:string, result:Function){
     let valor;
@@ -207,8 +221,10 @@ function crearMatrix(colum: number, fil: number, wid: number, hei: number) {
     let c = -1;
     let f = 0;
 
-    let image = new Image();
-    image.src = url; // load the image
+    let image = document.createElement("div");
+    image.style.backgroundImage = `url(${url})`; // load the image
+    image.style.width = width*columnas + "px";
+    image.style.height = height*filas + "px";
 
     image.style.position = "absolute";
 
@@ -259,21 +275,21 @@ function askConfirmation (evt:any) {
 /*
 
     validacion?:Function;
-    intentoAcierto?:Function;
     intentoFallo?:Function;
+    intentoAcierto?:Function;
 
 
 setValidacion(validacion:Function){
       this.validacion = validacion;
+    }
+    setIntentoFallo(intentoFallo:Function){
+      this.intentoFallo = intentoFallo;
     }
 
     setIntentoAcierto(intentoAcierto:Function){
       this.intentoAcierto = intentoAcierto;
     }
 
-    setIntentoFallo(intentoFallo:Function){
-      this.intentoFallo = intentoFallo;
-    }
 
 
     //Implementacion
