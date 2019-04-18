@@ -54,11 +54,31 @@ p {
     }
 }
 
+.btn_siguiente {
+    background: #e4537a;
+    border: 1px solid #e4537a;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width: 200px;
+    height: 50px;
+
+    font-weight: bold;
+    font-size: 1.3em;
+    color: white;
+
+    transition: all .5s ease;
+
+    &:hover {
+        cursor: pointer;
+        background: #d43e66;
+    }
+}
+
 .principal {
     position: relative;
     max-width: 1280px;
     max-height: 720px;
-    border: 5px solid rgb(240, 89, 89);
+    border: 3px dashed #FF9900;
     width: 100%;
     height: 100%;
     display: flex;
@@ -71,6 +91,111 @@ input[type=radio] {
     transform: scale(2.5);
 }
 
+form{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+label{
+    display: block;
+    margin: 0 20px;
+
+    input{
+        margin: 15px;
+    }
+}
+
+.opcion_check {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    user-select: none;
+
+    & input{
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        
+      }
+
+      &:hover input ~ .opcion {
+        background-color: rgb(255, 255, 255);
+      }
+
+      & .opcion:after {
+        top: 8px;
+       left: 8px;
+       width: 8px;
+       height: 8px;
+       border-radius: 50%;
+       background: white;
+   }
+  }
+
+  .opcion {
+      position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    border: 1px solid #00DED3;
+    border-radius: 50%;
+    &:after {
+        content: "";
+        position: absolute;
+        display: none;
+      }
+  }
+  
+  .opcion_check input:checked ~ .opcion {
+    background-color: #00DED3;;
+    &:after {
+        display: block;
+      }
+  }
+
+.pregunta {
+    color: black;
+    width: 80%;
+    height: 100%;
+    margin: 0;
+
+    &__titulo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 30px 0;
+
+        & h2{
+            text-align: center;
+        }
+    }
+
+    &__opciones{
+        
+      //  border: 2px solid green;
+        margin: 0 20px;
+      //  border-radius: 10px;
+        padding: 20px 10px 20px 260px;
+
+    }
+}
+.preguntas {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+hr{
+    width: 30%;
+    margin-top: 3em;
+    border: 1px solid #00DED3;
+}
 .cuestionario {
     width: 50%;
     height: 50%;
@@ -79,52 +204,6 @@ input[type=radio] {
     flex-direction: column;
     border-radius: 15px;
     border: 5px solid blue;
-
-
-    &__preguntas {
-        width: 100%;
-        height: 80%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-       
-
-        .pregunta {
-            color: black;
-            width: 100%;
-            height: 100%;
-
-            &__titulo {
-                text-align: center;
-                margin: 30px 0;
-            }
-
-            &__opciones{
-                
-                border: 2px solid green;
-                margin: 0 20px;
-                border-radius: 10px;
-                padding: 20px 10px;
-               
-
-                form{
-                    display: flex;
-                    justify-content: center;
-                    flex-wrap: wrap;
-                }
-                label{
-                    display: block;
-                    margin: 0 20px;
-
-                    input{
-                        margin: 15px;
-                    }
-                }
-
-    
-            }
-        }
-    }
 
     &__navegacion {
         width: 100%;
