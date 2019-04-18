@@ -78,6 +78,38 @@ var Navegable = /** @class */ (function () {
     };
     return Navegable;
 }());
+var Progress = /** @class */ (function () {
+    function Progress(total, inicial) {
+        this.total = total;
+        this.actual = inicial;
+        this.contenedor = document.createElement('div');
+        this.contenedor.className = "progreso";
+        var con_contendor = document.createElement('div');
+        con_contendor.className = "cont_progreso";
+        this.progress = document.createElement('progress');
+        this.progress.className = "progreso_barra";
+        this.indice = document.createElement('div');
+        this.indice.className = "progreso_numero";
+        this.progress.value = inicial;
+        this.progress.max = total;
+        this.indice.innerText = inicial + "";
+        this.contenedor.append(con_contendor);
+        con_contendor.append(this.progress, this.indice);
+        this.actualizarPosicion(this.actual);
+    }
+    Progress.prototype.actualizarPosicion = function (ini) {
+        var maximo = 550;
+        var actual = maximo * ini / this.total;
+        this.indice.style.left = actual + "px";
+        this.progress.value = ini;
+        this.indice.innerText = ini + "";
+        this.actual = ini;
+    };
+    Progress.prototype.getElemento = function () {
+        return this.contenedor;
+    };
+    return Progress;
+}());
 var PantallaHTML = /** @class */ (function () {
     function PantallaHTML(elemento) {
         this.elemento = elemento;

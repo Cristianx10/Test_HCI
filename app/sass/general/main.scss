@@ -253,4 +253,61 @@ hr{
     left: 272px;
     top: 200px;
 }
+
+.progreso {
+    width: 100px;
+    height: 600px;
+
+}
+
+.cont_progreso {
+    position: relative;
+    width: 600px;
+    height: 100px;
+    transform: rotate(270deg);
+    overflow: hidden;
+    top: 250px;
+    right: 250px;
+    
+}
+
+.progreso_barra {
+    position: relative;
+    left: 0;
+    top: 38px;
+    right: 0;
+    height: 25px;
+    width: 100%;
+    color: #00DED3;
+    background: #00DED3;
+    border-radius: 50px;
+}
+
+.progreso_barra::-webkit-progress-value { background: #00DED3; }
+.progreso_barra::-moz-progress-bar { background: #00DED3;
+    background-color: white; }
+
+.progreso_barra[value]::-webkit-progress-bar {
+    background-color: #ededed;
+    border-radius: 40px;
+  }
+  
+  .progreso_barra[value]::-webkit-progress-value {
+    border-radius: 40px;
+    background-color:#00DED3;
+  }
+
+.progreso_numero {
+    position: relative;
+    color: white;
+    width: 50px;
+    height: 50px;
+    bottom: 3px;
+    background: #621AAA;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    transform: rotate(90deg);
+}
   

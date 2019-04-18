@@ -99,6 +99,48 @@ class Navegable{
     }
 }
 
+class Progress{
+    contenedor:HTMLElement;
+    progress:HTMLProgressElement;
+    indice:HTMLElement;
+    total:number;
+    actual:number;
+
+    constructor(  total:number, inicial:number){
+        this.total = total;
+        this.actual = inicial;
+        this.contenedor = document.createElement('div');
+        this.contenedor.className = "progreso";
+        let con_contendor = document.createElement('div');
+        con_contendor.className = "cont_progreso";
+        this.progress = document.createElement('progress');
+        this.progress.className = "progreso_barra";
+        this.indice = document.createElement('div');
+        this.indice.className = "progreso_numero";
+
+        this.progress.value = inicial;
+        this.progress.max = total;
+        this.indice.innerText = inicial+"";
+
+        this.contenedor.append(con_contendor);
+        con_contendor.append(this.progress, this.indice);
+        this.actualizarPosicion(this.actual);
+    }
+
+    actualizarPosicion(ini:number){
+        let maximo = 550;
+        let actual = maximo*ini/this.total;
+        this.indice.style.left = actual + "px";
+        this.progress.value = ini;
+        this.indice.innerText = ini+"";
+        this.actual = ini;
+    }
+
+    getElemento(){
+        return this.contenedor;
+    }
+}
+
 class PantallaHTML{
     elemento:HTMLElement;
 
