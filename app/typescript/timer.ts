@@ -16,8 +16,7 @@ class Timer {
   
     start() {
   
-      this.intervalo = setInterval(() => {
-        
+      this.intervalo = setInterval(() => { 
         this.comenzarTempo();
         console.log("Hora:" + this.horas + " Minutos: " + this.minutos + " Segundos: "+ this.segundos + " Millis: " + this.milisegundos + " Total: " +this.time);
       }, 10);

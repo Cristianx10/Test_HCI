@@ -36,6 +36,7 @@ var RESULTADO = new Resultados();
 var Navegable = /** @class */ (function () {
     function Navegable(elementos) {
         this.elementos = elementos;
+        this.progreso = new Progress(elementos.elementos.length, 0);
         this.secciones = elementos.getElementosHTML();
         this.actual = 0;
         this.secciones.forEach(function (s, i) {
