@@ -39,8 +39,8 @@
             
             navegacion.siguiente(() => {
                 
-                preguntas_total.getObjectIndex(navegacion.actual).validar();
-                
+                navegacion.actualObjeto().validar();
+
             }, () => {
                 console.log("Finalizo");
                 $(".principal").load("./pantallas/modulos/tarjetas.html");

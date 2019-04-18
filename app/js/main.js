@@ -35,8 +35,17 @@ var Resultados = /** @class */ (function () {
 var RESULTADO = new Resultados();
 var Navegable = /** @class */ (function () {
     function Navegable(elementos) {
+        var _this = this;
         this.elementos = elementos;
         this.progreso = new Progress(elementos.elementos.length, 0);
+        this.elementos.elementos.forEach(function (e) {
+            e.tiempoDefinido = true;
+            e.setTiempo(function () {
+                if (e.tiempoDefinido == false) {
+                    _this.siguiente();
+                }
+            });
+        });
         this.secciones = elementos.getElementosHTML();
         this.actual = 0;
         this.secciones.forEach(function (s, i) {
@@ -47,7 +56,14 @@ var Navegable = /** @class */ (function () {
                 s.style.display = "none";
             }
         });
+        this.actualPantalla().start();
     }
+    Navegable.prototype.actualObjeto = function () {
+        return this.elementos.elementos[this.actual].getObjeto();
+    };
+    Navegable.prototype.actualPantalla = function () {
+        return this.elementos.elementos[this.actual];
+    };
     Navegable.prototype.asignarCondiciones = function (recorrer) {
         this.elementos.elementos.forEach(function (e) {
             recorrer(e.objeto);
@@ -66,10 +82,13 @@ var Navegable = /** @class */ (function () {
         this.ocultar(this.secciones[this.actual]);
         if (this.actual < this.secciones.length - 1) {
             if (accion) {
-                accion();
+                accion(this.actualPantalla(), this.actual);
             }
+            this.actualPantalla().tiempoDefinido = true;
             this.actual++;
+            this.progreso.actualizarPosicion(this.actual);
             this.mostrar(this.secciones[this.actual]);
+            this.actualPantalla().start();
         }
         else {
             if (final) {
@@ -154,10 +173,32 @@ var Contenedor = /** @class */ (function () {
     return Contenedor;
 }());
 var ContenidoA = /** @class */ (function () {
-    function ContenidoA(elementoHTML, objeto) {
+    function ContenidoA(elementoHTML, objeto, minutos, segundos) {
         this.elementoHTML = elementoHTML;
         this.objeto = objeto;
+        this.timer = new Timer();
+        this.tiempoDefinido = false;
+        if (segundos != null) {
+            this.minutos = minutos;
+            this.segundos = segundos;
+        }
+        else if (minutos != null) {
+            this.segundos = minutos;
+            this.minutos = 0;
+        }
     }
+    ContenidoA.prototype.tiempo = function (minutos, segundos) {
+        this.minutos = minutos;
+        this.segundos = segundos;
+    };
+    ContenidoA.prototype.start = function () {
+        if (this.minutos != null && this.segundos != null) {
+            this.timer.startTempo(this.minutos, this.segundos);
+        }
+    };
+    ContenidoA.prototype.setTiempo = function (termino) {
+        this.timer.termino = termino;
+    };
     ContenidoA.prototype.getElementoHTML = function () {
         return this.elementoHTML;
     };
