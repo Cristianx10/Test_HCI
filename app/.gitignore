@@ -4,6 +4,8 @@ sass/especificas/*css
 sass/especificas/*map
 sass/especificas/linguistica*css
 sass/especificas/linguistica*map
-sass/general/*css
-sass/general/*map
+sass/general/main.css
+sass/general/main.map
+sass/general/porcentaje.css
+sass/general/porcentaje.map
 node_modules
