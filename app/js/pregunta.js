@@ -3,13 +3,16 @@ var Opcion = /** @class */ (function () {
     function Opcion(info, valor) {
         this.opcion = document.createElement("label");
         this.check = document.createElement("input");
-        this.opcion.className = "opcion";
+        this.contenido = document.createElement("span");
+        this.opcion.className = "opcion_check";
+        this.contenido.className = "opcion";
         this.check.className = "marcador";
         this.check.type = "radio";
         this.check.name = "opcion";
         this.check.checked = false;
         this.opcion.append(this.check);
-        this.opcion.append(info);
+        this.opcion.append(this.contenido);
+        this.contenido.append(info);
         this.valor = valor;
     }
     Opcion.prototype.validacion = function () {
