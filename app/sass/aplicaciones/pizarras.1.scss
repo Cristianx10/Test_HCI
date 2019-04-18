@@ -1,0 +1,48 @@
+.pizarras{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+   
+}
+.pizarra{
+    position: relative;
+    min-width: 570px;
+    min-height: 550px;
+    overflow: auto;
+    
+    &__ficha, &__click{
+        position: absolute;
+        width: 100px;
+        height: 100px;
+    }
+
+    &__clicks{
+        
+    }
+
+    &__fichas, &__clicks{
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    
+    &__click{
+        
+        background: rgba(0, 128, 0, 0.219);
+    }
+
+    &__ficha{
+        transition: all .5s ease;
+        position: absolute;
+        background: red;
+
+        &:hover{
+            cursor: pointer;
+        }
+
+    }
+
+
+}
