@@ -53,6 +53,15 @@ class Navegable{
     constructor(elementos:Contenedor){
         this.elementos = elementos;
         this.progreso = new Progress(elementos.elementos.length, 0);
+        
+        this.elementos.elementos.forEach(e => {
+            e.tiempoDefinido = true;
+            e.setTiempo(()=>{
+                if(e.tiempoDefinido == false){
+                    this.siguiente();
+                }
+            });
+        });
 
         this.secciones = elementos.getElementosHTML();
         this.actual = 0;
@@ -63,6 +72,16 @@ class Navegable{
                 s.style.display = "none";
             }
         });
+
+        this.actualPantalla().start();
+    }
+
+    actualObjeto() : any{
+        return this.elementos.elementos[this.actual].getObjeto();
+    }
+
+    actualPantalla() : ContenidoA{
+        return this.elementos.elementos[this.actual];
     }
 
     asignarCondiciones(recorrer:Function){
@@ -86,13 +105,14 @@ class Navegable{
     siguiente(accion?:Function, final?:Function):void{
         this.ocultar(this.secciones[this.actual]);
         if(this.actual < this.secciones.length-1){
-            
-            
             if(accion){
-                accion();
+                accion(this.actualPantalla(), this.actual);
             }
+            this.actualPantalla().tiempoDefinido = true;
             this.actual++;
+            this.progreso.actualizarPosicion(this.actual);
             this.mostrar(this.secciones[this.actual]);
+            this.actualPantalla().start();
         }else{
             if(final){
                 final();
@@ -201,10 +221,42 @@ class ContenidoA{
 
     objeto:Object;
     elementoHTML:HTMLElement;
+    timer:Timer;
+    minutos?:number;
+    segundos?:number;
+    tiempoDefinido:boolean;
 
-    constructor(elementoHTML:HTMLElement, objeto:Object){
+    constructor(elementoHTML:HTMLElement, objeto:Object, minutos?:number, segundos?:number){
         this.elementoHTML = elementoHTML;
         this.objeto = objeto;
+        this.timer = new Timer();
+        this.tiempoDefinido = false;
+
+        if(segundos != null){
+            this.minutos = minutos;
+            this.segundos = segundos;
+         
+        }else if(minutos !=null){
+            this.segundos = minutos;
+            this.minutos = 0;
+        }
+        
+    }
+
+    tiempo(minutos?:number, segundos?:number){
+        this.minutos = minutos;
+        this.segundos = segundos;
+    }
+    
+    start(){
+        if(this.minutos != null && this.segundos != null){
+            this.timer.startTempo(this.minutos, this.segundos);
+        }
+    }
+    
+
+    setTiempo(termino:Function){
+        this.timer.termino = termino;
     }
 
     getElementoHTML(){

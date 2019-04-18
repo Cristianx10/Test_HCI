@@ -3,19 +3,39 @@ var Timer = /** @class */ (function () {
     function Timer() {
         this.time = 0;
         this.horas = 0;
-        this.minutos = 2;
-        this.segundos = 5;
+        this.minutos = 0;
+        this.segundos = 0;
         this.milisegundos = 0;
     }
     Timer.prototype.start = function () {
         var _this = this;
+        this.time = 0;
+        this.horas = 0;
+        this.minutos = 0;
+        this.segundos = 0;
+        this.milisegundos = 0;
+        this.intervalo = setInterval(function () {
+            _this.comenzar();
+            //console.log("Hora:" + this.horas + " Minutos: " + this.minutos + " Segundos: "+ this.segundos + " Millis: " + this.milisegundos + " Total: " +this.time);
+        }, 10);
+    };
+    Timer.prototype.startTempo = function (minutos, segundos) {
+        var _this = this;
+        this.time = 0;
+        this.horas = 0;
+        this.minutos = minutos;
+        this.segundos = segundos;
+        this.milisegundos = 0;
         this.intervalo = setInterval(function () {
             _this.comenzarTempo();
-            console.log("Hora:" + _this.horas + " Minutos: " + _this.minutos + " Segundos: " + _this.segundos + " Millis: " + _this.milisegundos + " Total: " + _this.time);
+            //console.log("Hora:" + this.horas + " Minutos: " + this.minutos + " Segundos: "+ this.segundos + " Millis: " + this.milisegundos + " Total: " +this.time);
         }, 10);
     };
     Timer.prototype.stop = function () {
         clearInterval(this.intervalo);
+        if (this.termino != null) {
+            this.termino();
+        }
         //console.log("Hora:" + this.horas + " Minutos: " + this.minutos + " Segundos: "+ this.segundos + " Millis: " + this.milisegundos + " Total: " +this.time);
     };
     Timer.prototype.getTime = function () {
@@ -62,6 +82,12 @@ var Timer = /** @class */ (function () {
             this.minutos = 59;
             this.horas--;
         }
+        if (this.horas < 0) {
+            this.stop();
+        }
+    };
+    Timer.prototype.setTermino = function (ter) {
+        this.termino = ter;
     };
     return Timer;
 }());
