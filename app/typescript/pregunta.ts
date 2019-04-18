@@ -19,7 +19,7 @@ class Opcion {
 
         this.opcion.append(this.check);
         this.opcion.append(this.contenido);
-        this.contenido.append(info);
+        this.opcion.append(info);
         this.valor = valor;
     }
 

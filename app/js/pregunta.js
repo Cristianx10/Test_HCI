@@ -12,7 +12,7 @@ var Opcion = /** @class */ (function () {
         this.check.checked = false;
         this.opcion.append(this.check);
         this.opcion.append(this.contenido);
-        this.contenido.append(info);
+        this.opcion.append(info);
         this.valor = valor;
     }
     Opcion.prototype.validacion = function () {
