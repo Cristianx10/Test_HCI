@@ -1,3 +1,44 @@
+<link rel="stylesheet" href="../../sass/general/porcentaje.css">
+
+
+<div class="resultado__cuadro">
+    <div class="resultado__porcentaje">
+        <div class="circulo">
+            <input class="porcentaje" type="text" value="45" data-linecap=round>
+        </div>
+       <img class="icono" src="../../includes/iconos/fuerzaspublicas.svg" alt="">
+    </div>
+    <div class="resultado__informacion">
+        <h2 class="titulo">Ciencias naturales</h2>
+        <h3 class="valor">90%</h3>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  
+        $(".porcentaje").knob({
+            min:0,
+            max:100,
+            width:100,
+            height:100,
+            fgColor:"red",
+            angleOffset:0,
+            thickness:".4",
+            readOnly:true,
+            displayInput:false
+        });
+
+</script>
 
 
 
@@ -5,5 +46,5 @@
 
 <script>
 let p = new Progress(10, 5);
-$(".principal").append(p.getElemento());
+//$(".principal").append(p.getElemento());
 </script>

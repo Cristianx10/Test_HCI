@@ -48,9 +48,11 @@ class Navegable{
     elementos:Contenedor;
     secciones:Array<HTMLElement>;
     actual:number;
+    progreso:Progress;
 
     constructor(elementos:Contenedor){
         this.elementos = elementos;
+        this.progreso = new Progress(elementos.elementos.length, 0);
 
         this.secciones = elementos.getElementosHTML();
         this.actual = 0;
