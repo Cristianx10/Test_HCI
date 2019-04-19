@@ -1,9 +1,18 @@
 
-.cont-principal{
-    background-image: url(./img/programacion/fondoB.png);
+.principal{
+  border: 0;
+}
+
+*{
+    font-family: 'Muli', sans-serif;
 }
 
 
+.titulo_resultados{
+    font-family: 'Heebo', sans-serif;
+    font-size: 48pt;
+    color: white;
+}
 
 .resultado{
  
@@ -21,9 +30,10 @@
 
     &__cuadro{
         display: flex;
-        border-radius: 10px;
+        border-radius: 17px;
         background: rgba(255, 255, 255, 0.322);
         padding: 25px;
+        margin: 20px;
 
         
     }
@@ -43,26 +53,27 @@
         }
 
         & .icono{
-            margin-left: 40px;
+            margin-left: 40px;  
         }
     }
 
     &__informacion{
         display: flex;
         flex-direction: column;
-        margin-left: 50px;
+        margin-left: 60px;
         
         
         h2{
-            color: white;
-            font-size: 17pt;
-            font-style: normal;
+            color: white;           
+            font-style: bold;
             text-align: center;
             
         }
 
         h3{
-            color: $color-ciencias-n;
+           font-size: 200%;
+            font-style: bold;
+            color: $color-fuerzas-publicas;
         }
     
 
