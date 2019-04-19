@@ -6,6 +6,10 @@ sass/aplicaciones/rompecabeza-piezas.css
 sass/aplicaciones/rompecabeza-piezas.map
 sass/aplicaciones/targetas.css
 sass/aplicaciones/targetas.map
+sass/especificas/linguistica/main.css
+sass/especificas/linguistica/main.map
+sass/especificas/diseno/main.css
+sass/especificas/diseno/main.map
 
 sass/general/main.css
 sass/general/main.map
