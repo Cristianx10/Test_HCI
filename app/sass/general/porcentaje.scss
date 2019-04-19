@@ -2,6 +2,7 @@
 
     &__cuadro{
         display: flex;
+        
     }
 
     &__porcentaje{
@@ -9,6 +10,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+       
 
         & .circulo{
             position: absolute;
@@ -19,6 +21,7 @@
     &__informacion{
         display: flex;
         flex-direction: column;
+        color: red;
     }
 
    
