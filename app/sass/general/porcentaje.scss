@@ -1,3 +1,10 @@
+
+.cont-principal{
+    background-image: url(./img/programacion/fondoB.png);
+}
+
+
+
 .resultado{
  
     //variables de color
@@ -10,10 +17,14 @@
     $color-salud: #FFBF74;
     $color-diseno: #BA76F0;
     $color-ingenieria: #6883E4;
-    
+
 
     &__cuadro{
         display: flex;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.322);
+        padding: 25px;
+
         
     }
 
@@ -22,19 +33,40 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        color: $color-ciencias-n;
        
 
         & .circulo{
             position: absolute;
             display: block;
+            margin-left: 20px;
+        }
+
+        & .icono{
+            margin-left: 40px;
         }
     }
 
     &__informacion{
         display: flex;
         flex-direction: column;
-        color: blue;
-    }
+        margin-left: 50px;
+        
+        
+        h2{
+            color: white;
+            font-size: 17pt;
+            font-style: normal;
+            text-align: center;
+            
+        }
+
+        h3{
+            color: $color-ciencias-n;
+        }
+    
+
+        }
     
 }
        
