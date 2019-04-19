@@ -2,6 +2,45 @@
 
 <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
 
+<style>
+
+.resultado__cuadro {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.resultado__porcentaje {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.resultado__porcentaje .circulo {
+  position: absolute;
+  display: block;
+}
+
+.resultado__informacion {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  color: red;
+}
+
+</style>
+
         <script>
         $('.cont-principal').css("background-image",  "url('./img/programacion/fondoB.png')");
         </script>
