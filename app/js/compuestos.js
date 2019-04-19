@@ -40,6 +40,7 @@ var Tablero_Cbase = /** @class */ (function () {
 var Tablero_Categoria = /** @class */ (function () {
     function Tablero_Categoria(tablero, texto, categoria) {
         var _this = this;
+        this.orientacionLeft = false;
         this.tablero = tablero;
         this.stage = tablero.stage;
         this.contenedor = new createjs.Container();

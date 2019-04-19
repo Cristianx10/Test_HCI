@@ -62,6 +62,7 @@ class Tablero_Categoria {
     categoria: string;
     clasificado: boolean;
     linea:LineaCurva;
+    orientacionLeft = false;
 
     constructor(tablero: Tablero_Cbase, texto: string, categoria: string) {
         this.tablero = tablero;
