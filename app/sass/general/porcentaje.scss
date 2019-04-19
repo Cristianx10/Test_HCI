@@ -1,12 +1,20 @@
 .resultado{
- //Aqui estoy haciendo los cambios pero no se visualizan
+ 
+    //variables de color
+
+    $color-ciencias-n: #63D1B7;
+    $color-arte: #EF6BAA;
+    $color-fuerzas-publicas: #FF7373;
+    $color-educacion: #59C5D3;
+    $color-deportes: #FDF441;
+    $color-salud: #FFBF74;
+    $color-diseno: #BA76F0;
+    $color-ingenieria: #6883E4;
+    
+
     &__cuadro{
         display: flex;
-<<<<<<< HEAD
-       
-=======
         
->>>>>>> master
     }
 
     &__porcentaje{
@@ -25,7 +33,7 @@
     &__informacion{
         display: flex;
         flex-direction: column;
-        color: red;
+        color: blue;
     }
     
 }
