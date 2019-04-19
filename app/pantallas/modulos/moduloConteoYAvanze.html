@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+
+        html,body{
+            height: 100%;
+            width: 100%;
+            margin: 0;
+        }
+            body{
+                display: flex;
+                background-image: url("../../img/deporte/fondo.png");
+                background-repeat: no-repeat;
+                background-size: cover;
+                justify-content: space-between;
+            }
+            .avance{
+                flex-basis: 8%;
+                display: flex;
+                align-self: center;
+                width: 8%;
+                height: 14%;
+                align-items: center;
+                justify-content: center;
+                background-color: #00DED3;
+                border-radius: 20px;
+            }
+
+            .avance__p{
+                color: white;
+                font-size: 2.5em;
+            }
+            .conteo{
+                flex-basis: 13%;
+                display: flex;
+                align-self: flex-start;
+                width: 13%;
+                margin-top: 2%;
+                margin-right: 13.5%; 
+                height: 8%;
+                background-color: #EFEAE2;
+                border-radius: 20px;
+                align-items: center;
+            }
+
+            .conteo__relog{
+                width: 40px;
+                margin-left: 12%;
+                height: 40px;
+            }
+            .conteo__p{
+                color: #E64973;
+                font-size: 2em;
+                margin-left: 12%;
+            }
+
+        </style>
+</head>
+<body>
+    
+   
+        <div class="avance">
+            <p class="avance__p">5/15</p>
+        </div>
+        <div class="conteo">
+            <img class="conteo__relog" src="../../img/relog.png" alt="">
+            <p class="conteo__p">0:00</p>
+        </div>
+    
+
+</body>
+</html>
