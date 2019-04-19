@@ -2,10 +2,44 @@
 
 
 
+<style>
 
-<!--<div class="cont-principal" style="background-image: url('./img/programacion/fondoB.png')">
-   <div class="principal" onselectstart="return false">
-        -->
+.resultado__cuadro {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.resultado__porcentaje {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.resultado__porcentaje .circulo {
+  position: absolute;
+  display: block;
+}
+
+.resultado__informacion {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  color: red;
+}
+
+</style>
 
         <script>
         $('.cont-principal').css("background-image",  "url('./img/programacion/fondoB.png')");
@@ -13,6 +47,8 @@
 
 <h1 class="titulo_resultados">RESULTADOS</h1>
 
+<div class="division_horizontal">
+<div class="todos-resultados"> 
 <div class="resultado__cuadro">
     <div class="resultado__porcentaje">
         <div class="circulo">
@@ -39,7 +75,22 @@
             <h3 class="valor" style="font-size:90%">60%</h3>
         </div>
     </div>
+</div>
 
+    <div class="cuadro_felicitaciones">
+        <div class="cuadro_bordes_lados">
+        <p><b>¡Felicitaciones!</b> tienes un <b>90%</b> de aptitud de ser un gran <b>científico</b></p>
+
+        <div class="medalla_icon">
+                <img src="../../includes/iconos/medalla.svg" alt="">
+                <img class="icono" src="../../includes/iconos/ciencias.svg" alt="">
+            </div>
+        </div>
+    </div>
+
+   
+
+</div>
 
 
 
