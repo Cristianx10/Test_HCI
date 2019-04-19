@@ -1,0 +1,160 @@
+<link rel="stylesheet" href="../../sass/especificas/diseno/main.css">
+<article class="principal">
+
+    <div class="principal__info">
+
+
+
+        <div class="principal__elegir">
+            <h2 class="principal__titulo">Selecciona el color de la blusa</h2>
+            <div class="principal__elegir-blusa">
+
+                <input type="range" min="30" max="200" value="127" class="slider red" id="blusa__r">
+                <input type="range" min="100" max="200" value="147" class="slider green" id="blusa__g">
+                <input type="range" min="30" max="200" value="127" class="slider blue" id="blusa__b">
+            </div>
+
+
+
+            <h2 class="principal__titulo">Selecciona el color de la falda</h2>
+            <div class="principal__elegir-blusa">
+
+                <input type="range" min="30" max="200" value="127" class="slider red" id="falda__r">
+                <input type="range" min="100" max="200" value="147" class="slider green" id="falda__g">
+                <input type="range" min="30" max="200" value="127" class="slider blue" id="falda__b">
+            </div>
+
+
+            <h2 class="principal__titulo">Selecciona el color de loz zapatos</h2>
+            <p class="principal__texto">Recuerda que debes seleccionar el color que de como resultado de la mezcla
+                de los dos anteriores</p>
+
+            <div class="principal__elegir-blusa">
+
+                <input type="range" min="30" max="200" value="127" class="slider red" id="zapatos__r">
+                <input type="range" min="100" max="230" value="147" class="slider green" id="zapatos__g">
+                <input type="range" min="30" max="230" value="127" class="slider blue" id="zapatos__b">
+            </div>
+        </div>
+
+        <div class="rect">
+            <div class="principal__maniqui">
+
+                <div class="principal__maniqui-blusa">
+                </div>
+
+                <div class="principal__maniqui-falda">
+                </div>
+
+                <div class="principal__maniqui-zapatos">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="principal__botones">
+        <button id="anterior"><a href="http://"></a> Validar</button>
+
+    </div>
+
+
+</article>
+
+
+<script>
+
+    $('.principal__maniqui-blusa').load('../../img/diseno/blusa.svg');
+    $('.principal__maniqui-falda').load('../../img/diseno/falda.svg');
+    $('.principal__maniqui-zapatos').load('../../img/diseno/zapatos.svg');
+
+    let blusaR = document.querySelector('#blusa__r');
+    let blusaG = document.querySelector('#blusa__g');
+    let blusaB = document.querySelector('#blusa__b');
+
+    let faldaR = document.querySelector('#falda__r');
+    let faldaG = document.querySelector('#falda__g');
+    let faldaB = document.querySelector('#falda__b');
+
+    let zapatosR = document.querySelector('#zapatos__r');
+    let zapatosG = document.querySelector('#zapatos__g');
+    let zapatosB = document.querySelector('#zapatos__b');
+
+    let boton = document.querySelector('#anterior');
+
+
+    function cambiarColorBlusa() {
+        let hsv = rgb2hsv(blusaR.value, blusaG.value, blusaB.value);
+        let nuevo = hsvToRgb(hsv.h, 100, 100);
+        $('#blusa').css({ fill: "rgb(" + nuevo[0] + "," + nuevo[1] + "," + nuevo[2]  + ")" });
+      
+    }
+
+    function cambiarColorFalda() {
+        let hsv = rgb2hsv(faldaR.value, faldaG.value, faldaB.value);
+        let nuevo = hsvToRgb(hsv.h, 100, 100);
+        $('#falda').css({ fill: "rgb(" + nuevo[0] + "," + nuevo[1] + "," + nuevo[2]  + ")" });
+       
+    }
+
+    function cambiarColorZapatos() {
+        let hsv = rgb2hsv(zapatosR.value, zapatosG.value, zapatosB.value);
+        let nuevo = hsvToRgb(hsv.h, 100, 100);
+        $('#zapatos').css({ fill: "rgb(" + nuevo[0] + "," + nuevo[1] + "," + nuevo[2]  + ")" });
+    }
+
+
+    blusaR.addEventListener('input', cambiarColorBlusa);
+    blusaG.addEventListener('input', cambiarColorBlusa);
+    blusaB.addEventListener('input', cambiarColorBlusa);
+
+    faldaR.addEventListener('input', cambiarColorFalda);
+    faldaG.addEventListener('input', cambiarColorFalda);
+    faldaB.addEventListener('input', cambiarColorFalda);
+
+    zapatosR.addEventListener('input', cambiarColorZapatos);
+    zapatosG.addEventListener('input', cambiarColorZapatos);
+    zapatosB.addEventListener('input', cambiarColorZapatos);
+
+
+
+    function validacionDeColores() {
+
+        let hsvblusa = rgb2hsv(blusaR.value, blusaG.value, blusaB.value);
+        let hsvfalda = rgb2hsv(faldaR.value, faldaG.value, faldaB.value);
+        let hsvzapatos = rgb2hsv(zapatosR.value, zapatosG.value, zapatosB.value);
+        let nuevoblusa = hsvToRgb(hsvblusa.h, 100, 100);
+        let nuevofalda = hsvToRgb(hsvfalda.h, 100, 100);
+        let nuevozapatos = hsvToRgb(hsvzapatos.h, 100, 100);
+
+        let blusaColor = { r: nuevoblusa[0], g: nuevoblusa[1], b:nuevoblusa[2] };
+        let faldaColor = { r: nuevofalda[0], g: nuevofalda[1], b: nuevofalda[2] };
+        let zapatosColor = { r: nuevozapatos[0], g: nuevozapatos[1], b: nuevozapatos[2] };
+
+        let color_1 = $.Color(`rgb(${blusaColor.r},${blusaColor.g}, ${blusaColor.b})`);
+        let color_2 = $.Color(`rgb(${faldaColor.r},${faldaColor.g}, ${faldaColor.b})`);
+
+        let result_color = Color_mixer.mix(color_1,color_2);
+        let resultColorString = hexToRGBA(result_color.toHexString()).replace("rgba(", "").replace(")", "");
+        let resultColor = resultColorString.split(',');
+        
+        let totalReal = rgb2hsv(resultColor[0], resultColor[1], resultColor[2]);
+        
+        let usuario = rgb2hsv(zapatosColor.r, zapatosColor.g, zapatosColor.b);
+
+        
+        console.log("total: " + `${totalReal.h}, ${totalReal.v}, ${totalReal.s}`+ " | real: " + `${usuario.h}, ${usuario.v}, ${usuario.s}`);
+
+        if(Math.abs(totalReal.h - usuario.h) < 30){
+            console.log("Buena combinacion");
+        }else{
+            console.log("No es muy combinacion");
+        }
+
+       // $('#zapatos').css({ fill: "rgb(" + resultColor[0] + "," + resultColor[1] + "," + resultColor[2] + ")" });
+    }
+
+    boton.addEventListener('click', validacionDeColores);
+
+
+</script>
