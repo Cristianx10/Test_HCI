@@ -14,6 +14,15 @@
     color: white;
 }
 
+.division_horizontal{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-content: center;
+    align-items: center;
+}
+
 .resultado{
  
     //variables de color
@@ -82,7 +91,40 @@
 }
        
 
+.cuadro_felicitaciones{
+width: 300px;
+color: white;
+font-size: 70%;
+text-align: center;
 
+border-radius: 5px;
+border: 1px solid white;
+padding: 25px;
+margin: 20px;
+
+.medalla_icon{
+    margin-top: 25px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .icono{
+        position: absolute;
+        display: block;
+        margin-top: 50px; 
+       
+    }
+}
+
+.cuadro_bordes_lados{
+    border-bottom: 1px solid white;
+    border-top: 1px solid white;
+    margin: 20px 0 20px 0;
+    padding: 20px 0 20px 0;
+}
+
+}
 
 //Un cambio cualquiera
 
