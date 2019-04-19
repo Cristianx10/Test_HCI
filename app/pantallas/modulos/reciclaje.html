@@ -1,0 +1,65 @@
+
+
+<style>
+    .bote {
+        width: 144px;
+        height: 183px;
+    }
+
+    .basura__elementos{
+        height: 70%;
+    }
+
+    .basura{
+        display: flex;
+        justify-content: center;
+        height: 30%;
+    }
+
+    .basura__elementos div{
+        display: inline-block;
+       
+    }
+</style>
+
+<div class="pantalla">
+    <div class="basura__elementos">
+
+    </div>
+
+    <div class="basura">
+        <div class="bote" style="background-image: url('../../img/ciencias/vidrio.png')"></div>
+        <div class="bote" style="background-image: url('../../img/ciencias/plastico.png')"></div>
+        <div class="bote" style="background-image: url('../../img/ciencias/organico.png')"></div>
+        <div class="bote" style="background-image: url('../../img/ciencias/papel.png')"></div>
+    </div>
+</div>
+
+
+<script>
+
+loadJson("../../data/ciencias/reciclaje.json", (r)=>{
+
+    let recursos = r.recursos;
+    console.log(recursos)
+
+    for (let i = 0; i < recursos.length; i++) {
+        
+        let rec = recursos[i];
+        let contenedor = document.createElement('div');
+        let img = document.createElement('img');
+        contenedor.append(img);
+        img.className = "recurso";
+        img.src = rec.url;
+        contenedor.style.marginTop = Math.floor((Math.random() * 40) + 1) + "px";
+        contenedor.style.marginBottom = Math.floor((Math.random() * 40) + 1) + "px";
+        contenedor.style.marginRight = Math.floor((Math.random() * 62) + 1) + "px";
+        contenedor.style.marginLeft = Math.floor((Math.random() * 62) + 1) + "px";
+        $(".basura__elementos").append(contenedor);
+    }
+
+});
+
+</script>
+
+<script src="../../js/reciclaje.js"></script>
