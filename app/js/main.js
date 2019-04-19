@@ -9,6 +9,9 @@ function degrees(radians) {
     return radians * 180 / Math.PI;
 }
 ;
+function shuffle(array) {
+    array.sort(function () { return Math.random() - 0.5; });
+}
 var Resultados = /** @class */ (function () {
     function Resultados() {
         this.categorias = {};
@@ -32,7 +35,17 @@ var Resultados = /** @class */ (function () {
 var RESULTADO = new Resultados();
 var Navegable = /** @class */ (function () {
     function Navegable(elementos) {
+        var _this = this;
         this.elementos = elementos;
+        this.progreso = new Progress(elementos.elementos.length, 0);
+        this.elementos.elementos.forEach(function (e) {
+            e.tiempoDefinido = true;
+            e.setTiempo(function () {
+                if (e.tiempoDefinido == false) {
+                    _this.siguiente();
+                }
+            });
+        });
         this.secciones = elementos.getElementosHTML();
         this.actual = 0;
         this.secciones.forEach(function (s, i) {
@@ -43,7 +56,14 @@ var Navegable = /** @class */ (function () {
                 s.style.display = "none";
             }
         });
+        this.actualPantalla().start();
     }
+    Navegable.prototype.actualObjeto = function () {
+        return this.elementos.elementos[this.actual].getObjeto();
+    };
+    Navegable.prototype.actualPantalla = function () {
+        return this.elementos.elementos[this.actual];
+    };
     Navegable.prototype.asignarCondiciones = function (recorrer) {
         this.elementos.elementos.forEach(function (e) {
             recorrer(e.objeto);
@@ -62,10 +82,13 @@ var Navegable = /** @class */ (function () {
         this.ocultar(this.secciones[this.actual]);
         if (this.actual < this.secciones.length - 1) {
             if (accion) {
-                accion();
+                accion(this.actualPantalla(), this.actual);
             }
+            this.actualPantalla().tiempoDefinido = true;
             this.actual++;
+            this.progreso.actualizarPosicion(this.actual);
             this.mostrar(this.secciones[this.actual]);
+            this.actualPantalla().start();
         }
         else {
             if (final) {
@@ -74,6 +97,38 @@ var Navegable = /** @class */ (function () {
         }
     };
     return Navegable;
+}());
+var Progress = /** @class */ (function () {
+    function Progress(total, inicial) {
+        this.total = total;
+        this.actual = inicial;
+        this.contenedor = document.createElement('div');
+        this.contenedor.className = "progreso";
+        var con_contendor = document.createElement('div');
+        con_contendor.className = "cont_progreso";
+        this.progress = document.createElement('progress');
+        this.progress.className = "progreso_barra";
+        this.indice = document.createElement('div');
+        this.indice.className = "progreso_numero";
+        this.progress.value = inicial;
+        this.progress.max = total;
+        this.indice.innerText = inicial + "";
+        this.contenedor.append(con_contendor);
+        con_contendor.append(this.progress, this.indice);
+        this.actualizarPosicion(this.actual);
+    }
+    Progress.prototype.actualizarPosicion = function (ini) {
+        var maximo = 550;
+        var actual = maximo * ini / this.total;
+        this.indice.style.left = actual + "px";
+        this.progress.value = ini;
+        this.indice.innerText = ini + "";
+        this.actual = ini;
+    };
+    Progress.prototype.getElemento = function () {
+        return this.contenedor;
+    };
+    return Progress;
 }());
 var PantallaHTML = /** @class */ (function () {
     function PantallaHTML(elemento) {
@@ -84,6 +139,16 @@ var PantallaHTML = /** @class */ (function () {
     };
     return PantallaHTML;
 }());
+function toPantallas(pantallas) {
+    var contenido = [];
+    for (var i = 0; i < pantallas.length; i++) {
+        var p = pantallas[i];
+        var o = new PantallaHTML(p);
+        contenido.push(new ContenidoA(p, o));
+    }
+    var contenedorPadre = new Contenedor(contenido);
+    return contenedorPadre;
+}
 var Contenedor = /** @class */ (function () {
     function Contenedor(elementos) {
         this.elementos = elementos;
@@ -108,10 +173,32 @@ var Contenedor = /** @class */ (function () {
     return Contenedor;
 }());
 var ContenidoA = /** @class */ (function () {
-    function ContenidoA(elementoHTML, objeto) {
+    function ContenidoA(elementoHTML, objeto, minutos, segundos) {
         this.elementoHTML = elementoHTML;
         this.objeto = objeto;
+        this.timer = new Timer();
+        this.tiempoDefinido = false;
+        if (segundos != null) {
+            this.minutos = minutos;
+            this.segundos = segundos;
+        }
+        else if (minutos != null) {
+            this.segundos = minutos;
+            this.minutos = 0;
+        }
     }
+    ContenidoA.prototype.tiempo = function (minutos, segundos) {
+        this.minutos = minutos;
+        this.segundos = segundos;
+    };
+    ContenidoA.prototype.start = function () {
+        if (this.minutos != null && this.segundos != null) {
+            this.timer.startTempo(this.minutos, this.segundos);
+        }
+    };
+    ContenidoA.prototype.setTiempo = function (termino) {
+        this.timer.termino = termino;
+    };
     ContenidoA.prototype.getElementoHTML = function () {
         return this.elementoHTML;
     };
@@ -120,9 +207,6 @@ var ContenidoA = /** @class */ (function () {
     };
     return ContenidoA;
 }());
-function shuffle(array) {
-    array.sort(function () { return Math.random() - 0.5; });
-}
 function loadJson(ruta, result) {
     var valor;
     var carga = new createjs.LoadQueue();
@@ -158,8 +242,10 @@ function cargarImagen(url, width, height, columnas, filas) {
     var imagenes = new Array();
     var c = -1;
     var f = 0;
-    var image = new Image();
-    image.src = url; // load the image
+    var image = document.createElement("div");
+    image.style.backgroundImage = "url(" + url + ")"; // load the image
+    image.style.width = width * columnas + "px";
+    image.style.height = height * filas + "px";
     image.style.position = "absolute";
     // console.log("ejecutando");
     var total = filas * columnas;
@@ -194,21 +280,21 @@ function askConfirmation(evt) {
 /*
 
     validacion?:Function;
-    intentoAcierto?:Function;
     intentoFallo?:Function;
+    intentoAcierto?:Function;
 
 
 setValidacion(validacion:Function){
       this.validacion = validacion;
+    }
+    setIntentoFallo(intentoFallo:Function){
+      this.intentoFallo = intentoFallo;
     }
 
     setIntentoAcierto(intentoAcierto:Function){
       this.intentoAcierto = intentoAcierto;
     }
 
-    setIntentoFallo(intentoFallo:Function){
-      this.intentoFallo = intentoFallo;
-    }
 
 
     //Implementacion

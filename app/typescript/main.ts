@@ -8,6 +8,10 @@ function degrees(radians: number) {
     return radians * 180 / Math.PI;
 };
 
+function shuffle(array:any) {
+    array.sort(function () { return Math.random() - 0.5; });
+}
+
 class Resultados{
     categorias: any = {};
     pruebas:any = [];
@@ -44,9 +48,20 @@ class Navegable{
     elementos:Contenedor;
     secciones:Array<HTMLElement>;
     actual:number;
+    progreso:Progress;
 
     constructor(elementos:Contenedor){
         this.elementos = elementos;
+        this.progreso = new Progress(elementos.elementos.length, 0);
+        
+        this.elementos.elementos.forEach(e => {
+            e.tiempoDefinido = true;
+            e.setTiempo(()=>{
+                if(e.tiempoDefinido == false){
+                    this.siguiente();
+                }
+            });
+        });
 
         this.secciones = elementos.getElementosHTML();
         this.actual = 0;
@@ -57,6 +72,16 @@ class Navegable{
                 s.style.display = "none";
             }
         });
+
+        this.actualPantalla().start();
+    }
+
+    actualObjeto() : any{
+        return this.elementos.elementos[this.actual].getObjeto();
+    }
+
+    actualPantalla() : ContenidoA{
+        return this.elementos.elementos[this.actual];
     }
 
     asignarCondiciones(recorrer:Function){
@@ -80,18 +105,61 @@ class Navegable{
     siguiente(accion?:Function, final?:Function):void{
         this.ocultar(this.secciones[this.actual]);
         if(this.actual < this.secciones.length-1){
-            
-            
             if(accion){
-                accion();
+                accion(this.actualPantalla(), this.actual);
             }
+            this.actualPantalla().tiempoDefinido = true;
             this.actual++;
+            this.progreso.actualizarPosicion(this.actual);
             this.mostrar(this.secciones[this.actual]);
+            this.actualPantalla().start();
         }else{
             if(final){
                 final();
             }
         }      
+    }
+}
+
+class Progress{
+    contenedor:HTMLElement;
+    progress:HTMLProgressElement;
+    indice:HTMLElement;
+    total:number;
+    actual:number;
+
+    constructor(  total:number, inicial:number){
+        this.total = total;
+        this.actual = inicial;
+        this.contenedor = document.createElement('div');
+        this.contenedor.className = "progreso";
+        let con_contendor = document.createElement('div');
+        con_contendor.className = "cont_progreso";
+        this.progress = document.createElement('progress');
+        this.progress.className = "progreso_barra";
+        this.indice = document.createElement('div');
+        this.indice.className = "progreso_numero";
+
+        this.progress.value = inicial;
+        this.progress.max = total;
+        this.indice.innerText = inicial+"";
+
+        this.contenedor.append(con_contendor);
+        con_contendor.append(this.progress, this.indice);
+        this.actualizarPosicion(this.actual);
+    }
+
+    actualizarPosicion(ini:number){
+        let maximo = 550;
+        let actual = maximo*ini/this.total;
+        this.indice.style.left = actual + "px";
+        this.progress.value = ini;
+        this.indice.innerText = ini+"";
+        this.actual = ini;
+    }
+
+    getElemento(){
+        return this.contenedor;
     }
 }
 
@@ -104,6 +172,19 @@ class PantallaHTML{
     getElemento(){
         return this.elemento;
     }
+}
+
+function toPantallas(pantallas:Array<HTMLElement>){
+
+    let contenido = [];
+    for (let i = 0; i < pantallas.length; i++) {
+        let p = pantallas[i];
+        let o = new PantallaHTML(p);
+        contenido.push(new ContenidoA(p, o));
+    }
+
+    let contenedorPadre = new Contenedor(contenido);
+    return contenedorPadre;
 }
 
 class Contenedor implements Validable{
@@ -140,10 +221,42 @@ class ContenidoA{
 
     objeto:Object;
     elementoHTML:HTMLElement;
+    timer:Timer;
+    minutos?:number;
+    segundos?:number;
+    tiempoDefinido:boolean;
 
-    constructor(elementoHTML:HTMLElement, objeto:Object){
+    constructor(elementoHTML:HTMLElement, objeto:Object, minutos?:number, segundos?:number){
         this.elementoHTML = elementoHTML;
         this.objeto = objeto;
+        this.timer = new Timer();
+        this.tiempoDefinido = false;
+
+        if(segundos != null){
+            this.minutos = minutos;
+            this.segundos = segundos;
+         
+        }else if(minutos !=null){
+            this.segundos = minutos;
+            this.minutos = 0;
+        }
+        
+    }
+
+    tiempo(minutos?:number, segundos?:number){
+        this.minutos = minutos;
+        this.segundos = segundos;
+    }
+    
+    start(){
+        if(this.minutos != null && this.segundos != null){
+            this.timer.startTempo(this.minutos, this.segundos);
+        }
+    }
+    
+
+    setTiempo(termino:Function){
+        this.timer.termino = termino;
     }
 
     getElementoHTML(){
@@ -156,9 +269,6 @@ class ContenidoA{
 
 }
 
-function shuffle(array: any) {
-    array.sort(() => Math.random() - 0.5);
-}
 
 function loadJson(ruta:string, result:Function){
     let valor;
@@ -207,8 +317,10 @@ function crearMatrix(colum: number, fil: number, wid: number, hei: number) {
     let c = -1;
     let f = 0;
 
-    let image = new Image();
-    image.src = url; // load the image
+    let image = document.createElement("div");
+    image.style.backgroundImage = `url(${url})`; // load the image
+    image.style.width = width*columnas + "px";
+    image.style.height = height*filas + "px";
 
     image.style.position = "absolute";
 
@@ -259,21 +371,21 @@ function askConfirmation (evt:any) {
 /*
 
     validacion?:Function;
-    intentoAcierto?:Function;
     intentoFallo?:Function;
+    intentoAcierto?:Function;
 
 
 setValidacion(validacion:Function){
       this.validacion = validacion;
+    }
+    setIntentoFallo(intentoFallo:Function){
+      this.intentoFallo = intentoFallo;
     }
 
     setIntentoAcierto(intentoAcierto:Function){
       this.intentoAcierto = intentoAcierto;
     }
 
-    setIntentoFallo(intentoFallo:Function){
-      this.intentoFallo = intentoFallo;
-    }
 
 
     //Implementacion

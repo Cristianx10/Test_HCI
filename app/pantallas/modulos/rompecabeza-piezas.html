@@ -4,8 +4,55 @@
 
 </div>
 
-<script src="../../lib/jquery-ui-d.js"></script>
+
 <script src="../../js/rompecabeza-piezas.js"></script>
+
+<script>
+
+
+loadJson("../data/rompecabezas.json", (r) => {
+  let width = 200;
+  let columnas = 3;
+  let filas = 3;
+  let url = r.secciones.rompecabeza;
+
+  let fichas = [];
+  let imagenes = cargarImagen(url, width, width, columnas, filas);
+
+  let orden = [];
+  let rota = [];
+  for (let i = 0; i < imagenes.length; i++) {
+    orden.push(i);
+    rota.push(90 * i);
+  }
+
+  for (let i = 0; i < imagenes.length; i++) {
+    let e = imagenes[i];
+    fichas.push(new Ficha(e, orden[i], i, rota[i]));
+  }
+
+  var tab = new Tablero(fichas, columnas, filas, width);
+  $(".table__rompecabezas").append(tab.getTablero());
+  tab.activarArrastre();
+  //tab.activarRotacion();
+  //tab.setPlaceholder();
+
+  tab.setValidacion(() => {
+    alert("Felicitaciones Ganaste");
+    RESULTADO.sumar("ingenieria", 5);
+  });
+
+  tab.setIntentoFallo((i) => {
+    console.log("Sigue intentando: " + i);
+    if (i > 5) {
+      RESULTADO.sumar("ingenieria", -1);
+      RESULTADO.sumar("diseño", 2);
+    }
+  });
+
+});
+
+</script>
 
 
 

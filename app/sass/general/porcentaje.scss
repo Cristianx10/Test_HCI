@@ -1,0 +1,33 @@
+.resultado{
+
+    &__cuadro{
+        display: flex;
+        
+    }
+
+    &__porcentaje{
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+       
+
+        & .circulo{
+            position: absolute;
+            display: block;
+        }
+    }
+
+    &__informacion{
+        display: flex;
+        flex-direction: column;
+        color: red;
+    }
+
+   
+
+
+}
+
+//Un cambio cualquiera
+

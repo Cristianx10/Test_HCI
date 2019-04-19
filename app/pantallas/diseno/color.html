@@ -1,0 +1,43 @@
+<style>
+
+.muestra {
+    width: 200px;
+    height: 200px;
+}
+
+</style>
+
+<div id="colora" class="muestra"></div>
+<div id="colorb" class="muestra"></div>
+<div id="colorc" class="muestra"></div>
+
+<script>
+
+
+
+let color_1 = $.Color("#FFFF00");
+let color_2 = $.Color("#0000FF");
+
+result_color = Color_mixer.mix(color_1,color_2);
+
+let a = document.querySelector("#colora");
+let b = document.querySelector("#colorb");
+let c = document.querySelector("#colorc");
+
+a.style.background = color_1.toHexString();
+b.style.background = color_2.toHexString();
+c.style.background = result_color.toHexString();
+
+console.log(color_1.toHexString());
+console.log(hexToRGBA(color_1.toHexString()));
+let reg = hexToRGBA(color_1.toHexString()).replace("rgba(", "").replace(")", "");
+console.log(reg);
+let sep = reg.split(",");
+let t = rgb2hsv(sep[0],sep[1],sep[2]);
+console.log(sep[0],sep[1],sep[2]);
+console.log(t);
+
+console.log(hsvToRgb(t.h, t.s, t.v));
+
+
+</script>
