@@ -44,6 +44,17 @@ var Navegable = /** @class */ (function () {
                 if (e.tiempoDefinido == false) {
                     _this.siguiente();
                 }
+                _this.siguiente();
+            });
+            e.timer.setProgreso(function (m, s) {
+                if (e == _this.elementos.elementos[_this.actual]) {
+                    if (s < 10 && s < 60 && s > -1 && m < 59) {
+                        _this.ti.innerText = "0" + m + ":0" + s;
+                    }
+                    else {
+                        _this.ti.innerText = "0" + m + ":" + s;
+                    }
+                }
             });
         });
         this.secciones = elementos.getElementosHTML();
@@ -57,7 +68,45 @@ var Navegable = /** @class */ (function () {
             }
         });
         this.actualPantalla().start();
+        this.tiempo = document.createElement('div');
+        this.tiempo.className = "nav_tiempo";
+        var c = document.createElement('div');
+        c.className = "conteo";
+        var c_ima = document.createElement('img');
+        c_ima.className = "conteo__relog";
+        c_ima.src = "../../img/relog.png";
+        this.ti = document.createElement('p');
+        this.ti.className = "conteo__p";
+        c.append(c_ima, this.ti);
+        this.tiempo.append(c);
+        this.avance = document.createElement('div');
+        this.avance.className = "nav_avance";
+        var a = document.createElement('div');
+        a.className = "avance";
+        this.av = document.createElement('p');
+        this.av.className = "avance__p";
+        this.avance.append(a);
+        a.append(this.av);
+        this.av.innerText = this.actual + 1 + "/" + this.secciones.length;
+        this.ti.innerText = "0:00";
     }
+    Navegable.prototype.getTiempoHTML = function () {
+        return this.tiempo;
+    };
+    Navegable.prototype.getAvanceHTML = function () {
+        return this.avance;
+    };
+    Navegable.prototype.colocarTiempo = function () {
+        $(".principal").append(this.tiempo);
+        this.tiempo.style.position = "absolute";
+        this.tiempo.style.top = "20px";
+        this.tiempo.style.right = "40px";
+    };
+    Navegable.prototype.colocarAvance = function () {
+        $(".principal").append(this.avance);
+        this.avance.style.position = "absolute";
+        this.avance.style.left = "0px";
+    };
     Navegable.prototype.actualObjeto = function () {
         return this.elementos.elementos[this.actual].getObjeto();
     };
@@ -85,7 +134,9 @@ var Navegable = /** @class */ (function () {
                 accion(this.actualPantalla(), this.actual);
             }
             this.actualPantalla().tiempoDefinido = true;
+            this.elementos.elementos[this.actual].timer.stop();
             this.actual++;
+            this.av.innerText = this.actual + 1 + "/" + this.secciones.length;
             this.progreso.actualizarPosicion(this.actual);
             this.mostrar(this.secciones[this.actual]);
             this.actualPantalla().start();
@@ -198,6 +249,7 @@ var ContenidoA = /** @class */ (function () {
     };
     ContenidoA.prototype.setTiempo = function (termino) {
         this.timer.termino = termino;
+        this.tiempoDefinido = true;
     };
     ContenidoA.prototype.getElementoHTML = function () {
         return this.elementoHTML;
@@ -276,6 +328,75 @@ function askConfirmation(evt) {
     evt.returnValue = msg;
     return msg;
 }
+function random(min, max) {
+    return Math.round(Math.random() * (max - min) + min);
+}
+function hsvToRgb(h, s, v) {
+    var r, g, b;
+    var i;
+    var f, p, q, t;
+    // Make sure our arguments stay in-range
+    h = Math.max(0, Math.min(360, h));
+    s = Math.max(0, Math.min(100, s));
+    v = Math.max(0, Math.min(100, v));
+    // We accept saturation and value arguments from 0 to 100 because that's
+    // how Photoshop represents those values. Internally, however, the
+    // saturation and value are calculated from a range of 0 to 1. We make
+    // That conversion here.
+    s /= 100;
+    v /= 100;
+    if (s == 0) {
+        // Achromatic (grey)
+        r = g = b = v;
+        return [
+            Math.round(r * 255),
+            Math.round(g * 255),
+            Math.round(b * 255)
+        ];
+    }
+    h /= 60; // sector 0 to 5
+    i = Math.floor(h);
+    f = h - i; // factorial part of h
+    p = v * (1 - s);
+    q = v * (1 - s * f);
+    t = v * (1 - s * (1 - f));
+    switch (i) {
+        case 0:
+            r = v;
+            g = t;
+            b = p;
+            break;
+        case 1:
+            r = q;
+            g = v;
+            b = p;
+            break;
+        case 2:
+            r = p;
+            g = v;
+            b = t;
+            break;
+        case 3:
+            r = p;
+            g = q;
+            b = v;
+            break;
+        case 4:
+            r = t;
+            g = p;
+            b = v;
+            break;
+        default: // case 5:
+            r = v;
+            g = p;
+            b = q;
+    }
+    return [
+        Math.round(r * 255),
+        Math.round(g * 255),
+        Math.round(b * 255)
+    ];
+}
 //window.addEventListener('beforeunload', askConfirmation);
 /*
 
@@ -299,15 +420,15 @@ setValidacion(validacion:Function){
 
     //Implementacion
     con_tablero.getObjectIndex(nav.actual).setValidacion(()=>{
-        
+
     });
 
     con_tablero.getObjectIndex(nav.actual).setIntentoAcierto(()=>{
-        
+
     });
 
     con_tablero.getObjectIndex(nav.actual).setIntentoFallo(()=>{
-        
+
     });
 
 

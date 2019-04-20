@@ -7,6 +7,9 @@ var Timer = /** @class */ (function () {
         this.segundos = 0;
         this.milisegundos = 0;
     }
+    Timer.prototype.setProgreso = function (progreso) {
+        this.progreso = progreso;
+    };
     Timer.prototype.start = function () {
         var _this = this;
         this.time = 0;
@@ -28,13 +31,17 @@ var Timer = /** @class */ (function () {
         this.milisegundos = 0;
         this.intervalo = setInterval(function () {
             _this.comenzarTempo();
+            if (_this.progreso != null) {
+                _this.progreso(_this.minutos, _this.segundos);
+            }
             //console.log("Hora:" + this.horas + " Minutos: " + this.minutos + " Segundos: "+ this.segundos + " Millis: " + this.milisegundos + " Total: " +this.time);
         }, 10);
     };
     Timer.prototype.stop = function () {
         clearInterval(this.intervalo);
         if (this.termino != null) {
-            this.termino();
+            //console.log(this.termino());
+            //this.termino();
         }
         //console.log("Hora:" + this.horas + " Minutos: " + this.minutos + " Segundos: "+ this.segundos + " Millis: " + this.milisegundos + " Total: " +this.time);
     };

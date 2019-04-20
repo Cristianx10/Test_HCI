@@ -12,7 +12,7 @@ var Ciudad = /** @class */ (function () {
         this.carga.installPlugin(createjs.Sound);
         this.sombra = new createjs.Shape();
         this.sombra.graphics.beginFill("black").drawRect(0, 0, this.canvas.width, this.canvas.height);
-        this.stage.addChild(this.sombra);
+        //this.stage.addChild(this.sombra);
         var linea = createjs.Tween;
         linea.get(this.sombra, { loop: true }).
             to({ alpha: 0 }, 2000, createjs.Ease.quartIn).call(function () { }).
@@ -99,29 +99,3 @@ var Civil = /** @class */ (function () {
     };
     return Civil;
 }());
-var ciudad = new Ciudad();
-ciudad.cargarImagen("../img/disparos/escenario.png", 0, 0, 0);
-ciudad.cargarImagen("../img/disparos/edificio_izq.png", 1, 0, 0);
-ciudad.cargarImagen("../img/disparos/edificio_der.png", 2, 900, 166);
-ciudad.cargarImagen("../img/disparos/edificio_der2.png", 3, 1026, 0);
-ciudad.cargarImagen("../img/disparos/edificio_cen.png", 4, 500, 0);
-var civilA = new Civil(ciudad);
-civilA.cargarPersonaje("../img/disparos/civila.png", 5, 0, 550);
-var civilB = new Civil(ciudad);
-civilB.cargarPersonaje("../img/disparos/civilb.png", 6, 353, 513);
-civilA.movi = function (l, p) {
-    var scala = 1;
-    p.scaleX = scala;
-    p.scaleY = scala;
-    return l.get(p, { loop: true })
-        .to({ x: 600, scaleX: .5, scaleY: .5 }, 3000, createjs.Ease.sineIn)
-        .to({ x: 1200, scaleX: 1, scaleY: 1 }, 3000, createjs.Ease.sineIn)
-        .to({ x: 600, scaleX: .5, scaleY: .5 }, 3000, createjs.Ease.sineIn)
-        .to({ x: 0, scaleX: 1, scaleY: 1 }, 3000, createjs.Ease.sineIn);
-};
-civilB.movi = function (l, p) {
-    return l.get(p, { loop: true }).to({ x: 919, y: 513 }, 3000, createjs.Ease.quadOut)
-        .to({ x: 353, y: 513 }, 2000, createjs.Ease.quadOut);
-};
-createjs.Ticker.addEventListener("tick", ciudad.stage);
-$('.principal').append(ciudad.canvas);

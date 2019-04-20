@@ -1,7 +1,49 @@
+
+.principal{
+  border: 0;
+}
+
+*{
+    font-family: 'Muli', sans-serif;
+}
+
+
+.titulo_resultados{
+    font-family: 'Heebo', sans-serif;
+    font-size: 48pt;
+    color: white;
+}
+
+.division_horizontal{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-content: center;
+    align-items: center;
+}
+
 .resultado{
+ 
+    //variables de color
+
+    $color-ciencias-n: #63D1B7;
+    $color-arte: #EF6BAA;
+    $color-fuerzas-publicas: #FF7373;
+    $color-educacion: #59C5D3;
+    $color-deportes: #FDF441;
+    $color-salud: #FFBF74;
+    $color-diseno: #BA76F0;
+    $color-ingenieria: #6883E4;
+
 
     &__cuadro{
         display: flex;
+        border-radius: 17px;
+        background: rgba(255, 255, 255, 0.322);
+        padding: 25px;
+        margin: 20px;
+
         
     }
 
@@ -10,22 +52,77 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        color: $color-ciencias-n;
        
 
         & .circulo{
             position: absolute;
             display: block;
+            margin-left: 20px;
+        }
+
+        & .icono{
+            margin-left: 40px;  
         }
     }
 
     &__informacion{
         display: flex;
         flex-direction: column;
-        color: red;
+        margin-left: 60px;
+        
+        
+        h2{
+            color: white;           
+            font-style: bold;
+            text-align: center;
+            
+        }
+
+        h3{
+           font-size: 200%;
+            font-style: bold;
+            color: $color-fuerzas-publicas;
+        }
+    
+
+        }
+    
+}
+       
+
+.cuadro_felicitaciones{
+width: 300px;
+color: white;
+font-size: 70%;
+text-align: center;
+
+border-radius: 5px;
+border: 1px solid white;
+padding: 25px;
+margin: 20px;
+
+.medalla_icon{
+    margin-top: 25px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .icono{
+        position: absolute;
+        display: block;
+        margin-top: 50px; 
+       
     }
+}
 
-   
-
+.cuadro_bordes_lados{
+    border-bottom: 1px solid white;
+    border-top: 1px solid white;
+    margin: 20px 0 20px 0;
+    padding: 20px 0 20px 0;
+}
 
 }
 

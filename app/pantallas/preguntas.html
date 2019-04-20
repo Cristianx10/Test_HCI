@@ -23,7 +23,7 @@
             });
 
             let obj_pregunta = new Pregunta(p.pregunta, opciones);
-            con_preguntas.push(new ContenidoA(obj_pregunta.getElement(), obj_pregunta));
+            con_preguntas.push(new ContenidoA(obj_pregunta.getElement(), obj_pregunta, 1, 5));
 
         });
 
@@ -33,6 +33,9 @@
         navegacion = new Navegable(preguntas_total);
 
         $(".principal").append(preguntas, siguiente);
+
+        navegacion.colocarAvance();
+        navegacion.colocarTiempo();
         
 
         siguiente.addEventListener('click', () => {

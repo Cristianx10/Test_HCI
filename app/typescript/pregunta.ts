@@ -97,7 +97,7 @@ class OpcionB{
 
     constructor(info: string, valor: Array<any> ) {
         this.opcion = document.createElement("div");
-        this.opcion.className = "opcion";
+        this.opcion.className = "opcionB";
         this.validado = false;
         this.valor = valor;
         this.opcion.innerHTML = info;

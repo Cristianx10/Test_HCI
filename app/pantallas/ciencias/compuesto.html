@@ -2,5 +2,57 @@
 
 <script>
 
+let tablero = new Tablero_Crelacion();
+tablero.size(800, 450);
+tablero.setStyleA(250, 440, "20px Heebo", 100, 30);
+tablero.setStyleB(450, 440, "20px Heebo", 300, 30);
+tablero.distancia(300);
+
+
+tablero.setIntentoAcierto((a,b)=>{
+    console.log("bien");
+    a.ocultar();
+    b.ocultar();
+});
+
+tablero.setIntentoFallo((a, b)=>{
+    a.reset();
+    b.reset();
+});
+
+tablero.setValidacion((a, b)=>{
+   console.log("Gano");
+});
+
+let tipos = [
+{tipo:"O2", categoria:"Oxigeno"}
+,{tipo:"CH4", categoria:"Metano"}
+,{tipo:"CO2", categoria:"Dioxido de Carbono"}
+,{tipo:"NaBr", categoria:"Bromuro de Sodio"}
+,{tipo:"NH3", categoria:"Amonico"}
+,{tipo:"NaCl", categoria:"Sal"}
+,{tipo:"KBr", categoria:"Bromuro de Potasio"}
+];
+
+let categorias = [];
+
+shuffle(tipos);
+
+for (let i = 0; i < tipos.length; i++) {
+    let e = tipos[i];
+    tablero.baseA.agregar(e.tipo, e.categoria);
+    categorias.push(e.categoria);
+}
+
+shuffle(categorias);
+
+for (let i = 0; i < categorias.length; i++) {
+    let e = categorias[i];
+    tablero.baseB.agregar(e, e);
+}
+
+
+$('.principal').append(tablero.canvas);
+
 
 </script>
