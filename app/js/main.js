@@ -276,6 +276,9 @@ function askConfirmation(evt) {
     evt.returnValue = msg;
     return msg;
 }
+function random(min, max) {
+    return Math.round(Math.random() * (max - min) + min);
+}
 //window.addEventListener('beforeunload', askConfirmation);
 /*
 
