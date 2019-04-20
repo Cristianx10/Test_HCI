@@ -44,6 +44,17 @@ var Navegable = /** @class */ (function () {
                 if (e.tiempoDefinido == false) {
                     _this.siguiente();
                 }
+                _this.siguiente();
+            });
+            e.timer.setProgreso(function (m, s) {
+                if (e == _this.elementos.elementos[_this.actual]) {
+                    if (s < 10 && s < 60 && s > -1 && m < 59) {
+                        _this.ti.innerText = "0" + m + ":0" + s;
+                    }
+                    else {
+                        _this.ti.innerText = "0" + m + ":" + s;
+                    }
+                }
             });
         });
         this.secciones = elementos.getElementosHTML();
@@ -57,7 +68,45 @@ var Navegable = /** @class */ (function () {
             }
         });
         this.actualPantalla().start();
+        this.tiempo = document.createElement('div');
+        this.tiempo.className = "nav_tiempo";
+        var c = document.createElement('div');
+        c.className = "conteo";
+        var c_ima = document.createElement('img');
+        c_ima.className = "conteo__relog";
+        c_ima.src = "../../img/relog.png";
+        this.ti = document.createElement('p');
+        this.ti.className = "conteo__p";
+        c.append(c_ima, this.ti);
+        this.tiempo.append(c);
+        this.avance = document.createElement('div');
+        this.avance.className = "nav_avance";
+        var a = document.createElement('div');
+        a.className = "avance";
+        this.av = document.createElement('p');
+        this.av.className = "avance__p";
+        this.avance.append(a);
+        a.append(this.av);
+        this.av.innerText = this.actual + 1 + "/" + this.secciones.length;
+        this.ti.innerText = "0:00";
     }
+    Navegable.prototype.getTiempoHTML = function () {
+        return this.tiempo;
+    };
+    Navegable.prototype.getAvanceHTML = function () {
+        return this.avance;
+    };
+    Navegable.prototype.colocarTiempo = function () {
+        $(".principal").append(this.tiempo);
+        this.tiempo.style.position = "absolute";
+        this.tiempo.style.top = "20px";
+        this.tiempo.style.right = "40px";
+    };
+    Navegable.prototype.colocarAvance = function () {
+        $(".principal").append(this.avance);
+        this.avance.style.position = "absolute";
+        this.avance.style.left = "0px";
+    };
     Navegable.prototype.actualObjeto = function () {
         return this.elementos.elementos[this.actual].getObjeto();
     };
@@ -85,7 +134,9 @@ var Navegable = /** @class */ (function () {
                 accion(this.actualPantalla(), this.actual);
             }
             this.actualPantalla().tiempoDefinido = true;
+            this.elementos.elementos[this.actual].timer.stop();
             this.actual++;
+            this.av.innerText = this.actual + 1 + "/" + this.secciones.length;
             this.progreso.actualizarPosicion(this.actual);
             this.mostrar(this.secciones[this.actual]);
             this.actualPantalla().start();
@@ -198,6 +249,7 @@ var ContenidoA = /** @class */ (function () {
     };
     ContenidoA.prototype.setTiempo = function (termino) {
         this.timer.termino = termino;
+        this.tiempoDefinido = true;
     };
     ContenidoA.prototype.getElementoHTML = function () {
         return this.elementoHTML;
@@ -368,15 +420,15 @@ setValidacion(validacion:Function){
 
     //Implementacion
     con_tablero.getObjectIndex(nav.actual).setValidacion(()=>{
-        
+
     });
 
     con_tablero.getObjectIndex(nav.actual).setIntentoAcierto(()=>{
-        
+
     });
 
     con_tablero.getObjectIndex(nav.actual).setIntentoFallo(()=>{
-        
+
     });
 
 

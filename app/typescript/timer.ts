@@ -6,6 +6,7 @@ class Timer {
   milisegundos: number;
   intervalo: any;
   termino?:Function;
+  progreso?:Function;
 
   constructor() {
     this.time = 0;
@@ -13,6 +14,10 @@ class Timer {
     this.minutos = 0;
     this.segundos = 0;
     this.milisegundos = 0;
+  }
+
+  setProgreso(progreso?:Function){
+    this.progreso = progreso;
   }
 
   start() {
@@ -25,6 +30,7 @@ class Timer {
 
     this.intervalo = setInterval(() => {
       this.comenzar();
+      
       //console.log("Hora:" + this.horas + " Minutos: " + this.minutos + " Segundos: "+ this.segundos + " Millis: " + this.milisegundos + " Total: " +this.time);
     }, 10);
 
@@ -42,6 +48,9 @@ class Timer {
 
     this.intervalo = setInterval(() => {
       this.comenzarTempo();
+      if(this.progreso != null){
+        this.progreso(this.minutos, this.segundos);
+      }
       //console.log("Hora:" + this.horas + " Minutos: " + this.minutos + " Segundos: "+ this.segundos + " Millis: " + this.milisegundos + " Total: " +this.time);
     }, 10);
   }
@@ -49,7 +58,8 @@ class Timer {
   stop() {
     clearInterval(this.intervalo);
     if(this.termino != null){
-      this.termino();
+      //console.log(this.termino());
+      //this.termino();
     }
     //console.log("Hora:" + this.horas + " Minutos: " + this.minutos + " Segundos: "+ this.segundos + " Millis: " + this.milisegundos + " Total: " +this.time);
   }
