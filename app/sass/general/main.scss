@@ -208,6 +208,40 @@ label{
     }
 }
 
+.cont_imgYbotones{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: 80%;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2em;
+
+    &_img{
+        border-radius: 30px;
+        flex-basis: 30%;
+        width: 20%;
+        height: 30%;
+        background-size: 100% 100%;     
+        background-repeat: no-repeat;
+        background-position: center;
+        margin-bottom: 3em;
+        box-shadow: inset 0px 3px 3px 0px rgba(207,210,204,1);
+    }
+
+    &_btns{
+        width: 60%;
+        flex-basis: 40%;
+        height: 40%;
+        display: flex;
+        justify-content: space-between;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+}
+
 .pregunta {
     color: black;
     width: 80%;
