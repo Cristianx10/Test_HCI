@@ -39,12 +39,10 @@ var Navegable = /** @class */ (function () {
         this.elementos = elementos;
         this.progreso = new Progress(elementos.elementos.length, 0);
         this.elementos.elementos.forEach(function (e) {
-            e.tiempoDefinido = true;
             e.setTiempo(function () {
-                if (e.tiempoDefinido == false) {
+                if (e.tiempoDefinido && e == _this.elementos.elementos[_this.actual]) {
                     _this.siguiente();
                 }
-                _this.siguiente();
             });
             e.timer.setProgreso(function (m, s) {
                 if (e == _this.elementos.elementos[_this.actual]) {
@@ -87,6 +85,8 @@ var Navegable = /** @class */ (function () {
         this.av.className = "avance__p";
         this.avance.append(a);
         a.append(this.av);
+        this.progress = document.createElement('div');
+        this.progress.append(this.progreso.getElemento());
         this.av.innerText = this.actual + 1 + "/" + this.secciones.length;
         this.ti.innerText = "0:00";
     }
@@ -95,6 +95,12 @@ var Navegable = /** @class */ (function () {
     };
     Navegable.prototype.getAvanceHTML = function () {
         return this.avance;
+    };
+    Navegable.prototype.colocarProgreso = function () {
+        $(".principal").append(this.progress);
+        this.progress.style.position = "absolute";
+        this.progress.style.left = "0px";
+        this.progress.style.bottom = "10px";
     };
     Navegable.prototype.colocarTiempo = function () {
         $(".principal").append(this.tiempo);
@@ -105,7 +111,8 @@ var Navegable = /** @class */ (function () {
     Navegable.prototype.colocarAvance = function () {
         $(".principal").append(this.avance);
         this.avance.style.position = "absolute";
-        this.avance.style.left = "0px";
+        this.avance.style.top = "20px";
+        this.avance.style.left = "10px";
     };
     Navegable.prototype.actualObjeto = function () {
         return this.elementos.elementos[this.actual].getObjeto();
@@ -127,14 +134,22 @@ var Navegable = /** @class */ (function () {
     Navegable.prototype.ocultar = function (seccion) {
         seccion.style.display = "none";
     };
-    Navegable.prototype.siguiente = function (accion, final) {
+    Navegable.prototype.setSiguiente = function (accion) {
+        this.inicio = accion;
+    };
+    Navegable.prototype.setFinal = function (final) {
+        this.final = final;
+    };
+    Navegable.prototype.siguiente = function () {
         this.ocultar(this.secciones[this.actual]);
         if (this.actual < this.secciones.length - 1) {
-            if (accion) {
-                accion(this.actualPantalla(), this.actual);
+            if (this.inicio != null) {
+                this.inicio(this.actualPantalla(), this.actual);
             }
             this.actualPantalla().tiempoDefinido = true;
-            //this.elementos.elementos[this.actual].timer.stop();
+            if (this.elementos.elementos[this.actual].timer.enEjecucion) {
+                this.elementos.elementos[this.actual].timer.stop();
+            }
             this.actual++;
             this.av.innerText = this.actual + 1 + "/" + this.secciones.length;
             this.progreso.actualizarPosicion(this.actual);
@@ -142,8 +157,9 @@ var Navegable = /** @class */ (function () {
             this.actualPantalla().start();
         }
         else {
-            if (final) {
-                final();
+            this.progreso.actualizarPosicion(this.actual + 1);
+            if (this.final != null) {
+                this.final();
             }
         }
     };
@@ -248,8 +264,8 @@ var ContenidoA = /** @class */ (function () {
         }
     };
     ContenidoA.prototype.setTiempo = function (termino) {
-        this.timer.termino = termino;
         this.tiempoDefinido = true;
+        this.timer.termino = termino;
     };
     ContenidoA.prototype.getElementoHTML = function () {
         return this.elementoHTML;

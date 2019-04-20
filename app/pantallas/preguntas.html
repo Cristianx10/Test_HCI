@@ -23,7 +23,7 @@
             });
 
             let obj_pregunta = new Pregunta(p.pregunta, opciones);
-            con_preguntas.push(new ContenidoA(obj_pregunta.getElement(), obj_pregunta, 1, 5));
+            con_preguntas.push(new ContenidoA(obj_pregunta.getElement(), obj_pregunta, 0, 45));
 
         });
 
@@ -36,19 +36,19 @@
 
         navegacion.colocarAvance();
         navegacion.colocarTiempo();
-        
+        navegacion.colocarProgreso();
+
+        navegacion.setSiguiente(()=>{
+            navegacion.actualObjeto().validar();
+        });
+
+        navegacion.setFinal(()=>{
+            console.log("Finalizo");
+                $(".principal").load("./pantallas/modulos/tarjetas.html");
+        });
 
         siguiente.addEventListener('click', () => {
-            
-            navegacion.siguiente(() => {
-                
-                navegacion.actualObjeto().validar();
-
-            }, () => {
-                console.log("Finalizo");
-                $(".principal").load("./pantallas/modulos/tarjetas.html");
-            });
-
+            navegacion.siguiente();
         });
     });
 

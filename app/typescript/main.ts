@@ -51,6 +51,9 @@ class Navegable {
     progreso: Progress;
     tiempo: HTMLElement;
     avance: HTMLElement;
+    progress:HTMLElement;
+    inicio?:Function;
+    final?:Function;
     private ti: HTMLElement;
     private av: HTMLElement;
 
@@ -59,13 +62,13 @@ class Navegable {
         this.progreso = new Progress(elementos.elementos.length, 0);
 
         this.elementos.elementos.forEach(e => {
-            e.tiempoDefinido = true;
             
             e.setTiempo(() => {
-                if (e.tiempoDefinido == false) {
+                if (e.tiempoDefinido && e ==  this.elementos.elementos[this.actual]) {
                     this.siguiente();
+
                 }
-                this.siguiente();
+               
             });
 
             e.timer.setProgreso((m: number, s: number) => {
@@ -118,6 +121,9 @@ class Navegable {
         this.avance.append(a);
         a.append(this.av);
 
+        this.progress = document.createElement('div');
+        this.progress.append(this.progreso.getElemento());
+
         this.av.innerText = this.actual + 1 + "/" + this.secciones.length;
         this.ti.innerText = "0:00";
     }
@@ -130,21 +136,24 @@ class Navegable {
         return this.avance;
     }
 
+    colocarProgreso(){
+        $(".principal").append(this.progress);
+        this.progress.style.position = "absolute";
+        this.progress.style.left = "0px";
+        this.progress.style.bottom = "10px";
+    }
+
     colocarTiempo() {
         $(".principal").append(this.tiempo);
         this.tiempo.style.position = "absolute";
         this.tiempo.style.top = "20px";
         this.tiempo.style.right = "40px";
-
-
     }
-
     colocarAvance() {
-
         $(".principal").append(this.avance);
         this.avance.style.position = "absolute";
-        this.avance.style.left = "0px";
-
+        this.avance.style.top = "20px";
+        this.avance.style.left = "10px";
     }
 
     actualObjeto(): any {
@@ -173,14 +182,27 @@ class Navegable {
         seccion.style.display = "none";
     }
 
-    siguiente(accion?: Function, final?: Function): void {
+    setSiguiente(accion?: Function){
+        this.inicio = accion;
+   
+    }
+
+    setFinal(final?: Function){
+        this.final = final;
+    }
+
+    siguiente(): void {
+    
         this.ocultar(this.secciones[this.actual]);
         if (this.actual < this.secciones.length - 1) {
-            if (accion) {
-                accion(this.actualPantalla(), this.actual);
+            if (this.inicio != null) {
+                this.inicio(this.actualPantalla(), this.actual);
             }
             this.actualPantalla().tiempoDefinido = true;
-            //this.elementos.elementos[this.actual].timer.stop();
+
+            if(this.elementos.elementos[this.actual].timer.enEjecucion){
+                this.elementos.elementos[this.actual].timer.stop();
+            }
           
             this.actual++;
             this.av.innerText = this.actual + 1 + "/" + this.secciones.length;
@@ -188,8 +210,9 @@ class Navegable {
             this.mostrar(this.secciones[this.actual]);
             this.actualPantalla().start();
         } else {
-            if (final) {
-                final();
+            this.progreso.actualizarPosicion(this.actual+1);
+            if (this.final != null) {
+                this.final();
             }
         }
     }
@@ -331,8 +354,9 @@ class ContenidoA {
 
 
     setTiempo(termino: Function) {
-        this.timer.termino = termino;
         this.tiempoDefinido = true;
+        this.timer.termino = termino;
+       
     }
 
     getElementoHTML() {
@@ -447,7 +471,7 @@ function random(min: number, max: number) {
     return Math.round(Math.random() * (max - min) + min);
 }
 
-function hsvToRgb(h, s, v) {
+function hsvToRgb(h:any, s:any, v:any) {
     var r, g, b;
     var i;
     var f, p, q, t;
