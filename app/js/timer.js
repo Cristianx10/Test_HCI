@@ -41,7 +41,7 @@ var Timer = /** @class */ (function () {
         clearInterval(this.intervalo);
         if (this.termino != null) {
             //console.log(this.termino());
-            //this.termino();
+            this.termino();
         }
         //console.log("Hora:" + this.horas + " Minutos: " + this.minutos + " Segundos: "+ this.segundos + " Millis: " + this.milisegundos + " Total: " +this.time);
     };

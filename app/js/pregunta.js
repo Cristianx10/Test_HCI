@@ -66,7 +66,7 @@ var OpcionB = /** @class */ (function () {
     function OpcionB(info, valor) {
         var _this = this;
         this.opcion = document.createElement("div");
-        this.opcion.className = "opcionB";
+        this.opcion.className = "opcion";
         this.validado = false;
         this.valor = valor;
         this.opcion.innerHTML = info;

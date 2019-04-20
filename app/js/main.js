@@ -134,7 +134,7 @@ var Navegable = /** @class */ (function () {
                 accion(this.actualPantalla(), this.actual);
             }
             this.actualPantalla().tiempoDefinido = true;
-            this.elementos.elementos[this.actual].timer.stop();
+            //this.elementos.elementos[this.actual].timer.stop();
             this.actual++;
             this.av.innerText = this.actual + 1 + "/" + this.secciones.length;
             this.progreso.actualizarPosicion(this.actual);
