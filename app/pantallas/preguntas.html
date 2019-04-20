@@ -40,8 +40,10 @@
 
         navegacion.setSiguiente(()=>{
             navegacion.actualObjeto().validar();
+            $(".btn_siguiente").removeClass("activo").addClass( "desactivar" );
         });
 
+      
         navegacion.setFinal(()=>{
             console.log("Finalizo");
                 $(".principal").load("./pantallas/modulos/tarjetas.html");
@@ -50,6 +52,16 @@
         siguiente.addEventListener('click', () => {
             navegacion.siguiente();
         });
+
+        $(".opcion_check").click(()=>{
+            navegacion.setPermitir(true);
+            
+            $(".btn_siguiente").removeClass("desactivar").addClass("activo");
+        });
+
     });
 
+
+
 </script>
+

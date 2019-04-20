@@ -51,35 +51,38 @@ class Navegable {
     progreso: Progress;
     tiempo: HTMLElement;
     avance: HTMLElement;
-    progress:HTMLElement;
-    inicio?:Function;
-    final?:Function;
+    progress: HTMLElement;
+    inicio?: Function;
+    final?: Function;
     private ti: HTMLElement;
     private av: HTMLElement;
+    permitir = false;
+    permitirAll = false;
 
     constructor(elementos: Contenedor) {
         this.elementos = elementos;
         this.progreso = new Progress(elementos.elementos.length, 0);
 
         this.elementos.elementos.forEach(e => {
-            
-            e.setTiempo(() => {
-                if (e.tiempoDefinido && e ==  this.elementos.elementos[this.actual]) {
-                    this.siguiente();
 
+            e.setTiempo(() => {
+                if (e.tiempoDefinido && e == this.elementos.elementos[this.actual]) {
+                    this.permitir = true;
+                    this.siguiente();
+                    this.permitir = false;
                 }
-               
+
             });
 
             e.timer.setProgreso((m: number, s: number) => {
-                if(e ==  this.elementos.elementos[this.actual]){
-                    if (s < 10 && s < 60 && s> -1 && m < 59) {
+                if (e == this.elementos.elementos[this.actual]) {
+                    if (s < 10 && s < 60 && s > -1 && m < 59) {
                         this.ti.innerText = "0" + m + ":0" + s;
                     } else {
                         this.ti.innerText = "0" + m + ":" + s;
                     }
                 }
-                
+
             });
         });
 
@@ -136,7 +139,7 @@ class Navegable {
         return this.avance;
     }
 
-    colocarProgreso(){
+    colocarProgreso() {
         $(".principal").append(this.progress);
         this.progress.style.position = "absolute";
         this.progress.style.left = "0px";
@@ -182,39 +185,48 @@ class Navegable {
         seccion.style.display = "none";
     }
 
-    setSiguiente(accion?: Function){
+    setSiguiente(accion?: Function) {
         this.inicio = accion;
-   
+
     }
 
-    setFinal(final?: Function){
+    setFinal(final?: Function) {
         this.final = final;
     }
 
-    siguiente(): void {
-    
-        this.ocultar(this.secciones[this.actual]);
-        if (this.actual < this.secciones.length - 1) {
-            if (this.inicio != null) {
-                this.inicio(this.actualPantalla(), this.actual);
-            }
-            this.actualPantalla().tiempoDefinido = true;
+    setPermitir(permiso:boolean){
+        this.permitir = permiso;
+    }
+    setPermitirAll(permiso:boolean){
+        this.permitirAll = permiso;
+    }
 
-            if(this.elementos.elementos[this.actual].timer.enEjecucion){
-                this.elementos.elementos[this.actual].timer.stop();
-            }
-          
-            this.actual++;
-            this.av.innerText = this.actual + 1 + "/" + this.secciones.length;
-            this.progreso.actualizarPosicion(this.actual);
-            this.mostrar(this.secciones[this.actual]);
-            this.actualPantalla().start();
-        } else {
-            this.progreso.actualizarPosicion(this.actual+1);
-            if (this.final != null) {
-                this.final();
+    siguiente(): void {
+        if (this.permitir || this.permitirAll) {
+            this.ocultar(this.secciones[this.actual]);
+            if (this.actual < this.secciones.length - 1) {
+                if (this.inicio != null) {
+                    this.inicio(this.actualPantalla(), this.actual);
+                }
+                this.actualPantalla().tiempoDefinido = true;
+
+                if (this.elementos.elementos[this.actual].timer.enEjecucion) {
+                    this.elementos.elementos[this.actual].timer.stop();
+                }
+
+                this.actual++;
+                this.av.innerText = this.actual + 1 + "/" + this.secciones.length;
+                this.progreso.actualizarPosicion(this.actual);
+                this.mostrar(this.secciones[this.actual]);
+                this.actualPantalla().start();
+            } else {
+                this.progreso.actualizarPosicion(this.actual + 1);
+                if (this.final != null) {
+                    this.final();
+                }
             }
         }
+        this.permitir = false;
     }
 }
 
@@ -356,7 +368,7 @@ class ContenidoA {
     setTiempo(termino: Function) {
         this.tiempoDefinido = true;
         this.timer.termino = termino;
-       
+
     }
 
     getElementoHTML() {
@@ -471,7 +483,7 @@ function random(min: number, max: number) {
     return Math.round(Math.random() * (max - min) + min);
 }
 
-function hsvToRgb(h:any, s:any, v:any) {
+function hsvToRgb(h: any, s: any, v: any) {
     var r, g, b;
     var i;
     var f, p, q, t;
@@ -586,4 +598,20 @@ setValidacion(validacion:Function){
 
 
 
+*/
+
+
+/*
+  let e = ()=>{
+            console.log("Finalizo");
+    };
+        createjs.Ticker.addEventListener("tick", e);
+        createjs.Ticker.removeEventListener("tick", e);
+
+
+        $( "p" ).addClass( "myClass yourClass" );
+This method is often used with .removeClass() to switch elements' classes from one to another, like so:
+
+1
+$( "p" ).removeClass( "myClass noClass" ).addClass( "yourClass" );
 */
