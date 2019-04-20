@@ -243,7 +243,6 @@ var LineaCurva = /** @class */ (function () {
         this.final = { x: 0, y: 0 };
         this.dibujando = false;
         this.color = { r: random(50, 200), g: random(50, 200), b: random(50, 200) };
-        console.log(this.color.r, this.color.g, this.color.b);
     }
     LineaCurva.prototype.iniciar = function (x, y) {
         this.inicial.x = x;

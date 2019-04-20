@@ -60,8 +60,8 @@ var Tablero_lienzo = /** @class */ (function () {
                 _this.dibujo.graphics.beginFill("#AFACA4").drawCircle(x, y, 3);
                 _this.history.push({ x: x, y: y });
                 _this.stage.update();
-                var e = obtenerMenorDistancia({ x: x, y: y }, _this.matrix);
-                var d = distancia(e[0], e[1], { x: x, y: y });
+                var e_1 = obtenerMenorDistancia({ x: x, y: y }, _this.matrix);
+                var d = distancia(e_1[0], e_1[1], { x: x, y: y });
                 _this.valores += d;
             }
         });

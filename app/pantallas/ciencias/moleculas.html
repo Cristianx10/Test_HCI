@@ -1,0 +1,64 @@
+<script src="../../js/moleculas.js"></script>
+
+<script>
+
+    let tab = new Tablero_moleculas();
+    tab.size(1280, 700);
+    
+    tab.agregar("Na", 1, ["Cl", "Br"]);
+    tab.agregar("Na", 1, ["Cl", "Br"]);
+    tab.agregar("Na", 1, ["Cl", "Br"]);
+    
+    tab.agregar("Cl", 1, ["Na", "H"]);
+    tab.agregar("Cl", 1, ["Na", "H"]);
+    tab.agregar("Cl", 1, ["Na", "H"]);
+    tab.agregar("Cl", 1, ["Na", "H"]);
+    
+    tab.agregar("H", 2, ["C", "O"]);
+    tab.agregar("H", 2, ["C", "O"]);
+    tab.agregar("H", 2, ["C", "O"]);
+    tab.agregar("H", 2, ["C", "O"]);
+    
+    tab.agregar("C", 3, ["H", "O"]);
+    tab.agregar("C", 3, ["H", "O"]);
+    tab.agregar("C", 3, ["H", "O"]);
+    
+    tab.agregar("K", 1, ["Br"]);
+    tab.agregar("K", 1, ["Br"]);
+    tab.agregar("K", 1, ["Br"]);
+    
+    tab.agregar("Br", 1, ["Kr"]);
+    tab.agregar("Br", 1, ["Kr"]);
+    tab.agregar("Br", 1, ["Kr"]);
+    
+    tab.agregar("O", 1, ["H", "C"]);
+    tab.agregar("O", 1, ["H", "C"]);
+    tab.agregar("O", 1, ["H", "C"]);
+    
+    
+    
+    tab.setValida((r) => {
+    
+        console.log(r);
+       if (tab.equals(r, "Cl,Na")) {
+            console.log("Cloruro de sodio");
+        }else if (tab.equals(r, "C,H,H,H")) {
+            console.log("Metil");
+        }else if (tab.equals(r, "H,O,O")) {
+            console.log("Agua");
+        }else if (tab.equals(r, "H,Cl")) {
+            console.log("Cloruro de Hidrogeno");
+        }else if (tab.equals(r, "Na,Br")) {
+            console.log("Bromuro de Sodio");
+        }else if (tab.equals(r, "K,Br")) {
+            console.log("Bromuro de Potacio");
+        }else if (tab.equals(r, "C,O,O")) {
+            console.log("Dioxido de Carbono");
+        }else{
+            console.log("Nada");
+        }
+    
+    });
+    
+    $('.principal').append(tab.canvas);
+</script>
