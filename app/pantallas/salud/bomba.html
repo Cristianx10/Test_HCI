@@ -1,0 +1,40 @@
+<style>
+    .bomba__instruccion {
+        position: absolute;
+        bottom: 100px;
+        font-size: 3em;
+        font-weight: bold;
+    }
+</style>
+<div class="bomba__instruccion"></div>
+
+<script src="../../js/bomba.js"></script>
+
+<script>
+
+    let bomba = new Bomba();
+    $(".principal").append(bomba.canvas);
+
+    bomba.agregarCable("Azul", "red", "blue");
+    bomba.agregarCable("Verde", "orange", "green");
+    bomba.agregarCable("Naranja", "blue", "orange");
+    bomba.agregarCable("Amarrillo", "green", "yellow");
+    bomba.agregarCable("Rojo", "yellow", "red");
+
+    bomba.mesclar();
+
+    bomba.setValidacion(()=>{
+        console.log("ganaste")
+    });
+
+    bomba.setIntentoAcierto(()=>{
+        console.log("bien")
+    });
+
+    bomba.setIntentoFallo(()=>{
+        console.log("perdio")
+    });
+
+
+
+</script>
