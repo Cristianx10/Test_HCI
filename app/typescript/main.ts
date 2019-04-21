@@ -59,19 +59,17 @@ class Navegable {
     permitir = false;
     permitirAll = false;
 
-    constructor(elementos: Contenedor) {
+    constructor(elementos: Contenedor, comenzar?:boolean) {
         this.elementos = elementos;
         this.progreso = new Progress(elementos.elementos.length, 0);
 
         this.elementos.elementos.forEach(e => {
-
             e.setTiempo(() => {
                 if (e.tiempoDefinido && e == this.elementos.elementos[this.actual]) {
                     this.permitir = true;
                     this.siguiente();
                     this.permitir = false;
                 }
-
             });
 
             e.timer.setProgreso((m: number, s: number) => {
@@ -82,7 +80,6 @@ class Navegable {
                         this.ti.innerText = "0" + m + ":" + s;
                     }
                 }
-
             });
         });
 
@@ -96,7 +93,10 @@ class Navegable {
             }
         });
 
-        this.actualPantalla().start();
+        if(comenzar != null && comenzar){
+            this.actualPantalla().start();
+        }
+        
 
         this.tiempo = document.createElement('div');
         this.tiempo.className = "nav_tiempo"
@@ -139,9 +139,22 @@ class Navegable {
         return this.avance;
     }
 
+    ocultarProgreso(){
+        this.progress.style.display = "none";
+    }
+
+    ocultarTiempo(){
+        this.tiempo.style.display = "none";
+    }
+
+    ocultarAvance(){
+        this.avance.style.display = "none";
+    }
+
     colocarProgreso() {
         $(".principal").append(this.progress);
         this.progress.style.position = "absolute";
+        this.progress.style.display = "block";
         this.progress.style.left = "0px";
         this.progress.style.bottom = "10px";
     }
@@ -152,11 +165,16 @@ class Navegable {
         this.tiempo.style.top = "20px";
         this.tiempo.style.right = "40px";
     }
+
     colocarAvance() {
         $(".principal").append(this.avance);
         this.avance.style.position = "absolute";
         this.avance.style.top = "20px";
         this.avance.style.left = "10px";
+    }
+
+    comenzar(){
+        this.actualPantalla().start();
     }
 
     actualObjeto(): any {

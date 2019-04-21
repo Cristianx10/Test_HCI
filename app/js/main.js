@@ -34,7 +34,7 @@ var Resultados = /** @class */ (function () {
 }());
 var RESULTADO = new Resultados();
 var Navegable = /** @class */ (function () {
-    function Navegable(elementos) {
+    function Navegable(elementos, comenzar) {
         var _this = this;
         this.permitir = false;
         this.permitirAll = false;
@@ -69,7 +69,9 @@ var Navegable = /** @class */ (function () {
                 s.style.display = "none";
             }
         });
-        this.actualPantalla().start();
+        if (comenzar != null && comenzar) {
+            this.actualPantalla().start();
+        }
         this.tiempo = document.createElement('div');
         this.tiempo.className = "nav_tiempo";
         var c = document.createElement('div');
@@ -100,9 +102,19 @@ var Navegable = /** @class */ (function () {
     Navegable.prototype.getAvanceHTML = function () {
         return this.avance;
     };
+    Navegable.prototype.ocultarProgreso = function () {
+        this.progress.style.display = "none";
+    };
+    Navegable.prototype.ocultarTiempo = function () {
+        this.tiempo.style.display = "none";
+    };
+    Navegable.prototype.ocultarAvance = function () {
+        this.avance.style.display = "none";
+    };
     Navegable.prototype.colocarProgreso = function () {
         $(".principal").append(this.progress);
         this.progress.style.position = "absolute";
+        this.progress.style.display = "block";
         this.progress.style.left = "0px";
         this.progress.style.bottom = "10px";
     };
@@ -117,6 +129,9 @@ var Navegable = /** @class */ (function () {
         this.avance.style.position = "absolute";
         this.avance.style.top = "20px";
         this.avance.style.left = "10px";
+    };
+    Navegable.prototype.comenzar = function () {
+        this.actualPantalla().start();
     };
     Navegable.prototype.actualObjeto = function () {
         return this.elementos.elementos[this.actual].getObjeto();
