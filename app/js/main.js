@@ -12,39 +12,20 @@ function degrees(radians) {
 function shuffle(array) {
     array.sort(function () { return Math.random() - 0.5; });
 }
-var Resultados = /** @class */ (function () {
-    function Resultados() {
-        this.categorias = {};
-        this.pruebas = [];
-        localStorage.clear();
-        if (this.categorias == null) {
-            this.categorias = {};
-        }
-    }
-    Resultados.prototype.resultados = function (pru) {
-        this.pruebas.push(pru);
-    };
-    Resultados.prototype.sumar = function (nombre, valor) {
-        if (this.categorias[nombre] == null) {
-            this.categorias[nombre] = 0;
-        }
-        this.categorias[nombre] += valor;
-    };
-    return Resultados;
-}());
-var RESULTADO = new Resultados();
 var Navegable = /** @class */ (function () {
-    function Navegable(elementos) {
+    function Navegable(elementos, comenzar) {
         var _this = this;
+        this.permitir = false;
+        this.permitirAll = false;
         this.elementos = elementos;
         this.progreso = new Progress(elementos.elementos.length, 0);
         this.elementos.elementos.forEach(function (e) {
-            e.tiempoDefinido = true;
             e.setTiempo(function () {
-                if (e.tiempoDefinido == false) {
+                if (e.tiempoDefinido && e == _this.elementos.elementos[_this.actual]) {
+                    _this.permitir = true;
                     _this.siguiente();
+                    _this.permitir = false;
                 }
-                _this.siguiente();
             });
             e.timer.setProgreso(function (m, s) {
                 if (e == _this.elementos.elementos[_this.actual]) {
@@ -67,7 +48,9 @@ var Navegable = /** @class */ (function () {
                 s.style.display = "none";
             }
         });
-        this.actualPantalla().start();
+        if (comenzar != null && comenzar) {
+            this.actualPantalla().start();
+        }
         this.tiempo = document.createElement('div');
         this.tiempo.className = "nav_tiempo";
         var c = document.createElement('div');
@@ -87,6 +70,8 @@ var Navegable = /** @class */ (function () {
         this.av.className = "avance__p";
         this.avance.append(a);
         a.append(this.av);
+        this.progress = document.createElement('div');
+        this.progress.append(this.progreso.getElemento());
         this.av.innerText = this.actual + 1 + "/" + this.secciones.length;
         this.ti.innerText = "0:00";
     }
@@ -95,6 +80,22 @@ var Navegable = /** @class */ (function () {
     };
     Navegable.prototype.getAvanceHTML = function () {
         return this.avance;
+    };
+    Navegable.prototype.ocultarProgreso = function () {
+        this.progress.style.display = "none";
+    };
+    Navegable.prototype.ocultarTiempo = function () {
+        this.tiempo.style.display = "none";
+    };
+    Navegable.prototype.ocultarAvance = function () {
+        this.avance.style.display = "none";
+    };
+    Navegable.prototype.colocarProgreso = function () {
+        $(".principal").append(this.progress);
+        this.progress.style.position = "absolute";
+        this.progress.style.display = "block";
+        this.progress.style.left = "0px";
+        this.progress.style.bottom = "10px";
     };
     Navegable.prototype.colocarTiempo = function () {
         $(".principal").append(this.tiempo);
@@ -105,7 +106,11 @@ var Navegable = /** @class */ (function () {
     Navegable.prototype.colocarAvance = function () {
         $(".principal").append(this.avance);
         this.avance.style.position = "absolute";
-        this.avance.style.left = "0px";
+        this.avance.style.top = "20px";
+        this.avance.style.left = "10px";
+    };
+    Navegable.prototype.comenzar = function () {
+        this.actualPantalla().start();
     };
     Navegable.prototype.actualObjeto = function () {
         return this.elementos.elementos[this.actual].getObjeto();
@@ -127,25 +132,43 @@ var Navegable = /** @class */ (function () {
     Navegable.prototype.ocultar = function (seccion) {
         seccion.style.display = "none";
     };
-    Navegable.prototype.siguiente = function (accion, final) {
-        this.ocultar(this.secciones[this.actual]);
-        if (this.actual < this.secciones.length - 1) {
-            if (accion) {
-                accion(this.actualPantalla(), this.actual);
+    Navegable.prototype.setSiguiente = function (accion) {
+        this.inicio = accion;
+    };
+    Navegable.prototype.setFinal = function (final) {
+        this.final = final;
+    };
+    Navegable.prototype.setPermitir = function (permiso) {
+        this.permitir = permiso;
+    };
+    Navegable.prototype.setPermitirAll = function (permiso) {
+        this.permitirAll = permiso;
+    };
+    Navegable.prototype.siguiente = function () {
+        if (this.permitir || this.permitirAll) {
+            this.ocultar(this.secciones[this.actual]);
+            if (this.actual < this.secciones.length - 1) {
+                if (this.inicio != null) {
+                    this.inicio(this.actualPantalla(), this.actual);
+                }
+                this.actualPantalla().tiempoDefinido = true;
+                if (this.elementos.elementos[this.actual].timer.enEjecucion) {
+                    this.elementos.elementos[this.actual].timer.stop();
+                }
+                this.actual++;
+                this.av.innerText = this.actual + 1 + "/" + this.secciones.length;
+                this.progreso.actualizarPosicion(this.actual);
+                this.mostrar(this.secciones[this.actual]);
+                this.actualPantalla().start();
             }
-            this.actualPantalla().tiempoDefinido = true;
-            //this.elementos.elementos[this.actual].timer.stop();
-            this.actual++;
-            this.av.innerText = this.actual + 1 + "/" + this.secciones.length;
-            this.progreso.actualizarPosicion(this.actual);
-            this.mostrar(this.secciones[this.actual]);
-            this.actualPantalla().start();
-        }
-        else {
-            if (final) {
-                final();
+            else {
+                this.progreso.actualizarPosicion(this.actual + 1);
+                if (this.final != null) {
+                    this.final();
+                }
             }
         }
+        this.permitir = false;
     };
     return Navegable;
 }());
@@ -173,7 +196,7 @@ var Progress = /** @class */ (function () {
         var actual = maximo * ini / this.total;
         this.indice.style.left = actual + "px";
         this.progress.value = ini;
-        this.indice.innerText = ini + "";
+        this.indice.innerText = ini + 1 + "";
         this.actual = ini;
     };
     Progress.prototype.getElemento = function () {
@@ -248,8 +271,8 @@ var ContenidoA = /** @class */ (function () {
         }
     };
     ContenidoA.prototype.setTiempo = function (termino) {
-        this.timer.termino = termino;
         this.tiempoDefinido = true;
+        this.timer.termino = termino;
     };
     ContenidoA.prototype.getElementoHTML = function () {
         return this.elementoHTML;
@@ -434,3 +457,18 @@ setValidacion(validacion:Function){
 
 
 */
+/*
+  let e = ()=>{
+            console.log("Finalizo");
+    };
+        createjs.Ticker.addEventListener("tick", e);
+        createjs.Ticker.removeEventListener("tick", e);
+
+
+        $( "p" ).addClass( "myClass yourClass" );
+This method is often used with .removeClass() to switch elements' classes from one to another, like so:
+
+1
+$( "p" ).removeClass( "myClass noClass" ).addClass( "yourClass" );
+*/
+var resultados = new Resultados("resultados");

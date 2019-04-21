@@ -1,0 +1,77 @@
+{
+    "secuencias": [
+        {
+            "recursos": [
+                {
+                    "src": "../../img/ciencias/elementos/calcio.png",
+                    "tiempo": 5
+                },
+                {
+                    "src": "../../img/ciencias/elementos/sodio.png",
+                    "tiempo": 5
+                },
+                {
+                    "src": "../../img/ciencias/elementos/potasio.png",
+                    "tiempo": 5
+                }
+            ]
+        },
+        {
+            "recursos": [
+                {
+                    "src": "../../img/ciencias/elementos/calcio.png",
+                    "tiempo": 3
+                },
+                {
+                    "src": "../../img/ciencias/elementos/sodio.png",
+                    "tiempo": 3
+                },
+                {
+                    "src": "../../img/ciencias/elementos/potasio.png",
+                    "tiempo": 3
+                },
+                {
+                    "src": "../../img/ciencias/elementos/carbon.png",
+                    "tiempo": 4
+                },
+                {
+                    "src": "../../img/ciencias/elementos/oro.png",
+                    "tiempo": 4
+                }
+            ]
+        },
+        {
+            "recursos": [
+                {
+                    "src": "../../img/ciencias/elementos/calcio.png",
+                    "tiempo": 2
+                },
+                {
+                    "src": "../../img/ciencias/elementos/sodio.png",
+                    "tiempo": 2
+                },
+                {
+                    "src": "../../img/ciencias/elementos/potasio.png",
+                    "tiempo": 2
+                },
+                {
+                    "src": "../../img/ciencias/elementos/carbon.png",
+                    "tiempo": 3
+                },
+                {
+                    "src": "../../img/ciencias/elementos/oro.png",
+                    "tiempo": 3
+                },
+                {
+                    "src": "../../img/ciencias/elementos/fosforo.png",
+                    "tiempo": 3
+                },
+                {
+                    "src": "../../img/ciencias/elementos/radio.png",
+                    "tiempo": 3
+                }
+
+            ]
+        }
+    ]
+}

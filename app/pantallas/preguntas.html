@@ -9,6 +9,8 @@
 
     let preguntas_total;
     preguntas.className = "preguntas";
+    
+    
     loadJson("../data/preguntas.1.json", (r) => {
 
         let con_preguntas = [];
@@ -23,33 +25,48 @@
             });
 
             let obj_pregunta = new Pregunta(p.pregunta, opciones);
-            con_preguntas.push(new ContenidoA(obj_pregunta.getElement(), obj_pregunta, 1, 5));
-
+            con_preguntas.push(new ContenidoA(obj_pregunta.getElement(), obj_pregunta, 0, 45));
         });
 
         preguntas_total = new Contenedor(con_preguntas);
         preguntas_total.foreachElementos(preguntas);
 
-        navegacion = new Navegable(preguntas_total);
+        navegacion = new Navegable(preguntas_total, true);
 
         $(".principal").append(preguntas, siguiente);
 
         navegacion.colocarAvance();
         navegacion.colocarTiempo();
-        
+        navegacion.colocarProgreso();
 
-        siguiente.addEventListener('click', () => {
+        navegacion.setSiguiente(()=>{
+
+            navegacion.actualObjeto().validar();
+            $(".btn_siguiente").removeClass("activo").addClass( "desactivar" );
             
-            navegacion.siguiente(() => {
-                
-                navegacion.actualObjeto().validar();
-
-            }, () => {
-                console.log("Finalizo");
-                $(".principal").load("./pantallas/modulos/tarjetas.html");
-            });
-
         });
+
+      
+        navegacion.setFinal(()=>{
+            console.log("Finalizo");
+            preguntas_total = null;
+                $(".principal").load("./pantallas/modulos/tarjetas.html");
+        });
+    
+        siguiente.addEventListener('click', () => {
+            navegacion.siguiente();
+       
+        });
+
+        $(".opcion_check").click(()=>{
+            navegacion.setPermitir(true);
+            
+            $(".btn_siguiente").removeClass("desactivar").addClass("activo");
+        });
+
     });
 
+
+
 </script>
+

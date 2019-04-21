@@ -1,142 +1,199 @@
-"use strict";
-var Opcion = /** @class */ (function () {
-    function Opcion(info, valor) {
+class Opcion {
+    opcion: HTMLElement;
+    //categorias:Array<>;
+    valor: Array<any>;
+    check: any;
+    contenido:HTMLElement;
+
+    constructor(info: string, valor: Array<any> ) {
         this.opcion = document.createElement("label");
         this.check = document.createElement("input");
         this.contenido = document.createElement("span");
+        
         this.opcion.className = "opcion_check";
         this.contenido.className = "opcion";
         this.check.className = "marcador";
         this.check.type = "radio";
         this.check.name = "opcion";
         this.check.checked = false;
+
         this.opcion.append(this.check);
         this.opcion.append(this.contenido);
         this.opcion.append(info);
         this.valor = valor;
     }
-    Opcion.prototype.validacion = function () {
-        this.valor.forEach(function (v) {
+
+    validacion() {
+
+        this.valor.forEach(v => {
             resultados.sumar(v.area, v.valor);
         });
-    };
-    Opcion.prototype.getElement = function () {
+    }
+
+    getElement() {
         return this.opcion;
-    };
-    return Opcion;
-}());
-var Pregunta = /** @class */ (function () {
-    function Pregunta(pregunta, opciones) {
+    }
+}
+
+class Pregunta {
+
+    elemento: HTMLElement;
+    pregunta: string;
+    opciones: Array<Opcion>;
+
+    constructor(pregunta: string, opciones: Array<Opcion>) {
         this.pregunta = pregunta;
         this.opciones = opciones;
         this.elemento = document.createElement('div');
         this.elemento.className = "pregunta";
-        var div_seccionA = document.createElement('section');
-        var div_seccionA_h1 = document.createElement('h2');
-        var div_seccionB = document.createElement('section');
-        var formulario = document.createElement('form');
+
+        let div_seccionA = document.createElement('section');
+        let div_seccionA_h1 = document.createElement('h2');
+        let div_seccionB = document.createElement('section');
+        let formulario = document.createElement('form');
         formulario.className = "formulario_opciones";
+
         div_seccionA.className = "pregunta__titulo";
         div_seccionB.className = "pregunta__opciones";
+
         div_seccionA_h1.innerHTML = this.pregunta;
+
         this.elemento.appendChild(div_seccionA);
         this.elemento.appendChild(div_seccionB);
+
         div_seccionA.appendChild(div_seccionA_h1);
         div_seccionA.appendChild(document.createElement('hr'));
-        opciones.forEach(function (element) {
+
+
+        opciones.forEach(element => {
+   
             formulario.appendChild(element.getElement());
         });
+
         div_seccionB.appendChild(formulario);
     }
-    Pregunta.prototype.validar = function () {
-        var _this = this;
-        this.opciones.forEach(function (opcion) {
+
+    validar() {
+
+        this.opciones.forEach((opcion: any) => {
             if (opcion.check.checked) {
                 opcion.validacion();
-                resultados.agregar("pregunta", [{ id: "pregunta", valor: _this.elemento.innerText },
-                    { id: "respuesta", valor: opcion.opcion.innerText }]);
+                resultados.agregar("pregunta",
+                [{id:"pregunta", valor:this.elemento.innerText},
+                {id:"respuesta", valor:opcion.opcion.innerText}]);
             }
         });
-    };
-    Pregunta.prototype.getElement = function () {
+    }
+    
+   
+    getElement() {
         return this.elemento;
-    };
-    return Pregunta;
-}());
-var OpcionB = /** @class */ (function () {
-    function OpcionB(info, valor) {
-        var _this = this;
+    }
+}
+
+class OpcionB{
+    opcion: HTMLElement;
+    valor: Array<any>;
+    validado: boolean;
+    pregunta?:PreguntaB;
+
+    constructor(info: string, valor: Array<any> ) {
         this.opcion = document.createElement("div");
         this.opcion.className = "opcionB";
         this.validado = false;
         this.valor = valor;
         this.opcion.innerHTML = info;
-        this.opcion.addEventListener('click', function () {
-            if (_this.pregunta != null) {
-                _this.pregunta.reset();
-                _this.validado = true;
-                _this.opcion.classList.add("opcion__select");
-                if (_this.pregunta.validacion != null) {
-                    _this.pregunta.validacion();
+
+        this.opcion.addEventListener('click', ()=>{
+            if(this.pregunta != null){
+                this.pregunta.reset();
+                this.validado = true;
+                this.opcion.classList.add("opcion__select");
+                if(this.pregunta.validacion != null){
+                    this.pregunta.validacion();
                 }
             }
         });
     }
-    OpcionB.prototype.validacion = function () {
-        this.valor.forEach(function (v) {
+
+    validacion() {
+        this.valor.forEach(v => {
             resultados.sumar(v.area, v.valor);
         });
-    };
-    OpcionB.prototype.getElement = function () {
+    }
+
+    getElement() {
         return this.opcion;
-    };
-    return OpcionB;
-}());
-var PreguntaB = /** @class */ (function () {
-    function PreguntaB(pregunta, opciones) {
-        var _this = this;
+    }
+
+}
+
+
+class PreguntaB{
+
+    elemento: HTMLElement;
+    pregunta: string;
+    opciones: Array<OpcionB>;
+    validacion?:Function;
+
+    constructor(pregunta: string, opciones: Array<OpcionB>) {
         this.pregunta = pregunta;
         this.opciones = opciones;
         this.elemento = document.createElement('div');
         this.elemento.className = "pregunta";
-        var div_seccionA = document.createElement('section');
-        var div_seccionA_h1 = document.createElement('h2');
-        var div_seccionB = document.createElement('section');
-        var formulario = document.createElement('div');
+
+        let div_seccionA = document.createElement('section');
+        let div_seccionA_h1 = document.createElement('h2');
+        let div_seccionB = document.createElement('section');
+        let formulario = document.createElement('div');
+
         div_seccionA.className = "pregunta__titulo";
         div_seccionB.className = "pregunta__opciones";
+
         div_seccionA_h1.innerHTML = this.pregunta;
+
         this.elemento.appendChild(div_seccionA);
         this.elemento.appendChild(div_seccionB);
+
         div_seccionA.appendChild(div_seccionA_h1);
         div_seccionA.appendChild(document.createElement('hr'));
-        opciones.forEach(function (o) {
-            o.pregunta = _this;
+
+
+        opciones.forEach(o => {
+            o.pregunta = this;
             formulario.appendChild(o.getElement());
         });
+
         div_seccionB.appendChild(formulario);
+
+
     }
-    PreguntaB.prototype.validar = function () {
-        var _this = this;
-        this.opciones.forEach(function (o) {
+
+    validar() {
+        this.opciones.forEach((o: any) => {
             if (o.validado) {
                 o.validacion();
-                resultados.agregar("pregunta", [{ id: "pregunta", valor: _this.elemento.innerText },
-                    { id: "respuesta", valor: o.opcion.innerText }]);
+                resultados.agregar("pregunta",
+                [{id:"pregunta", valor:this.elemento.innerText},
+                {id:"respuesta", valor:o.opcion.innerText}]);
             }
         });
-    };
-    PreguntaB.prototype.reset = function () {
-        this.opciones.forEach(function (o) {
+    }
+    
+
+    reset(){
+        this.opciones.forEach(o => {
             o.validado = false;
             o.opcion.classList.remove("opcion__select");
         });
-    };
-    PreguntaB.prototype.getElement = function () {
+    }
+   
+    getElement() {
         return this.elemento;
-    };
-    PreguntaB.prototype.setValidacion = function (validacion) {
+    }
+
+    setValidacion(validacion:Function){
         this.validacion = validacion;
-    };
-    return PreguntaB;
-}());
+      }
+
+}

@@ -12,32 +12,7 @@ function shuffle(array: any) {
     array.sort(function () { return Math.random() - 0.5; });
 }
 
-class Resultados {
-    categorias: any = {};
-    pruebas: any = [];
 
-    constructor() {
-        localStorage.clear();
-
-        if (this.categorias == null) {
-            this.categorias = {};
-        }
-    }
-
-    resultados(pru: any) {
-        this.pruebas.push(pru);
-    }
-
-    sumar(nombre: string, valor: number) {
-        if (this.categorias[nombre] == null) {
-            this.categorias[nombre] = 0;
-        }
-        this.categorias[nombre] += valor;
-    }
-
-}
-
-var RESULTADO: Resultados = new Resultados();
 
 interface Validable {
     getElementosHTML(): Array<HTMLElement>;
@@ -51,32 +26,35 @@ class Navegable {
     progreso: Progress;
     tiempo: HTMLElement;
     avance: HTMLElement;
+    progress: HTMLElement;
+    inicio?: Function;
+    final?: Function;
     private ti: HTMLElement;
     private av: HTMLElement;
+    permitir = false;
+    permitirAll = false;
 
-    constructor(elementos: Contenedor) {
+    constructor(elementos: Contenedor, comenzar?:boolean) {
         this.elementos = elementos;
         this.progreso = new Progress(elementos.elementos.length, 0);
 
         this.elementos.elementos.forEach(e => {
-            e.tiempoDefinido = true;
-            
             e.setTiempo(() => {
-                if (e.tiempoDefinido == false) {
+                if (e.tiempoDefinido && e == this.elementos.elementos[this.actual]) {
+                    this.permitir = true;
                     this.siguiente();
+                    this.permitir = false;
                 }
-                this.siguiente();
             });
 
             e.timer.setProgreso((m: number, s: number) => {
-                if(e ==  this.elementos.elementos[this.actual]){
-                    if (s < 10 && s < 60 && s> -1 && m < 59) {
+                if (e == this.elementos.elementos[this.actual]) {
+                    if (s < 10 && s < 60 && s > -1 && m < 59) {
                         this.ti.innerText = "0" + m + ":0" + s;
                     } else {
                         this.ti.innerText = "0" + m + ":" + s;
                     }
                 }
-                
             });
         });
 
@@ -90,7 +68,10 @@ class Navegable {
             }
         });
 
-        this.actualPantalla().start();
+        if(comenzar != null && comenzar){
+            this.actualPantalla().start();
+        }
+        
 
         this.tiempo = document.createElement('div');
         this.tiempo.className = "nav_tiempo"
@@ -118,6 +99,9 @@ class Navegable {
         this.avance.append(a);
         a.append(this.av);
 
+        this.progress = document.createElement('div');
+        this.progress.append(this.progreso.getElemento());
+
         this.av.innerText = this.actual + 1 + "/" + this.secciones.length;
         this.ti.innerText = "0:00";
     }
@@ -130,21 +114,42 @@ class Navegable {
         return this.avance;
     }
 
+    ocultarProgreso(){
+        this.progress.style.display = "none";
+    }
+
+    ocultarTiempo(){
+        this.tiempo.style.display = "none";
+    }
+
+    ocultarAvance(){
+        this.avance.style.display = "none";
+    }
+
+    colocarProgreso() {
+        $(".principal").append(this.progress);
+        this.progress.style.position = "absolute";
+        this.progress.style.display = "block";
+        this.progress.style.left = "0px";
+        this.progress.style.bottom = "10px";
+    }
+
     colocarTiempo() {
         $(".principal").append(this.tiempo);
         this.tiempo.style.position = "absolute";
         this.tiempo.style.top = "20px";
         this.tiempo.style.right = "40px";
-
-
     }
 
     colocarAvance() {
-
         $(".principal").append(this.avance);
         this.avance.style.position = "absolute";
-        this.avance.style.left = "0px";
+        this.avance.style.top = "20px";
+        this.avance.style.left = "10px";
+    }
 
+    comenzar(){
+        this.actualPantalla().start();
     }
 
     actualObjeto(): any {
@@ -173,25 +178,48 @@ class Navegable {
         seccion.style.display = "none";
     }
 
-    siguiente(accion?: Function, final?: Function): void {
-        this.ocultar(this.secciones[this.actual]);
-        if (this.actual < this.secciones.length - 1) {
-            if (accion) {
-                accion(this.actualPantalla(), this.actual);
-            }
-            this.actualPantalla().tiempoDefinido = true;
-            //this.elementos.elementos[this.actual].timer.stop();
-          
-            this.actual++;
-            this.av.innerText = this.actual + 1 + "/" + this.secciones.length;
-            this.progreso.actualizarPosicion(this.actual);
-            this.mostrar(this.secciones[this.actual]);
-            this.actualPantalla().start();
-        } else {
-            if (final) {
-                final();
+    setSiguiente(accion?: Function) {
+        this.inicio = accion;
+
+    }
+
+    setFinal(final?: Function) {
+        this.final = final;
+    }
+
+    setPermitir(permiso:boolean){
+        this.permitir = permiso;
+    }
+    setPermitirAll(permiso:boolean){
+        this.permitirAll = permiso;
+    }
+
+    siguiente(): void {
+        if (this.permitir || this.permitirAll) {
+            this.ocultar(this.secciones[this.actual]);
+            if (this.actual < this.secciones.length - 1) {
+                if (this.inicio != null) {
+                    this.inicio(this.actualPantalla(), this.actual);
+                }
+                this.actualPantalla().tiempoDefinido = true;
+
+                if (this.elementos.elementos[this.actual].timer.enEjecucion) {
+                    this.elementos.elementos[this.actual].timer.stop();
+                }
+
+                this.actual++;
+                this.av.innerText = this.actual + 1 + "/" + this.secciones.length;
+                this.progreso.actualizarPosicion(this.actual);
+                this.mostrar(this.secciones[this.actual]);
+                this.actualPantalla().start();
+            } else {
+                this.progreso.actualizarPosicion(this.actual + 1);
+                if (this.final != null) {
+                    this.final();
+                }
             }
         }
+        this.permitir = false;
     }
 }
 
@@ -228,7 +256,7 @@ class Progress {
         let actual = maximo * ini / this.total;
         this.indice.style.left = actual + "px";
         this.progress.value = ini;
-        this.indice.innerText = ini + "";
+        this.indice.innerText = ini+1 + "";
         this.actual = ini;
     }
 
@@ -331,8 +359,9 @@ class ContenidoA {
 
 
     setTiempo(termino: Function) {
-        this.timer.termino = termino;
         this.tiempoDefinido = true;
+        this.timer.termino = termino;
+
     }
 
     getElementoHTML() {
@@ -447,7 +476,7 @@ function random(min: number, max: number) {
     return Math.round(Math.random() * (max - min) + min);
 }
 
-function hsvToRgb(h, s, v) {
+function hsvToRgb(h: any, s: any, v: any) {
     var r, g, b;
     var i;
     var f, p, q, t;
@@ -563,3 +592,23 @@ setValidacion(validacion:Function){
 
 
 */
+
+
+/*
+  let e = ()=>{
+            console.log("Finalizo");
+    };
+        createjs.Ticker.addEventListener("tick", e);
+        createjs.Ticker.removeEventListener("tick", e);
+
+
+        $( "p" ).addClass( "myClass yourClass" );
+This method is often used with .removeClass() to switch elements' classes from one to another, like so:
+
+1
+$( "p" ).removeClass( "myClass noClass" ).addClass( "yourClass" );
+*/
+
+
+
+var resultados = new Resultados("resultados");
