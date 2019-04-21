@@ -1,29 +1,43 @@
-<html>
-<body>
+<div class="preguntas">
 
-        <div class="preguntas">
+        <input type="range" name="" id="" value="50">
 
-                        <div class="pregunta" style="display: block; text-align: center;">
-                                        <section class="pregunta__titulo" style="margin-bottom:6em;"><h2>¿Del 1 al 5, qué que tan satisfecho/a estás con el resultado de tu vocación profesional?</h2><hr></section>
+        <div class="pregunta" style="display: block; text-align: center;">
+                <section class="pregunta__titulo" style="margin-bottom:6em;">
+                        <h2>¿Del 1 al 5, qué que tan satisfecho/a estás con el resultado de tu vocación
+                                profesional?</h2>
+                        <hr>
+                </section>
 
-                                        <div class="likert_escala">
-                                                <label class="likert_label" for="">Poco</label>
-                                                <div class="likert_cont">
-                                                        <input type="range" min="1" max="5" name="" id="" class="likert">  
-                                                        <label class="likert_valores" for="">1</label>                       
-                                                        <label class="likert_valores" for="">2</label>                       
-                                                        <label class="likert_valores" for="">3</label>                       
-                                                        <label class="likert_valores" for="">4</label>                       
-                                                        <label class="likert_valores" for="">5</label>                       
-                                                </div>
-                                                <label class="likert_label" for="">Mucho</label>                       
-                                        </div>
+                <div class="likert_escala">
+                        <label class="likert_label" for="">Poco</label>
+                        <div class="likert_cont" style="position: relative;">
+                                <progress class="pro" max="4" value="2"></progress>
+                                <input type="range" min="1" max="5" name="" id="" class="likert">
+                                <label class="likert_valores" for="">1</label>
+                                <label class="likert_valores" for="">2</label>
+                                <label class="likert_valores" for="">3</label>
+                                <label class="likert_valores" for="">4</label>
+                                <label class="likert_valores" for="">5</label>
                         </div>
-
+                        <label class="likert_label" for="">Mucho</label>
+                </div>
         </div>
 
-    <button class="btn_siguiente" disabled="disabled">Siguiente</button>
+</div>
 
-</body>
+<button class="btn_siguiente" disabled="disabled">Siguiente</button>
 
-</html>
+
+
+
+
+
+<script>
+
+$(".likert_cont").on("input",".likert", (e)=>{
+        let progress = e.delegateTarget.childNodes[1];
+        progress.value = e.target.value-1;  
+})
+
+</script>
