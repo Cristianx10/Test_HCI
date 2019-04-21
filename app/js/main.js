@@ -12,27 +12,6 @@ function degrees(radians) {
 function shuffle(array) {
     array.sort(function () { return Math.random() - 0.5; });
 }
-var Resultados = /** @class */ (function () {
-    function Resultados() {
-        this.categorias = {};
-        this.pruebas = [];
-        localStorage.clear();
-        if (this.categorias == null) {
-            this.categorias = {};
-        }
-    }
-    Resultados.prototype.resultados = function (pru) {
-        this.pruebas.push(pru);
-    };
-    Resultados.prototype.sumar = function (nombre, valor) {
-        if (this.categorias[nombre] == null) {
-            this.categorias[nombre] = 0;
-        }
-        this.categorias[nombre] += valor;
-    };
-    return Resultados;
-}());
-var RESULTADO = new Resultados();
 var Navegable = /** @class */ (function () {
     function Navegable(elementos, comenzar) {
         var _this = this;
@@ -217,7 +196,7 @@ var Progress = /** @class */ (function () {
         var actual = maximo * ini / this.total;
         this.indice.style.left = actual + "px";
         this.progress.value = ini;
-        this.indice.innerText = ini + "";
+        this.indice.innerText = ini + 1 + "";
         this.actual = ini;
     };
     Progress.prototype.getElemento = function () {
@@ -491,4 +470,5 @@ This method is often used with .removeClass() to switch elements' classes from o
 
 1
 $( "p" ).removeClass( "myClass noClass" ).addClass( "yourClass" );
-*/ 
+*/
+var resultados = new Resultados("resultados");

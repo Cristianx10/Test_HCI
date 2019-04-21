@@ -12,32 +12,7 @@ function shuffle(array: any) {
     array.sort(function () { return Math.random() - 0.5; });
 }
 
-class Resultados {
-    categorias: any = {};
-    pruebas: any = [];
 
-    constructor() {
-        localStorage.clear();
-
-        if (this.categorias == null) {
-            this.categorias = {};
-        }
-    }
-
-    resultados(pru: any) {
-        this.pruebas.push(pru);
-    }
-
-    sumar(nombre: string, valor: number) {
-        if (this.categorias[nombre] == null) {
-            this.categorias[nombre] = 0;
-        }
-        this.categorias[nombre] += valor;
-    }
-
-}
-
-var RESULTADO: Resultados = new Resultados();
 
 interface Validable {
     getElementosHTML(): Array<HTMLElement>;
@@ -281,7 +256,7 @@ class Progress {
         let actual = maximo * ini / this.total;
         this.indice.style.left = actual + "px";
         this.progress.value = ini;
-        this.indice.innerText = ini + "";
+        this.indice.innerText = ini+1 + "";
         this.actual = ini;
     }
 
@@ -633,3 +608,7 @@ This method is often used with .removeClass() to switch elements' classes from o
 1
 $( "p" ).removeClass( "myClass noClass" ).addClass( "yourClass" );
 */
+
+
+
+var resultados = new Resultados("resultados");
