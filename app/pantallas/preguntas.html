@@ -45,7 +45,7 @@
 
             navegacion.actualObjeto().validar();
             $(".btn_siguiente").removeClass("activo").addClass( "desactivar" );
-            siguiente.disabled= "disabled";
+            siguiente.disabled= true;
 
         });
 
@@ -64,7 +64,7 @@
         $(".opcion_check").click(()=>{
             navegacion.setPermitir(true);
             console.log("permitio");
-            siguiente.enabled= "true";
+            siguiente.disabled= false;
 
             $(".btn_siguiente").removeClass("desactivar").addClass("activo");
    
