@@ -6,6 +6,8 @@ class Timer {
   milisegundos: number;
   intervalo: any;
   termino?:Function;
+  progreso?:Function;
+  enEjecucion:boolean;
 
   constructor() {
     this.time = 0;
@@ -13,6 +15,11 @@ class Timer {
     this.minutos = 0;
     this.segundos = 0;
     this.milisegundos = 0;
+    this.enEjecucion = true;
+  }
+
+  setProgreso(progreso?:Function){
+    this.progreso = progreso;
   }
 
   start() {
@@ -25,6 +32,7 @@ class Timer {
 
     this.intervalo = setInterval(() => {
       this.comenzar();
+      
       //console.log("Hora:" + this.horas + " Minutos: " + this.minutos + " Segundos: "+ this.segundos + " Millis: " + this.milisegundos + " Total: " +this.time);
     }, 10);
 
@@ -38,18 +46,23 @@ class Timer {
     this.minutos = minutos;
     this.segundos = segundos;
     this.milisegundos = 0;
-    
+    this.enEjecucion = true;
 
     this.intervalo = setInterval(() => {
       this.comenzarTempo();
+      if(this.progreso != null){
+        this.progreso(this.minutos, this.segundos);
+      }
       //console.log("Hora:" + this.horas + " Minutos: " + this.minutos + " Segundos: "+ this.segundos + " Millis: " + this.milisegundos + " Total: " +this.time);
     }, 10);
   }
 
   stop() {
     clearInterval(this.intervalo);
-    if(this.termino != null){
+    if(this.termino != null && this.enEjecucion == false){
       this.termino();
+    }else{
+      this.enEjecucion = false;
     }
     //console.log("Hora:" + this.horas + " Minutos: " + this.minutos + " Segundos: "+ this.segundos + " Millis: " + this.milisegundos + " Total: " +this.time);
   }
@@ -91,28 +104,32 @@ class Timer {
 
   comenzarTempo() {
 
-    if (this.milisegundos <= 99) {
-      this.milisegundos--;
-      this.time--;
-    }
+    if(this.enEjecucion){
 
-    if (this.milisegundos < 0) {
-      this.milisegundos = 99;
-      this.segundos--;
-    }
-
-    if (this.segundos < 0) {
-      this.segundos = 59;
-      this.minutos--;
-    }
-
-    if (this.minutos < 0) {
-      this.minutos = 59;
-      this.horas--;
-    }
-
-    if(this.horas < 0){
-      this.stop();
+      if (this.milisegundos <= 99) {
+        this.milisegundos--;
+        this.time--;
+      }
+  
+      if (this.milisegundos < 0) {
+        this.milisegundos = 99;
+        this.segundos--;
+      }
+  
+      if (this.segundos < 0) {
+        this.segundos = 59;
+        this.minutos--;
+      }
+  
+      if (this.minutos < 0) {
+        this.minutos = 59;
+        this.horas--;
+      }
+  
+      if(this.horas < 0){
+        this.enEjecucion = false;
+        this.stop();
+      }
     }
 
   }

@@ -7,11 +7,13 @@ var Ciudad = /** @class */ (function () {
         this.canvas.height = 720;
         this.disparos = 0;
         this.stage = new createjs.Stage(this.canvas);
+        this.personas = new createjs.Container();
         this.carga = new createjs.LoadQueue();
         this.ciudadanos = new Array();
         this.carga.installPlugin(createjs.Sound);
         this.sombra = new createjs.Shape();
         this.sombra.graphics.beginFill("black").drawRect(0, 0, this.canvas.width, this.canvas.height);
+        this.stage.addChild(this.personas);
         this.stage.addChild(this.sombra);
         var linea = createjs.Tween;
         linea.get(this.sombra, { loop: true }).
@@ -30,7 +32,7 @@ var Ciudad = /** @class */ (function () {
                 var imagen = new createjs.Bitmap(img);
                 imagen.x = item.x;
                 imagen.y = item.y;
-                _this.stage.addChildAt(imagen, item.orden);
+                _this.personas.addChildAt(imagen, item.orden);
                 _this.stage.update();
             }
             if (carga.item.tipo != null && carga.item.tipo == 1) {
@@ -75,22 +77,36 @@ var Civil = /** @class */ (function () {
             var linea = createjs.Tween;
             this.movimiento = this.movi(linea, this.persona);
         }
-        this.ciudad.stage.on("stagemouseup", function (e) {
-            if (_this.persona != null && _this.persona.hitTest(_this.ciudad.stage.mouseX - _this.persona.x, _this.ciudad.stage.mouseY - _this.persona.y)) {
-                _this.impacto.graphics
-                    .beginFill("orange").drawCircle(_this.ciudad.stage.mouseX, _this.ciudad.stage.mouseY, 10).beginFill("red").
-                    drawCircle(_this.ciudad.stage.mouseX, _this.ciudad.stage.mouseY, 5);
-                _this.nImpactos++;
-                if (_this.movimiento != null && !_this.movimiento.paused) {
-                    _this.movimiento.paused = true;
-                }
-                if (_this.herido == false) {
-                    _this.herido = true;
-                }
+        this.persona.on("click", function () {
+            _this.impacto.graphics
+                .beginFill("orange").drawCircle(_this.ciudad.stage.mouseX, _this.ciudad.stage.mouseY, 10).beginFill("red").
+                drawCircle(_this.ciudad.stage.mouseX, _this.ciudad.stage.mouseY, 5);
+            _this.nImpactos++;
+            if (_this.movimiento != null && !_this.movimiento.paused) {
+                _this.movimiento.paused = true;
+            }
+            if (_this.herido == false) {
+                _this.herido = true;
             }
         });
-        this.ciudad.stage.addChildAt(this.persona, item.orden);
-        this.ciudad.stage.addChildAt(this.impacto, item.orden + 1);
+        /*
+                this.ciudad.stage.on("stagemouseup", (e: any) => {
+                    if (this.persona != null && this.persona.hitTest(this.ciudad.stage.mouseX - this.persona.x, this.ciudad.stage.mouseY - this.persona.y)) {
+                        this.impacto.graphics
+                            .beginFill("orange").drawCircle(this.ciudad.stage.mouseX, this.ciudad.stage.mouseY, 10).beginFill("red").
+                            drawCircle(this.ciudad.stage.mouseX, this.ciudad.stage.mouseY, 5);
+                        this.nImpactos++;
+                        if (this.movimiento != null && !this.movimiento.paused) {
+                            this.movimiento.paused = true;
+                        }
+        
+                        if (this.herido == false) {
+                            this.herido = true;
+                        }
+                    }
+                });*/
+        this.ciudad.personas.addChildAt(this.persona, item.orden);
+        this.ciudad.personas.addChildAt(this.impacto, item.orden + 1);
         this.ciudad.stage.update();
     };
     Civil.prototype.cargarPersonaje = function (url, orden, x, y) {
@@ -99,29 +115,3 @@ var Civil = /** @class */ (function () {
     };
     return Civil;
 }());
-var ciudad = new Ciudad();
-ciudad.cargarImagen("../img/disparos/escenario.png", 0, 0, 0);
-ciudad.cargarImagen("../img/disparos/edificio_izq.png", 1, 0, 0);
-ciudad.cargarImagen("../img/disparos/edificio_der.png", 2, 900, 166);
-ciudad.cargarImagen("../img/disparos/edificio_der2.png", 3, 1026, 0);
-ciudad.cargarImagen("../img/disparos/edificio_cen.png", 4, 500, 0);
-var civilA = new Civil(ciudad);
-civilA.cargarPersonaje("../img/disparos/civila.png", 5, 0, 550);
-var civilB = new Civil(ciudad);
-civilB.cargarPersonaje("../img/disparos/civilb.png", 6, 353, 513);
-civilA.movi = function (l, p) {
-    var scala = 1;
-    p.scaleX = scala;
-    p.scaleY = scala;
-    return l.get(p, { loop: true })
-        .to({ x: 600, scaleX: .5, scaleY: .5 }, 3000, createjs.Ease.sineIn)
-        .to({ x: 1200, scaleX: 1, scaleY: 1 }, 3000, createjs.Ease.sineIn)
-        .to({ x: 600, scaleX: .5, scaleY: .5 }, 3000, createjs.Ease.sineIn)
-        .to({ x: 0, scaleX: 1, scaleY: 1 }, 3000, createjs.Ease.sineIn);
-};
-civilB.movi = function (l, p) {
-    return l.get(p, { loop: true }).to({ x: 919, y: 513 }, 3000, createjs.Ease.quadOut)
-        .to({ x: 353, y: 513 }, 2000, createjs.Ease.quadOut);
-};
-createjs.Ticker.addEventListener("tick", ciudad.stage);
-$('.principal').append(ciudad.canvas);

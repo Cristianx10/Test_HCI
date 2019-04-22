@@ -1,0 +1,70 @@
+<link rel="stylesheet" href="../../sass/general/datosUsuario.css" type="text/css">
+
+<script>
+    $('.cont-principal').css("background-image",  "url('./img/programacion/fondoB.png')");
+    </script>
+
+<html>
+<body>
+
+    <h1 class="titulo">Datos del Usuario</h1>
+
+    <div class="formulario">
+        <div class="datos_input">
+            <h3>Nombre</h3>
+            <input type="text" name="" class="input-nombre" placeholder="Nombre">
+        </div>
+
+        <div class="datos_input">
+            <h3>Edad</h3>
+            <input type="text" name="" class="input-edad" placeholder="18">
+        </div>
+
+        <div class="datos_input">
+            <h3>Carrera</h3>
+
+            <select name="carrera">
+                <option selected value="0"> Elige una opción </option>
+                    <optgroup label="Ingenieria"> 
+                    <option value="1">Ing. de Sistemas</option> 
+                    <option value="2">Ing. Telematica</option> 
+                    <option value="3">Ing. Industrial</option> 
+                </optgroup> 
+                <optgroup label="Diseño"> 
+                    <option value="10">Diseño de Medios</option> 
+                    <option value="11">Diseño Industrial</option> 
+                    <option value="12">Diseño Grafico</option> 
+                </optgroup> 
+             </select>
+        </div>
+
+        <div class="datos_input">
+            <h3>Sexo</h3>
+            <div class="sexo">
+                <label class="opcion_check"><input class="marcador" type="radio" name="opcion"><span class="opcion"></span>Hombre</label>
+        
+                <label class="opcion_check"><input class="marcador" type="radio" name="opcion"><span class="opcion"></span>Mujer</label>
+        
+                <label class="opcion_check"><input class="marcador" type="radio" name="opcion"><span class="opcion"></span>Otro</label>
+                </div>
+        </div>
+
+        <div class="datos_input">
+            <h3>Mano de Preferencia</h3>
+            <div class="mano">
+                <label class="opcion_check"><input class="marcador" type="radio" name="opcion"><span class="opcion"></span>Diestro</label>
+        
+                <label class="opcion_check"><input class="marcador" type="radio" name="opcion"><span class="opcion"></span>Zurdo</label>
+                </div>
+        </div>
+        
+        </div>
+
+        <button class="btn_siguiente">Continuar</button>
+        
+
+    </div>
+
+
+</body>
+</html>

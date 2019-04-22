@@ -1,0 +1,186 @@
+<style>
+
+    .titulo{
+        margin-top: 40px;
+        text-align: center;
+    }
+    
+    .elementos {
+        display: flex;
+        justify-content: center;
+        padding-bottom: 100px;
+        width: 60%;
+        height: 20%;
+        margin: auto;
+    }
+
+    .elementos > div{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .contenedor__elementos {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 50%;
+        height: 300px;
+    }
+
+    .clasificacion__elementos {
+        display: flex;
+        margin: auto;
+        justify-content: center;
+        width: 80%;
+        
+    }
+
+    .clasificacion__titulos{
+        display: flex;
+        width: 80%;
+        margin: auto;
+        justify-content: space-around;
+        color: #E64973;
+        font-size: 1.5em;
+    }
+
+    .clasificacion__elementos>div {
+        margin: 20px;
+        border-radius: 50px;
+        border: 5px solid #00DED3;
+    }
+
+    .zona {
+        
+    }
+
+    .zona__place {
+        width: 85%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+</style>
+
+<script src="../js/reciclaje.js"></script>
+
+<div class="pantalla">
+        <hr>
+    <h2 class="titulo">Arrastre y clasifique los acordes si son producidos por tensión o por reposo</h2>
+    <br>
+    <br><br>
+    <div class="elementos">
+
+        <div class="zona" draggable="true" width="336" height="69">
+            <audio controls>
+                <source src="../audios/especificos/linguistica/1.mp3" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
+            <div class="zona__place"></div>
+        </div>
+
+        <div class="zona" draggable="true" width="336" height="69">
+            <audio controls>
+                <source src="../audios/especificos/linguistica/2.mp3" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
+            <div class="zona__place"></div>
+        </div>
+
+        <div class="zona" draggable="true" width="336" height="69">
+            <audio controls>
+                <source src="../audios/especificos/linguistica/3.mp3" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
+            <div class="zona__place"></div>
+        </div>
+
+        <div class="zona" draggable="true" width="336" height="69">
+            <audio controls>
+                <source src="../audios/especificos/linguistica/4.mp3" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
+            <div class="zona__place"></div>
+        </div>
+
+    </div>
+
+    <div class="clasificacion__titulos">
+            <h2>Tensión</h2>
+                <h2>Reposo</h2>
+    </div>
+    <div class="clasificacion__elementos">
+           
+        <div id="vidrio" class="contenedor__elementos"></div>
+        <div id="plastico" class="contenedor__elementos"></div>
+    </div>
+</div>
+
+<script>
+
+    let reciclaje = new Reciclaje();
+    $(".elementos").append(reciclaje.getElemento());
+    let sonidos = document.querySelectorAll(".zona");
+    let categoria = ["agudo", "grave", "agudo", "grave"]
+    sonidos.forEach((ele, index) => {
+        reciclaje.agregar(new Basura_elemento(ele, categoria[index]));
+    });
+
+
+
+
+    // There's the gallery and the trash
+    let elementos = $(".elementos");
+    let vidrio = $("#vidrio");
+    let plastico = $("#plastico");
+
+
+    // Let the gallery items be draggable
+    $(".zona", elementos).draggable({
+        cancel: "a.ui-icon", // clicking an icon won't initiate dragging
+        revert: "invalid", // when not dropped, the item will revert back to its initial position
+        containment: "document",
+        // helper: "clone",
+        cursor: "move"
+    });
+
+    // Let the trash be droppable, accepting the gallery items
+
+    function almacenaje(contenedores) {
+        contenedores.forEach(c => {
+            c.droppable({
+                accept: ".elementos div",
+                drop: function (event, ui) {
+                    deleteImage(ui.draggable, c);
+                }
+            });
+        });
+    }
+
+    almacenaje([vidrio, plastico]);
+
+
+    // Image deletion function
+
+    function deleteImage($item, t) {
+        $item.fadeIn(function () {
+            $item.appendTo(t);
+            $item.find(".zona").css("left", "0px");
+            if (reciclaje.seleccion != null) {
+                if (reciclaje.validarBasura(t[0].id)) {
+
+                    console.log("bien");
+                } else {
+                    console.log("Mal");
+                }
+                reciclaje.reset();
+            }
+
+
+        });
+    }
+
+
+</script>

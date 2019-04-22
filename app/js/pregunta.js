@@ -17,7 +17,7 @@ var Opcion = /** @class */ (function () {
     }
     Opcion.prototype.validacion = function () {
         this.valor.forEach(function (v) {
-            RESULTADO.sumar(v.area, v.valor);
+            resultados.sumar(v.area, v.valor);
         });
     };
     Opcion.prototype.getElement = function () {
@@ -53,7 +53,8 @@ var Pregunta = /** @class */ (function () {
         this.opciones.forEach(function (opcion) {
             if (opcion.check.checked) {
                 opcion.validacion();
-                RESULTADO.pruebas.push({ pregunta: _this.elemento.innerText, respuesta: opcion.opcion.innerText });
+                resultados.agregar("pregunta", [{ id: "pregunta", valor: _this.elemento.innerText },
+                    { id: "respuesta", valor: opcion.opcion.innerText }]);
             }
         });
     };
@@ -66,7 +67,7 @@ var OpcionB = /** @class */ (function () {
     function OpcionB(info, valor) {
         var _this = this;
         this.opcion = document.createElement("div");
-        this.opcion.className = "opcion";
+        this.opcion.className = "opcionB";
         this.validado = false;
         this.valor = valor;
         this.opcion.innerHTML = info;
@@ -83,7 +84,7 @@ var OpcionB = /** @class */ (function () {
     }
     OpcionB.prototype.validacion = function () {
         this.valor.forEach(function (v) {
-            RESULTADO.sumar(v.area, v.valor);
+            resultados.sumar(v.area, v.valor);
         });
     };
     OpcionB.prototype.getElement = function () {
@@ -120,7 +121,8 @@ var PreguntaB = /** @class */ (function () {
         this.opciones.forEach(function (o) {
             if (o.validado) {
                 o.validacion();
-                RESULTADO.pruebas.push({ pregunta: _this.elemento.innerText, respuesta: o.opcion.innerText });
+                resultados.agregar("pregunta", [{ id: "pregunta", valor: _this.elemento.innerText },
+                    { id: "respuesta", valor: o.opcion.innerText }]);
             }
         });
     };

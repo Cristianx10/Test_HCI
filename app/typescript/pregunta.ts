@@ -26,7 +26,7 @@ class Opcion {
     validacion() {
 
         this.valor.forEach(v => {
-            RESULTADO.sumar(v.area, v.valor);
+            resultados.sumar(v.area, v.valor);
         });
     }
 
@@ -78,7 +78,9 @@ class Pregunta {
         this.opciones.forEach((opcion: any) => {
             if (opcion.check.checked) {
                 opcion.validacion();
-                RESULTADO.pruebas.push({pregunta:this.elemento.innerText,respuesta:opcion.opcion.innerText});
+                resultados.agregar("pregunta",
+                [{id:"pregunta", valor:this.elemento.innerText},
+                {id:"respuesta", valor:opcion.opcion.innerText}]);
             }
         });
     }
@@ -97,7 +99,7 @@ class OpcionB{
 
     constructor(info: string, valor: Array<any> ) {
         this.opcion = document.createElement("div");
-        this.opcion.className = "opcion";
+        this.opcion.className = "opcionB";
         this.validado = false;
         this.valor = valor;
         this.opcion.innerHTML = info;
@@ -116,7 +118,7 @@ class OpcionB{
 
     validacion() {
         this.valor.forEach(v => {
-            RESULTADO.sumar(v.area, v.valor);
+            resultados.sumar(v.area, v.valor);
         });
     }
 
@@ -171,7 +173,9 @@ class PreguntaB{
         this.opciones.forEach((o: any) => {
             if (o.validado) {
                 o.validacion();
-                RESULTADO.pruebas.push({pregunta:this.elemento.innerText,respuesta:o.opcion.innerText});
+                resultados.agregar("pregunta",
+                [{id:"pregunta", valor:this.elemento.innerText},
+                {id:"respuesta", valor:o.opcion.innerText}]);
             }
         });
     }

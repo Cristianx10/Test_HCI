@@ -48,6 +48,10 @@
 
     nav = new Navegable(con_tarjetas);
 
+    nav.colocarAvance();
+    nav.colocarTiempo();
+    nav.colocarProgreso();
+
     nav.asignarCondiciones((o) => {
       o.setValidacion(() => {
         console.log('ganador');

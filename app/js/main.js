@@ -12,37 +12,29 @@ function degrees(radians) {
 function shuffle(array) {
     array.sort(function () { return Math.random() - 0.5; });
 }
-var Resultados = /** @class */ (function () {
-    function Resultados() {
-        this.categorias = {};
-        this.pruebas = [];
-        localStorage.clear();
-        if (this.categorias == null) {
-            this.categorias = {};
-        }
-    }
-    Resultados.prototype.resultados = function (pru) {
-        this.pruebas.push(pru);
-    };
-    Resultados.prototype.sumar = function (nombre, valor) {
-        if (this.categorias[nombre] == null) {
-            this.categorias[nombre] = 0;
-        }
-        this.categorias[nombre] += valor;
-    };
-    return Resultados;
-}());
-var RESULTADO = new Resultados();
 var Navegable = /** @class */ (function () {
-    function Navegable(elementos) {
+    function Navegable(elementos, comenzar) {
         var _this = this;
+        this.permitir = false;
+        this.permitirAll = false;
         this.elementos = elementos;
         this.progreso = new Progress(elementos.elementos.length, 0);
         this.elementos.elementos.forEach(function (e) {
-            e.tiempoDefinido = true;
             e.setTiempo(function () {
-                if (e.tiempoDefinido == false) {
+                if (e.tiempoDefinido && e == _this.elementos.elementos[_this.actual]) {
+                    _this.permitir = true;
                     _this.siguiente();
+                    _this.permitir = false;
+                }
+            });
+            e.timer.setProgreso(function (m, s) {
+                if (e == _this.elementos.elementos[_this.actual]) {
+                    if (s < 10 && s < 60 && s > -1 && m < 59) {
+                        _this.ti.innerText = "0" + m + ":0" + s;
+                    }
+                    else {
+                        _this.ti.innerText = "0" + m + ":" + s;
+                    }
                 }
             });
         });
@@ -56,8 +48,70 @@ var Navegable = /** @class */ (function () {
                 s.style.display = "none";
             }
         });
-        this.actualPantalla().start();
+        if (comenzar != null && comenzar) {
+            this.actualPantalla().start();
+        }
+        this.tiempo = document.createElement('div');
+        this.tiempo.className = "nav_tiempo";
+        var c = document.createElement('div');
+        c.className = "conteo";
+        var c_ima = document.createElement('img');
+        c_ima.className = "conteo__relog";
+        c_ima.src = "../../img/relog.png";
+        this.ti = document.createElement('p');
+        this.ti.className = "conteo__p";
+        c.append(c_ima, this.ti);
+        this.tiempo.append(c);
+        this.avance = document.createElement('div');
+        this.avance.className = "nav_avance";
+        var a = document.createElement('div');
+        a.className = "avance";
+        this.av = document.createElement('p');
+        this.av.className = "avance__p";
+        this.avance.append(a);
+        a.append(this.av);
+        this.progress = document.createElement('div');
+        this.progress.append(this.progreso.getElemento());
+        this.av.innerText = this.actual + 1 + "/" + this.secciones.length;
+        this.ti.innerText = "0:00";
     }
+    Navegable.prototype.getTiempoHTML = function () {
+        return this.tiempo;
+    };
+    Navegable.prototype.getAvanceHTML = function () {
+        return this.avance;
+    };
+    Navegable.prototype.ocultarProgreso = function () {
+        this.progress.style.display = "none";
+    };
+    Navegable.prototype.ocultarTiempo = function () {
+        this.tiempo.style.display = "none";
+    };
+    Navegable.prototype.ocultarAvance = function () {
+        this.avance.style.display = "none";
+    };
+    Navegable.prototype.colocarProgreso = function () {
+        $(".principal").append(this.progress);
+        this.progress.style.position = "absolute";
+        this.progress.style.display = "block";
+        this.progress.style.left = "0px";
+        this.progress.style.bottom = "10px";
+    };
+    Navegable.prototype.colocarTiempo = function () {
+        $(".principal").append(this.tiempo);
+        this.tiempo.style.position = "absolute";
+        this.tiempo.style.top = "20px";
+        this.tiempo.style.right = "40px";
+    };
+    Navegable.prototype.colocarAvance = function () {
+        $(".principal").append(this.avance);
+        this.avance.style.position = "absolute";
+        this.avance.style.top = "20px";
+        this.avance.style.left = "10px";
+    };
+    Navegable.prototype.comenzar = function () {
+        this.actualPantalla().start();
+    };
     Navegable.prototype.actualObjeto = function () {
         return this.elementos.elementos[this.actual].getObjeto();
     };
@@ -78,23 +132,43 @@ var Navegable = /** @class */ (function () {
     Navegable.prototype.ocultar = function (seccion) {
         seccion.style.display = "none";
     };
-    Navegable.prototype.siguiente = function (accion, final) {
-        this.ocultar(this.secciones[this.actual]);
-        if (this.actual < this.secciones.length - 1) {
-            if (accion) {
-                accion(this.actualPantalla(), this.actual);
+    Navegable.prototype.setSiguiente = function (accion) {
+        this.inicio = accion;
+    };
+    Navegable.prototype.setFinal = function (final) {
+        this.final = final;
+    };
+    Navegable.prototype.setPermitir = function (permiso) {
+        this.permitir = permiso;
+    };
+    Navegable.prototype.setPermitirAll = function (permiso) {
+        this.permitirAll = permiso;
+    };
+    Navegable.prototype.siguiente = function () {
+        if (this.permitir || this.permitirAll) {
+            this.ocultar(this.secciones[this.actual]);
+            if (this.actual < this.secciones.length - 1) {
+                if (this.inicio != null) {
+                    this.inicio(this.actualPantalla(), this.actual);
+                }
+                this.actualPantalla().tiempoDefinido = true;
+                if (this.elementos.elementos[this.actual].timer.enEjecucion) {
+                    this.elementos.elementos[this.actual].timer.stop();
+                }
+                this.actual++;
+                this.av.innerText = this.actual + 1 + "/" + this.secciones.length;
+                this.progreso.actualizarPosicion(this.actual);
+                this.mostrar(this.secciones[this.actual]);
+                this.actualPantalla().start();
             }
-            this.actualPantalla().tiempoDefinido = true;
-            this.actual++;
-            this.progreso.actualizarPosicion(this.actual);
-            this.mostrar(this.secciones[this.actual]);
-            this.actualPantalla().start();
-        }
-        else {
-            if (final) {
-                final();
+            else {
+                this.progreso.actualizarPosicion(this.actual + 1);
+                if (this.final != null) {
+                    this.final();
+                }
             }
         }
+        this.permitir = false;
     };
     return Navegable;
 }());
@@ -122,7 +196,7 @@ var Progress = /** @class */ (function () {
         var actual = maximo * ini / this.total;
         this.indice.style.left = actual + "px";
         this.progress.value = ini;
-        this.indice.innerText = ini + "";
+        this.indice.innerText = ini + 1 + "";
         this.actual = ini;
     };
     Progress.prototype.getElemento = function () {
@@ -197,6 +271,7 @@ var ContenidoA = /** @class */ (function () {
         }
     };
     ContenidoA.prototype.setTiempo = function (termino) {
+        this.tiempoDefinido = true;
         this.timer.termino = termino;
     };
     ContenidoA.prototype.getElementoHTML = function () {
@@ -276,6 +351,75 @@ function askConfirmation(evt) {
     evt.returnValue = msg;
     return msg;
 }
+function random(min, max) {
+    return Math.round(Math.random() * (max - min) + min);
+}
+function hsvToRgb(h, s, v) {
+    var r, g, b;
+    var i;
+    var f, p, q, t;
+    // Make sure our arguments stay in-range
+    h = Math.max(0, Math.min(360, h));
+    s = Math.max(0, Math.min(100, s));
+    v = Math.max(0, Math.min(100, v));
+    // We accept saturation and value arguments from 0 to 100 because that's
+    // how Photoshop represents those values. Internally, however, the
+    // saturation and value are calculated from a range of 0 to 1. We make
+    // That conversion here.
+    s /= 100;
+    v /= 100;
+    if (s == 0) {
+        // Achromatic (grey)
+        r = g = b = v;
+        return [
+            Math.round(r * 255),
+            Math.round(g * 255),
+            Math.round(b * 255)
+        ];
+    }
+    h /= 60; // sector 0 to 5
+    i = Math.floor(h);
+    f = h - i; // factorial part of h
+    p = v * (1 - s);
+    q = v * (1 - s * f);
+    t = v * (1 - s * (1 - f));
+    switch (i) {
+        case 0:
+            r = v;
+            g = t;
+            b = p;
+            break;
+        case 1:
+            r = q;
+            g = v;
+            b = p;
+            break;
+        case 2:
+            r = p;
+            g = v;
+            b = t;
+            break;
+        case 3:
+            r = p;
+            g = q;
+            b = v;
+            break;
+        case 4:
+            r = t;
+            g = p;
+            b = v;
+            break;
+        default: // case 5:
+            r = v;
+            g = p;
+            b = q;
+    }
+    return [
+        Math.round(r * 255),
+        Math.round(g * 255),
+        Math.round(b * 255)
+    ];
+}
 //window.addEventListener('beforeunload', askConfirmation);
 /*
 
@@ -299,17 +443,32 @@ setValidacion(validacion:Function){
 
     //Implementacion
     con_tablero.getObjectIndex(nav.actual).setValidacion(()=>{
-        
+
     });
 
     con_tablero.getObjectIndex(nav.actual).setIntentoAcierto(()=>{
-        
+
     });
 
     con_tablero.getObjectIndex(nav.actual).setIntentoFallo(()=>{
-        
+
     });
 
 
 
 */
+/*
+  let e = ()=>{
+            console.log("Finalizo");
+    };
+        createjs.Ticker.addEventListener("tick", e);
+        createjs.Ticker.removeEventListener("tick", e);
+
+
+        $( "p" ).addClass( "myClass yourClass" );
+This method is often used with .removeClass() to switch elements' classes from one to another, like so:
+
+1
+$( "p" ).removeClass( "myClass noClass" ).addClass( "yourClass" );
+*/
+var resultados = new Resultados("resultados");
