@@ -5,44 +5,48 @@
 let ciudad = new Ciudad();
 
 ciudad.cargarImagen("../img/disparos/escenario.png", 0, 0, 0);
-ciudad.cargarImagen("../img/disparos/edificio_izq.png", 1, 0, 0);
-
-ciudad.cargarImagen("../img/disparos/edificio_der.png", 2, 900, 166);
-ciudad.cargarImagen("../img/disparos/edificio_der2.png", 3, 1026, 0);
-ciudad.cargarImagen("../img/disparos/edificio_cen.png", 4, 500, 0);
-
-createjs.Ticker.addEventListener("tick", ciudad.stage);
-
-let civilA = new Civil(ciudad);
-civilA.cargarPersonaje("../img/disparos/civila.png", 6, 0, 550);
-
-
-let civilB = new Civil(ciudad);
-civilB.cargarPersonaje("../img/disparos/civilb.png", 7, 353, 513);
-
-let civilC = new Civil(ciudad);
-civilC.cargarPersonaje("../img/disparos/civilc.png", 5, 520, 560);
-
-let familia = new Civil(ciudad);
-familia.cargarPersonaje("../img/disparos/familia.png", 12, 640, 500);
-
-let ladronG = new Civil(ciudad);
-ladronG.cargarPersonaje("../img/disparos/ladrong.png", 8, 1125, -50);
 
 let ladronF = new Civil(ciudad);
 ladronF.cargarPersonaje("../img/disparos/ladronf.png", 1, 200, 563);
 
-let ladronE = new Civil(ciudad);
-ladronE.cargarPersonaje("../img/disparos/ladrone.png", 9, -100, 520);
-
-let ladronA = new Civil(ciudad);
-ladronA.cargarPersonaje("../img/disparos/ladrona.png", 10, 1300, 520);
-
-let ladronB = new Civil(ciudad);
-ladronB.cargarPersonaje("../img/disparos/ladronb.png", 11, -100, 150);
+ciudad.cargarImagen("../img/disparos/edificio_izq.png", 2, 0, 0);
 
 let ladronC = new Civil(ciudad);
 ladronC.cargarPersonaje("../img/disparos/ladronc.png", 3, 920, 575);
+
+
+ciudad.cargarImagen("../img/disparos/edificio_der.png", 4, 900, 166);
+ciudad.cargarImagen("../img/disparos/edificio_der2.png", 5, 1026, 0);
+ciudad.cargarImagen("../img/disparos/edificio_cen.png", 6, 500, 0);
+
+createjs.Ticker.addEventListener("tick", ciudad.stage);
+let civilC = new Civil(ciudad);
+civilC.cargarPersonaje("../img/disparos/civilc.png", 7, 520, 560);
+
+let civilA = new Civil(ciudad);
+civilA.cargarPersonaje("../img/disparos/civila.png", 8, 0, 550);
+
+
+let civilB = new Civil(ciudad);
+civilB.cargarPersonaje("../img/disparos/civilb.png", 9, 353, 513);
+
+let ladronG = new Civil(ciudad);
+ladronG.cargarPersonaje("../img/disparos/ladrong.png", 10, 1125, -50);
+
+let ladronE = new Civil(ciudad);
+ladronE.cargarPersonaje("../img/disparos/ladrone.png", 11, -100, 520);
+
+let ladronA = new Civil(ciudad);
+ladronA.cargarPersonaje("../img/disparos/ladrona.png", 12, 1300, 520);
+
+let ladronB = new Civil(ciudad);
+ladronB.cargarPersonaje("../img/disparos/ladronb.png", 13, -100, 150);
+
+let familia = new Civil(ciudad);
+familia.cargarPersonaje("../img/disparos/familia.png", 14, 640, 500);
+
+
+
 
 civilA.movi = (l, p)=>{
     let scala = 1;
