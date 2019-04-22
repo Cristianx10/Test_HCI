@@ -6,6 +6,7 @@ let ciudad = new Ciudad();
 
 ciudad.cargarImagen("../img/disparos/escenario.png", 0, 0, 0);
 ciudad.cargarImagen("../img/disparos/edificio_izq.png", 1, 0, 0);
+
 ciudad.cargarImagen("../img/disparos/edificio_der.png", 2, 900, 166);
 ciudad.cargarImagen("../img/disparos/edificio_der2.png", 3, 1026, 0);
 ciudad.cargarImagen("../img/disparos/edificio_cen.png", 4, 500, 0);
@@ -13,11 +14,35 @@ ciudad.cargarImagen("../img/disparos/edificio_cen.png", 4, 500, 0);
 createjs.Ticker.addEventListener("tick", ciudad.stage);
 
 let civilA = new Civil(ciudad);
-civilA.cargarPersonaje("../img/disparos/civila.png", 5, 0, 550);
+civilA.cargarPersonaje("../img/disparos/civila.png", 6, 0, 550);
+
 
 let civilB = new Civil(ciudad);
-civilB.cargarPersonaje("../img/disparos/civilb.png", 6, 353, 513);
+civilB.cargarPersonaje("../img/disparos/civilb.png", 7, 353, 513);
 
+let civilC = new Civil(ciudad);
+civilC.cargarPersonaje("../img/disparos/civilc.png", 5, 520, 560);
+
+let familia = new Civil(ciudad);
+familia.cargarPersonaje("../img/disparos/familia.png", 12, 640, 500);
+
+let ladronG = new Civil(ciudad);
+ladronG.cargarPersonaje("../img/disparos/ladrong.png", 8, 1125, -50);
+
+let ladronF = new Civil(ciudad);
+ladronF.cargarPersonaje("../img/disparos/ladronf.png", 1, 200, 563);
+
+let ladronE = new Civil(ciudad);
+ladronE.cargarPersonaje("../img/disparos/ladrone.png", 9, -100, 520);
+
+let ladronA = new Civil(ciudad);
+ladronA.cargarPersonaje("../img/disparos/ladrona.png", 10, 1300, 520);
+
+let ladronB = new Civil(ciudad);
+ladronB.cargarPersonaje("../img/disparos/ladronb.png", 11, -100, 150);
+
+let ladronC = new Civil(ciudad);
+ladronC.cargarPersonaje("../img/disparos/ladronc.png", 3, 920, 575);
 
 civilA.movi = (l, p)=>{
     let scala = 1;
@@ -42,6 +67,84 @@ civilB.movi = (l, p)=>{
 };
 
 
+civilC.movi = (l, p)=>{
+    let scala = .5;
+    p.scaleX = scala;
+    p.scaleY = scala;
+
+    return l.get(p, { loop: true }).to({ x: 750, y: 560 }, 4000, createjs.Ease.quadOut)
+    .to({ x: 520, y: 560 }, 2000, createjs.Ease.quadOut);
+};
+
+
+familia.movi = (l, p)=>{
+    let scala = 1;
+    p.scaleX = scala;
+    p.scaleY = scala;
+
+    return l.get(p, { loop: true }).to({ x: 640, y: 700, scaleX:1.5, scaleY:1.5}, 4000, createjs.Ease.quadOut)
+    .to({ x: 640, y: 500 , scaleX:1, scaleY:1}, 2000, createjs.Ease.quadOut);
+    
+};
+
+
+ladronG.movi = (l, p)=>{
+    let scala = .5;
+    p.scaleX = scala;
+    p.scaleY = scala;
+
+    return l.get(p, { loop: true }).to({ x: 1125, y: 45 }, 3000, createjs.Ease.quadOut)
+    .to({ x: 1125, y: -50 }, 2000, createjs.Ease.quadOut);
+};
+
+
+ladronF.movi = (l, p)=>{
+    let scala = .5;
+    p.scaleX = scala;
+    p.scaleY = scala;
+
+    return l.get(p, { loop: true }).to({ x: 330, y: 563 }, 2000, createjs.Ease.quadOut)
+    .to({ x: 200, y: 563 }, 2000, createjs.Ease.quadOut);
+};
+
+ladronC.movi = (l, p)=>{
+    let scala = .4;
+    p.scaleX = scala;
+    p.scaleY = scala;
+
+    return l.get(p, { loop: true }).to({ x: 800, y: 575 }, 1000, createjs.Ease.quadOut)
+    .to({ x: 920, y: 575 }, 2000, createjs.Ease.quadOut);
+};
+
+ladronE.movi = (l, p)=>{
+    let scala = 1;
+    p.scaleX = scala;
+    p.scaleY = scala;
+
+    return l.get(p, { loop: true }).to({ x: 100, y: 490 }, 3000, createjs.Ease.quadOut)
+    .to({ x: -100, y: 520 }, 2000, createjs.Ease.quadOut);
+};
+
+
+ladronA.movi = (l, p)=>{
+    let scala = 1;
+    p.scaleX = scala;
+    p.scaleY = scala;
+
+    return l.get(p, { loop: true }).to({ x: 1100, y: 490 }, 2000, createjs.Ease.quadOut)
+    .to({ x: 1300, y: 520 }, 2000, createjs.Ease.quadOut);
+};
+
+
+
+ladronB.movi = (l, p)=>{
+    let scala = 1;
+    p.scaleX = scala;
+    p.scaleY = scala;
+
+    return l.get(p, { loop: true }).to({ x: 0, y: 150 }, 1500, createjs.Ease.quadOut)
+    .to({ x: -100, y: 150 }, 2000, createjs.Ease.quadOut);
+};
 
 $('.principal').append(ciudad.canvas);
 
