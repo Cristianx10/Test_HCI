@@ -63,7 +63,7 @@ class Piguino {
 
     personaje?: createjs.Sprite;
     tablero: Tablero_hielo
-    velocidad = 70;
+    velocidad = 112;
     vel_time = 1000;
     impacto = new createjs.Shape();
     m_up = false;
