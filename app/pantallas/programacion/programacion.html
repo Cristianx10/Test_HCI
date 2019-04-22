@@ -286,7 +286,7 @@
 
     let pantallas = document.querySelectorAll(".pantalla");
     let navegable = new Navegable(toPantallas(pantallas));
-
+    navegable.setPermitirAll(true);
     function seguir() {
         navegable.siguiente();
     }
