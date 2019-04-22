@@ -93,4 +93,15 @@ class Resultados {
         let _lsTotal = 0, _xLen, _x; for (_x in localStorage) { _xLen = ((localStorage[_x].length + _x.length) * 2); _lsTotal += _xLen; console.log(_x.substr(0, 50) + " = " + (_xLen / 1024).toFixed(2) + " KB") }; console.log("Total = " + (_lsTotal / 1024).toFixed(2) + " KB");
     }
 
+    descargar(){
+    var text = JSON.stringify(this),
+     blob = new Blob([text], { type: 'text/plain' }),
+     anchor = document.createElement('a');
+ 
+      anchor.download = "resultadoDictado.txt";
+      anchor.href = (window.webkitURL || window.URL).createObjectURL(blob);
+      anchor.dataset.downloadurl = ['text/plain', anchor.download, anchor.href].join(':');
+      anchor.click();
+    }
+
 }

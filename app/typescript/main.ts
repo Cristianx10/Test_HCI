@@ -29,8 +29,8 @@ class Navegable {
     progress: HTMLElement;
     inicio?: Function;
     final?: Function;
-    private ti: HTMLElement;
-    private av: HTMLElement;
+    ti: HTMLElement;
+    av: HTMLElement;
     permitir = false;
     permitirAll = false;
 

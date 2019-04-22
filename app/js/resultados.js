@@ -62,5 +62,12 @@ var Resultados = /** @class */ (function () {
         ;
         console.log("Total = " + (_lsTotal / 1024).toFixed(2) + " KB");
     };
+    Resultados.prototype.descargar = function () {
+        var text = JSON.stringify(this), blob = new Blob([text], { type: 'text/plain' }), anchor = document.createElement('a');
+        anchor.download = "resultadoDictado.txt";
+        anchor.href = (window.webkitURL || window.URL).createObjectURL(blob);
+        anchor.dataset.downloadurl = ['text/plain', anchor.download, anchor.href].join(':');
+        anchor.click();
+    };
     return Resultados;
 }());

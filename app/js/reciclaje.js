@@ -1,6 +1,6 @@
 "use strict";
 var Basura = /** @class */ (function () {
-    function Basura(url, categoria) {
+    function Basura(url, categoria, padre) {
         var _this = this;
         this.clasificado = false;
         this.basura = document.createElement('div');
@@ -14,7 +14,6 @@ var Basura = /** @class */ (function () {
         this.basura.style.marginBottom = Math.floor((Math.random() * 40) + 1) + "px";
         this.basura.style.marginRight = Math.floor((Math.random() * 62) + 1) + "px";
         this.basura.style.marginLeft = Math.floor((Math.random() * 62) + 1) + "px";
-        $(".basura__elementos").append(this.basura);
         this.basura.addEventListener("mousedown", function () {
             if (_this.padre != null) {
                 _this.padre.seleccion = _this;
@@ -26,15 +25,46 @@ var Basura = /** @class */ (function () {
     };
     return Basura;
 }());
+var Basura_elemento = /** @class */ (function () {
+    function Basura_elemento(elemento, categoria, padre) {
+        var _this = this;
+        this.clasificado = false;
+        this.basura = document.createElement('div');
+        var img = document.createElement('img');
+        this.categoria = categoria;
+        this.validado = true;
+        this.basura = elemento;
+        img.className = "recurso";
+        this.basura.addEventListener("mousedown", function () {
+            if (_this.padre != null) {
+                _this.padre.seleccion = _this;
+            }
+        });
+    }
+    Basura_elemento.prototype.validar = function () {
+        this.clasificado = true;
+    };
+    return Basura_elemento;
+}());
 var Reciclaje = /** @class */ (function () {
     function Reciclaje() {
         this.aciertos = 0;
         this.fallas = 0;
         this.elementos = new Array();
+        this.contenedor = document.createElement('div');
     }
     Reciclaje.prototype.agregar = function (basura) {
         basura.padre = this;
         this.elementos.push(basura);
+        this.contenedor.append(basura.basura);
+    };
+    Reciclaje.prototype.reset = function () {
+        if (this.seleccion != null) {
+            this.seleccion.basura.style.left = "0";
+            this.seleccion.basura.style.top = "0";
+            this.seleccion.basura.style.margin = "15px";
+        }
+        console.log("reset");
     };
     Reciclaje.prototype.validarBasura = function (comparacion) {
         if (this.seleccion != null) {
@@ -49,6 +79,9 @@ var Reciclaje = /** @class */ (function () {
                 return false;
             }
         }
+    };
+    Reciclaje.prototype.getElemento = function () {
+        return this.contenedor;
     };
     Reciclaje.prototype.validar = function () {
         var num = 0;
