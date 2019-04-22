@@ -8,7 +8,6 @@
     .contenedor {
         width: 1280px;
         height: 720px;
-        background-image: url("../../../img/deporte/fondo.png");
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
@@ -63,19 +62,42 @@
         color: rgba(230, 73, 115, 1);
     }
 
-    .boton {
-        width: 170.38px;
-        height: 52px;
-        border: solid rgba(230, 73, 115, 1);
-        border-radius: 10px;
-        border-width: 2px;
-        font-family: 'Heebo', sans-serif;
-        font-size: 20px;
-        text-decoration: none;
-        line-height: 2.5;
-        text-align: center;
-        color: rgba(230, 73, 115, 1);
-    }
+    .boton_next:disabled{
+            width: 170.38px;
+            height: 52px;
+            border: solid rgba(230, 73, 115, 1);
+            border-radius: 10px;
+            border-width: 2px;
+            font-family: 'Heebo', sans-serif;
+            font-size: 20px;
+            text-decoration: none;
+            line-height: 2.5;
+            text-align: center;
+            background-color: rgba(230, 73, 115, 0);
+            color: rgba(230, 73, 115, 1);
+     
+        }
+
+        .boton_next:enabled {
+            width: 170.38px;
+            height: 52px;
+            border: solid rgba(230, 73, 115, 1);
+            border-radius: 10px;
+            border-width: 2px;
+            font-family: 'Heebo', sans-serif;
+            font-size: 20px;
+            text-decoration: none;
+            line-height: 2.5;
+            text-align: center;
+            background-color: rgba(230, 73, 115, 1);
+            color: white;  
+            }
+
+
+        .boton_next:enabled:hover {
+            border: solid rgb(209, 54, 95);
+            background-color:  rgb(209, 54, 95);
+        }
 </style>
 
 
@@ -87,7 +109,7 @@
         <p id="burpees">0</p>
         <p id="final"></p>
     </div>
-    <a class="boton" onclick="irA('./pantallas/deportes/salto/intro.html')">Siguiente</a>
+    <button class="boton_next" disabled="disabled" onclick="irA('./pantallas/deportes/salto/intro.html')">Siguiente</button>
 </div>
 
 <script>
@@ -133,6 +155,7 @@
             if (segundos === "00" && minutos == "00") {
                 document.getElementById("tiempo").innerHTML = "00:00";
                 document.getElementById("burpees").innerHTML = burpees;
+                document.querySelector('.boton_next').disabled= false;
                 document.getElementById("final").innerHTML = "Ha terminado la prueba :D";
                 clearInterval(refreshintervalID);
             }
@@ -141,18 +164,19 @@
     }
 
 
-    window.onload = function teclas() {
+    window.addEventListener('keypress', function (e) {
 
-        document.body.onkeyup = function (e) {
-            if (e.keyCode == 13) {
+        var key = e.which || e.keyCode;
+
+            if (key == 13) {
                 startTimer(segundosDeseados);
             }
-            if (e.keyCode == 32) {
+            if (key == 32) {
                 burpees += 1;
                 console.log(burpees);
                 console.log(puntuacion);
             }
-        }
-    };
+        
+    });
 
 </script>
