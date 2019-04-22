@@ -18,6 +18,7 @@ tablero.setIntentoAcierto((a,b)=>{
 tablero.setIntentoFallo((a, b)=>{
     a.reset();
     b.reset();
+    console.log("mal");
 });
 
 tablero.setValidacion((a, b)=>{
@@ -25,11 +26,11 @@ tablero.setValidacion((a, b)=>{
 });
 
 let tipos = [
-{tipo:"O2", categoria:"Oxigeno"}
+{tipo:"O2", categoria:"Dioxígeno"}
 ,{tipo:"CH4", categoria:"Metano"}
 ,{tipo:"CO2", categoria:"Dioxido de Carbono"}
 ,{tipo:"NaBr", categoria:"Bromuro de Sodio"}
-,{tipo:"NH3", categoria:"Amonico"}
+,{tipo:"NH3", categoria:"Amoniaco"}
 ,{tipo:"NaCl", categoria:"Sal"}
 ,{tipo:"KBr", categoria:"Bromuro de Potasio"}
 ];
