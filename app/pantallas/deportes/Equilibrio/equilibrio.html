@@ -1,0 +1,200 @@
+<style>
+
+    .contenedor {
+        width: 1280px;
+        height: 720px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .contenido {
+        width: 937px;
+        height: 499px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 80px;
+        margin-bottom: 30px;
+    }
+
+    p {
+        font-family: 'Heebo', sans-serif;
+        font-weight: bold;
+    }
+
+    #time {
+        font-size: 36px;
+        color: rgba(0, 222, 211);
+        margin-top: 50px;
+        margin-bottom: 5px;
+    }
+
+    #tiempo {
+        margin: 0;
+        line-height: 1;
+        height: 115px;
+        font-size: 140px;
+        color: rgba(0, 222, 211);
+    }
+
+    #titulo1 {
+        margin-top: 75px;
+        margin-bottom: 20px;
+        font-size: 36px;
+        color: rgba(230, 73, 115, 1);
+    }
+
+    #intentos {
+        margin: 0;
+        margin-bottom: 50px;
+        font-size: 64px;
+        line-height: 1;
+        color: rgba(230, 73, 115, 1);
+    }
+
+    .boton_next:disabled{
+            width: 170.38px;
+            height: 52px;
+            border: solid rgba(230, 73, 115, 1);
+            border-radius: 10px;
+            border-width: 2px;
+            font-family: 'Heebo', sans-serif;
+            font-size: 20px;
+            text-decoration: none;
+            line-height: 2.5;
+            text-align: center;
+            background-color: rgba(230, 73, 115, 0);
+            color: rgba(230, 73, 115, 1);
+        }
+
+        .boton_next:enabled {
+            width: 170.38px;
+            height: 52px;
+            border: solid rgba(230, 73, 115, 1);
+            border-radius: 10px;
+            border-width: 2px;
+            font-family: 'Heebo', sans-serif;
+            font-size: 20px;
+            text-decoration: none;
+            line-height: 2.5;
+            text-align: center;
+            background-color: rgba(230, 73, 115, 1);
+            color: white;  
+            }
+
+        .boton_next:enabled:hover {
+            border: solid rgb(209, 54, 95);
+            background-color:  rgb(209, 54, 95);
+        }
+</style>
+
+<div class="contenedor">
+    <div class="contenido">
+        <p id="time">Tiempo:</p>
+        <p id="tiempo">00:00</p>
+        <p id="titulo1">Intentos:</p>
+        <p id="intentos">0</p>
+        <p id="final"></p>
+    </div>
+    <button class="boton_next" disabled="disabled" onclick="irA('./pantallas/deportes/OjoVeloz/ojoVeloz.html')">Siguiente</button>
+</div>
+
+<script>
+
+    var intentos = 0;
+    var puntuacion;
+    var minutosDeseados = 0;
+    var segundosDeseados = 60 * minutosDeseados;
+
+    function startTimer(duracion) {
+
+        var temporizador = duracion, minutos, segundos;
+
+        var refreshintervalID = setInterval(function () {
+            minutos = parseInt(temporizador / 60, 10)
+            segundos = parseInt(temporizador % 60, 10);
+
+            minutos = minutos < 10 ? "0" + minutos : minutos;
+            segundos = segundos < 10 ? "0" + segundos : segundos;
+
+            document.getElementById("tiempo").innerHTML = minutos + ":" + segundos;
+            document.getElementById("intentos").innerHTML = intentos;
+
+            if (intentos <= 1) {
+                puntuacion = 100;
+            } else if (intentos == 2) {
+                puntuacion = 80;
+            } else if (intentos ==3) {
+                puntuacion = 60;
+            } else if (intentos == 4) {
+                puntuacion = 40;
+            } else if (intentos == 5) {
+                puntuacion = 20;
+            }else if (intentos == 6) {
+                puntuacion = 0;
+            }
+
+            temporizador++;
+
+            if (segundos === "00" && minutos == "01") {
+                document.getElementById("tiempo").innerHTML = "00:00";
+                document.getElementById("intentos").innerHTML = intentos;
+                document.querySelector('.boton_next').disabled= false;
+                document.getElementById("final").innerHTML = "La prueba ha terminado.";
+                clearInterval(refreshintervalID);
+                console.log(puntuacion);
+            } else if(intentos >=6){
+                document.getElementById("tiempo").innerHTML = "00:00";
+                document.getElementById("intentos").innerHTML = intentos;
+                document.querySelector('.boton_next').disabled= false;
+                document.getElementById("final").innerHTML = "La prueba ha terminado.";
+                clearInterval(refreshintervalID);
+                console.log(puntuacion);
+            }
+
+            window.addEventListener('keyup', function (e) {
+
+                var key = e.which || e.keyCode;
+                    if (key == 32) {
+                        clearInterval(refreshintervalID);
+                    }
+
+            });
+            window.addEventListener('keypress', function (e) {
+
+                var key = e.which || e.keyCode;
+                    if (key == 32) {
+                        document.getElementById("tiempo").innerHTML = "00:00";                    }
+
+                });
+
+        }, 1000);
+    }
+
+    window.addEventListener('keypress', function (e) {
+
+        var key = e.which || e.keyCode;
+            if (key == 13) {
+                startTimer(segundosDeseados);
+            }
+        
+    });
+
+    window.addEventListener('keyup', function (e) {
+       
+        var key = e.which || e.keyCode;
+            if (key == 32) {
+                intentos += 1;
+                document.getElementById("intentos").innerHTML = intentos;
+                console.log(intentos);
+                startTimer(segundosDeseados);
+            }
+
+        });
+
+</script>
