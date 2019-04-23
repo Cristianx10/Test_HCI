@@ -250,12 +250,14 @@ class PreguntaC {
     }
 
     validar() {
+        resultados.agregar("pregunta",
+                    [{ id: "pregunta", valor: this.pregunta},
+                    { id: "respuesta", valor: this.opciones.areaTexto.value}]);
+                    
        /* this.opciones.forEach((o: any) => {
             if (o.validado) {
                 o.validacion();
-                resultados.agregar("pregunta",
-                    [{ id: "pregunta", valor: this.elemento.innerText },
-                    { id: "respuesta", valor: o.opcion.innerText }]);
+                
             }
         });*/
     }
@@ -285,20 +287,24 @@ class OpcionC {
     pregunta?: PreguntaB;
     areaTexto:HTMLTextAreaElement;
 
-    constructor(info: string, valor: Array<ResultadoA>) {
+    constructor(info?: string, valor?: Array<ResultadoA>) {
+        if(valor != null){
+            this.valor = valor;
+        }else{
+            this.valor = new Array();
+        }
         this.opcion = document.createElement("div");
         this.opcion.className = "opcionC";
         this.areaTexto = document.createElement("textarea");
         this.areaTexto.className = "pregunta__parrafo";
        // this.areaTexto.type = "text";
         this.areaTexto.placeholder = "Escribe tu respuesta";
-        this.areaTexto.innerText = info;
-
+        if(info != null){
+            this.areaTexto.innerText = info;
+        }
+        
         this.opcion.append(this.areaTexto);
-
         this.validado = false;
-        this.valor = valor;
-        this.opcion.innerHTML = info;
 
         this.opcion.addEventListener('click', () => {
             if (this.pregunta != null) {
