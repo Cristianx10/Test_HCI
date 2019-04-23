@@ -52,8 +52,11 @@ var Navegable = /** @class */ (function () {
                     _this.permitir = false;
                 }
             });
-            e.timer.setProgreso(function (m, s) {
+            e.setProgreso(function (m, s) {
                 if (e == _this.actualPantalla()) {
+                    if (_this.fcambioTiempo != null) {
+                        _this.fcambioTiempo(m, s);
+                    }
                     if (s < 10 && s < 60 && s > -1 && m < 59) {
                         _this.ti.innerText = "0" + m + ":0" + s;
                     }
@@ -74,6 +77,9 @@ var Navegable = /** @class */ (function () {
             }
         });
         this.actualPantalla().start();
+    };
+    Navegable.prototype.cambioTiempo = function (cambio) {
+        this.fcambioTiempo = cambio;
     };
     Navegable.prototype.getTiempoHTML = function () {
         return this.tiempo;
@@ -172,42 +178,6 @@ var Navegable = /** @class */ (function () {
     };
     return Navegable;
 }());
-var Progress = /** @class */ (function () {
-    function Progress(total, inicial) {
-        this.total = total;
-        this.actual = inicial;
-        this.contenedor = document.createElement('div');
-        this.contenedor.className = "progreso";
-        var con_contendor = document.createElement('div');
-        con_contendor.className = "cont_progreso";
-        this.progress = document.createElement('progress');
-        this.progress.className = "progreso_barra";
-        this.indice = document.createElement('div');
-        this.indice.className = "progreso_numero";
-        this.progress.value = inicial;
-        this.progress.max = total;
-        this.indice.innerText = inicial + "";
-        this.contenedor.append(con_contendor);
-        con_contendor.append(this.progress, this.indice);
-        this.actualizarPosicion(this.actual);
-    }
-    Progress.prototype.setTotal = function (total) {
-        this.total = total;
-        this.progress.max = total;
-    };
-    Progress.prototype.actualizarPosicion = function (ini) {
-        var maximo = 550;
-        var actual = maximo * ini / this.total;
-        this.indice.style.left = actual + "px";
-        this.progress.value = ini;
-        this.indice.innerText = ini + 1 + "";
-        this.actual = ini;
-    };
-    Progress.prototype.getElemento = function () {
-        return this.contenedor;
-    };
-    return Progress;
-}());
 var PantallaHTML = /** @class */ (function () {
     function PantallaHTML(elemento) {
         this.elemento = elemento;
@@ -239,19 +209,38 @@ var Contenedor = /** @class */ (function () {
     Contenedor.prototype.agregar = function (elemeto) {
         this.elementos.push(elemeto);
     };
-    Contenedor.prototype.agregarHtml = function (elemeto) {
+    Contenedor.prototype.agregarHtml = function (elemeto, tiempo) {
         var e = new PantallaHTML(elemeto);
-        this.elementos.push(new Contenido(elemeto, e));
+        if (tiempo != null) {
+            this.elementos.push(new Contenido(elemeto, e, tiempo));
+        }
+        else {
+            this.elementos.push(new Contenido(elemeto, e, tiempo));
+        }
     };
-    Contenedor.prototype.agregarHtmlAll = function (elemetos) {
+    Contenedor.prototype.agregarHtmlAll = function (elemetos, tiempo) {
         var _this = this;
-        elemetos.forEach(function (ele) {
-            var e = new PantallaHTML(ele);
-            var c = new Contenido(ele, e);
-            _this.elementos.push(c);
-        });
+        if (tiempo != null) {
+            elemetos.forEach(function (ele) {
+                var e = new PantallaHTML(ele);
+                var c = new Contenido(ele, e, tiempo);
+                _this.elementos.push(c);
+            });
+        }
+        else {
+            elemetos.forEach(function (ele) {
+                var e = new PantallaHTML(ele);
+                var c = new Contenido(ele, e);
+                _this.elementos.push(c);
+            });
+        }
     };
     Contenedor.prototype.foreachElementos = function (elemento) {
+        this.elementos.forEach(function (e) {
+            elemento.appendChild(e.elementoHTML);
+        });
+    };
+    Contenedor.prototype.incluirEn = function (elemento) {
         this.elementos.forEach(function (e) {
             elemento.appendChild(e.elementoHTML);
         });
@@ -296,6 +285,9 @@ var Contenido = /** @class */ (function () {
         if (this.segundos != null) {
             this.timer.startTempo(this.segundos);
         }
+    };
+    Contenido.prototype.setProgreso = function (progreso) {
+        this.timer.setProgreso(progreso);
     };
     Contenido.prototype.setAccion = function (accion) {
         this.accion = accion;
@@ -372,6 +364,42 @@ function cargarImagen(url, width, height, columnas, filas) {
     }
     return imagenes;
 }
+var Progress = /** @class */ (function () {
+    function Progress(total, inicial) {
+        this.total = total;
+        this.actual = inicial;
+        this.contenedor = document.createElement('div');
+        this.contenedor.className = "progreso";
+        var con_contendor = document.createElement('div');
+        con_contendor.className = "cont_progreso";
+        this.progress = document.createElement('progress');
+        this.progress.className = "progreso_barra";
+        this.indice = document.createElement('div');
+        this.indice.className = "progreso_numero";
+        this.progress.value = inicial;
+        this.progress.max = total;
+        this.indice.innerText = inicial + "";
+        this.contenedor.append(con_contendor);
+        con_contendor.append(this.progress, this.indice);
+        this.actualizarPosicion(this.actual);
+    }
+    Progress.prototype.setTotal = function (total) {
+        this.total = total;
+        this.progress.max = total;
+    };
+    Progress.prototype.actualizarPosicion = function (ini) {
+        var maximo = 550;
+        var actual = maximo * ini / this.total;
+        this.indice.style.left = actual + "px";
+        this.progress.value = ini;
+        this.indice.innerText = ini + 1 + "";
+        this.actual = ini;
+    };
+    Progress.prototype.getElemento = function () {
+        return this.contenedor;
+    };
+    return Progress;
+}());
 function irA(url) {
     $(".principal").load(url);
 }

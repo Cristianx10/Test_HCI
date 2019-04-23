@@ -1,21 +1,33 @@
 <script src="../js/pregunta.js"></script>
 <script>
     //Navegacion principal
-   
+
     let preguntas = document.createElement('div');
     let siguiente = document.createElement('button');
     siguiente.innerHTML = "Siguiente";
     siguiente.className = "btn_siguiente";
-    siguiente.disabled= "disabled";
+    siguiente.disabled = "disabled";
     preguntas.className = "preguntas";
 
     let preguntas_total = new Contenedor();
     let navegacion = new Navegable(preguntas_total);
-    
-    
-    loadJson("../data/preguntas.1.json", (r) => {
+    //let obtt = new PreguntaC("Mira este titulo",new OpcionC("Texto inicial", [{opcion:"value", valor:5}]));
+    let obt = new PreguntaC("Mira este titulo", new OpcionD([
+    { area: "value A", valor: 5 },
+    { area: "value B", valor: 13 },
+    { area: "value C", valor: 25 }]));
+    let con = new Contenido(obt.getElement(), obt, 5);
+    preguntas_total.agregar(con);
 
-        let con_preguntas = [];
+    con.setAccion(() => {
+        navegacion.setPermitir(true);
+        console.log("permitio");
+        siguiente.disabled = false;
+    }
+    );
+
+
+    loadJson("../data/preguntas.1.json", (r) => {
 
         r.preguntas.forEach(p => {
             let opciones = [];
@@ -24,50 +36,50 @@
                 let opcion = new Opcion(o.opcion, o.valor.categorias);
                 opciones.push(opcion);
             });
+
             let obj_pregunta = new Pregunta(p.pregunta, opciones);
-            let con = new Contenido(obj_pregunta.getElement(), obj_pregunta, 110);
+           
+            let con = new Contenido(obj_pregunta.getElement(), obj_pregunta, 45);
             preguntas_total.agregar(con);
-        
 
         });
 
         navegacion.iniciar();
-        preguntas_total.foreachElementos(preguntas);
+        preguntas_total.incluirEn(preguntas);
 
-    
+
         $(".principal").append(preguntas, siguiente);
 
         navegacion.colocarAvance();
         navegacion.colocarTiempo();
         navegacion.colocarProgreso();
 
-        navegacion.setSiguiente(()=>{
+        navegacion.setSiguiente(() => {
 
             navegacion.actualObjeto().validar();
-            $(".btn_siguiente").removeClass("activo").addClass( "desactivar" );
-            siguiente.disabled= true;
+            $(".btn_siguiente").removeClass("activo").addClass("desactivar");
+            siguiente.disabled = true;
 
         });
 
-      
-        navegacion.setFinal(()=>{
+
+        navegacion.setFinal(() => {
             console.log("Finalizo");
             preguntas_total = null;
-                $(".principal").load("./pantallas/modulos/tarjetas.html");
+            $(".principal").load("./pantallas/modulos/tarjetas.html");
         });
-    
+
         siguiente.addEventListener('click', () => {
             navegacion.siguiente();
-       
+
         });
         $(".btn_siguiente").disabled = true;
-        $(".opcion_check").click(()=>{
+        $(".opcion_check").on("input", () => {
             navegacion.setPermitir(true);
             console.log("permitio");
-            siguiente.disabled= false;
-
+            siguiente.disabled = false;
             $(".btn_siguiente").removeClass("desactivar").addClass("activo");
-   
+
         });
 
     });
@@ -75,4 +87,3 @@
 
 
 </script>
-

@@ -63,35 +63,6 @@ var Pregunta = /** @class */ (function () {
     };
     return Pregunta;
 }());
-var OpcionB = /** @class */ (function () {
-    function OpcionB(info, valor) {
-        var _this = this;
-        this.opcion = document.createElement("div");
-        this.opcion.className = "opcionB";
-        this.validado = false;
-        this.valor = valor;
-        this.opcion.innerHTML = info;
-        this.opcion.addEventListener('click', function () {
-            if (_this.pregunta != null) {
-                _this.pregunta.reset();
-                _this.validado = true;
-                _this.opcion.classList.add("opcion__select");
-                if (_this.pregunta.validacion != null) {
-                    _this.pregunta.validacion();
-                }
-            }
-        });
-    }
-    OpcionB.prototype.validacion = function () {
-        this.valor.forEach(function (v) {
-            resultados.sumar(v.area, v.valor);
-        });
-    };
-    OpcionB.prototype.getElement = function () {
-        return this.opcion;
-    };
-    return OpcionB;
-}());
 var PreguntaB = /** @class */ (function () {
     function PreguntaB(pregunta, opciones) {
         var _this = this;
@@ -139,4 +110,207 @@ var PreguntaB = /** @class */ (function () {
         this.validacion = validacion;
     };
     return PreguntaB;
+}());
+var OpcionB = /** @class */ (function () {
+    function OpcionB(info, valor) {
+        var _this = this;
+        this.opcion = document.createElement("div");
+        this.opcion.className = "opcionB";
+        this.validado = false;
+        this.valor = valor;
+        this.opcion.innerHTML = info;
+        this.opcion.addEventListener('click', function () {
+            if (_this.pregunta != null) {
+                _this.pregunta.reset();
+                _this.validado = true;
+                _this.opcion.classList.add("opcion__select");
+                if (_this.pregunta.validacion != null) {
+                    _this.pregunta.validacion();
+                }
+            }
+        });
+    }
+    OpcionB.prototype.validacion = function () {
+        this.valor.forEach(function (v) {
+            resultados.sumar(v.area, v.valor);
+        });
+    };
+    OpcionB.prototype.getElement = function () {
+        return this.opcion;
+    };
+    return OpcionB;
+}());
+/*
+    Inicio de la pregunta C
+
+*/
+var PreguntaC = /** @class */ (function () {
+    function PreguntaC(pregunta, opciones) {
+        this.pregunta = pregunta;
+        this.opciones = opciones;
+        this.elemento = document.createElement('div');
+        this.elemento.className = "pregunta";
+        var div_seccionA = document.createElement('section');
+        var div_seccionA_h1 = document.createElement('h2');
+        var div_seccionB = document.createElement('section');
+        var formulario = document.createElement('div');
+        div_seccionA.className = "pregunta__titulo";
+        div_seccionB.className = "pregunta__opciones";
+        div_seccionA_h1.innerHTML = this.pregunta;
+        this.elemento.appendChild(div_seccionA);
+        this.elemento.appendChild(div_seccionB);
+        div_seccionA.appendChild(div_seccionA_h1);
+        div_seccionA.appendChild(document.createElement('hr'));
+        /*
+                opciones.forEach(o => {
+                    o.pregunta = this;
+                    formulario.appendChild(o.getElement());
+                });
+        */
+        div_seccionB.appendChild(this.opciones.areaTexto);
+    }
+    PreguntaC.prototype.validar = function () {
+        /* this.opciones.forEach((o: any) => {
+             if (o.validado) {
+                 o.validacion();
+                 resultados.agregar("pregunta",
+                     [{ id: "pregunta", valor: this.elemento.innerText },
+                     { id: "respuesta", valor: o.opcion.innerText }]);
+             }
+         });*/
+    };
+    PreguntaC.prototype.reset = function () {
+        /* this.opciones.forEach(o => {
+             o.validado = false;
+             o.opcion.classList.remove("opcion__select");
+         });*/
+    };
+    PreguntaC.prototype.getElement = function () {
+        return this.elemento;
+    };
+    PreguntaC.prototype.setValidacion = function (validacion) {
+        this.validacion = validacion;
+    };
+    return PreguntaC;
+}());
+var OpcionC = /** @class */ (function () {
+    function OpcionC(info, valor) {
+        var _this = this;
+        this.opcion = document.createElement("div");
+        this.opcion.className = "opcionC";
+        this.areaTexto = document.createElement("textarea");
+        this.areaTexto.className = "pregunta__parrafo";
+        // this.areaTexto.type = "text";
+        this.areaTexto.placeholder = "Escribe tu respuesta";
+        this.areaTexto.innerText = info;
+        this.opcion.append(this.areaTexto);
+        this.validado = false;
+        this.valor = valor;
+        this.opcion.innerHTML = info;
+        this.opcion.addEventListener('click', function () {
+            if (_this.pregunta != null) {
+                _this.pregunta.reset();
+                _this.validado = true;
+                _this.opcion.classList.add("opcion__select");
+                if (_this.pregunta.validacion != null) {
+                    _this.pregunta.validacion();
+                }
+            }
+        });
+    }
+    OpcionC.prototype.validacion = function () {
+        this.valor.forEach(function (v) {
+            resultados.sumar(v.area, v.valor);
+        });
+    };
+    OpcionC.prototype.getElement = function () {
+        return this.opcion;
+    };
+    return OpcionC;
+}());
+/* Escala de linker
+*/
+var PreguntaD = /** @class */ (function () {
+    function PreguntaD(pregunta, opciones) {
+        this.pregunta = pregunta;
+        this.opciones = opciones;
+        this.elemento = document.createElement('div');
+        this.elemento.className = "pregunta";
+        var div_seccionA = document.createElement('section');
+        var div_seccionA_h1 = document.createElement('h2');
+        var div_seccionB = document.createElement('section');
+        var formulario = document.createElement('div');
+        div_seccionA.className = "pregunta__titulo";
+        div_seccionB.className = "pregunta__opciones";
+        div_seccionA_h1.innerHTML = this.pregunta;
+        this.elemento.appendChild(div_seccionA);
+        this.elemento.appendChild(div_seccionB);
+        div_seccionA.appendChild(div_seccionA_h1);
+        div_seccionA.appendChild(document.createElement('hr'));
+        div_seccionB.appendChild(this.opciones.opcion);
+    }
+    PreguntaD.prototype.validar = function () {
+        this.opciones.validacion();
+        resultados.agregar("pregunta", [{ id: "pregunta", valor: this.pregunta },
+            { id: "respuesta", valor: this.opciones.input.value }]);
+    };
+    PreguntaD.prototype.getElement = function () {
+        return this.elemento;
+    };
+    PreguntaD.prototype.setValidacion = function (validacion) {
+        this.validacion = validacion;
+    };
+    return PreguntaD;
+}());
+var OpcionD = /** @class */ (function () {
+    function OpcionD(valor) {
+        var _this = this;
+        this.opcion = document.createElement("div");
+        this.opcion.className = "likert_escala";
+        var poco = document.createElement("label");
+        poco.className = "likert_label";
+        poco.innerText = "Poco";
+        var linker = document.createElement("div");
+        linker.className = "likert_cont";
+        linker.style.position = " relative";
+        this.progreso = document.createElement("progress");
+        this.progreso.max = 2;
+        this.progreso.value = 1;
+        this.input = document.createElement("input");
+        this.input.className = "likert";
+        this.input.type = "range";
+        this.input.value = "2";
+        this.input.min = "1";
+        this.input.max = "3";
+        this.input.addEventListener("input", function (e) {
+            _this.progreso.value = parseInt(_this.input.value) - 1;
+        });
+        var label1 = document.createElement("label");
+        label1.className = "likert_valores";
+        label1.innerText = "1";
+        var label2 = document.createElement("label");
+        label2.className = "likert_valores";
+        label2.innerText = "2";
+        var label3 = document.createElement("label");
+        label3.className = "likert_valores";
+        label3.innerText = "3";
+        var mucho = document.createElement("label");
+        mucho.className = "likert_label";
+        mucho.innerText = "Mucho";
+        linker.append(this.progreso, this.input, label1, label2, label3);
+        this.opcion.append(poco, linker, mucho);
+        this.validado = false;
+        this.valor = valor;
+    }
+    OpcionD.prototype.validacion = function () {
+        var index = parseInt(this.input.value);
+        if (index < parseInt(this.input.max)) {
+            var inp = this.valor[index - 1];
+            resultados.sumar(inp.area, inp.valor);
+        }
+    };
+    OpcionD.prototype.getElement = function () {
+        return this.opcion;
+    };
+    return OpcionD;
 }());

@@ -300,6 +300,7 @@ label{
       &_escala{
           display: flex;
           justify-content: center;
+          width: 100%;
       }
       &_valores{
           margin: 10px;
@@ -339,6 +340,7 @@ label{
   }
   
 .pregunta {
+    text-align: center;
     color: black;
     width: 80%;
     height: 100%;

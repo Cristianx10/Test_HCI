@@ -32,6 +32,7 @@ class Navegable {
     av: HTMLElement;
     permitir = false;
     permitirAll = false;
+    fcambioTiempo?:Function;
 
     constructor(elementos: Contenedor) {
         this.elementos = elementos;
@@ -80,10 +81,11 @@ class Navegable {
                 }
             });
 
-            e.timer.setProgreso((m: number, s: number) => {
-                
+            e.setProgreso((m: number, s: number) => {
                 if (e == this.actualPantalla()) {
-                    
+                    if(this.fcambioTiempo != null){
+                        this.fcambioTiempo(m ,s);
+                    }
                     if (s < 10 && s < 60 && s > -1 && m < 59) {
                         this.ti.innerText = "0" + m + ":0" + s;
                     } else {
@@ -107,6 +109,10 @@ class Navegable {
 
         this.actualPantalla().start();
 
+    }
+
+    cambioTiempo(cambio:Function){
+        this.fcambioTiempo = cambio;
     }
 
     getTiempoHTML() {
@@ -228,53 +234,6 @@ class Navegable {
     }
 }
 
-class Progress {
-    contenedor: HTMLElement;
-    progress: HTMLProgressElement;
-    indice: HTMLElement;
-    total: number;
-    actual: number;
-
-    constructor(total: number, inicial: number) {
-        this.total = total;
-        this.actual = inicial;
-        this.contenedor = document.createElement('div');
-        this.contenedor.className = "progreso";
-        let con_contendor = document.createElement('div');
-        con_contendor.className = "cont_progreso";
-        this.progress = document.createElement('progress');
-        this.progress.className = "progreso_barra";
-        this.indice = document.createElement('div');
-        this.indice.className = "progreso_numero";
-
-        this.progress.value = inicial;
-        this.progress.max = total;
-        this.indice.innerText = inicial + "";
-
-        this.contenedor.append(con_contendor);
-        con_contendor.append(this.progress, this.indice);
-        this.actualizarPosicion(this.actual);
-    }
-
-    setTotal(total:number){
-        this.total = total;
-        this.progress.max = total;
-    }
-
-    actualizarPosicion(ini: number) {
-        let maximo = 550;
-        let actual = maximo * ini / this.total;
-        this.indice.style.left = actual + "px";
-        this.progress.value = ini;
-        this.indice.innerText = ini + 1 + "";
-        this.actual = ini;
-    }
-
-    getElemento() {
-        return this.contenedor;
-    }
-}
-
 class PantallaHTML {
     elemento: HTMLElement;
 
@@ -317,22 +276,41 @@ class Contenedor implements Validable {
         this.elementos.push(elemeto)
     }
 
-    agregarHtml(elemeto: HTMLElement) {
+    agregarHtml(elemeto: HTMLElement, tiempo?:number) {
         let e = new PantallaHTML(elemeto);
-        this.elementos.push(new Contenido(elemeto, e));
+        if(tiempo != null){
+            this.elementos.push(new Contenido(elemeto, e, tiempo));
+        }else{
+            this.elementos.push(new Contenido(elemeto, e, tiempo));
+        }
     }
 
-    agregarHtmlAll(elemetos: Array<HTMLElement>) {
+    agregarHtmlAll(elemetos: Array<HTMLElement>, tiempo?:number) {
 
-        elemetos.forEach((ele) => {
-            let e = new PantallaHTML(ele);
-            let c = new Contenido(ele, e);
-            this.elementos.push(c);
-        });
+        if(tiempo != null){
+            elemetos.forEach((ele) => {
+                let e = new PantallaHTML(ele);
+                let c = new Contenido(ele, e, tiempo);
+                this.elementos.push(c);
+            });
+        }else{
+            elemetos.forEach((ele) => {
+                let e = new PantallaHTML(ele);
+                let c = new Contenido(ele, e);
+                this.elementos.push(c);
+            });
+        }
+        
         
     }
 
     foreachElementos(elemento: HTMLElement) {
+        this.elementos.forEach(e => {
+            elemento.appendChild(e.elementoHTML);
+        });
+    }
+
+    incluirEn(elemento: HTMLElement) {
         this.elementos.forEach(e => {
             elemento.appendChild(e.elementoHTML);
         });
@@ -395,6 +373,10 @@ class Contenido {
             this.timer.startTempo(this.segundos);
           
         }
+    }
+
+    setProgreso(progreso:Function){
+        this.timer.setProgreso(progreso);
     }
 
     setAccion(accion: Function) {
@@ -497,6 +479,55 @@ function cargarImagen(url: string, width: number, height: number, columnas: numb
 
     return imagenes;
 }
+
+
+class Progress {
+    contenedor: HTMLElement;
+    progress: HTMLProgressElement;
+    indice: HTMLElement;
+    total: number;
+    actual: number;
+
+    constructor(total: number, inicial: number) {
+        this.total = total;
+        this.actual = inicial;
+        this.contenedor = document.createElement('div');
+        this.contenedor.className = "progreso";
+        let con_contendor = document.createElement('div');
+        con_contendor.className = "cont_progreso";
+        this.progress = document.createElement('progress');
+        this.progress.className = "progreso_barra";
+        this.indice = document.createElement('div');
+        this.indice.className = "progreso_numero";
+
+        this.progress.value = inicial;
+        this.progress.max = total;
+        this.indice.innerText = inicial + "";
+
+        this.contenedor.append(con_contendor);
+        con_contendor.append(this.progress, this.indice);
+        this.actualizarPosicion(this.actual);
+    }
+
+    setTotal(total:number){
+        this.total = total;
+        this.progress.max = total;
+    }
+
+    actualizarPosicion(ini: number) {
+        let maximo = 550;
+        let actual = maximo * ini / this.total;
+        this.indice.style.left = actual + "px";
+        this.progress.value = ini;
+        this.indice.innerText = ini + 1 + "";
+        this.actual = ini;
+    }
+
+    getElemento() {
+        return this.contenedor;
+    }
+}
+
 
 
 function irA(url: string) {
