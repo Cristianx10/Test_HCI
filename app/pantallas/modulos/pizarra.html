@@ -7,7 +7,7 @@
 
     loadJson("../../data/pizarra.json", (r) => {
 
-        let con_tab = [];
+        let con_tablero = new Contenedor();;
         for (let i = 0; i < r.secciones.length; i++) {
             let s = r.secciones[i];
             var pizarra_fichas = [];
@@ -23,17 +23,20 @@
             }
 
             let tab = new Pizarra(pizarra_fichas, s.inicio, s.final, s.lider);
-            con_tab.push(new ContenidoA(tab.getElemento(), tab));
             tab.cargarTablero(5, 4, 103, 103);
+
+            con_tablero.agregar(new Contenido(tab.getElemento(), tab));
+            
         }
 
         let html_contenedor = document.createElement('div');
         html_contenedor.className = "pizarras";
 
-        let con_tablero = new Contenedor(con_tab);
+        
         con_tablero.foreachElementos(html_contenedor);
 
         nav = new Navegable(con_tablero);
+        nav.iniciar();
 
         nav.asignarCondiciones((o) => {
 

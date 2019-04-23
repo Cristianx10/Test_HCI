@@ -13,44 +13,12 @@ function shuffle(array) {
     array.sort(function () { return Math.random() - 0.5; });
 }
 var Navegable = /** @class */ (function () {
-    function Navegable(elementos, comenzar) {
-        var _this = this;
+    function Navegable(elementos) {
         this.permitir = false;
         this.permitirAll = false;
         this.elementos = elementos;
         this.progreso = new Progress(elementos.elementos.length, 0);
-        this.elementos.elementos.forEach(function (e) {
-            e.setTiempo(function () {
-                if (e.tiempoDefinido && e == _this.elementos.elementos[_this.actual]) {
-                    _this.permitir = true;
-                    _this.siguiente();
-                    _this.permitir = false;
-                }
-            });
-            e.timer.setProgreso(function (m, s) {
-                if (e == _this.elementos.elementos[_this.actual]) {
-                    if (s < 10 && s < 60 && s > -1 && m < 59) {
-                        _this.ti.innerText = "0" + m + ":0" + s;
-                    }
-                    else {
-                        _this.ti.innerText = "0" + m + ":" + s;
-                    }
-                }
-            });
-        });
-        this.secciones = elementos.getElementosHTML();
         this.actual = 0;
-        this.secciones.forEach(function (s, i) {
-            if (i == 0) {
-                s.style.display = "block";
-            }
-            else {
-                s.style.display = "none";
-            }
-        });
-        if (comenzar != null && comenzar) {
-            this.actualPantalla().start();
-        }
         this.tiempo = document.createElement('div');
         this.tiempo.className = "nav_tiempo";
         var c = document.createElement('div');
@@ -72,9 +40,41 @@ var Navegable = /** @class */ (function () {
         a.append(this.av);
         this.progress = document.createElement('div');
         this.progress.append(this.progreso.getElemento());
-        this.av.innerText = this.actual + 1 + "/" + this.secciones.length;
         this.ti.innerText = "0:00";
     }
+    Navegable.prototype.iniciar = function () {
+        var _this = this;
+        this.elementos.elementos.forEach(function (e) {
+            e.setTermino(function () {
+                if (e == _this.elementos.elementos[_this.actual]) {
+                    _this.permitir = true;
+                    _this.siguiente();
+                    _this.permitir = false;
+                }
+            });
+            e.timer.setProgreso(function (m, s) {
+                if (e == _this.actualPantalla()) {
+                    if (s < 10 && s < 60 && s > -1 && m < 59) {
+                        _this.ti.innerText = "0" + m + ":0" + s;
+                    }
+                    else {
+                        _this.ti.innerText = "0" + m + ":" + s;
+                    }
+                }
+            });
+        });
+        this.av.innerText = this.actual + 1 + "/" + this.elementos.elementos.length;
+        this.progreso.setTotal(this.elementos.elementos.length);
+        this.elementos.getElementosHTML().forEach(function (s, i) {
+            if (i == 0) {
+                s.style.display = "block";
+            }
+            else {
+                s.style.display = "none";
+            }
+        });
+        this.actualPantalla().start();
+    };
     Navegable.prototype.getTiempoHTML = function () {
         return this.tiempo;
     };
@@ -118,13 +118,13 @@ var Navegable = /** @class */ (function () {
     Navegable.prototype.actualPantalla = function () {
         return this.elementos.elementos[this.actual];
     };
+    Navegable.prototype.actualPantallaHtml = function () {
+        return this.elementos.elementos[this.actual].getElementoHTML();
+    };
     Navegable.prototype.asignarCondiciones = function (recorrer) {
         this.elementos.elementos.forEach(function (e) {
             recorrer(e.objeto);
         });
-    };
-    Navegable.prototype.getElement = function () {
-        return this.secciones;
     };
     Navegable.prototype.mostrar = function (seccion) {
         seccion.style.display = "block";
@@ -146,8 +146,8 @@ var Navegable = /** @class */ (function () {
     };
     Navegable.prototype.siguiente = function () {
         if (this.permitir || this.permitirAll) {
-            this.ocultar(this.secciones[this.actual]);
-            if (this.actual < this.secciones.length - 1) {
+            this.ocultar(this.actualPantallaHtml());
+            if (this.actual < this.elementos.elementos.length - 1) {
                 if (this.inicio != null) {
                     this.inicio(this.actualPantalla(), this.actual);
                 }
@@ -156,9 +156,9 @@ var Navegable = /** @class */ (function () {
                     this.elementos.elementos[this.actual].timer.stop();
                 }
                 this.actual++;
-                this.av.innerText = this.actual + 1 + "/" + this.secciones.length;
+                this.av.innerText = this.actual + 1 + "/" + this.elementos.elementos.length;
                 this.progreso.actualizarPosicion(this.actual);
-                this.mostrar(this.secciones[this.actual]);
+                this.mostrar(this.actualPantallaHtml());
                 this.actualPantalla().start();
             }
             else {
@@ -191,6 +191,10 @@ var Progress = /** @class */ (function () {
         con_contendor.append(this.progress, this.indice);
         this.actualizarPosicion(this.actual);
     }
+    Progress.prototype.setTotal = function (total) {
+        this.total = total;
+        this.progress.max = total;
+    };
     Progress.prototype.actualizarPosicion = function (ini) {
         var maximo = 550;
         var actual = maximo * ini / this.total;
@@ -218,19 +222,43 @@ function toPantallas(pantallas) {
     for (var i = 0; i < pantallas.length; i++) {
         var p = pantallas[i];
         var o = new PantallaHTML(p);
-        contenido.push(new ContenidoA(p, o));
+        contenido.push(new Contenido(p, o));
     }
-    var contenedorPadre = new Contenedor(contenido);
-    return contenedorPadre;
+    return contenido;
 }
 var Contenedor = /** @class */ (function () {
-    function Contenedor(elementos) {
-        this.elementos = elementos;
+    function Contenedor() {
+        this.elementos = new Array();
     }
+    Contenedor.prototype.agregarAll = function (elemetos) {
+        var _this = this;
+        elemetos.forEach(function (e) {
+            _this.elementos.push(e);
+        });
+    };
+    Contenedor.prototype.agregar = function (elemeto) {
+        this.elementos.push(elemeto);
+    };
+    Contenedor.prototype.agregarHtml = function (elemeto) {
+        var e = new PantallaHTML(elemeto);
+        this.elementos.push(new Contenido(elemeto, e));
+    };
+    Contenedor.prototype.agregarHtmlAll = function (elemetos) {
+        var _this = this;
+        elemetos.forEach(function (ele) {
+            var e = new PantallaHTML(ele);
+            var c = new Contenido(ele, e);
+            _this.elementos.push(c);
+        });
+    };
     Contenedor.prototype.foreachElementos = function (elemento) {
         this.elementos.forEach(function (e) {
             elemento.appendChild(e.elementoHTML);
         });
+    };
+    Contenedor.prototype.getHtmlIndex = function (index) {
+        var ElementoHTML = this.elementos[index].getElementoHTML();
+        return ElementoHTML;
     };
     Contenedor.prototype.getObjectIndex = function (index) {
         var ElementoHTML = this.elementos[index].getObjeto();
@@ -246,41 +274,42 @@ var Contenedor = /** @class */ (function () {
     };
     return Contenedor;
 }());
-var ContenidoA = /** @class */ (function () {
-    function ContenidoA(elementoHTML, objeto, minutos, segundos) {
+var Contenido = /** @class */ (function () {
+    function Contenido(elementoHTML, objeto, segundos) {
         this.elementoHTML = elementoHTML;
+        this.elementoHTML.style.display = "none";
         this.objeto = objeto;
         this.timer = new Timer();
         this.tiempoDefinido = false;
         if (segundos != null) {
-            this.minutos = minutos;
             this.segundos = segundos;
         }
-        else if (minutos != null) {
-            this.segundos = minutos;
-            this.minutos = 0;
-        }
     }
-    ContenidoA.prototype.tiempo = function (minutos, segundos) {
-        this.minutos = minutos;
+    Contenido.prototype.tiempo = function (segundos) {
+        this.tiempoDefinido = true;
         this.segundos = segundos;
     };
-    ContenidoA.prototype.start = function () {
-        if (this.minutos != null && this.segundos != null) {
-            this.timer.startTempo(this.minutos, this.segundos);
+    Contenido.prototype.start = function () {
+        if (this.accion != null) {
+            this.accion(this.objeto);
+        }
+        if (this.segundos != null) {
+            this.timer.startTempo(this.segundos);
         }
     };
-    ContenidoA.prototype.setTiempo = function (termino) {
-        this.tiempoDefinido = true;
+    Contenido.prototype.setAccion = function (accion) {
+        this.accion = accion;
+    };
+    Contenido.prototype.setTermino = function (termino) {
         this.timer.termino = termino;
     };
-    ContenidoA.prototype.getElementoHTML = function () {
+    Contenido.prototype.getElementoHTML = function () {
         return this.elementoHTML;
     };
-    ContenidoA.prototype.getObjeto = function () {
+    Contenido.prototype.getObjeto = function () {
         return this.objeto;
     };
-    return ContenidoA;
+    return Contenido;
 }());
 function loadJson(ruta, result) {
     var valor;

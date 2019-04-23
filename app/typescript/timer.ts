@@ -39,19 +39,24 @@ class Timer {
 
   }
 
-  startTempo(minutos:number, segundos:number) {
-
+  startTempo(segundos:number) {
+    
+    
     this.time = 0;
     this.horas = 0;
-    this.minutos = minutos;
-    this.segundos = segundos;
+    this.minutos = parseInt((segundos/60) +"", 10);
+    this.segundos = segundos%60;
     this.milisegundos = 0;
     this.enEjecucion = true;
 
+   
+
     this.intervalo = setInterval(() => {
+    
       this.comenzarTempo();
       if(this.progreso != null){
         this.progreso(this.minutos, this.segundos);
+        
       }
       //console.log("Hora:" + this.horas + " Minutos: " + this.minutos + " Segundos: "+ this.segundos + " Millis: " + this.milisegundos + " Total: " +this.time);
     }, 10);

@@ -1,15 +1,16 @@
 <script src="../js/pregunta.js"></script>
 <script>
     //Navegacion principal
-    let navegacion;
+   
     let preguntas = document.createElement('div');
     let siguiente = document.createElement('button');
     siguiente.innerHTML = "Siguiente";
     siguiente.className = "btn_siguiente";
     siguiente.disabled= "disabled";
-
-    let preguntas_total;
     preguntas.className = "preguntas";
+
+    let preguntas_total = new Contenedor();
+    let navegacion = new Navegable(preguntas_total);
     
     
     loadJson("../data/preguntas.1.json", (r) => {
@@ -17,24 +18,23 @@
         let con_preguntas = [];
 
         r.preguntas.forEach(p => {
-
             let opciones = [];
 
             p.opciones.forEach(o => {
                 let opcion = new Opcion(o.opcion, o.valor.categorias);
                 opciones.push(opcion);
             });
-
             let obj_pregunta = new Pregunta(p.pregunta, opciones);
-            con_preguntas.push(new ContenidoA(obj_pregunta.getElement(), obj_pregunta, 0, 45));
+            let con = new Contenido(obj_pregunta.getElement(), obj_pregunta, 110);
+            preguntas_total.agregar(con);
+        
+
         });
 
-        preguntas_total = new Contenedor(con_preguntas);
+        navegacion.iniciar();
         preguntas_total.foreachElementos(preguntas);
 
-        navegacion = new Navegable(preguntas_total, true);
-
-        navegacion.colocarProgreso();
+    
         $(".principal").append(preguntas, siguiente);
 
         navegacion.colocarAvance();

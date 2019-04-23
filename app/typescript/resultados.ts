@@ -99,7 +99,7 @@ class Resultados {
             anchor = document.createElement('a');
 
         anchor.download = "resultadoDictado.json";
-        anchor.href = (window.webkitURL || window.URL).createObjectURL(blob);
+        anchor.href = (/*window.webkitURL ||*/ window.URL).createObjectURL(blob);
         anchor.dataset.downloadurl = ['text/plain', anchor.download, anchor.href].join(':');
         anchor.click();
     }

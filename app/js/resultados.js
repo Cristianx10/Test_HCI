@@ -65,7 +65,7 @@ var Resultados = /** @class */ (function () {
     Resultados.prototype.descargar = function () {
         var text = JSON.stringify(this), blob = new Blob([text], { type: 'text/plain' }), anchor = document.createElement('a');
         anchor.download = "resultadoDictado.json";
-        anchor.href = (window.webkitURL || window.URL).createObjectURL(blob);
+        anchor.href = ( /*window.webkitURL ||*/window.URL).createObjectURL(blob);
         anchor.dataset.downloadurl = ['text/plain', anchor.download, anchor.href].join(':');
         anchor.click();
     };

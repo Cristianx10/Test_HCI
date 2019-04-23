@@ -23,12 +23,12 @@ var Timer = /** @class */ (function () {
             //console.log("Hora:" + this.horas + " Minutos: " + this.minutos + " Segundos: "+ this.segundos + " Millis: " + this.milisegundos + " Total: " +this.time);
         }, 10);
     };
-    Timer.prototype.startTempo = function (minutos, segundos) {
+    Timer.prototype.startTempo = function (segundos) {
         var _this = this;
         this.time = 0;
         this.horas = 0;
-        this.minutos = minutos;
-        this.segundos = segundos;
+        this.minutos = parseInt((segundos / 60) + "", 10);
+        this.segundos = segundos % 60;
         this.milisegundos = 0;
         this.enEjecucion = true;
         this.intervalo = setInterval(function () {

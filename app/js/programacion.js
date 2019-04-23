@@ -50,7 +50,7 @@ var Tablero_hielo = /** @class */ (function () {
 }());
 var Piguino = /** @class */ (function () {
     function Piguino(tablero) {
-        this.velocidad = 70;
+        this.velocidad = 90;
         this.vel_time = 1000;
         this.impacto = new createjs.Shape();
         this.m_up = false;
@@ -77,7 +77,7 @@ var Piguino = /** @class */ (function () {
         var vista = new createjs.SpriteSheet(data);
         this.personaje = new createjs.Sprite(vista);
         this.personaje.x = 100;
-        this.personaje.y = 200;
+        this.personaje.y = 230;
         this.personaje.gotoAndStop("frente");
         this.tablero.stage.addChild(this.personaje);
         this.tablero.stage.addChild(this.impacto);

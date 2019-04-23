@@ -21,7 +21,6 @@ interface Validable {
 class Navegable {
 
     elementos: Contenedor;
-    secciones: Array<HTMLElement>;
     actual: number;
     progreso: Progress;
     tiempo: HTMLElement;
@@ -34,44 +33,10 @@ class Navegable {
     permitir = false;
     permitirAll = false;
 
-    constructor(elementos: Contenedor, comenzar?:boolean) {
+    constructor(elementos: Contenedor) {
         this.elementos = elementos;
         this.progreso = new Progress(elementos.elementos.length, 0);
-
-        this.elementos.elementos.forEach(e => {
-            e.setTiempo(() => {
-                if (e.tiempoDefinido && e == this.elementos.elementos[this.actual]) {
-                    this.permitir = true;
-                    this.siguiente();
-                    this.permitir = false;
-                }
-            });
-
-            e.timer.setProgreso((m: number, s: number) => {
-                if (e == this.elementos.elementos[this.actual]) {
-                    if (s < 10 && s < 60 && s > -1 && m < 59) {
-                        this.ti.innerText = "0" + m + ":0" + s;
-                    } else {
-                        this.ti.innerText = "0" + m + ":" + s;
-                    }
-                }
-            });
-        });
-
-        this.secciones = elementos.getElementosHTML();
         this.actual = 0;
-        this.secciones.forEach((s, i) => {
-            if (i == 0) {
-                s.style.display = "block";
-            } else {
-                s.style.display = "none";
-            }
-        });
-
-        if(comenzar != null && comenzar){
-            this.actualPantalla().start();
-        }
-        
 
         this.tiempo = document.createElement('div');
         this.tiempo.className = "nav_tiempo"
@@ -101,9 +66,47 @@ class Navegable {
 
         this.progress = document.createElement('div');
         this.progress.append(this.progreso.getElemento());
-
-        this.av.innerText = this.actual + 1 + "/" + this.secciones.length;
         this.ti.innerText = "0:00";
+    }
+
+    iniciar() {
+        this.elementos.elementos.forEach(e => {
+            e.setTermino(() => {
+                if (e == this.elementos.elementos[this.actual]) {
+                    this.permitir = true;
+                    this.siguiente();
+                    this.permitir = false;
+        
+                }
+            });
+
+            e.timer.setProgreso((m: number, s: number) => {
+                
+                if (e == this.actualPantalla()) {
+                    
+                    if (s < 10 && s < 60 && s > -1 && m < 59) {
+                        this.ti.innerText = "0" + m + ":0" + s;
+                    } else {
+                        this.ti.innerText = "0" + m + ":" + s;
+                    }
+                }
+            });
+        });
+      
+        this.av.innerText = this.actual + 1 + "/" + this.elementos.elementos.length;
+
+        this.progreso.setTotal(this.elementos.elementos.length);
+        this.elementos.getElementosHTML().forEach((s, i) => {
+            if (i == 0) {
+                s.style.display = "block";
+            } else {
+                s.style.display = "none";
+            }
+        });
+
+
+        this.actualPantalla().start();
+
     }
 
     getTiempoHTML() {
@@ -114,15 +117,15 @@ class Navegable {
         return this.avance;
     }
 
-    ocultarProgreso(){
+    ocultarProgreso() {
         this.progress.style.display = "none";
     }
 
-    ocultarTiempo(){
+    ocultarTiempo() {
         this.tiempo.style.display = "none";
     }
 
-    ocultarAvance(){
+    ocultarAvance() {
         this.avance.style.display = "none";
     }
 
@@ -148,7 +151,7 @@ class Navegable {
         this.avance.style.left = "10px";
     }
 
-    comenzar(){
+    comenzar() {
         this.actualPantalla().start();
     }
 
@@ -156,18 +159,18 @@ class Navegable {
         return this.elementos.elementos[this.actual].getObjeto();
     }
 
-    actualPantalla(): ContenidoA {
+    actualPantalla(): Contenido {
         return this.elementos.elementos[this.actual];
+    }
+
+    actualPantallaHtml(): HTMLElement {
+        return this.elementos.elementos[this.actual].getElementoHTML();
     }
 
     asignarCondiciones(recorrer: Function) {
         this.elementos.elementos.forEach(e => {
             recorrer(e.objeto);
         });
-    }
-
-    getElement() {
-        return this.secciones;
     }
 
     mostrar(seccion: HTMLElement) {
@@ -187,17 +190,19 @@ class Navegable {
         this.final = final;
     }
 
-    setPermitir(permiso:boolean){
+    setPermitir(permiso: boolean) {
         this.permitir = permiso;
     }
-    setPermitirAll(permiso:boolean){
+    setPermitirAll(permiso: boolean) {
         this.permitirAll = permiso;
     }
 
     siguiente(): void {
+        
         if (this.permitir || this.permitirAll) {
-            this.ocultar(this.secciones[this.actual]);
-            if (this.actual < this.secciones.length - 1) {
+    
+            this.ocultar(this.actualPantallaHtml());
+            if (this.actual < this.elementos.elementos.length - 1) {
                 if (this.inicio != null) {
                     this.inicio(this.actualPantalla(), this.actual);
                 }
@@ -208,9 +213,9 @@ class Navegable {
                 }
 
                 this.actual++;
-                this.av.innerText = this.actual + 1 + "/" + this.secciones.length;
+                this.av.innerText = this.actual + 1 + "/" + this.elementos.elementos.length;
                 this.progreso.actualizarPosicion(this.actual);
-                this.mostrar(this.secciones[this.actual]);
+                this.mostrar(this.actualPantallaHtml());
                 this.actualPantalla().start();
             } else {
                 this.progreso.actualizarPosicion(this.actual + 1);
@@ -251,12 +256,17 @@ class Progress {
         this.actualizarPosicion(this.actual);
     }
 
+    setTotal(total:number){
+        this.total = total;
+        this.progress.max = total;
+    }
+
     actualizarPosicion(ini: number) {
         let maximo = 550;
         let actual = maximo * ini / this.total;
         this.indice.style.left = actual + "px";
         this.progress.value = ini;
-        this.indice.innerText = ini+1 + "";
+        this.indice.innerText = ini + 1 + "";
         this.actual = ini;
     }
 
@@ -283,25 +293,54 @@ function toPantallas(pantallas: Array<HTMLElement>) {
     for (let i = 0; i < pantallas.length; i++) {
         let p = pantallas[i];
         let o = new PantallaHTML(p);
-        contenido.push(new ContenidoA(p, o));
+        contenido.push(new Contenido(p, o));
     }
 
-    let contenedorPadre = new Contenedor(contenido);
-    return contenedorPadre;
+    return contenido;
 }
 
 class Contenedor implements Validable {
 
-    elementos: Array<ContenidoA>;
+    elementos: Array<Contenido>;
 
-    constructor(elementos: Array<ContenidoA>) {
-        this.elementos = elementos;
+    constructor() {
+        this.elementos = new Array();
+    }
+
+    agregarAll(elemetos: Array<Contenido>) {
+        elemetos.forEach((e) => {
+            this.elementos.push(e)
+        });
+    }
+
+    agregar(elemeto: Contenido) {
+        this.elementos.push(elemeto)
+    }
+
+    agregarHtml(elemeto: HTMLElement) {
+        let e = new PantallaHTML(elemeto);
+        this.elementos.push(new Contenido(elemeto, e));
+    }
+
+    agregarHtmlAll(elemetos: Array<HTMLElement>) {
+
+        elemetos.forEach((ele) => {
+            let e = new PantallaHTML(ele);
+            let c = new Contenido(ele, e);
+            this.elementos.push(c);
+        });
+        
     }
 
     foreachElementos(elemento: HTMLElement) {
         this.elementos.forEach(e => {
             elemento.appendChild(e.elementoHTML);
         });
+    }
+
+    getHtmlIndex(index: number) {
+        let ElementoHTML: Object = this.elementos[index].getElementoHTML();
+        return ElementoHTML;
     }
 
     getObjectIndex(index: number) {
@@ -311,7 +350,7 @@ class Contenedor implements Validable {
 
     getElementosHTML(): Array<HTMLElement> {
         let ElementosHTML: Array<HTMLElement> = new Array();
-        this.elementos.forEach(e => {
+        this.elementos.forEach((e) => {
             ElementosHTML.push(e.getElementoHTML());
         });
         this.elementos;
@@ -320,48 +359,50 @@ class Contenedor implements Validable {
 
 }
 
-class ContenidoA {
+class Contenido {
 
     objeto: Object;
     elementoHTML: HTMLElement;
     timer: Timer;
-    minutos?: number;
     segundos?: number;
     tiempoDefinido: boolean;
+    accion?: Function;
 
-    constructor(elementoHTML: HTMLElement, objeto: Object, minutos?: number, segundos?: number) {
+    constructor(elementoHTML: HTMLElement, objeto: Object, segundos?: number) {
         this.elementoHTML = elementoHTML;
+        this.elementoHTML.style.display = "none";
         this.objeto = objeto;
         this.timer = new Timer();
         this.tiempoDefinido = false;
 
         if (segundos != null) {
-            this.minutos = minutos;
+            
             this.segundos = segundos;
-
-        } else if (minutos != null) {
-            this.segundos = minutos;
-            this.minutos = 0;
+        
         }
-
     }
 
-    tiempo(minutos?: number, segundos?: number) {
-        this.minutos = minutos;
+    tiempo(segundos?: number) {
+        this.tiempoDefinido = true;
         this.segundos = segundos;
     }
 
     start() {
-        if (this.minutos != null && this.segundos != null) {
-            this.timer.startTempo(this.minutos, this.segundos);
+        if (this.accion != null) {
+            this.accion(this.objeto);
+        }
+        if (this.segundos != null) {
+            this.timer.startTempo(this.segundos);
+          
         }
     }
 
+    setAccion(accion: Function) {
+        this.accion = accion;
+    }
 
-    setTiempo(termino: Function) {
-        this.tiempoDefinido = true;
+    setTermino(termino: Function) {
         this.timer.termino = termino;
-
     }
 
     getElementoHTML() {
