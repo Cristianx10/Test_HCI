@@ -225,7 +225,7 @@ var Contenedor = /** @class */ (function () {
             this.elementos.push(new Contenido(elemeto, e, tiempo));
         }
         else {
-            this.elementos.push(new Contenido(elemeto, e, tiempo));
+            this.elementos.push(new Contenido(elemeto, e));
         }
     };
     Contenedor.prototype.agregarHtmlAll = function (elemetos, tiempo) {

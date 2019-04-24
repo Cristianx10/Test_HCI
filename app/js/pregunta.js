@@ -206,6 +206,7 @@ var OpcionC = /** @class */ (function () {
         this.opcion.className = "opcionC";
         this.areaTexto = document.createElement("textarea");
         this.areaTexto.className = "pregunta__parrafo";
+        this.areaTexto.spellcheck = false;
         // this.areaTexto.type = "text";
         this.areaTexto.placeholder = "Escribe tu respuesta";
         if (info != null) {
