@@ -9,9 +9,9 @@ body {}
     justify-content: center;
 
     &__bloque {
-        background: lightcoral;
         position: relative;
         perspective: 1000px;
+        border-radius: 20px;
 
         height: 130px;
         width: 90px;
@@ -21,9 +21,8 @@ body {}
            
             height: 100%;
             width: 100%;
-           
 
-            border: 2px solid blue;
+            //border: 2px solid blue;
             img{
                 width: 100%;
                 height: 100%;
@@ -33,7 +32,11 @@ body {}
             transform-style: preserve-3d;
             transition: all 1s linear;
             &__cara {
-                background: red;
+
+                background-image: url("../../img/salud/fondoT.png");
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
                 position: absolute;
                 backface-visibility: hidden;
                 width: 100%;

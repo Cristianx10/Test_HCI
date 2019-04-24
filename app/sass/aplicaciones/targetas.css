@@ -12,10 +12,10 @@
 }
 
 .tablero__bloque {
-  background: lightcoral;
   position: relative;
   -webkit-perspective: 1000px;
           perspective: 1000px;
+  border-radius: 20px;
   height: 130px;
   width: 90px;
   margin: 20px 10px;
@@ -24,7 +24,6 @@
 .tablero__bloque .bloque {
   height: 100%;
   width: 100%;
-  border: 2px solid blue;
   -webkit-transform-style: preserve-3d;
           transform-style: preserve-3d;
   -webkit-transition: all 1s linear;
@@ -37,7 +36,10 @@
 }
 
 .tablero__bloque .bloque__cara {
-  background: red;
+  background-image: url("../../img/salud/fondoT.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   position: absolute;
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
