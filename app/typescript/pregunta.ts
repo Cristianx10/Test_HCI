@@ -1,6 +1,6 @@
-interface ResultadoA{
-    area:string;
-    valor:number;
+interface ResultadoA {
+    area: string;
+    valor: number;
 }
 
 class Opcion {
@@ -238,12 +238,12 @@ class PreguntaC {
         div_seccionA.appendChild(div_seccionA_h1);
         div_seccionA.appendChild(document.createElement('hr'));
 
-/*
-        opciones.forEach(o => {
-            o.pregunta = this;
-            formulario.appendChild(o.getElement());
-        });
-*/
+        /*
+                opciones.forEach(o => {
+                    o.pregunta = this;
+                    formulario.appendChild(o.getElement());
+                });
+        */
         div_seccionB.appendChild(this.opciones.areaTexto);
 
 
@@ -251,23 +251,23 @@ class PreguntaC {
 
     validar() {
         resultados.agregar("pregunta",
-                    [{ id: "pregunta", valor: this.pregunta},
-                    { id: "respuesta", valor: this.opciones.areaTexto.value}]);
-                    
-       /* this.opciones.forEach((o: any) => {
-            if (o.validado) {
-                o.validacion();
-                
-            }
-        });*/
+            [{ id: "pregunta", valor: this.pregunta },
+            { id: "respuesta", valor: this.opciones.areaTexto.value }]);
+
+        /* this.opciones.forEach((o: any) => {
+             if (o.validado) {
+                 o.validacion();
+                 
+             }
+         });*/
     }
 
 
     reset() {
-       /* this.opciones.forEach(o => {
-            o.validado = false;
-            o.opcion.classList.remove("opcion__select");
-        });*/
+        /* this.opciones.forEach(o => {
+             o.validado = false;
+             o.opcion.classList.remove("opcion__select");
+         });*/
     }
 
     getElement() {
@@ -285,24 +285,24 @@ class OpcionC {
     valor: Array<ResultadoA>;
     validado: boolean;
     pregunta?: PreguntaB;
-    areaTexto:HTMLTextAreaElement;
+    areaTexto: HTMLTextAreaElement;
 
     constructor(info?: string, valor?: Array<ResultadoA>) {
-        if(valor != null){
+        if (valor != null) {
             this.valor = valor;
-        }else{
+        } else {
             this.valor = new Array();
         }
         this.opcion = document.createElement("div");
         this.opcion.className = "opcionC";
         this.areaTexto = document.createElement("textarea");
         this.areaTexto.className = "pregunta__parrafo";
-       // this.areaTexto.type = "text";
+        // this.areaTexto.type = "text";
         this.areaTexto.placeholder = "Escribe tu respuesta";
-        if(info != null){
+        if (info != null) {
             this.areaTexto.innerText = info;
         }
-        
+
         this.opcion.append(this.areaTexto);
         this.validado = false;
 
@@ -368,8 +368,8 @@ class PreguntaD {
     validar() {
         this.opciones.validacion();
         resultados.agregar("pregunta",
-                    [{ id: "pregunta", valor: this.pregunta},
-                    { id: "respuesta", valor: this.opciones.input.value}]);
+            [{ id: "pregunta", valor: this.pregunta },
+            { id: "respuesta", valor: this.opciones.input.value }]);
     }
 
     getElement() {
@@ -386,8 +386,8 @@ class OpcionD {
     opcion: HTMLElement;
     valor: Array<ResultadoA>;
     validado: boolean;
-    progreso:HTMLProgressElement;
-    input:HTMLInputElement;
+    progreso: HTMLProgressElement;
+    input: HTMLInputElement;
 
     constructor(valor: Array<ResultadoA>) {
         this.opcion = document.createElement("div");
@@ -412,7 +412,7 @@ class OpcionD {
         this.input.min = "1";
         this.input.max = "3";
 
-        this.input.addEventListener("input", (e)=>{
+        this.input.addEventListener("input", (e) => {
             this.progreso.value = parseInt(this.input.value) - 1;
         });
 
@@ -427,7 +427,7 @@ class OpcionD {
         let label3 = document.createElement("label");
         label3.className = "likert_valores";
         label3.innerText = "3";
-        
+
         let mucho = document.createElement("label");
         mucho.className = "likert_label";
         mucho.innerText = "Mucho";
@@ -443,9 +443,9 @@ class OpcionD {
 
     validacion() {
         let index = parseInt(this.input.value);
-        if(index < parseInt(this.input.max)){
-           let inp = this.valor[index-1];
-           resultados.sumar(inp.area, inp.valor);
+        if (index < parseInt(this.input.max)) {
+            let inp = this.valor[index - 1];
+            resultados.sumar(inp.area, inp.valor);
         }
     }
 
@@ -453,4 +453,105 @@ class OpcionD {
         return this.opcion;
     }
 
+}
+
+
+
+class PreguntaI {
+
+    elemento: HTMLElement;
+    pregunta: string;
+    opciones: Array<OpcionI>;
+
+    constructor(pregunta: string, opciones: Array<OpcionI>) {
+        this.pregunta = pregunta;
+        this.opciones = opciones;
+        this.elemento = document.createElement('div');
+        this.elemento.className = "pregunta";
+
+        let contenedor = document.createElement("div");
+        contenedor.className = "cont_imgYabc";
+
+        this.elemento.appendChild(contenedor);
+
+        let div_seccionA = document.createElement('div');
+        div_seccionA.className = "cont_imgYabc_img";
+        div_seccionA.style.backgroundImage = "url(" + pregunta + ")";
+
+        let div_seccionB = document.createElement('div');
+        div_seccionB.className = "cont_imgYabc_abc";
+
+        let div_seccionC = document.createElement('section');
+        div_seccionC.className = "pregunta__opciones";
+        div_seccionC.style.width = "100%";
+
+
+        let formulario = document.createElement('form');
+        formulario.className = "formulario_opciones";
+
+        contenedor.appendChild(div_seccionA);
+        contenedor.appendChild(div_seccionB);
+        div_seccionB.appendChild(div_seccionC);
+        div_seccionC.append(formulario);
+
+        opciones.forEach(element => {
+            formulario.appendChild(element.getElement());
+        });
+
+    }
+
+    validar() {
+
+        this.opciones.forEach((opcion) => {
+            if (opcion.check.checked) {
+                opcion.validacion();
+                resultados.agregar("pregunta",
+                    [{ id: "pregunta", valor: this.pregunta },
+                    { id: "respuesta", valor: opcion.opcion.innerText }]);
+            }
+        });
+    }
+
+
+    getElement() {
+        return this.elemento;
+    }
+}
+
+
+class OpcionI {
+    opcion: HTMLElement;
+    //categorias:Array<>;
+    valor: Array<ResultadoA>;
+    check: any;
+    contenido: HTMLElement;
+
+    constructor(info: string, valor: Array<ResultadoA>) {
+        this.opcion = document.createElement("label");
+        this.check = document.createElement("input");
+        this.contenido = document.createElement("span");
+
+        this.opcion.className = "opcion_check";
+        this.contenido.className = "opcion";
+        this.check.className = "marcador";
+        this.check.type = "radio";
+        this.check.name = "opcion";
+        this.check.checked = false;
+
+        this.opcion.append(this.check);
+        this.opcion.append(this.contenido);
+        this.opcion.append(info);
+        this.valor = valor;
+    }
+
+    validacion() {
+
+        this.valor.forEach(v => {
+            resultados.sumar(v.area, v.valor);
+        });
+    }
+
+    getElement() {
+        return this.opcion;
+    }
 }

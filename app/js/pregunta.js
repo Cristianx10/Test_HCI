@@ -320,3 +320,71 @@ var OpcionD = /** @class */ (function () {
     };
     return OpcionD;
 }());
+var PreguntaI = /** @class */ (function () {
+    function PreguntaI(pregunta, opciones) {
+        this.pregunta = pregunta;
+        this.opciones = opciones;
+        this.elemento = document.createElement('div');
+        this.elemento.className = "pregunta";
+        var contenedor = document.createElement("div");
+        contenedor.className = "cont_imgYabc";
+        this.elemento.appendChild(contenedor);
+        var div_seccionA = document.createElement('div');
+        div_seccionA.className = "cont_imgYabc_img";
+        div_seccionA.style.backgroundImage = "url(" + pregunta + ")";
+        var div_seccionB = document.createElement('div');
+        div_seccionB.className = "cont_imgYabc_abc";
+        var div_seccionC = document.createElement('section');
+        div_seccionC.className = "pregunta__opciones";
+        div_seccionC.style.width = "100%";
+        var formulario = document.createElement('form');
+        formulario.className = "formulario_opciones";
+        contenedor.appendChild(div_seccionA);
+        contenedor.appendChild(div_seccionB);
+        div_seccionB.appendChild(div_seccionC);
+        div_seccionC.append(formulario);
+        opciones.forEach(function (element) {
+            formulario.appendChild(element.getElement());
+        });
+    }
+    PreguntaI.prototype.validar = function () {
+        var _this = this;
+        this.opciones.forEach(function (opcion) {
+            if (opcion.check.checked) {
+                opcion.validacion();
+                resultados.agregar("pregunta", [{ id: "pregunta", valor: _this.pregunta },
+                    { id: "respuesta", valor: opcion.opcion.innerText }]);
+            }
+        });
+    };
+    PreguntaI.prototype.getElement = function () {
+        return this.elemento;
+    };
+    return PreguntaI;
+}());
+var OpcionI = /** @class */ (function () {
+    function OpcionI(info, valor) {
+        this.opcion = document.createElement("label");
+        this.check = document.createElement("input");
+        this.contenido = document.createElement("span");
+        this.opcion.className = "opcion_check";
+        this.contenido.className = "opcion";
+        this.check.className = "marcador";
+        this.check.type = "radio";
+        this.check.name = "opcion";
+        this.check.checked = false;
+        this.opcion.append(this.check);
+        this.opcion.append(this.contenido);
+        this.opcion.append(info);
+        this.valor = valor;
+    }
+    OpcionI.prototype.validacion = function () {
+        this.valor.forEach(function (v) {
+            resultados.sumar(v.area, v.valor);
+        });
+    };
+    OpcionI.prototype.getElement = function () {
+        return this.opcion;
+    };
+    return OpcionI;
+}());

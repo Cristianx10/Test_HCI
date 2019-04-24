@@ -12,8 +12,8 @@
     let preguntas_total = new Contenedor();
     let navegacion = new Navegable(preguntas_total);
     //let obtt = new PreguntaC("Mira este titulo",new OpcionC("Texto inicial", [{opcion:"value", valor:5}]));
-    let obt = new PreguntaC("Mira este titulo", new OpcionC());
-    let con = new Contenido(obt.getElement(), obt);
+    let obt = new PreguntaI("/img/ecuacion.png", [new OpcionI("323", [{area:"mate", valor:2}]),new OpcionI("323", [])]);
+    let con = new Contenido(obt.getElement(), obt, 10);
     preguntas_total.agregar(con);
 
     con.setAccion(() => {
