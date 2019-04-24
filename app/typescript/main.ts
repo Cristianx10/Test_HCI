@@ -546,6 +546,10 @@ function irA(url: string) {
     $(".principal").load(url);
 }
 
+function goTo(url:string){
+    window.location.href=url + ".html"; 
+}
+
 function askConfirmation(evt: any) {
     var msg = 'Si recarga la página perdera todos los datos ingresados.\n¿Deseas recargar la página?';
     evt.returnValue = msg;

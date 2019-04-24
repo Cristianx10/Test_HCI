@@ -18,12 +18,21 @@
 <body>
   <div class="cont-principal" style="background-image: url('../img/deporte/fondo.png')">
     <div class="principal" onselectstart="return false">
+      <div class="pantalla">
+
+        <div class="contenedor" style="background-image: url('../img/background_principal-2.png');">
+          <h1 class="titulo">Orientación Vocacional</h1>
+          <p id="desc" class="descripcion">A continuación, encontrarás un cuestionario que permite conocer tus intereses vocacionales.</p>
+          <a class="boton" onclick="seguir()">Comenzar</a>
+        </div>
+
+      </div>
 
 
       <div class="pantalla">
         <div style="display:flex;justify-content: center; align-items: center">
           <div class="p-contenido" style="width:550px; height: 600px; margin: 0">
-            <h1 class="titulo" style="text-align: center; width: 100%;">Datos del Usuario</h1>
+            <h1 class="titulo" style="text-align: center; width: 100%; position: initial;">Datos del Usuario</h1>
 
             <div class="formulario">
               <div class="datos_input">
@@ -200,10 +209,20 @@
         navegable.setPermitir(true);
         navegable.siguiente();
       } else {
-        
+
       }
     });
 
+
+    function seguir(){
+      navegable.setPermitir(true);
+      navegable.siguiente();
+    }
+    
+    navegable.setFinal(()=>{
+      goTo("bloques/linguistica");
+    });
+    
 
 
 

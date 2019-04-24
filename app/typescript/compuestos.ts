@@ -31,6 +31,11 @@ class Tablero_Crelacion {
 
     }
 
+    style(){
+        this.baseA.styleDraw();
+        this.baseB.styleDraw();
+    }
+
     size(width:number, height:number){
         this.canvas.width = width;
         this.canvas.height = height;
@@ -77,6 +82,8 @@ class Tablero_Cbase {
     private altura: number;
     private orientation:boolean;
     private background = new createjs.Shape();
+    width?:number;
+    height?:number;
  
 
     constructor(tablero: Tablero_Crelacion) {
@@ -91,6 +98,8 @@ class Tablero_Cbase {
     }
 
     drawTablero(width:number, height:number, style?:string, w?:number, h?:number){
+        this.width = width;
+        this.height = height;
         let tam = this.contenedor.getBounds();
         if(style != null){
             this.style = style;
@@ -106,8 +115,16 @@ class Tablero_Cbase {
             this.contenedor.setBounds(0, 0, width, height);
         }
         
-        this.background.graphics.beginStroke("#D9D9D9").beginFill("#FFFFFF").setStrokeStyle(5).drawRoundRect(0,0, width, height, 50);
+        
 
+        this.stage.update(); 
+    }
+
+    styleDraw(){
+        if(this.width != null && this.height != null){
+
+            this.background.graphics.beginStroke("#D9D9D9").beginFill("#FFFFFF").setStrokeStyle(5).drawRoundRect(0,0, this.width, this.height, 50);
+        }
         this.stage.update(); 
     }
 

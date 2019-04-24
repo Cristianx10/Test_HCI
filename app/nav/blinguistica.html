@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Test Interactivo</title>
+  <link rel="shortcut icon" href="../includes/img/favicon.png" type="image/x-icon" />
+  <link rel="stylesheet" href="../sass/general/main.css" />
+  <link href="../sass/tipographys/tipografias.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+
+
+  <link rel="stylesheet" href="../../sass/general/datosUsuario.css" type="text/css">
+</head>
+
+<body>
+  <div class="cont-principal" style="background-image: url('../img/deporte/fondo.png')">
+    <div class="principal" onselectstart="return false">
+      <div id="relacionAzar" class="pantalla">
+
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+
+
+  </div>
+
+  <!--Codigo de precarga -->
+  <script src="../lib/jquery.js"></script>
+
+  <!--
+  <script src="../lib//colorMixer.js"></script>
+  <script src="../lib/jquery-ui.min.js"></script>
+  <script src="../lib/jquery.svg.js"></script>
+  <script src="../lib/jquery.knob.js"></script>
+  <script src="../lib/preloadjs.js"></script>
+  
+  <script src="../lib/tweenjs.js"></script>
+  -->
+
+  <script src="../lib/easeljs.js"></script>
+  <script src="../../js/compuestos.js"></script>
+  <script src="../lib/soundjs.js"></script>
+  <script src="../js/timer.js"></script>
+  <script src="../js/resultados.js"></script>
+  <script src="../js/main.js"></script>
+
+  <script type="text/javascript">
+
+    $(document).ready(function () {
+
+      // irA("./formulario.html");
+
+
+    });
+    $('.cont-principal').css("background-image", "url('../img/background-claro.png')");
+
+
+    let contenedor = new Contenedor();
+    let navegable = new Navegable(contenedor);
+
+    contenedor.agregarHtmlAll(document.querySelectorAll(".pantalla"));
+    navegable.iniciar();
+
+    let tablero = new Tablero_Crelacion();
+    tablero.size(800, 450);
+    tablero.setStyleA(250, 440, "20px Heebo", 100, 30);
+    tablero.setStyleB(450, 440, "20px Heebo", 300, 30);
+ 
+    tablero.distancia(300);
+
+    tablero.setIntentoAcierto((a, b) => {
+      console.log("bien");
+      a.ocultar();
+      b.ocultar();
+    });
+
+    tablero.setIntentoFallo((a, b) => {
+      a.reset();
+      b.reset();
+      console.log("mal");
+    });
+
+    tablero.setValidacion((a, b) => {
+      console.log("Gano");
+    });
+
+    let tipos = [
+      { tipo: "O2", categoria: "Dioxígeno" }
+      , { tipo: "CH4", categoria: "Metano" }
+      , { tipo: "CO2", categoria: "Dioxido de Carbono" }
+      , { tipo: "NaBr", categoria: "Bromuro de Sodio" }
+      , { tipo: "NH3", categoria: "Amoniaco" }
+      , { tipo: "NaCl", categoria: "Sal" }
+      , { tipo: "KBr", categoria: "Bromuro de Potasio" }
+    ];
+
+    let categorias = [];
+
+    shuffle(tipos);
+
+    for (let i = 0; i < tipos.length; i++) {
+      let e = tipos[i];
+      tablero.baseA.agregar(e.tipo, e.categoria);
+      categorias.push(e.categoria);
+    }
+
+    shuffle(categorias);
+
+    for (let i = 0; i < categorias.length; i++) {
+      let e = categorias[i];
+      tablero.baseB.agregar(e, e);
+    }
+    function seguir() {
+      navegable.setPermitir(true);
+      navegable.siguiente();
+    }
+
+    $('#relacionAzar').append(tablero.canvas);
+  </script>
+
+  
+
+
+
+
+</body>
+
+</html>
