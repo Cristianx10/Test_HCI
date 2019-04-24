@@ -297,6 +297,7 @@ class OpcionC {
         this.opcion.className = "opcionC";
         this.areaTexto = document.createElement("textarea");
         this.areaTexto.className = "pregunta__parrafo";
+        this.areaTexto.spellcheck = false;
         // this.areaTexto.type = "text";
         this.areaTexto.placeholder = "Escribe tu respuesta";
         if (info != null) {
@@ -350,6 +351,7 @@ class PreguntaD {
         let div_seccionA_h1 = document.createElement('h2');
         let div_seccionB = document.createElement('section');
         let formulario = document.createElement('div');
+        
 
         div_seccionA.className = "pregunta__titulo";
         div_seccionB.className = "pregunta__opciones";

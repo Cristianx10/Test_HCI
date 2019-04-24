@@ -293,7 +293,7 @@ class Contenedor implements Validable {
         if(tiempo != null){
             this.elementos.push(new Contenido(elemeto, e, tiempo));
         }else{
-            this.elementos.push(new Contenido(elemeto, e, tiempo));
+            this.elementos.push(new Contenido(elemeto, e));
         }
     }
 
