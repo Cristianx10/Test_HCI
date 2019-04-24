@@ -18,7 +18,11 @@
 <body>
   <div class="cont-principal" style="background-image: url('../img/deporte/fondo.png')">
     <div class="principal" onselectstart="return false">
-      <div id="relacionAzar" class="pantalla">
+
+      <div class="pregunta_titulo" style="font-size: 30px; text-align: center; font-weight: bold; margin-top: 50px;">
+          Las palabras están al azar , por favor enlaza una palabra de la izquierda con otra palabra de la derecha según sea su antónimo. 
+      </div>
+      <div id="relacionAzar" class="pantalla" style="text-align:center;">
 
 
       </div>
@@ -94,13 +98,16 @@
     });
 
     let tipos = [
-      { tipo: "O2", categoria: "Dioxígeno" }
-      , { tipo: "CH4", categoria: "Metano" }
-      , { tipo: "CO2", categoria: "Dioxido de Carbono" }
-      , { tipo: "NaBr", categoria: "Bromuro de Sodio" }
-      , { tipo: "NH3", categoria: "Amoniaco" }
-      , { tipo: "NaCl", categoria: "Sal" }
-      , { tipo: "KBr", categoria: "Bromuro de Potasio" }
+      { tipo: "Facilidad", categoria: "Caos" }
+      , { tipo: "Evaporar", categoria: "Construir" }
+      , { tipo: "Implícito", categoria: "Acertado" }
+      , { tipo: "Derrumbar", categoria: "Explícito" }
+      , { tipo: "Idéntico", categoria: "Dificultad" }
+      , { tipo: "Fallido", categoria: "Acceder" }
+      , { tipo: "Orden", categoria: "Ignorante" }
+      , { tipo: "Denegar", categoria: "Solidificar" }
+      , { tipo: "Sabio", categoria: "Rígido" }
+      , { tipo: "Flexible", categoria: "Distinto" }
     ];
 
     let categorias = [];
