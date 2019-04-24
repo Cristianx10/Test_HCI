@@ -1,67 +1,103 @@
 "use strict";
 var Palillos = /** @class */ (function () {
-    function Palillos() {
+    function Palillos(width, height) {
         this.largo = 120;
+        this.inicial = 0;
+        this.fila = 0;
+        this.conte = 0;
         this.canvas = document.createElement("canvas");
-        this.canvas.width = 1280;
-        this.canvas.height = 720;
+        this.canvas.width = width;
+        this.canvas.height = height;
         this.stage = new createjs.Stage(this.canvas);
         this.base = new createjs.Container();
-        this.base.x = 300;
+        this.base.x = 450;
         this.base.y = 200;
         this.stage.addChild(this.base);
         this.basePalillos = new Array();
         this.palillos = new Array();
+        this.contenedor = new createjs.Container();
+        this.stage.addChild(this.contenedor);
+        var marco = new createjs.Shape();
+        this.contenedor.addChild(marco);
+        this.contenedor.x = 900;
+        this.contenedor.y = 360;
+        marco.graphics.beginStroke("#FF9900").setStrokeStyle(5).drawRoundRect(-50, -10, 400, 350, 20);
     }
     Palillos.prototype.cuadrado = function () {
-        var _this = this;
-        for (var i = 0; i < 3; i++) {
-            var p1 = new EPalillos(this, this.largo * i, 0, i);
-            p1.cuadrado();
-            this.basePalillos.push(p1);
-            p1.horizontal();
+        this.baseAgregar(3, "horizontal");
+        this.baseAgregar(4, "vertical");
+        this.baseAgregar(3, "horizontal");
+        this.baseAgregar(4, "vertical");
+        this.baseAgregar(3, "horizontal");
+        this.baseAgregar(4, "vertical");
+        this.baseAgregar(3, "horizontal");
+        this.stage.update();
+    };
+    Palillos.prototype.baseAgregar = function (num, oriente) {
+        if (oriente == "horizontal") {
+            for (var i = 0; i < num; i++) {
+                var p1 = new EPalillos(this, this.largo * i, this.fila, this.inicial);
+                p1.cuadrado();
+                this.basePalillos.push(p1);
+                p1.horizontal();
+                this.inicial++;
+            }
         }
-        for (var i = 0; i < 4; i++) {
-            var p1 = new EPalillos(this, this.largo * i, 0, i + 3);
-            p1.cuadrado();
-            this.basePalillos.push(p1);
-            p1.vertical();
+        else if (oriente == "vertical") {
+            for (var i = 0; i < num; i++) {
+                var p1 = new EPalillos(this, this.largo * i, this.fila, this.inicial);
+                p1.cuadrado();
+                this.basePalillos.push(p1);
+                p1.vertical();
+                this.inicial++;
+            }
+            this.fila += this.largo;
         }
-        for (var i = 0; i < 3; i++) {
-            var p1 = new EPalillos(this, this.largo * i, this.largo, +7 + i);
-            p1.cuadrado();
-            this.basePalillos.push(p1);
-            p1.horizontal();
+        this.stage.update();
+    };
+    Palillos.prototype.crear = function (x, y, oriente) {
+        if (oriente == "diagonalLeftDown") {
+            var p1 = new EPalillos(this, x, y, this.inicial, "#E64B75");
+            p1.diagonalLeftDown();
+            this.palillos.push(p1);
+            this.inicial++;
         }
-        for (var i = 0; i < 4; i++) {
-            var p1 = new EPalillos(this, this.largo * i, this.largo, 10 + i);
-            p1.cuadrado();
-            this.basePalillos.push(p1);
-            p1.vertical();
+        else if (oriente == "diagonalRightDown") {
+            var p1 = new EPalillos(this, x, y, this.inicial, "#E64B75");
+            p1.largo = 200;
+            p1.diagonalRightDown();
+            this.palillos.push(p1);
+            this.inicial++;
         }
-        for (var i = 0; i < 3; i++) {
-            var p1 = new EPalillos(this, this.largo * i, this.largo * 2, 14 + i);
-            p1.cuadrado();
-            this.basePalillos.push(p1);
-            p1.horizontal();
+        else if (oriente == "diagonalLeftTop") {
+            var p1 = new EPalillos(this, x, y, this.inicial, "#E64B75");
+            p1.largo = 200;
+            p1.diagonalLeftTop();
+            this.palillos.push(p1);
+            this.inicial++;
         }
-        for (var i = 0; i < 4; i++) {
-            var p1 = new EPalillos(this, this.largo * i, this.largo * 2, 17 + i);
-            p1.cuadrado();
-            this.basePalillos.push(p1);
-            p1.vertical();
+        else if (oriente == "diagonalRightTop") {
+            var p1 = new EPalillos(this, x, y, this.inicial, "#E64B75");
+            p1.largo = 200;
+            p1.diagonalRightTop();
+            this.palillos.push(p1);
+            this.inicial++;
         }
-        for (var i = 0; i < 3; i++) {
-            var p1 = new EPalillos(this, this.largo * i, this.largo * 3, 21 + i);
-            p1.cuadrado();
-            this.basePalillos.push(p1);
-            p1.horizontal();
+        else if (oriente == "vertical") {
+            var p1 = new EPalillos(this, x, y, this.inicial, "#E64B75");
+            p1.verticalDown();
+            this.palillos.push(p1);
+            this.inicial++;
         }
-        this.stage.on("stagemouseup", function () {
-            _this.seleccion = undefined;
-            _this.resultado();
-            _this.stage.update();
-        });
+        else if (oriente == "horizontal") {
+            var p1 = new EPalillos(this, x, y, this.inicial, "#E64B75");
+            p1.horizontalLeft();
+            this.palillos.push(p1);
+            this.inicial++;
+        }
+        else {
+            console.log("no se reconoce");
+        }
         this.stage.update();
     };
     Palillos.prototype.agregar = function (pos) {
@@ -218,6 +254,92 @@ var EPalillos = /** @class */ (function () {
                 }
             }
             _this.palillo.stage.update();
+        });
+    };
+    EPalillos.prototype.diagonalLeftDown = function () {
+        var _this = this;
+        this.largo = 140;
+        this.palo.rotation = 65;
+        this.vertical();
+        this.palo.on("click", function () {
+            if (_this.palillo.palillos.indexOf(_this) != -1) {
+                _this.palillo.palillos.splice(_this.palillo.palillos.indexOf(_this), 1);
+            }
+            _this.palillo.base.removeChild(_this.palo);
+            _this.palillo.contenedor.addChild(_this.palo);
+            _this.palillo.stage.update();
+            _this.palillo.resultado();
+        });
+    };
+    EPalillos.prototype.diagonalRightDown = function () {
+        var _this = this;
+        this.largo = 140;
+        this.palo.rotation = -65;
+        this.vertical();
+        this.palo.on("click", function () {
+            if (_this.palillo.palillos.indexOf(_this) != -1) {
+                _this.palillo.palillos.splice(_this.palillo.palillos.indexOf(_this), 1);
+            }
+            _this.palillo.base.removeChild(_this.palo);
+            _this.palillo.contenedor.addChild(_this.palo);
+            _this.palillo.stage.update();
+            _this.palillo.resultado();
+        });
+    };
+    EPalillos.prototype.diagonalLeftTop = function () {
+        var _this = this;
+        this.largo = 140;
+        this.palo.rotation = 115;
+        this.vertical();
+        this.palo.on("click", function () {
+            if (_this.palillo.palillos.indexOf(_this) != -1) {
+                _this.palillo.palillos.splice(_this.palillo.palillos.indexOf(_this), 1);
+            }
+            _this.palillo.base.removeChild(_this.palo);
+            _this.palillo.contenedor.addChild(_this.palo);
+            _this.palillo.stage.update();
+            _this.palillo.resultado();
+        });
+    };
+    EPalillos.prototype.diagonalRightTop = function () {
+        var _this = this;
+        this.largo = 140;
+        this.palo.rotation = -115;
+        this.vertical();
+        this.palo.on("click", function () {
+            if (_this.palillo.palillos.indexOf(_this) != -1) {
+                _this.palillo.palillos.splice(_this.palillo.palillos.indexOf(_this), 1);
+            }
+            _this.palillo.base.removeChild(_this.palo);
+            _this.palillo.contenedor.addChild(_this.palo);
+            _this.palillo.stage.update();
+            _this.palillo.resultado();
+        });
+    };
+    EPalillos.prototype.verticalDown = function () {
+        var _this = this;
+        this.vertical();
+        this.palo.on("click", function () {
+            if (_this.palillo.palillos.indexOf(_this) != -1) {
+                _this.palillo.palillos.splice(_this.palillo.palillos.indexOf(_this), 1);
+            }
+            _this.palillo.base.removeChild(_this.palo);
+            _this.palillo.contenedor.addChild(_this.palo);
+            _this.palillo.stage.update();
+            _this.palillo.resultado();
+        });
+    };
+    EPalillos.prototype.horizontalLeft = function () {
+        var _this = this;
+        this.horizontal();
+        this.palo.on("click", function () {
+            if (_this.palillo.palillos.indexOf(_this) != -1) {
+                _this.palillo.palillos.splice(_this.palillo.palillos.indexOf(_this), 1);
+            }
+            _this.palillo.base.removeChild(_this.palo);
+            _this.palillo.contenedor.addChild(_this.palo);
+            _this.palillo.stage.update();
+            _this.palillo.resultado();
         });
     };
     EPalillos.prototype.horizontal = function () {

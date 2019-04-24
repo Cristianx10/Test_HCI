@@ -3,37 +3,62 @@
 <script>
 
 
-let palo = new Palillos();
-palo.cuadrado();
+    let palo = new Palillos(1280, 720);
+    
+    //palo.cuadrado();
+    /*
+    palo.agregar(4);
+    palo.agregar(5);
+    palo.agregar(7);
+    palo.agregar(8);
+    palo.agregar(9);
+    palo.agregar(11);
+    palo.agregar(12);
+    palo.agregar(14);
+    palo.agregar(16);
+    palo.agregar(15);
+    palo.agregar(18);
+    palo.agregar(19);
+    */
 
-palo.agregar(4);
-palo.agregar(5);
-palo.agregar(7);
-palo.agregar(8);
-palo.agregar(9);
-palo.agregar(11);
-palo.agregar(12);
-palo.agregar(14);
-palo.agregar(16);
-palo.agregar(15);
-palo.agregar(18);
-palo.agregar(19);
+    palo.crear(0, 0, "vertical");
+    palo.crear(0, 0, "diagonalRightDown");
+    palo.crear(0, 120, "diagonalRightTop");
+
+    palo.crear(260, -10, "vertical");
+    palo.crear(260, -10, "diagonalLeftDown");
+    palo.crear(260, 110, "diagonalLeftTop");
+
+    palo.crear(125, 60, "vertical");
+    palo.crear(260, 120, "vertical");
+    palo.crear(260, 120, "diagonalLeftDown");
+    palo.crear(260, 240, "diagonalLeftTop");
+    palo.crear(0, 130, "diagonalRightDown");
+
+    palo.crear(120, 190, "vertical");
+    palo.crear(130, 320, "diagonalRightTop");
+    
+
+    //palo.crear(0,0, "diagonalLeftDown");
+    //palo.crear(0,200, "diagonalLeftTop");
+    //palo.crear(0,200, "horizontal");
 
 
-palo.setResultado((r) => {
-    if (palo.equals(r, "1,4,5,7,8,9,10,11,12,13,14,16")) {
-        console.log("gano")
-    } else if (palo.equals(r, "5,19,1,8,15,22,4,11,18,7,14,10")) {
-        console.log("gano")
-    }
-    else if (palo.equals(r, "5,12,19,1,8,15,22,4,18,9,16,13")) {
-        console.log("gano")
-    } else if (palo.equals(r, "22,18,19,7,15,9,10,11,12,13,14,16")) {
-        console.log("gano")
-    }
-});
+    palo.setResultado((r) => {
+        console.log(r);
+        if (palo.equals(r, "1,4,5,7,8,9,10,11,12,13,14,16")) {
+            console.log("gano")
+        } else if (palo.equals(r, "5,19,1,8,15,22,4,11,18,7,14,10")) {
+            console.log("gano")
+        }
+        else if (palo.equals(r, "5,12,19,1,8,15,22,4,18,9,16,13")) {
+            console.log("gano")
+        } else if (palo.equals(r, "22,18,19,7,15,9,10,11,12,13,14,16")) {
+            console.log("gano")
+        }
+    });
 
 
-$(".principal").append(palo.canvas);
+    $(".principal").append(palo.canvas);
 
 </script>
