@@ -164,17 +164,21 @@
     let p4 = new PreguntaC("4. Agrega signos de puntuación", new OpcionC(`"Allí ___ a lo lejos__ canta un ruiseñor __ ahí cerca __ ronronea un gato __ aquí mismo__ Suspira un enamorado__"`));
     let cp4 = new Contenido(p4.getElement(), p4);
 
-
+    let p5 = new PreguntaD("¿Del 1 al 5, qué que tan bien crees que te fue en esta prueba?", new OpcionC([]));
+    cp5 = new Contenido(p5.getElement(), p5);
 
     contenedor.agregarHtmlAll(document.querySelectorAll(".pantalla"));
     contenedor.agregar(cp2);
     contenedor.agregar(cp3);
     contenedor.agregar(cp4);
+    contenedor.agregar(cp5);
+  // contenedor.incluirEn(document.querySelector(".principal"));
 
 
-    contenedor.incluirEn(document.querySelector(".principal"));
     navegable.iniciar();
+
     navegable.colocarTiempo();
+    navegable.colocarProgreso();
 
     function seguir() {
       navegable.setPermitir(true);
