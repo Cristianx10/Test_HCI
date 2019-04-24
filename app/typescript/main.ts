@@ -33,6 +33,7 @@ class Navegable {
     permitir = false;
     permitirAll = false;
     fcambioTiempo?:Function;
+    iniciado = false;
 
     constructor(elementos: Contenedor) {
         this.elementos = elementos;
@@ -71,43 +72,47 @@ class Navegable {
     }
 
     iniciar() {
-        this.elementos.elementos.forEach(e => {
-            e.setTermino(() => {
-                if (e == this.elementos.elementos[this.actual]) {
-                    this.permitir = true;
-                    this.siguiente();
-                    this.permitir = false;
-        
+        if(this.iniciado == false){
+
+            this.elementos.elementos.forEach(e => {
+                e.setTermino(() => {
+                    if (e == this.elementos.elementos[this.actual]) {
+                        this.permitir = true;
+                        this.siguiente();
+                        this.permitir = false;
+            
+                    }
+                });
+    
+                e.setProgreso((m: number, s: number) => {
+                    if (e == this.actualPantalla()) {
+                        if(this.fcambioTiempo != null){
+                            this.fcambioTiempo(m ,s);
+                        }
+                        if (s < 10 && s < 60 && s > -1 && m < 59) {
+                            this.ti.innerText = "0" + m + ":0" + s;
+                        } else {
+                            this.ti.innerText = "0" + m + ":" + s;
+                        }
+                    }
+                });
+            });
+          
+            this.av.innerText = this.actual + 1 + "/" + this.elementos.elementos.length;
+    
+            this.progreso.setTotal(this.elementos.elementos.length);
+            this.elementos.getElementosHTML().forEach((s, i) => {
+                if (i == 0) {
+                    s.style.display = "block";
+                } else {
+                    s.style.display = "none";
                 }
             });
-
-            e.setProgreso((m: number, s: number) => {
-                if (e == this.actualPantalla()) {
-                    if(this.fcambioTiempo != null){
-                        this.fcambioTiempo(m ,s);
-                    }
-                    if (s < 10 && s < 60 && s > -1 && m < 59) {
-                        this.ti.innerText = "0" + m + ":0" + s;
-                    } else {
-                        this.ti.innerText = "0" + m + ":" + s;
-                    }
-                }
-            });
-        });
-      
-        this.av.innerText = this.actual + 1 + "/" + this.elementos.elementos.length;
-
-        this.progreso.setTotal(this.elementos.elementos.length);
-        this.elementos.getElementosHTML().forEach((s, i) => {
-            if (i == 0) {
-                s.style.display = "block";
-            } else {
-                s.style.display = "none";
-            }
-        });
-
-
-        this.actualPantalla().start();
+    
+    
+            this.actualPantalla().start();
+            this.iniciado =true;
+        }
 
     }
 
@@ -189,7 +194,14 @@ class Navegable {
 
     setSiguiente(accion?: Function) {
         this.inicio = accion;
+    }
 
+    getActual(){
+        return this.actual;
+    }
+
+    ocultarActual(){
+        this.ocultar(this.actualPantallaHtml())
     }
 
     setFinal(final?: Function) {

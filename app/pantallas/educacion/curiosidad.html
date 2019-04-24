@@ -1,8 +1,290 @@
-<form>
+<style>
+        .curiosidad {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 700px;
+                height: 300px;
 
-        <input type="text" name="" id="" maxlength="1">
-        <input type="text" name="" id="" maxlength="1">
-        <input type="text" name="" id="" maxlength="1">
-        <input type="text" name="" id="" maxlength="1">
+        }
 
-</form>
+        .curiosidad>section {
+                position: absolute;
+                width: 90%;
+                height: 70%;
+                padding: 20px;
+                background: rgba(118, 40, 118, 1);
+                background: -moz-linear-gradient(left, rgba(118, 40, 118, 1) 0%, rgba(119, 28, 230, 1) 100%);
+                background: -webkit-linear-gradient(left, rgba(118, 40, 118, 1) 0%, rgba(119, 28, 230, 1) 100%);
+                background: -o-linear-gradient(left, rgba(118, 40, 118, 1) 0%, rgba(119, 28, 230, 1) 100%);
+                background: -ms-linear-gradient(left, rgba(118, 40, 118, 1) 0%, rgba(119, 28, 230, 1) 100%);
+                background: linear-gradient(to right, rgba(118, 40, 118, 1) 0%, rgba(119, 28, 230, 1) 100%);
+                border-radius: 40px;
+                display: flex;
+                align-items: center;
+
+        }
+
+        .curiosidad>section>p {
+                color: white;
+                font-size: 3.5em;
+                width: 55%;
+                line-height: 60px;
+                margin-left: 15px;
+        }
+
+        .curiosidad>div {
+                position: absolute;
+                right: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 300px;
+                height: 300px;
+                border-radius: 250px;
+                background: #F4F4F4;
+                border: 20px solid #ED0369;
+                color: #EC0369;
+                font-size: 6em;
+                font-weight: bold;
+        }
+
+        .curiosidad__particula {
+                position: absolute;
+                right: 80px;
+                top: 80px;
+                width: 100px;
+                height: 100px;
+                animation-duration: 3s;
+                animation-name: slidein;
+                animation-iteration-count: infinite;
+                animation-direction: alternate;
+
+        }
+
+        .curiosidad__particula img {
+                width: 100%;
+                height: 100%;
+
+
+        }
+
+        .cont-curiosidad {
+                width: 100%;
+                height: 100%;
+        }
+
+        .curiosidad__background {
+                background: rgba(0, 0, 0, 0.322);
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+        }
+
+
+
+        @keyframes slidein {
+                from {
+                        padding: 0px;
+                }
+
+                to {
+                        padding: 30px;
+                }
+        }
+
+        .curiosidad__validar {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+                align-items: center;
+                width: 60%;
+                height: 40%;
+                background: rgba(118, 40, 118, 1);
+                background: -moz-linear-gradient(left, rgba(118, 40, 118, 1) 0%, rgba(119, 28, 230, 1) 100%);
+                background: -webkit-linear-gradient(left, rgba(118, 40, 118, 1) 0%, rgba(119, 28, 230, 1) 100%);
+                background: -o-linear-gradient(left, rgba(118, 40, 118, 1) 0%, rgba(119, 28, 230, 1) 100%);
+                background: -ms-linear-gradient(left, rgba(118, 40, 118, 1) 0%, rgba(119, 28, 230, 1) 100%);
+                background: linear-gradient(to right, rgba(118, 40, 118, 1) 0%, rgba(119, 28, 230, 1) 100%);
+                border-radius: 50px;
+        }
+
+        .curiosidad__validar h2 {
+                color: white;
+                font-size: 1.7em;
+                margin-bottom: 25px;
+        }
+
+        .curiosidad__validar form {
+                display: flex;
+                flex-direction: row;
+
+        }
+
+        .curiosidad__validar input {
+                width: 100px;
+                height: 100px;
+                font-size: 3em;
+                text-align: center;
+                border-radius: 20px;
+                margin: 0 15px;
+        }
+</style>
+
+<div class="pantallaB">
+               
+
+        <div class="cont-curiosidad">
+                <div class="curiosidad__background">
+                        <div class="curiosidad">
+                                <section>
+                                        <p>Recuerda este numero</p>
+                                </section>
+                                <div>5</div>
+                        </div>
+                </div>
+        </div>
+        
+
+        <div class="cont-curiosidad">
+                <div class="curiosidad__background">
+                        <div class="curiosidad">
+                                <section>
+                                        <p>Recuerda este numero</p>
+                                </section>
+                                <div>4</div>
+                        </div>
+                </div>
+        </div>
+        
+        <div class="cont-curiosidad">
+                <div class="curiosidad__background">
+                        <div class="curiosidad">
+                                <section>
+                                        <p>Recuerda este numero</p>
+                                </section>
+                                <div>3</div>
+                        </div>
+                </div>
+        </div>
+        
+        <div class="cont-curiosidad">
+                <div class="curiosidad__background">
+                        <div class="curiosidad">
+                                <section>
+                                        <p>Recuerda este numero</p>
+                                </section>
+                                <div>2</div>
+                        </div>
+                </div>
+        </div>
+        
+        <div class="cont-curiosidad">
+                <div class="curiosidad__background">
+                        <div class="curiosidad">
+                                <section>
+                                        <p>Recuerda este numero</p>
+                                </section>
+                                <div>1</div>
+                        </div>
+                </div>
+        </div>
+       
+        <div class="cont-curiosidad">
+                <div class="curiosidad__background">
+                        <div class="curiosidad__validar">
+                                <h2>Ingresa el codigo con los digitos que recolectaste</h2>
+                                <form>
+                                        <input type="text" name="" id="" maxlength="1">
+                                        <input type="text" name="" id="" maxlength="1">
+                                        <input type="text" name="" id="" maxlength="1">
+                                        <input type="text" name="" id="" maxlength="1">
+                                        <input type="text" name="" id="" maxlength="1">
+                                </form>
+                        </div>
+
+                </div>
+        </div>
+
+        <div class="curiosidad__particula">
+                <img src="../../img/educacion/particula.png" alt="">
+        </div>
+</div>
+
+
+<script>
+
+
+        let particulas = new Contenedor();
+        let nav_p = new Navegable(particulas);
+
+        particulas.agregarHtmlAll(document.querySelectorAll(".cont-curiosidad"));
+
+
+        let input_particulas = document.querySelectorAll(".curiosidad__validar input");
+
+        function validar() {
+                let text = "";
+                input_particulas.forEach((i) => {
+                        let tem = text;
+                        console.log(i.value)
+                        if (tem != "") {
+                                text = tem + "," + i.value;
+                        } else {
+                                text = i.value;
+                        }
+                });
+                console.log(text)
+                if (text == "1,2,3,4,5") {
+                        return true;
+                } else {
+                        return false;
+                }
+        }
+
+        let ini = false;
+        $(".curiosidad__particula").click((e) => {
+                nav_p.iniciar();
+                nav_p.setPermitirAll(true);
+                //e.currentTarget.style.display = "none";
+                if(ini){
+                        console.log("clicl sige " + validar());
+                        nav_p.siguiente();
+                       
+                }else{
+                        ini = true;
+                }
+                
+             
+        });
+
+        $(".cont-curiosidad").click((e) => {
+
+                if (nav_p.getActual() < 5) {
+                        nav_p.ocultarActual();
+                      
+                }else{
+                        let terminar = false;
+                        input_particulas.forEach((i) => {
+                                if (i.value == "") {
+                                        terminar = false;
+                                }
+                                else {
+                                        terminar = true;
+                                }
+                        });
+                        if(terminar){
+                                console.log("Lleno todo")
+                        }
+                }
+
+        });
+
+
+
+</script>

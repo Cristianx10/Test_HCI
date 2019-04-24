@@ -56,23 +56,25 @@ p {
 
 .btn_siguiente {
 
-    &:disabled{
+    &:disabled {
         background: #ffffff00;
         color: #d43e66;
+
         &:hover {
             cursor: not-allowed;
         }
     }
 
-    &:enabled{
+    &:enabled {
         background: #e4537a;
         color: white;
+
         &:hover {
             cursor: pointer;
             background: #d43e66;
         }
     }
-    
+
     border: 1px solid #e4537a;
     box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
@@ -103,19 +105,20 @@ input[type=radio] {
     transform: scale(2.5);
 }
 
-form{
+form {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
     flex-direction: column;
 }
-label{
+
+label {
     display: block;
     margin: 0 20px;
     width: auto;
 
-    input{
+    input {
         margin: 15px;
     }
 }
@@ -130,57 +133,61 @@ label{
     cursor: pointer;
     user-select: none;
 
-    & input{
+    & input {
         position: absolute;
         opacity: 0;
         cursor: pointer;
-        
-      }
 
-      &:hover input ~ .opcion {
+    }
+
+    &:hover input~.opcion {
         background-color: rgb(255, 255, 255);
-      }
+    }
 
-      & .opcion:after {
+    & .opcion:after {
         top: 8px;
-       left: 8px;
-       width: 8px;
-       height: 8px;
-       border-radius: 50%;
-       background: white;
-   }
-  }
+        left: 8px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: white;
+    }
+}
 
-  .opcion {
-      position: absolute;
+.opcion {
+    position: absolute;
     top: 0;
     left: 0;
     height: 25px;
     width: 25px;
     border: 1px solid #00DED3;
     border-radius: 50%;
+
     &:after {
         content: "";
         position: absolute;
         display: none;
-      }
-  }
-  
-  .opcion_check input:checked ~ .opcion {
-    background-color: #00DED3;;
+    }
+}
+
+.opcion_check input:checked~.opcion {
+    background-color: #00DED3;
+    ;
+
     &:after {
         display: block;
-      }
-  }
+    }
+}
 
-.cont_imgYpreg{
+.cont_imgYpreg {
     display: flex;
     width: 90%;
     height: 80%;
     justify-content: space-evenly;
     align-items: center;
     margin-bottom: 2em;
-    &_img{
+
+    &_img {
         flex-basis: 50%;
         width: 50%;
         height: 100%;
@@ -188,7 +195,7 @@ label{
         background-repeat: no-repeat;
     }
 
-    &_text{
+    &_text {
         width: 40%;
         flex-basis: 40%;
         height: 100%;
@@ -198,13 +205,14 @@ label{
         align-items: center;
     }
 
-    &_preg{
+    &_preg {
         flex-basis: 47%;
         height: 47%;
         width: 100%;
         font-size: 12px;
     }
-    &_canvas{
+
+    &_canvas {
         flex-basis: 47%;
         height: 47%;
         width: 100%;
@@ -212,7 +220,7 @@ label{
     }
 }
 
-.cont_imgYbotones{
+.cont_imgYbotones {
     display: flex;
     flex-direction: column;
     width: 90%;
@@ -221,19 +229,19 @@ label{
     align-items: center;
     margin-bottom: 2em;
 
-    &_img{
+    &_img {
         border-radius: 30px;
         flex-basis: 30%;
         width: 20%;
         height: 30%;
-        background-size: 100% 100%;     
+        background-size: 100% 100%;
         background-repeat: no-repeat;
         background-position: center;
         margin-bottom: 3em;
-        box-shadow: inset 0px 3px 3px 0px rgba(207,210,204,1);
+        box-shadow: inset 0px 3px 3px 0px rgba(207, 210, 204, 1);
     }
 
-    &_btns{
+    &_btns {
         width: 60%;
         flex-basis: 40%;
         height: 40%;
@@ -246,7 +254,7 @@ label{
 
 }
 
-.cont_imgYabc{
+.cont_imgYabc {
     display: flex;
     flex-direction: column;
     width: 90%;
@@ -255,19 +263,19 @@ label{
     align-items: center;
     margin-bottom: 2em;
 
-    &_img{
+    &_img {
         border-radius: 30px;
         flex-basis: 50%;
         width: 50%;
         height: 50%;
-        background-size: 100% 100%;     
+        background-size: 100% 100%;
         background-repeat: no-repeat;
         background-position: center;
         margin-bottom: 3em;
-        box-shadow: inset 0px 3px 3px 0px rgba(207,210,204,1);
+        box-shadow: inset 0px 3px 3px 0px rgba(207, 210, 204, 1);
     }
 
-    &_abc{
+    &_abc {
         width: 80%;
         flex-basis: 20%;
         height: 20%;
@@ -291,37 +299,41 @@ label{
 
     height: 20px;
     top: -6px;
-    
+
     &:focus {
         outline: none;
-      }
+    }
 
-      &_label{
-            color: #E64973;
-      }
+    &_label {
+        color: #E64973;
+    }
 
-      &_escala{
-          display: flex;
-          justify-content: center;
-          width: 100%;
-      }
-      &_valores{
-          margin: 10px;
-          color: #00DED3
-      }
+    &_escala {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
 
-      &_cont{
-          display: flex;
-          flex-wrap: wrap;
-          width: 60%;
-          justify-content: space-between;
-          progress{
-            position: absolute; width: 100%
-          }
-      }
-      
-  }
-  .likert::-webkit-slider-runnable-track {
+    &_valores {
+        margin: 10px;
+        color: #00DED3
+    }
+
+    &_cont {
+        display: flex;
+        flex-wrap: wrap;
+        width: 60%;
+        justify-content: space-between;
+
+        progress {
+            position: absolute;
+            width: 100%
+        }
+    }
+
+}
+
+.likert::-webkit-slider-runnable-track {
     width: 100%;
     height: 18.1px;
     cursor: pointer;
@@ -329,8 +341,9 @@ label{
     background: #fffaef;
     border-radius: 25px;
     border: 1px solid #00ded3;
-  }
-  .likert::-webkit-slider-thumb {
+}
+
+.likert::-webkit-slider-thumb {
     box-shadow: 0.2px 0.2px 3px #000000, 0px 0px 0.2px #0d0d0d;
     border: 3px solid #00ded3;
     height: 30px;
@@ -340,8 +353,8 @@ label{
     cursor: pointer;
     -webkit-appearance: none;
     margin-top: -5.95px;
-  }
-  
+}
+
 .pregunta {
     text-align: center;
     color: black;
@@ -356,12 +369,12 @@ label{
         margin: 30px 0;
         justify-content: center;
 
-        & h2{
+        & h2 {
             text-align: center;
         }
     }
 
-    &__opciones{
+    &__opciones {
 
         display: flex;
         justify-content: center;
@@ -369,17 +382,18 @@ label{
 
     }
 
-    &__parrafo{
+    &__parrafo {
         width: 50%;
         height: 50%;
         margin-top: 5em;
         border: 2px solid #00DED3;
         border-radius: 20px;
-        padding:2em;
+        padding: 2em;
         text-align: start;
 
     }
 }
+
 .preguntas {
     width: 100%;
     height: 80%;
@@ -388,11 +402,12 @@ label{
     align-items: center;
 }
 
-hr{
+hr {
     width: 30%;
     margin: 0 auto;
     border: 1px solid #00DED3;
 }
+
 .cuestionario {
     width: 50%;
     height: 50%;
@@ -413,33 +428,46 @@ hr{
 
 }
 
-.pantalla{
+.pantalla {
     width: 100%;
     height: 100%;
     background-size: contain;
-  }
+}
 
-  .oscuro{
-      h1{
-          color: white;
-      }
+.pantallaB {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-      div{
-          color: white;
-      }
-      p{
-          color: white;
-      };
-  }
+}
 
-  .centrado{
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-  }
+.oscuro {
+    h1 {
+        color: white;
+    }
 
-  .cont_intro{
+    div {
+        color: white;
+    }
+
+    p {
+        color: white;
+    }
+
+    ;
+}
+
+.centrado {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cont_intro {
     position: absolute;
     width: 396.38px;
     height: 289px;
@@ -461,7 +489,7 @@ hr{
     overflow: hidden;
     top: 250px;
     right: 250px;
-    
+
 }
 
 .progreso_barra {
@@ -477,19 +505,24 @@ hr{
     transition: all .5s ease;
 }
 
-.progreso_barra::-webkit-progress-value { background: #00DED3; }
-.progreso_barra::-moz-progress-bar { background: #00DED3;
-    background-color: white; }
+.progreso_barra::-webkit-progress-value {
+    background: #00DED3;
+}
+
+.progreso_barra::-moz-progress-bar {
+    background: #00DED3;
+    background-color: white;
+}
 
 .progreso_barra[value]::-webkit-progress-bar {
     background-color: #ededed;
     border-radius: 40px;
-  }
-  
-  .progreso_barra[value]::-webkit-progress-value {
+}
+
+.progreso_barra[value]::-webkit-progress-value {
     border-radius: 40px;
-    background-color:#00DED3;
-  }
+    background-color: #00DED3;
+}
 
 .progreso_numero {
     position: relative;
@@ -505,7 +538,7 @@ hr{
     transform: rotate(90deg);
     transition: all .5s ease;
 }
-  
+
 .avance {
     flex-basis: 8%;
     display: flex;
@@ -527,7 +560,7 @@ hr{
     display: flex;
     align-self: flex-start;
     width: 165px;
- 
+
     height: 50px;
     background-color: #EFEAE2;
     border-radius: 20px;
@@ -548,82 +581,89 @@ hr{
 
 .likert_cont {
 
-    progress{
+    progress {
         background: #00DED3;
         border-radius: 40px;
-   
+
     }
-    
 
-    progress::-webkit-progress-value { background: #00DED3; }
-progress::-moz-progress-bar { background: #00DED3;
-    background-color: white; }
 
-progress[value]::-webkit-progress-bar {
-    background-color: #ededed;
-    border-radius: 40px;
-  }
-  
-  progress[value]::-webkit-progress-value {
-    border-radius: 40px;
-    background-color:#00DED3;
-  }
+    progress::-webkit-progress-value {
+        background: #00DED3;
+    }
 
-    
-input[type=range]::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 8.4px;
-    cursor: pointer;
-    box-shadow: 1px 1px 1px transparent, 0px 0px 1px transparent;
-    background: transparent;
-    border-radius: 1.3px;
-    border: 0.2px solid transparent;
-  }
-  
-  
-  input[type=range]:focus::-webkit-slider-runnable-track {
-          background: transparent;
-  }
-  
-  input[type=range]::-moz-range-track {
-    width: 100%;
-    height: 8.4px;
-    cursor: pointer;
-    background: transparent;
-    border-radius: 1.3px;
-    border: 0.2px solid transparent;
-  }
-  
-  input[type=range]::-ms-track {
-    width: 100%;
-    height: 8.4px;
-    cursor: pointer;
-    background: transparent;
-    border-color: transparent;
-    border-width: 16px 0;
-    color: transparent;
-  }
-  input[type=range]::-ms-fill-lower {
-          background: transparent;
-    border: 0.2px solid transparent;
-    border-radius: 2.6px;
-    box-shadow: 1px 1px 1px transparent, 0px 0px 1px transparent;
-  }
-  
-  
-  
-  input[type=range]:focus::-ms-fill-lower {
-          background: transparent;
-  }
-  input[type=range]::-ms-fill-upper {
-          background: transparent;
-    border: 0.2px solid transparent;
-    border-radius: 2.6px;
-    box-shadow: 1px 1px 1px transparent, 0px 0px 1px transparent;
-  }
-  
-  input[type=range]:focus::-ms-fill-upper {
-          background: transparent;
-  }
+    progress::-moz-progress-bar {
+        background: #00DED3;
+        background-color: white;
+    }
+
+    progress[value]::-webkit-progress-bar {
+        background-color: #ededed;
+        border-radius: 40px;
+    }
+
+    progress[value]::-webkit-progress-value {
+        border-radius: 40px;
+        background-color: #00DED3;
+    }
+
+
+    input[type=range]::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 8.4px;
+        cursor: pointer;
+        box-shadow: 1px 1px 1px transparent, 0px 0px 1px transparent;
+        background: transparent;
+        border-radius: 1.3px;
+        border: 0.2px solid transparent;
+    }
+
+
+    input[type=range]:focus::-webkit-slider-runnable-track {
+        background: transparent;
+    }
+
+    input[type=range]::-moz-range-track {
+        width: 100%;
+        height: 8.4px;
+        cursor: pointer;
+        background: transparent;
+        border-radius: 1.3px;
+        border: 0.2px solid transparent;
+    }
+
+    input[type=range]::-ms-track {
+        width: 100%;
+        height: 8.4px;
+        cursor: pointer;
+        background: transparent;
+        border-color: transparent;
+        border-width: 16px 0;
+        color: transparent;
+    }
+
+    input[type=range]::-ms-fill-lower {
+        background: transparent;
+        border: 0.2px solid transparent;
+        border-radius: 2.6px;
+        box-shadow: 1px 1px 1px transparent, 0px 0px 1px transparent;
+    }
+
+
+
+    input[type=range]:focus::-ms-fill-lower {
+        background: transparent;
+    }
+
+    input[type=range]::-ms-fill-upper {
+        background: transparent;
+        border: 0.2px solid transparent;
+        border-radius: 2.6px;
+        box-shadow: 1px 1px 1px transparent, 0px 0px 1px transparent;
+    }
+
+    input[type=range]:focus::-ms-fill-upper {
+        background: transparent;
+    }
 
 }

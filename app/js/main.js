@@ -16,6 +16,7 @@ var Navegable = /** @class */ (function () {
     function Navegable(elementos) {
         this.permitir = false;
         this.permitirAll = false;
+        this.iniciado = false;
         this.elementos = elementos;
         this.progreso = new Progress(elementos.elementos.length, 0);
         this.actual = 0;
@@ -44,39 +45,42 @@ var Navegable = /** @class */ (function () {
     }
     Navegable.prototype.iniciar = function () {
         var _this = this;
-        this.elementos.elementos.forEach(function (e) {
-            e.setTermino(function () {
-                if (e == _this.elementos.elementos[_this.actual]) {
-                    _this.permitir = true;
-                    _this.siguiente();
-                    _this.permitir = false;
+        if (this.iniciado == false) {
+            this.elementos.elementos.forEach(function (e) {
+                e.setTermino(function () {
+                    if (e == _this.elementos.elementos[_this.actual]) {
+                        _this.permitir = true;
+                        _this.siguiente();
+                        _this.permitir = false;
+                    }
+                });
+                e.setProgreso(function (m, s) {
+                    if (e == _this.actualPantalla()) {
+                        if (_this.fcambioTiempo != null) {
+                            _this.fcambioTiempo(m, s);
+                        }
+                        if (s < 10 && s < 60 && s > -1 && m < 59) {
+                            _this.ti.innerText = "0" + m + ":0" + s;
+                        }
+                        else {
+                            _this.ti.innerText = "0" + m + ":" + s;
+                        }
+                    }
+                });
+            });
+            this.av.innerText = this.actual + 1 + "/" + this.elementos.elementos.length;
+            this.progreso.setTotal(this.elementos.elementos.length);
+            this.elementos.getElementosHTML().forEach(function (s, i) {
+                if (i == 0) {
+                    s.style.display = "block";
+                }
+                else {
+                    s.style.display = "none";
                 }
             });
-            e.setProgreso(function (m, s) {
-                if (e == _this.actualPantalla()) {
-                    if (_this.fcambioTiempo != null) {
-                        _this.fcambioTiempo(m, s);
-                    }
-                    if (s < 10 && s < 60 && s > -1 && m < 59) {
-                        _this.ti.innerText = "0" + m + ":0" + s;
-                    }
-                    else {
-                        _this.ti.innerText = "0" + m + ":" + s;
-                    }
-                }
-            });
-        });
-        this.av.innerText = this.actual + 1 + "/" + this.elementos.elementos.length;
-        this.progreso.setTotal(this.elementos.elementos.length);
-        this.elementos.getElementosHTML().forEach(function (s, i) {
-            if (i == 0) {
-                s.style.display = "block";
-            }
-            else {
-                s.style.display = "none";
-            }
-        });
-        this.actualPantalla().start();
+            this.actualPantalla().start();
+            this.iniciado = true;
+        }
     };
     Navegable.prototype.cambioTiempo = function (cambio) {
         this.fcambioTiempo = cambio;
@@ -140,6 +144,12 @@ var Navegable = /** @class */ (function () {
     };
     Navegable.prototype.setSiguiente = function (accion) {
         this.inicio = accion;
+    };
+    Navegable.prototype.getActual = function () {
+        return this.actual;
+    };
+    Navegable.prototype.ocultarActual = function () {
+        this.ocultar(this.actualPantallaHtml());
     };
     Navegable.prototype.setFinal = function (final) {
         this.final = final;
