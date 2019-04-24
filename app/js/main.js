@@ -487,6 +487,16 @@ function hsvToRgb(h, s, v) {
         Math.round(b * 255)
     ];
 }
+/*
+
+if (!Math.cbrt) {
+      Math.cbrt = (function (pow) {
+        return function cbrt() {
+          // ensure negative numbers remain negative:
+          return x < 0 ? -pow(-x, 1 / 3) : pow(x, 1 / 3);
+        };
+      })(Math.pow); // localize Math.pow to increase efficiency
+}*/
 //window.addEventListener('beforeunload', askConfirmation);
 /*
 

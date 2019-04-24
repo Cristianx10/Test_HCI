@@ -107,7 +107,7 @@ input[type=radio] {
 
 form {
     display: flex;
-    align-items: center;
+    align-items: left;
     justify-content: center;
     flex-wrap: wrap;
     flex-direction: column;
@@ -127,7 +127,7 @@ label {
     display: block;
     position: relative;
     text-align: left;
-    width: 100%;
+   
     padding-left: 35px;
     margin-bottom: 12px;
     cursor: pointer;

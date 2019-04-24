@@ -546,8 +546,6 @@ function irA(url: string) {
     $(".principal").load(url);
 }
 
-
-
 function askConfirmation(evt: any) {
     var msg = 'Si recarga la página perdera todos los datos ingresados.\n¿Deseas recargar la página?';
     evt.returnValue = msg;
@@ -637,6 +635,18 @@ function hsvToRgb(h: any, s: any, v: any) {
         Math.round(b * 255)
     ];
 }
+
+
+/*
+
+if (!Math.cbrt) {
+      Math.cbrt = (function (pow) {
+        return function cbrt() {
+          // ensure negative numbers remain negative:
+          return x < 0 ? -pow(-x, 1 / 3) : pow(x, 1 / 3);
+        };
+      })(Math.pow); // localize Math.pow to increase efficiency
+}*/
 //window.addEventListener('beforeunload', askConfirmation);
 
 

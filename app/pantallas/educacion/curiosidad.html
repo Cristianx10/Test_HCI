@@ -224,8 +224,6 @@
         let nav_p = new Navegable(particulas);
 
         particulas.agregarHtmlAll(document.querySelectorAll(".cont-curiosidad"));
-
-
         let input_particulas = document.querySelectorAll(".curiosidad__validar input");
 
         function validar() {
@@ -239,7 +237,6 @@
                                 text = i.value;
                         }
                 });
-                console.log(text)
                 if (text == "1,2,3,4,5") {
                         return true;
                 } else {
@@ -253,9 +250,7 @@
                 nav_p.setPermitirAll(true);
                 //e.currentTarget.style.display = "none";
                 if(ini){
-                        console.log("clicl sige " + validar());
                         nav_p.siguiente();
-                       
                 }else{
                         ini = true;
                 }
@@ -280,6 +275,10 @@
                         });
                         if(terminar){
                                 console.log("Lleno todo")
+                                if(validar()){
+
+                                console.log("Gano")
+                                }
                         }
                 }
 
