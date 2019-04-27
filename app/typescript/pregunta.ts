@@ -557,3 +557,182 @@ class OpcionI {
         return this.opcion;
     }
 }
+
+interface FOpcionS{
+    id:string;
+    valor:number;
+}
+
+class PreguntaS{
+    texto:HTMLElement;
+    bloque:HTMLElement;
+    lista:HTMLElement;
+    opciones:Array<OpcionS>;
+    seleccionActual?:OpcionS;
+
+    constructor(){
+        this.opciones = new Array();
+
+        this.texto = document.createElement("p");
+        this.texto.innerText = "___";
+        this.texto.style.textAlign = "center";
+
+        this.bloque = document.createElement('div');
+        this.bloque.style.display = "inline-block";
+        this.bloque.className = "elegir__resultado";
+        this.bloque.append(this.texto);
+
+        this.lista = document.createElement('span');
+        this.lista.className = "elegir__lista";
+
+        this.bloque.append(this.lista);
+
+        this.bloque.addEventListener("click", ()=>{
+            console.log(this.lista.style.display );
+            if(this.lista.style.display == ""){
+                this.lista.style.display = "flex";
+                console.log("puso vacio")
+            }
+            
+            else if(this.lista.style.display == "flex"){
+                this.lista.style.display = "none";
+                console.log("puso none")
+            }else{
+                this.lista.style.display = "flex";
+                console.log("puso flex")
+            }
+            
+        });
+    }
+
+    agregar(info:string, valor:number){
+        let o = new OpcionS(info, valor, this)
+        this.opciones.push(o);
+        this.lista.append(o.elemento);
+    }
+
+    incluirEn(lugar:string){
+        let e:HTMLElement = <HTMLElement>document.querySelector(lugar);
+        e.append(this.bloque);
+    }
+}
+
+class OpcionS{
+
+    padre:PreguntaS;
+    elemento:HTMLElement;
+    valor:number;
+
+    constructor(info:string, valor:number, padre:PreguntaS){
+        this.padre = padre;
+        this.elemento = document.createElement('span');
+        this.elemento.className = "elegir__opcion";
+        this.elemento.innerText = info;
+        this.valor = valor;
+
+        this.elemento.addEventListener("click", ()=>{
+            this.padre.seleccionActual = this;
+            this.padre.texto.innerHTML = this.elemento.innerText;
+        });
+    }
+}
+
+
+
+class PreguntaR {
+
+    elemento: HTMLElement;
+    pregunta: string;
+    opciones: Array<OpcionR>;
+    validacion?: Function;
+    seleccion?:OpcionR;
+    preguntaHTML:HTMLElement;
+    opcionesHTML:HTMLElement;
+
+    constructor(pregunta: string) {
+        this.pregunta = pregunta;
+        this.opciones = new Array();
+        this.elemento = document.createElement('div');
+        this.elemento.className = "instruccion";
+     
+
+        this.preguntaHTML = document.createElement('div');
+        this.preguntaHTML.innerHTML = pregunta;
+        this.opcionesHTML = document.createElement('div');
+
+        this.preguntaHTML.className = "instruccion__pregunta";
+        this.opcionesHTML.className = "instruccion__opciones";
+
+        this.elemento.appendChild(this.preguntaHTML);
+        this.elemento.appendChild(this.opcionesHTML);
+    }
+
+    agregar(info:string, valor: Array<ResultadoA>){
+        let opcion = new OpcionR(info, valor)
+        opcion.pregunta = this;
+        this.opciones.push(opcion);
+        this.opcionesHTML.append(opcion.opcion);
+    }
+
+    validar() {
+
+        if(this.seleccion != null){
+            this.seleccion.validacion();
+            resultados.agregar("pregunta",
+                    [{ id: "pregunta", valor: this.pregunta },
+                    { id: "respuesta", valor: this.seleccion.informacion}]);
+        }
+    
+    }
+
+    incluirEn(lugar:string){
+        let e:HTMLElement = <HTMLElement>document.querySelector(lugar);
+        e.append(this.elemento);
+    }
+
+    getElemento() {
+        return this.elemento;
+    }
+
+    setValidacion(validacion: Function) {
+        this.validacion = validacion;
+    }
+
+}
+
+class OpcionR {
+    opcion: HTMLElement;
+    valor: Array<ResultadoA>;
+    pregunta?: PreguntaR;
+    informacion:string;
+
+    constructor(info: string, valor: Array<ResultadoA>) {
+        this.informacion = info;
+        this.opcion = document.createElement("div");
+        this.valor = valor;
+        this.opcion.innerHTML = info;
+
+        this.opcion.addEventListener('click', () => {
+            if (this.pregunta != null) {
+                if(this.pregunta.seleccion != null){
+                    this.pregunta.seleccion.opcion.classList.remove("seleccion");
+                }
+                this.pregunta.seleccion = this;
+                this.opcion.classList.add("seleccion");
+            }
+        });
+    }
+
+    
+
+    validacion() {
+        this.valor.forEach(v => {
+            resultados.sumar(v.area, v.valor);
+        });
+    }
+
+    getElemento() {
+        return this.opcion;
+    }
+
+}

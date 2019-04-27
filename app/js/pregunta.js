@@ -389,3 +389,125 @@ var OpcionI = /** @class */ (function () {
     };
     return OpcionI;
 }());
+var PreguntaS = /** @class */ (function () {
+    function PreguntaS() {
+        var _this = this;
+        this.opciones = new Array();
+        this.texto = document.createElement("p");
+        this.texto.innerText = "___";
+        this.texto.style.textAlign = "center";
+        this.bloque = document.createElement('div');
+        this.bloque.style.display = "inline-block";
+        this.bloque.className = "elegir__resultado";
+        this.bloque.append(this.texto);
+        this.lista = document.createElement('span');
+        this.lista.className = "elegir__lista";
+        this.bloque.append(this.lista);
+        this.bloque.addEventListener("click", function () {
+            console.log(_this.lista.style.display);
+            if (_this.lista.style.display == "") {
+                _this.lista.style.display = "flex";
+                console.log("puso vacio");
+            }
+            else if (_this.lista.style.display == "flex") {
+                _this.lista.style.display = "none";
+                console.log("puso none");
+            }
+            else {
+                _this.lista.style.display = "flex";
+                console.log("puso flex");
+            }
+        });
+    }
+    PreguntaS.prototype.agregar = function (info, valor) {
+        var o = new OpcionS(info, valor, this);
+        this.opciones.push(o);
+        this.lista.append(o.elemento);
+    };
+    PreguntaS.prototype.incluirEn = function (lugar) {
+        var e = document.querySelector(lugar);
+        e.append(this.bloque);
+    };
+    return PreguntaS;
+}());
+var OpcionS = /** @class */ (function () {
+    function OpcionS(info, valor, padre) {
+        var _this = this;
+        this.padre = padre;
+        this.elemento = document.createElement('span');
+        this.elemento.className = "elegir__opcion";
+        this.elemento.innerText = info;
+        this.valor = valor;
+        this.elemento.addEventListener("click", function () {
+            _this.padre.seleccionActual = _this;
+            _this.padre.texto.innerHTML = _this.elemento.innerText;
+        });
+    }
+    return OpcionS;
+}());
+var PreguntaR = /** @class */ (function () {
+    function PreguntaR(pregunta) {
+        this.pregunta = pregunta;
+        this.opciones = new Array();
+        this.elemento = document.createElement('div');
+        this.elemento.className = "instruccion";
+        this.preguntaHTML = document.createElement('div');
+        this.preguntaHTML.innerHTML = pregunta;
+        this.opcionesHTML = document.createElement('div');
+        this.preguntaHTML.className = "instruccion__pregunta";
+        this.opcionesHTML.className = "instruccion__opciones";
+        this.elemento.appendChild(this.preguntaHTML);
+        this.elemento.appendChild(this.opcionesHTML);
+    }
+    PreguntaR.prototype.agregar = function (info, valor) {
+        var opcion = new OpcionR(info, valor);
+        opcion.pregunta = this;
+        this.opciones.push(opcion);
+        this.opcionesHTML.append(opcion.opcion);
+    };
+    PreguntaR.prototype.validar = function () {
+        if (this.seleccion != null) {
+            this.seleccion.validacion();
+            resultados.agregar("pregunta", [{ id: "pregunta", valor: this.pregunta },
+                { id: "respuesta", valor: this.seleccion.informacion }]);
+        }
+    };
+    PreguntaR.prototype.incluirEn = function (lugar) {
+        var e = document.querySelector(lugar);
+        e.append(this.elemento);
+    };
+    PreguntaR.prototype.getElemento = function () {
+        return this.elemento;
+    };
+    PreguntaR.prototype.setValidacion = function (validacion) {
+        this.validacion = validacion;
+    };
+    return PreguntaR;
+}());
+var OpcionR = /** @class */ (function () {
+    function OpcionR(info, valor) {
+        var _this = this;
+        this.informacion = info;
+        this.opcion = document.createElement("div");
+        this.valor = valor;
+        this.opcion.innerHTML = info;
+        this.opcion.addEventListener('click', function () {
+            if (_this.pregunta != null) {
+                if (_this.pregunta.seleccion != null) {
+                    _this.pregunta.seleccion.opcion.classList.remove("seleccion");
+                }
+                _this.pregunta.seleccion = _this;
+                _this.opcion.classList.add("seleccion");
+            }
+        });
+    }
+    OpcionR.prototype.validacion = function () {
+        this.valor.forEach(function (v) {
+            resultados.sumar(v.area, v.valor);
+        });
+    };
+    OpcionR.prototype.getElemento = function () {
+        return this.opcion;
+    };
+    return OpcionR;
+}());

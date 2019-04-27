@@ -364,11 +364,8 @@ class Contenido {
         this.objeto = objeto;
         this.timer = new Timer();
         this.tiempoDefinido = false;
-
-        if (segundos != null) {
-            
-            this.segundos = segundos;
-        
+        if (segundos != null) {         
+            this.segundos = segundos;    
         }
     }
 
@@ -385,6 +382,7 @@ class Contenido {
             this.timer.startTempo(this.segundos);
           
         }
+        console.log(this.segundos)
     }
 
     setProgreso(progreso:Function){
@@ -710,3 +708,28 @@ $( "p" ).removeClass( "myClass noClass" ).addClass( "yourClass" );
 
 
 var resultados = new Resultados("resultados");
+
+
+resultados.calcularMaximo([
+
+    {id:"pregunta",valores:[{id:"Diseño",valor:10},{id:"Deportes",valor:5},{id:"Ingenieria",valor:0},{id:"Salud",valor:10},{id:"Educacion",valor:50},{id:"Fuerza publica",valor:0},{id:"Arte",valor:10},{id:"Ciencia",valor:5}]},
+
+    {id:"pregunta2",valores:[{id:"Diseño",valor:30},{id:"Deportes",valor:5},{id:"Ingenieria",valor:0},{id:"Salud",valor:10},{id:"Educacion",valor:10},{id:"Fuerza publica",valor:0},{id:"Arte",valor:10},{id:"Ciencia",valor:5}]}
+
+]);
+
+resultados.calcularMaximo([
+
+    {id:"pregunta",valores:[{id:"Diseño",valor:10},{id:"Deportes",valor:55},{id:"Ingenieria",valor:0},{id:"Salud",valor:10},{id:"Educacion",valor:50},{id:"Fuerza publica",valor:0},{id:"Arte",valor:10},{id:"Ciencia",valor:5}]},
+
+    {id:"pregunta2",valores:[{id:"Diseño",valor:30},{id:"Deportes",valor:5},{id:"Ingenieria",valor:0},{id:"Salud",valor:10},{id:"Educacion",valor:10},{id:"Fuerza publica",valor:0},{id:"Arte",valor:10},{id:"Ciencia",valor:5}]}
+
+]);
+
+resultados.calcularMaximo([
+
+    {id:"pregunta",valores:[{id:"Diseño",valor:10},{id:"Deportes",valor:5},{id:"Ingenieria",valor:0},{id:"Salud",valor:10},{id:"Educacion",valor:50},{id:"Fuerza publica",valor:0},{id:"Arte",valor:10},{id:"Ciencia",valor:5}]},
+
+    {id:"pregunta2",valores:[{id:"Diseño",valor:30},{id:"Deportes",valor:5},{id:"Ingenieria",valor:0},{id:"Salud",valor:10},{id:"Educacion",valor:10},{id:"Fuerza publica",valor:0},{id:"Arte",valor:10},{id:"Ciencia",valor:5}]}
+
+]);

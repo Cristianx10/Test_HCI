@@ -8,11 +8,13 @@ var Resultados = /** @class */ (function () {
             var variables = JSON.parse(val);
             this.categorias = variables.categorias;
             this.pruebas = variables.pruebas;
+            this.maximos = variables.maximos;
             reconozido = true;
         }
         if (reconozido == false) {
             this.categorias = new Array();
             this.pruebas = new Array();
+            this.maximos = new Array();
         }
     }
     Resultados.prototype.save = function () {
@@ -43,6 +45,69 @@ var Resultados = /** @class */ (function () {
         }
         this.save();
     };
+    Resultados.prototype.calcularMaximo = function (valores) {
+        var valorTotal = [];
+        valores.forEach(function (v) {
+            if (valorTotal != null) {
+                for (var i = 0; i < v.valores.length; i++) {
+                    var val = v.valores[i];
+                    var encontro = false;
+                    for (var j = 0; j < valorTotal.length; j++) {
+                        var t = valorTotal[j];
+                        if (val.id == t.id) {
+                            encontro = true;
+                            if (val.valor > t.valor) {
+                                t.valor = val.valor;
+                            }
+                        }
+                    }
+                    if (encontro == false) {
+                        valorTotal.push({ id: val.id, valor: val.valor });
+                    }
+                }
+            }
+        });
+        console.log(valorTotal);
+        var categoria = 0;
+        var encontrado = false;
+        var _loop_1 = function (h) {
+            var v = valorTotal[h];
+            if (this_1.maximos != null) {
+                this_1.maximos.forEach(function (c, index) {
+                    if (c.id == v.id) {
+                        categoria = index;
+                        encontrado = true;
+                    }
+                });
+                if (encontrado) {
+                    this_1.maximos[categoria].valor += v.valor;
+                }
+                else {
+                    this_1.maximos.push({ id: v.id, valor: v.valor });
+                }
+            }
+        };
+        var this_1 = this;
+        for (var h = 0; h < valorTotal.length; h++) {
+            _loop_1(h);
+        }
+        this.save();
+    };
+    /*
+    [
+        {id:"materia", valor:5},
+        {id:"materia2", valor:10},
+        {id:"materia3", valor:15},
+    ],
+    [
+        {id:"materia2", valor:5},
+        {id:"materia1", valor:10},
+        {id:"materia3", valor:15},
+    ],
+
+
+
+    */
     Resultados.prototype.limpiarTodo = function () {
         localStorage.clear();
     };

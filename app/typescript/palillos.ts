@@ -201,8 +201,8 @@ class EPalillos {
         if (color != null) {
             this.color = color;
         } else {
-            //this.color = "rgb(255,255,255, 0.1)";
-            this.color = "blue";
+            this.color = "rgb(255,255,255, 0.1)";
+            //this.color = "blue";
         }
 
     }

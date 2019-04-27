@@ -148,7 +148,7 @@
 
     let p2 = new PreguntaC("Lee el siguiente fragmento:2. En el fragmento hay unos cuantos errores de ortografía, dale click en el error para seleccionarlos. Cuando sientas que no hay más errores, haz click sobre el botón siguiente.", new OpcionC(`El hombre no se convierte en hombre más que en una sociedad y solamente por la acción colectiva de la sociedad entera; no se emansipa del llugo de la naturalesa exterior más que por el trabajo colectivo o social y sin esa emancipación material no puede haber emancipación intelectual y moral para nadie. El hombre aislado no puede tener conciencia de su libertad. Ser libre para el hombre sólo es posible por otro hombre, por todos los hombres que le rodean. La libertad no es, pues, un echo de aislamiento, sino de reflección mutua; no de exclución, sino, al contrario, de aliansa, pues la libertad de todo individuo no es otra cosa que el reflejo de su humanidad o de su derecho humano en la consciencia de todos los hombres libres: sus hermanos, sus iguales. No soy verdaderamente libre más que cuando todos los seres humanos que me rodean, hombres y mujeres, son igualmente libres. La libertad de otro, lejos de ser un límite o la negasión de mi libertad, es, al contrario, su condición necesaria y su confirmación. No me ago verdaderamente libre más que por la libertad de los otros... BAKUNIN, M. La Libertad.`));
 
-    let cp2 = new Contenido(p2.getElement(), p2);
+    let cp2 = new Contenido(p2.getElement(), p2, 26);
 
     let op3 = [];
     op3.push(
@@ -159,7 +159,7 @@
     );
     let p3 = new Pregunta("3.  El fragmento trata principalmente de:", op3);
 
-    cp3 = new Contenido(p3.getElement(), p3);
+    cp3 = new Contenido(p3.getElement(), p3, 120);
 
     let p4 = new PreguntaC("4. Agrega signos de puntuación", new OpcionC(`"Allí ___ a lo lejos__ canta un ruiseñor __ ahí cerca __ ronronea un gato __ aquí mismo__ Suspira un enamorado__"`));
     let cp4 = new Contenido(p4.getElement(), p4);
@@ -172,7 +172,7 @@
     contenedor.agregar(cp3);
     contenedor.agregar(cp4);
     contenedor.agregar(cp5);
-  // contenedor.incluirEn(document.querySelector(".principal"));
+    contenedor.incluirEn(document.querySelector(".principal"));
 
 
     navegable.iniciar();

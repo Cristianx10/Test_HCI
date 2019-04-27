@@ -115,6 +115,7 @@ form {
     flex-wrap: wrap;
     flex-direction: column;
 }
+
 /*
 {
     display: flex; flex-basis: 100%; width: 100%; flex-direction: row; justify-content: space-evenly;
@@ -134,7 +135,7 @@ label {
     display: block;
     position: relative;
     text-align: left;
-   
+
     padding-left: 35px;
     margin-bottom: 12px;
     cursor: pointer;
@@ -450,7 +451,7 @@ hr {
     flex-direction: column;
 }
 
-.estatico{
+.estatico {
     display: contents;
 }
 
@@ -688,7 +689,7 @@ hr {
 
 }
 
- 
+
 .contenedor {
     width: 100%;
     height: 100%;
@@ -752,6 +753,111 @@ hr {
 }
 
 
-.boton:hover{
+.boton:hover {
     background-color: rgba(243, 236, 72, 1);
+}
+
+
+
+/*
+Estilos de seleccionador
+
+
+*/
+
+
+.elegir__resultado {
+    position: relative;
+    min-width: 20px;
+    min-height: 30px;
+    border: 3px dashed lightblue;
+
+    &:hover {
+        background: lightblue;
+        cursor: pointer;
+        /*
+        .elegir__opcion {
+            display: flex;
+        }
+        */
+    }
+
+
+}
+
+.elegir__lista {
+    display: none;
+    flex-direction: row;
+    position: absolute;
+    left: 0;
+    min-width: 40px;
+    background: lightgrey;
+
+}
+
+.elegir__opcion {
+    display: flex;
+    min-width: 30px;
+
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 2px dashed lightgreen;
+
+    &:hover {
+        background: grey;
+        cursor: pointer;
+        color: white;
+        //width: 100%;
+    }
+
+}
+
+
+.contenedor {
+
+    align-self: center;
+    width: 80%;
+    height: 70%;
+}
+
+.instrucciones {
+    display: flex;
+    flex-direction: column;
+}
+
+.instruccion {
+    display: flex;
+    margin-top: 10px;
+
+    .seleccion{
+        border: 2px solid blue;
+        border-radius: 50px;
+        background: blue;
+    }
+}
+
+.instruccion__pregunta {
+    width: 60%;
+}
+
+.instruccion__opciones {
+    display: flex;
+    width: 40%;
+}
+
+
+.circulo {
+    border-radius: 30px;
+    width: 40px;
+    height: 40px;
+    flex-basis: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+}
+
+.circulo {
+    font-size: 10px;
 }

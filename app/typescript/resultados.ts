@@ -18,10 +18,21 @@ interface RPruebaS {
     valor: string;
 }
 
+interface Respuesta {
+    id: string;
+    valores: Array<RespuestaV>;
+}
+
+interface RespuestaV {
+    id: string;
+    valor: number;
+}
+
 class Resultados {
 
     categorias?: Array<RCategoria>;
     pruebas?: Array<RRegistro>;
+    maximos?: Array<RespuestaV>;
     id: string;
 
 
@@ -34,12 +45,14 @@ class Resultados {
             let variables: Resultados = JSON.parse(val)
             this.categorias = variables.categorias;
             this.pruebas = variables.pruebas;
+            this.maximos = variables.maximos;
             reconozido = true;
         }
 
         if (reconozido == false) {
             this.categorias = new Array();
             this.pruebas = new Array();
+            this.maximos = new Array();
         }
     }
 
@@ -71,11 +84,77 @@ class Resultados {
             } else {
                 this.categorias.push({ nombre: nombre, valor: valor });
             }
-
         }
 
         this.save();
     }
+
+    calcularMaximo(valores: Array<Respuesta>) {
+
+        let valorTotal:Array<RespuestaV> = [];
+        valores.forEach((v) => {
+            if (valorTotal != null) {
+                for (let i = 0; i < v.valores.length; i++) {
+                    let val = v.valores[i];
+                    let encontro: boolean = false;
+
+                    for (let j = 0; j < valorTotal.length; j++) {
+                        let t = valorTotal[j];
+                        if (val.id == t.id) {
+                            encontro = true;
+                            if (val.valor > t.valor) {
+                                t.valor = val.valor;
+                            }
+                        }
+                    }
+                    if (encontro == false) {
+                        valorTotal.push({id: val.id, valor: val.valor});
+                    }
+                }
+            }
+        });
+        console.log(valorTotal)
+
+        let categoria: number = 0;
+        let encontrado = false;
+        for (let h = 0; h < valorTotal.length; h++) {
+            let v = valorTotal[h];
+            
+            if (this.maximos != null) {
+                this.maximos.forEach((c, index) => {
+                    if (c.id == v.id) {
+                        categoria = index;
+                        encontrado = true
+                    }
+                });
+    
+                if (encontrado) {
+                    this.maximos[categoria].valor += v.valor;
+                } else {
+                    this.maximos.push({ id: v.id, valor: v.valor });
+                }
+            }
+        }
+       
+        this.save();
+    }
+    /*
+    [
+        {id:"materia", valor:5},
+        {id:"materia2", valor:10},
+        {id:"materia3", valor:15},
+    ],
+    [
+        {id:"materia2", valor:5},
+        {id:"materia1", valor:10},
+        {id:"materia3", valor:15},
+    ],
+
+
+
+    */
+
+
 
     limpiarTodo() {
         localStorage.clear();
@@ -111,8 +190,8 @@ class VerResultado {
     elemento: HTMLElement;
     categoria?: string;
     valor?: number;
-    src?:string;
-    private init:number;
+    src?: string;
+    private init: number;
 
     constructor() {
         this.elemento = document.createElement("div");
@@ -120,7 +199,7 @@ class VerResultado {
         this.init = random(0, 360);
     }
 
-    generar(categoria: string, valor: number, src:string) {
+    generar(categoria: string, valor: number, src: string) {
         this.categoria = categoria;
         this.valor = valor;
         this.src = src;
@@ -138,11 +217,11 @@ class VerResultado {
     `;
     }
 
-    getElemento(){
+    getElemento() {
         return this.elemento;
     }
 
-    felicidades(){
+    felicidades() {
         let e = document.createElement("div");
         e.className = "cuadro_felicitaciones";
         e.innerHTML = `
@@ -158,3 +237,6 @@ class VerResultado {
         return e;
     }
 }
+
+
+

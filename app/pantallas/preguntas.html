@@ -13,16 +13,16 @@
     let navegacion = new Navegable(preguntas_total);
     //let obt = new PreguntaC("Mira este titulo",new OpcionC("Texto inicial", [{opcion:"value", valor:5}]));
     //let obt = new PreguntaI("/img/ecuacion.png", [new OpcionI("323", [{area:"mate", valor:2}]),new OpcionI("323", [])]);
-    let con = new Contenido(obt.getElement(), obt, 10);
-    preguntas_total.agregar(con);
-
+    /*let con = new Contenido(obt.getElement(), obt, 10);
+    preguntas_total.agregar(con);*/
+/*
     con.setAccion(() => {
         navegacion.setPermitir(true);
         console.log("permitio");
         siguiente.disabled = false;
     }
     );
-
+*/
 
     loadJson("../data/preguntas.1.json", (r) => {
 

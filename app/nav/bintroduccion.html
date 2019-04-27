@@ -1,23 +1,24 @@
+<div class="instrucciones">
+    <div class="instruccion">
+        <div class="instruccion__pregunta">
 
-
-    <div class="instrucciones">
-        <div class="instruccion">
-            <div class="instruccion__pregunta">
-                
-            </div>
-            <div class="instruccion__opciones">
-            </div>
+        </div>
+        <div class="instruccion__opciones">
         </div>
     </div>
-
-
-
+</div>
 
 <button class="btn_siguiente">Enviar</button>
 
+
+<!--Carga de librerias-->
 <script src="../../js/pregunta.js"></script>
+
+
+<!--Instrucciones-->
 <script>
 
+    $('.cont-principal').css("background-image", "url('../img/background-claro.png')");
 
     let p0 = new PreguntaR("<p>1. Lee todas las instrucciones antes de realizar algún movimiento.</p>");
     p0.incluirEn(".instrucciones");

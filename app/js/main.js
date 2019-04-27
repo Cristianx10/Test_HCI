@@ -295,6 +295,7 @@ var Contenido = /** @class */ (function () {
         if (this.segundos != null) {
             this.timer.startTempo(this.segundos);
         }
+        console.log(this.segundos);
     };
     Contenido.prototype.setProgreso = function (progreso) {
         this.timer.setProgreso(progreso);
@@ -552,3 +553,15 @@ This method is often used with .removeClass() to switch elements' classes from o
 $( "p" ).removeClass( "myClass noClass" ).addClass( "yourClass" );
 */
 var resultados = new Resultados("resultados");
+resultados.calcularMaximo([
+    { id: "pregunta", valores: [{ id: "Diseño", valor: 10 }, { id: "Deportes", valor: 5 }, { id: "Ingenieria", valor: 0 }, { id: "Salud", valor: 10 }, { id: "Educacion", valor: 50 }, { id: "Fuerza publica", valor: 0 }, { id: "Arte", valor: 10 }, { id: "Ciencia", valor: 5 }] },
+    { id: "pregunta2", valores: [{ id: "Diseño", valor: 30 }, { id: "Deportes", valor: 5 }, { id: "Ingenieria", valor: 0 }, { id: "Salud", valor: 10 }, { id: "Educacion", valor: 10 }, { id: "Fuerza publica", valor: 0 }, { id: "Arte", valor: 10 }, { id: "Ciencia", valor: 5 }] }
+]);
+resultados.calcularMaximo([
+    { id: "pregunta", valores: [{ id: "Diseño", valor: 10 }, { id: "Deportes", valor: 55 }, { id: "Ingenieria", valor: 0 }, { id: "Salud", valor: 10 }, { id: "Educacion", valor: 50 }, { id: "Fuerza publica", valor: 0 }, { id: "Arte", valor: 10 }, { id: "Ciencia", valor: 5 }] },
+    { id: "pregunta2", valores: [{ id: "Diseño", valor: 30 }, { id: "Deportes", valor: 5 }, { id: "Ingenieria", valor: 0 }, { id: "Salud", valor: 10 }, { id: "Educacion", valor: 10 }, { id: "Fuerza publica", valor: 0 }, { id: "Arte", valor: 10 }, { id: "Ciencia", valor: 5 }] }
+]);
+resultados.calcularMaximo([
+    { id: "pregunta", valores: [{ id: "Diseño", valor: 10 }, { id: "Deportes", valor: 5 }, { id: "Ingenieria", valor: 0 }, { id: "Salud", valor: 10 }, { id: "Educacion", valor: 50 }, { id: "Fuerza publica", valor: 0 }, { id: "Arte", valor: 10 }, { id: "Ciencia", valor: 5 }] },
+    { id: "pregunta2", valores: [{ id: "Diseño", valor: 30 }, { id: "Deportes", valor: 5 }, { id: "Ingenieria", valor: 0 }, { id: "Salud", valor: 10 }, { id: "Educacion", valor: 10 }, { id: "Fuerza publica", valor: 0 }, { id: "Arte", valor: 10 }, { id: "Ciencia", valor: 5 }] }
+]);
