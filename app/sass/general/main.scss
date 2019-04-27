@@ -34,9 +34,6 @@ p {
     align-items: center;
 }
 
-
-
-//aaa
 .boton {
     background: #FFF97C;
     border: 1px solid #FFF97C;
@@ -115,11 +112,6 @@ form {
     flex-wrap: wrap;
     flex-direction: column;
 }
-
-/*
-{
-    display: flex; flex-basis: 100%; width: 100%; flex-direction: row; justify-content: space-evenly;
-}*/
 
 label {
     display: block;
@@ -716,24 +708,6 @@ hr {
     color: #EFF5FF;
 }
 
-.titulo {
-    position: absolute;
-    /*margin-left: 320px;*/
-    width: 550px;
-    height: 126.62px;
-    left: 296.85px;
-    top: 201.49px;
-
-    font-family: Heebo;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 64px;
-    line-height: 56px;
-
-    color: white;
-
-}
-
 .descripcion {
     position: absolute;
     /*margin-left: 320px;*/
@@ -752,8 +726,7 @@ hr {
     color: #EFF5FF;
 }
 
-
-.boton:hover {
+.boton:hover{
     background-color: rgba(243, 236, 72, 1);
 }
 
