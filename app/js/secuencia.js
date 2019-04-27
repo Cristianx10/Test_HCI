@@ -40,7 +40,7 @@ var Secuencias = /** @class */ (function () {
         tabla.className = "tabla";
         total.className = "tabla__secuencia";
         tabla.append(total);
-        this.contenedor.agregarHtml(tabla);
+        this.contenedor.agregarHTML(tabla);
         this.navegable = new Navegable(this.contenedor);
         this.navegable.permitirAll = true;
         this.contenedor.foreachElementos(this.elemento);

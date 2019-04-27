@@ -219,7 +219,7 @@ var Contenedor = /** @class */ (function () {
     Contenedor.prototype.agregar = function (elemeto) {
         this.elementos.push(elemeto);
     };
-    Contenedor.prototype.agregarHtml = function (elemeto, tiempo) {
+    Contenedor.prototype.agregarHTML = function (elemeto, tiempo) {
         var e = new PantallaHTML(elemeto);
         if (tiempo != null) {
             this.elementos.push(new Contenido(elemeto, e, tiempo));
@@ -228,7 +228,7 @@ var Contenedor = /** @class */ (function () {
             this.elementos.push(new Contenido(elemeto, e));
         }
     };
-    Contenedor.prototype.agregarHtmlAll = function (elemetos, tiempo) {
+    Contenedor.prototype.agregarHTMLAll = function (elemetos, tiempo) {
         var _this = this;
         if (tiempo != null) {
             elemetos.forEach(function (ele) {
@@ -553,15 +553,27 @@ This method is often used with .removeClass() to switch elements' classes from o
 $( "p" ).removeClass( "myClass noClass" ).addClass( "yourClass" );
 */
 var resultados = new Resultados("resultados");
+/*
 resultados.calcularMaximo([
-    { id: "pregunta", valores: [{ id: "Diseño", valor: 10 }, { id: "Deportes", valor: 5 }, { id: "Ingenieria", valor: 0 }, { id: "Salud", valor: 10 }, { id: "Educacion", valor: 50 }, { id: "Fuerza publica", valor: 0 }, { id: "Arte", valor: 10 }, { id: "Ciencia", valor: 5 }] },
-    { id: "pregunta2", valores: [{ id: "Diseño", valor: 30 }, { id: "Deportes", valor: 5 }, { id: "Ingenieria", valor: 0 }, { id: "Salud", valor: 10 }, { id: "Educacion", valor: 10 }, { id: "Fuerza publica", valor: 0 }, { id: "Arte", valor: 10 }, { id: "Ciencia", valor: 5 }] }
+
+    {id:"pregunta",valores:[{id:"Diseño",valor:10},{id:"Deportes",valor:5},{id:"Ingenieria",valor:0},{id:"Salud",valor:10},{id:"Educacion",valor:50},{id:"Fuerza publica",valor:0},{id:"Arte",valor:10},{id:"Ciencia",valor:5}]},
+
+    {id:"pregunta2",valores:[{id:"Diseño",valor:30},{id:"Deportes",valor:5},{id:"Ingenieria",valor:0},{id:"Salud",valor:10},{id:"Educacion",valor:10},{id:"Fuerza publica",valor:0},{id:"Arte",valor:10},{id:"Ciencia",valor:5}]}
+
 ]);
+
 resultados.calcularMaximo([
-    { id: "pregunta", valores: [{ id: "Diseño", valor: 10 }, { id: "Deportes", valor: 55 }, { id: "Ingenieria", valor: 0 }, { id: "Salud", valor: 10 }, { id: "Educacion", valor: 50 }, { id: "Fuerza publica", valor: 0 }, { id: "Arte", valor: 10 }, { id: "Ciencia", valor: 5 }] },
-    { id: "pregunta2", valores: [{ id: "Diseño", valor: 30 }, { id: "Deportes", valor: 5 }, { id: "Ingenieria", valor: 0 }, { id: "Salud", valor: 10 }, { id: "Educacion", valor: 10 }, { id: "Fuerza publica", valor: 0 }, { id: "Arte", valor: 10 }, { id: "Ciencia", valor: 5 }] }
+
+    {id:"pregunta",valores:[{id:"Diseño",valor:10},{id:"Deportes",valor:55},{id:"Ingenieria",valor:0},{id:"Salud",valor:10},{id:"Educacion",valor:50},{id:"Fuerza publica",valor:0},{id:"Arte",valor:10},{id:"Ciencia",valor:5}]},
+
+    {id:"pregunta2",valores:[{id:"Diseño",valor:30},{id:"Deportes",valor:5},{id:"Ingenieria",valor:0},{id:"Salud",valor:10},{id:"Educacion",valor:10},{id:"Fuerza publica",valor:0},{id:"Arte",valor:10},{id:"Ciencia",valor:5}]}
+
 ]);
+
 resultados.calcularMaximo([
-    { id: "pregunta", valores: [{ id: "Diseño", valor: 10 }, { id: "Deportes", valor: 5 }, { id: "Ingenieria", valor: 0 }, { id: "Salud", valor: 10 }, { id: "Educacion", valor: 50 }, { id: "Fuerza publica", valor: 0 }, { id: "Arte", valor: 10 }, { id: "Ciencia", valor: 5 }] },
-    { id: "pregunta2", valores: [{ id: "Diseño", valor: 30 }, { id: "Deportes", valor: 5 }, { id: "Ingenieria", valor: 0 }, { id: "Salud", valor: 10 }, { id: "Educacion", valor: 10 }, { id: "Fuerza publica", valor: 0 }, { id: "Arte", valor: 10 }, { id: "Ciencia", valor: 5 }] }
-]);
+
+    {id:"pregunta",valores:[{id:"Diseño",valor:10},{id:"Deportes",valor:5},{id:"Ingenieria",valor:0},{id:"Salud",valor:10},{id:"Educacion",valor:50},{id:"Fuerza publica",valor:0},{id:"Arte",valor:10},{id:"Ciencia",valor:5}]},
+
+    {id:"pregunta2",valores:[{id:"Diseño",valor:30},{id:"Deportes",valor:5},{id:"Ingenieria",valor:0},{id:"Salud",valor:10},{id:"Educacion",valor:10},{id:"Fuerza publica",valor:0},{id:"Arte",valor:10},{id:"Ciencia",valor:5}]}
+
+]);*/ 

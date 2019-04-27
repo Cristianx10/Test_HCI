@@ -638,7 +638,6 @@ class OpcionS{
 }
 
 
-
 class PreguntaR {
 
     elemento: HTMLElement;
@@ -701,6 +700,105 @@ class PreguntaR {
 }
 
 class OpcionR {
+    opcion: HTMLElement;
+    valor: Array<ResultadoA>;
+    pregunta?: PreguntaR;
+    informacion:string;
+
+    constructor(info: string, valor: Array<ResultadoA>) {
+        this.informacion = info;
+        this.opcion = document.createElement("div");
+        this.valor = valor;
+        this.opcion.innerHTML = info;
+
+        this.opcion.addEventListener('click', () => {
+            if (this.pregunta != null) {
+                if(this.pregunta.seleccion != null){
+                    this.pregunta.seleccion.opcion.classList.remove("seleccion");
+                }
+                this.pregunta.seleccion = this;
+                this.opcion.classList.add("seleccion");
+            }
+        });
+    }
+
+    
+
+    validacion() {
+        this.valor.forEach(v => {
+            resultados.sumar(v.area, v.valor);
+        });
+    }
+
+    getElemento() {
+        return this.opcion;
+    }
+
+}
+
+
+class PreguntaP {
+
+    elemento: HTMLElement;
+    pregunta: string;
+    opciones: Array<OpcionR>;
+    validacion?: Function;
+    seleccion?:OpcionR;
+    preguntaHTML:HTMLElement;
+    opcionesHTML:HTMLElement;
+
+    constructor(pregunta: string) {
+        this.pregunta = pregunta;
+        this.opciones = new Array();
+        this.elemento = document.createElement('div');
+        this.elemento.className = "instruccion";
+     
+
+        this.preguntaHTML = document.createElement('div');
+        this.preguntaHTML.innerHTML = pregunta;
+        this.opcionesHTML = document.createElement('div');
+
+        this.preguntaHTML.className = "instruccion__pregunta";
+        this.opcionesHTML.className = "instruccion__opciones";
+
+        this.elemento.appendChild(this.preguntaHTML);
+        this.elemento.appendChild(this.opcionesHTML);
+    }
+
+    agregar(info:string, valor: Array<ResultadoA>){
+        let opcion = new OpcionR(info, valor)
+        opcion.pregunta = this;
+        this.opciones.push(opcion);
+        this.opcionesHTML.append(opcion.opcion);
+    }
+
+    validar() {
+
+        if(this.seleccion != null){
+            this.seleccion.validacion();
+            resultados.agregar("pregunta",
+                    [{ id: "pregunta", valor: this.pregunta },
+                    { id: "respuesta", valor: this.seleccion.informacion}]);
+        }
+    
+    }
+
+    incluirEn(lugar:string){
+        let e:HTMLElement = <HTMLElement>document.querySelector(lugar);
+        e.append(this.elemento);
+    }
+
+    getElemento() {
+        return this.elemento;
+    }
+
+    setValidacion(validacion: Function) {
+        this.validacion = validacion;
+    }
+
+}
+
+class OpcionP {
     opcion: HTMLElement;
     valor: Array<ResultadoA>;
     pregunta?: PreguntaR;

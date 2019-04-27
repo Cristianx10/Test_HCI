@@ -1,14 +1,15 @@
-<div class="instrucciones">
-    <div class="instruccion">
-        <div class="instruccion__pregunta">
+<div class="pantalla pintrucciones">
+    <div class="instrucciones">
+        <div class="instruccion">
+            <div class="instruccion__pregunta">
 
-        </div>
-        <div class="instruccion__opciones">
+            </div>
+            <div class="instruccion__opciones">
+            </div>
         </div>
     </div>
+    <button class="btn_siguiente">Enviar</button>
 </div>
-
-<button class="btn_siguiente">Enviar</button>
 
 
 <!--Carga de librerias-->
@@ -62,6 +63,11 @@
     let p6 = new PreguntaR(`<p>7. Y ahora que terminaste de leer, debes ignorar las instrucciones anteriores y presionar enviar.</p>`);
     p6.incluirEn(".instrucciones");
 
+
+    let contenedor2 = new Contendor();
+    let navegacion2 = new Navegable(contenedor2);
+
+    this.contenedor2.agregarHTML(document.querySelector(".pinstrucciones"));
 
 
 </script>

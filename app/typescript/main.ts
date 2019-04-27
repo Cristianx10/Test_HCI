@@ -288,7 +288,7 @@ class Contenedor implements Validable {
         this.elementos.push(elemeto)
     }
 
-    agregarHtml(elemeto: HTMLElement, tiempo?:number) {
+    agregarHTML(elemeto: HTMLElement, tiempo?:number) {
         let e = new PantallaHTML(elemeto);
         if(tiempo != null){
             this.elementos.push(new Contenido(elemeto, e, tiempo));
@@ -297,7 +297,7 @@ class Contenedor implements Validable {
         }
     }
 
-    agregarHtmlAll(elemetos: Array<HTMLElement>, tiempo?:number) {
+    agregarHTMLAll(elemetos: Array<HTMLElement>, tiempo?:number) {
 
         if(tiempo != null){
             elemetos.forEach((ele) => {
@@ -709,7 +709,7 @@ $( "p" ).removeClass( "myClass noClass" ).addClass( "yourClass" );
 
 var resultados = new Resultados("resultados");
 
-
+/*
 resultados.calcularMaximo([
 
     {id:"pregunta",valores:[{id:"Diseño",valor:10},{id:"Deportes",valor:5},{id:"Ingenieria",valor:0},{id:"Salud",valor:10},{id:"Educacion",valor:50},{id:"Fuerza publica",valor:0},{id:"Arte",valor:10},{id:"Ciencia",valor:5}]},
@@ -732,4 +732,4 @@ resultados.calcularMaximo([
 
     {id:"pregunta2",valores:[{id:"Diseño",valor:30},{id:"Deportes",valor:5},{id:"Ingenieria",valor:0},{id:"Salud",valor:10},{id:"Educacion",valor:10},{id:"Fuerza publica",valor:0},{id:"Arte",valor:10},{id:"Ciencia",valor:5}]}
 
-]);
+]);*/

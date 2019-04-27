@@ -10,9 +10,8 @@
   <link rel="stylesheet" href="../sass/general/main.css" />
   <link href="../sass/tipographys/tipografias.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
-
-
   <link rel="stylesheet" href="../../sass/general/datosUsuario.css" type="text/css">
+
 </head>
 
 <body>
@@ -20,12 +19,12 @@
     <div class="principal" onselectstart="return false">
       <div class="pantalla">
 
-        <div class="contenedor" style="background-image: url('../img/background_principal-2.png');">
-          <h1 class="titulo">Orientación Vocacional</h1>
-          <p id="desc" class="descripcion">A continuación, encontrarás un cuestionario que permite conocer tus intereses
-            vocacionales.</p>
-          <a class="boton" onclick="seguir()">Comenzar</a>
-        </div>
+
+        <h1 class="titulo">Orientación Vocacional</h1>
+        <p id="desc" class="descripcion">A continuación, encontrarás un cuestionario que permite conocer tus intereses
+          vocacionales.</p>
+        <a class="boton" onclick="seguir()">Comenzar</a>
+
 
       </div>
 
@@ -131,15 +130,15 @@
 
   <script type="text/javascript">
 
-   
 
 
 
-    let contenedor = new Contenedor();
-    let navegable = new Navegable(contenedor);
 
-    contenedor.agregarHtmlAll(document.querySelectorAll(".pantalla"));
-    navegable.iniciar();
+    let contenedor1 = new Contenedor();
+    let navegable1 = new Navegable(contenedor1);
+
+    contenedor1.agregarHTMLAll(document.querySelectorAll(".pantalla"));
+    navegable1.iniciar();
 
 
     function validarFormulario() {
@@ -202,8 +201,8 @@
     let siguiente = document.querySelector(".btn_siguiente");
     siguiente.addEventListener("click", () => {
       if (validarFormulario()) {
-        navegable.setPermitir(true);
-        navegable.siguiente();
+        navegable1.setPermitir(true);
+        navegable1.siguiente();
       } else {
 
       }
@@ -211,11 +210,11 @@
 
 
     function seguir() {
-      navegable.setPermitir(true);
-      navegable.siguiente();
+      navegable1.setPermitir(true);
+      navegable1.siguiente();
     }
 
-    navegable.setFinal(() => {
+    navegable1.setFinal(() => {
       irA("bintroduccion.html");
     });
 
