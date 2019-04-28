@@ -17,91 +17,89 @@
 <body>
   <div class="cont-principal" style="background-image: url('../img/background_principal-2.png')">
     <div class="principal" onselectstart="return false">
-      <div class="pantalla">
 
-
-        <h1 class="titulo">Orientación Vocacional</h1>
-        <p id="desc" class="descripcion">A continuación, encontrarás un cuestionario que permite conocer tus intereses
-          vocacionales.</p>
-        <a class="boton" onclick="seguir()">Comenzar</a>
-
-
-      </div>
-
-
-      <div class="pantalla">
-        <div style="display:flex;justify-content: center; align-items: center">
-          <div class="p-contenido" style="width:550px; height: 600px; margin: 0">
-            <h1 class="titulo" style="text-align: center; width: 100%; position: initial;">Datos del Usuario</h1>
-
-            <div class="formulario">
-              <div class="datos_input">
-                <h3>Nombre</h3>
-                <input id="form-nombre" type="text" name="" class="input-nombre" placeholder="Nombre">
-              </div>
-
-              <div class="datos_input">
-                <h3>Edad</h3>
-                <input id="form-edad" type="text" name="" class="input-edad" placeholder="18">
-              </div>
-
-              <div class="datos_input">
-                <h3>Carrera</h3>
-
-                <select id="form-carrera" name="carrera">
-                  <option selected value="0"> Elige una opción </option>
-                  <optgroup label="Ingenieria">
-                    <option value="1">Ing. de Sistemas</option>
-                    <option value="2">Ing. Telematica</option>
-                    <option value="3">Ing. Industrial</option>
-                  </optgroup>
-                  <optgroup label="Diseño">
-                    <option value="10">Diseño de Medios</option>
-                    <option value="11">Diseño Industrial</option>
-                    <option value="12">Diseño Grafico</option>
-                  </optgroup>
-                </select>
-              </div>
-
-              <div class="datos_input">
-                <h3>Sexo</h3>
-                <form class="sexo">
-                  <label class="opcion_check"><input id="form-sexo-hombre" class="marcador" type="radio"
-                      name="opcion"><span class="opcion"></span>Hombre</label>
-
-                  <label class="opcion_check"><input id="form-sexo-mujer" class="marcador" type="radio"
-                      name="opcion"><span class="opcion"></span>Mujer</label>
-
-                  <label class="opcion_check"><input id="form-sexo-otro" class="marcador" type="radio"
-                      name="opcion"><span class="opcion"></span>Otro</label>
-                </form>
-              </div>
-
-              <div class="datos_input">
-                <h3>Mano de Preferencia</h3>
-                <form class="mano">
-                  <label class="opcion_check"><input id="form-mano-diestra" class="marcador" type="radio"
-                      name="opcion"><span class="opcion"></span>Diestro</label>
-
-                  <label class="opcion_check"><input id="form-mano-zurda" class="marcador" type="radio"
-                      name="opcion"><span class="opcion"></span>Zurdo</label>
-                </form>
-              </div>
-
-            </div>
-
-            <button class="btn_siguiente" style="margin-left: 140px;">Continuar</button>
-
-          </div>
-
+      <div class="pantalla pinicio">
+        <div class="introduccion">
+          <h1 class="titulo">Orientación Vocacional</h1>
+          <p id="desc" class="descripcion">A continuación, encontrarás un cuestionario que permite conocer tus intereses
+            vocacionales.</p>
+          <button class="boton" onclick="seguir()">Comenzar</button>
         </div>
       </div>
+
+
+      <div class="pantalla pformulario">
+
+        <div class="formulario centrar">
+          <h1 class="titulo" style="text-align: center; width: 100%; position: initial;">Datos del Usuario</h1>
+
+          <div class="formulario__opciones">
+            <div class="datos_input">
+              <h3>Nombre</h3>
+              <input id="form-nombre" autocomplete="off" type="text" name="" class="input-nombre" placeholder="Nombre">
+            </div>
+
+            <div class="datos_input">
+              <h3>Edad</h3>
+              <input id="form-edad" autocomplete="off" type="text" name="" class="input-edad" placeholder="18">
+            </div>
+
+            <div class="datos_input">
+              <h3>Carrera</h3>
+
+              <select id="form-carrera" name="carrera">
+                <option selected value="0"> Elige una opción </option>
+                <optgroup label="Ingenieria">
+                  <option value="1">Ing. de Sistemas</option>
+                  <option value="2">Ing. Telematica</option>
+                  <option value="3">Ing. Industrial</option>
+                </optgroup>
+                <optgroup label="Diseño">
+                  <option value="10">Diseño de Medios</option>
+                  <option value="11">Diseño Industrial</option>
+                  <option value="12">Diseño Grafico</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <div class="datos_input">
+              <h3>Sexo</h3>
+              <form class="sexo">
+                <label class="opcion_check"><input id="form-sexo-hombre" class="marcador" type="radio"
+                    name="opcion">Hombre</label>
+
+                <label class="opcion_check"><input id="form-sexo-mujer" class="marcador" type="radio"
+                    name="opcion">Mujer</label>
+
+                <label class="opcion_check"><input id="form-sexo-otro" class="marcador" type="radio" name="opcion">Otro</label>
+              </form>
+            </div>
+
+            <div class="datos_input">
+              <h3>Mano de Preferencia</h3>
+              <form class="mano">
+                <label class="opcion_check"><input id="form-mano-diestra" class="marcador" type="radio"
+                    name="opcion">Diestro</label>
+
+                <label class="opcion_check"><input id="form-mano-zurda" class="marcador" type="radio"
+                    name="opcion">Zurdo</label>
+              </form>
+            </div>
+
+          </div>
+          <div class="zona__navegacion" style="margin-top: 40px;">
+            <button class="btn_siguiente">Continuar</button>
+          </div>
+
+
+        </div>
+
+      </div>
+
     </div>
 
-
-
   </div>
-  </div>
+
 
   <!--Codigo de precarga -->
 
@@ -137,7 +135,8 @@
     let contenedor1 = new Contenedor();
     let navegable1 = new Navegable(contenedor1);
 
-    contenedor1.agregarHTMLAll(document.querySelectorAll(".pantalla"));
+    contenedor1.agregarHTML(document.querySelector(".pinicio"));
+    contenedor1.agregarHTML(document.querySelector(".pformulario"));
     navegable1.iniciar();
 
 
@@ -199,12 +198,14 @@
     }
 
     let siguiente = document.querySelector(".btn_siguiente");
+
     siguiente.addEventListener("click", () => {
       if (validarFormulario()) {
         navegable1.setPermitir(true);
         navegable1.siguiente();
+       
       } else {
-
+        
       }
     });
 

@@ -34,6 +34,7 @@ p {
     align-items: center;
 }
 
+/*
 .boton {
     background: #FFF97C;
     border: 1px solid #FFF97C;
@@ -53,40 +54,57 @@ p {
         background: yellow;
     }
 }
+*/
 
-.btn_siguiente {
-
-    &:disabled {
-        background: #ffffff00;
-        color: #d43e66;
-
-        &:hover {
-            cursor: not-allowed;
-        }
-    }
-
-    &:enabled {
-        background: #e4537a;
-        color: white;
-
-        &:hover {
-            cursor: pointer;
-            background: #d43e66;
-        }
-    }
-
-    border: 1px solid #e4537a;
+.btn_siguiente,
+.boton,
+button {
+    background: white;
     box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e4537a;
     border-radius: 10px;
     width: 200px;
     height: 50px;
-
     font-weight: bold;
+    margin-top: 0;
     font-size: 1.3em;
-
     transition: all .5s ease;
-
 }
+
+.btn_siguiente,
+.boton,
+button {
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+
+.btn_siguiente:disabled {
+
+    background: #ffffff00;
+    color: #d43e66;
+
+    &:hover {
+        cursor: not-allowed;
+    }
+}
+
+.btn_siguiente:enabled,
+.seleccion {
+    background: #e4537a;
+    color: white;
+
+    &:hover {
+        cursor: pointer;
+        background: #d43e66;
+    }
+}
+
+
+
+
+
 
 .principal {
     position: relative;
@@ -119,7 +137,10 @@ label {
     width: auto;
 
     input {
-        margin: 15px;
+      //  margin: 15px;
+      position: absolute;
+      top: 8px;
+        left: 8px;
     }
 }
 
@@ -134,8 +155,6 @@ label {
     user-select: none;
 
     & input {
-        position: absolute;
-        opacity: 0;
         cursor: pointer;
 
     }
@@ -356,6 +375,8 @@ label {
 }
 
 .pregunta {
+    display: flex;
+    flex-direction: column;
     text-align: center;
     color: black;
     width: 80%;
@@ -365,6 +386,7 @@ label {
     &__titulo {
         display: flex;
         flex-direction: column;
+        height: 40%;
         align-items: center;
         margin: 30px 100px;
         justify-content: center;
@@ -429,12 +451,25 @@ hr {
 }
 
 .pantalla {
+    position: relative;
     width: 100%;
     height: 100%;
     background-size: contain;
+    display: flex;
+    flex-direction: column;
+}
+
+.pantallaN {
+    position: relative;
+    width: 100%;
+    height: 90%;
+    background-size: contain;
+    display: flex;
+    flex-direction: column;
 }
 
 .pantallaC {
+    position: relative;
     width: 1280px;
     height: 720px;
     display: flex;
@@ -692,12 +727,10 @@ hr {
 }
 
 .titulo {
-    position: absolute;
     /*margin-left: 320px;*/
     width: 550px;
-    height: 126.62px;
-    left: 292.89px;
-    top: 201px;
+
+  
 
     font-family: 'Heebo', sans-serif;
     font-style: normal;
@@ -709,14 +742,9 @@ hr {
 }
 
 .descripcion {
-    position: absolute;
     /*margin-left: 320px;*/
     width: 450px;
-    height: 126px;
-    left: 293px;
-    top: 322px;
-    margin-top: 60px;
-    margin-bottom: 30px;
+ 
     font-family: 'Muli', sans-serif;
     font-style: normal;
     font-weight: normal;
@@ -726,7 +754,24 @@ hr {
     color: #EFF5FF;
 }
 
-.boton:hover{
+.centrar{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.introduccion{
+    position: absolute;
+    top: 150px;
+    left: 300px;
+
+    & > *{
+        margin-top: 50px;
+    }
+}
+
+.boton:hover {
     background-color: rgba(243, 236, 72, 1);
 }
 
@@ -803,7 +848,7 @@ Estilos de seleccionador
     display: flex;
     margin-top: 10px;
 
-    .seleccion{
+    .seleccion {
         border: 2px solid blue;
         border-radius: 50px;
         background: blue;
@@ -833,4 +878,72 @@ Estilos de seleccionador
 
 .circulo {
     font-size: 10px;
+}
+
+.preguntaImagen {
+
+    width: 100%;
+    height: 90%;
+    display: flex;
+
+    &__imagen {
+        width: 50%;
+        height: 100%;
+        padding: 50px;
+
+        & > div {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+        }
+
+    }
+
+    &__info {
+        width: 50%;
+
+        & button {
+            width: 45%;
+            height: 90px;
+            margin-left: 20px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+    }
+
+    &__pregunta {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 50px;
+        height: 50%;
+
+        font-style: normal;
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    &__opciones {
+        width: 100%;
+        height: 50%;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+       
+    }
+
+
+    
+
+}
+
+.zona {
+    &__navegacion {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 10%;
+        
+    }
 }

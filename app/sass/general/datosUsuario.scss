@@ -2,10 +2,6 @@
 $color-decoracion: #17CCD7;
 $color-btn: #FFFA7C;
 
-.principal{
-    border: 0px;
-    justify-content: flex-start;
-}
 
 h3{
     font-size: 18pt;
@@ -34,7 +30,6 @@ input{
 
 .titulo{
     font-size: 30pt;
-    margin: 30px 0px 0px 0px;
     color: white;
 }
 
@@ -46,12 +41,9 @@ input{
     align-content: flex-start;
     align-items: center;
     color: white;
-    
     border-radius: 5px;
     border: 2px solid $color-decoracion;
-    width: 500px;
-    height: 35px;
-    padding: 15px 5px 5px 5px;
+    height: 60px;
     
 }
 
@@ -59,13 +51,19 @@ input{
     width: 330px;
 }
 
+.formulario{
+    margin-top: 100px;
+    .btn_siguiente:enabled {
+        background: $color-btn;
+        border: 1px solid $color-btn;
+        color: black;
+    }
 
-.btn_siguiente:enabled {
-    background: $color-btn;
-    border: 1px solid $color-btn;
-    color: black;
+    input[type=radio] {
+        -webkit-transform: scale(2.5);
+        transform: scale(1.7);
+        margin: 0;
+    }
 }
 
-.btn_siguiente{
-  margin-top: 40px;
-}
+

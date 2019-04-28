@@ -512,21 +512,25 @@ var OpcionR = /** @class */ (function () {
     return OpcionR;
 }());
 var PreguntaP = /** @class */ (function () {
-    function PreguntaP(pregunta) {
+    function PreguntaP(imagen, pregunta) {
         this.pregunta = pregunta;
         this.opciones = new Array();
         this.elemento = document.createElement('div');
-        this.elemento.className = "instruccion";
+        this.elemento.className = "preguntaImagen";
         this.preguntaHTML = document.createElement('div');
-        this.preguntaHTML.innerHTML = pregunta;
+        this.preguntaHTML.className = "preguntaImagen__imagen";
+        this.preguntaHTML.innerHTML = imagen;
         this.opcionesHTML = document.createElement('div');
-        this.preguntaHTML.className = "instruccion__pregunta";
-        this.opcionesHTML.className = "instruccion__opciones";
+        this.preguntaText = document.createElement('div');
+        this.preguntaText.innerHTML = pregunta;
+        this.preguntaText.className = "preguntaImagen__pregunta";
+        this.opcionesHTML.className = "preguntaImagen__info";
+        this.opcionesHTML.append(this.preguntaText);
         this.elemento.appendChild(this.preguntaHTML);
         this.elemento.appendChild(this.opcionesHTML);
     }
     PreguntaP.prototype.agregar = function (info, valor) {
-        var opcion = new OpcionR(info, valor);
+        var opcion = new OpcionP(info, valor);
         opcion.pregunta = this;
         this.opciones.push(opcion);
         this.opcionesHTML.append(opcion.opcion);
@@ -554,7 +558,8 @@ var OpcionP = /** @class */ (function () {
     function OpcionP(info, valor) {
         var _this = this;
         this.informacion = info;
-        this.opcion = document.createElement("div");
+        this.opcion = document.createElement("button");
+        this.opcion.className = "opcion__boton";
         this.valor = valor;
         this.opcion.innerHTML = info;
         this.opcion.addEventListener('click', function () {

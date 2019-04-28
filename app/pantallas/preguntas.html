@@ -70,13 +70,13 @@
             navegacion.siguiente();
 
         });
+
         $(".btn_siguiente").disabled = true;
         $(".opcion_check").on("input", () => {
             navegacion.setPermitir(true);
             console.log("permitio");
             siguiente.disabled = false;
             $(".btn_siguiente").removeClass("desactivar").addClass("activo");
-
         });
 
     });

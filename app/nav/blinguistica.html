@@ -19,23 +19,26 @@
   <div class="cont-principal" style="background-image: url('../img/deporte/fondo.png')">
     <div class="principal" onselectstart="return false">
 
-      <div class="pantalla">
-        <div class="contenedor" style="background-image: url('../img/background_principal-2.png');">
+      <div class="pantalla pinicio" style="background-image: url('../img/background_principal-2.png')">
+        <div class="introduccion">
           <h1 class="titulo">Inteligencia Lingüística</h1>
           <p id="desc" class="descripcion">En esta sección de la prueba se evaluará tus conocimientos en el área
             Lingüística.</p>
-          <a class="boton" onclick="seguir()">Comenzar</a>
+          <button class="boton" onclick="seguir()">Comenzar</button>
         </div>
       </div>
 
       <div class="pantalla" style="text-align:center; ">
 
-        <div class="pregunta_titulo" style="padding:0 190px;font-size: 30px; text-align: center; font-weight: bold; margin-top: 50px;">
+        <div class="pregunta_titulo"
+          style="padding:0 190px;font-size: 30px; text-align: center; font-weight: bold; margin-top: 50px;">
           Las palabras están al azar , por favor enlaza una palabra de la izquierda con otra palabra de la derecha según
           sea su antónimo.
         </div>
         <div id="relacionAzar"></div>
-        <button class="btn_siguiente" disabled="disabled" onclick="" style="text-align:center;">Siguiente</button>
+        <div class="zona__navegacion">
+          <button class="btn_siguiente" disabled="disabled" onclick="" style="text-align:center;">Siguiente</button>
+        </div>
       </div>
 
 
@@ -87,7 +90,7 @@
 
 
     let tablero = new Tablero_Crelacion();
-    tablero.size(800, 450);
+    tablero.size(650, 450);
     tablero.setStyleA(250, 440, "20px Heebo", 100, 30);
     tablero.setStyleB(450, 440, "20px Heebo", 300, 30);
 
@@ -167,7 +170,7 @@
     let p5 = new PreguntaD("¿Del 1 al 5, qué que tan bien crees que te fue en esta prueba?", new OpcionC([]));
     cp5 = new Contenido(p5.getElement(), p5);
 
-    contenedor.agregarHtmlAll(document.querySelectorAll(".pantalla"));
+    contenedor.agregarHTMLAll(document.querySelectorAll(".pantalla"));
     contenedor.agregar(cp2);
     contenedor.agregar(cp3);
     contenedor.agregar(cp4);

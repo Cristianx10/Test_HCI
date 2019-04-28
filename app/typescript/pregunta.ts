@@ -741,32 +741,39 @@ class PreguntaP {
 
     elemento: HTMLElement;
     pregunta: string;
-    opciones: Array<OpcionR>;
+    opciones: Array<OpcionP>;
     validacion?: Function;
     seleccion?:OpcionR;
     preguntaHTML:HTMLElement;
     opcionesHTML:HTMLElement;
+    preguntaText:HTMLElement;
 
-    constructor(pregunta: string) {
+    constructor(imagen:string,pregunta: string) {
         this.pregunta = pregunta;
         this.opciones = new Array();
         this.elemento = document.createElement('div');
-        this.elemento.className = "instruccion";
+        this.elemento.className = "preguntaImagen";
      
-
         this.preguntaHTML = document.createElement('div');
-        this.preguntaHTML.innerHTML = pregunta;
+        this.preguntaHTML.className = "preguntaImagen__imagen";
+        this.preguntaHTML.innerHTML = imagen;
+
         this.opcionesHTML = document.createElement('div');
 
-        this.preguntaHTML.className = "instruccion__pregunta";
-        this.opcionesHTML.className = "instruccion__opciones";
+        this.preguntaText = document.createElement('div');
+        this.preguntaText.innerHTML = pregunta;
+        this.preguntaText.className = "preguntaImagen__pregunta";
+        
 
+        this.opcionesHTML.className = "preguntaImagen__info";
+
+        this.opcionesHTML.append(this.preguntaText);
         this.elemento.appendChild(this.preguntaHTML);
         this.elemento.appendChild(this.opcionesHTML);
     }
 
     agregar(info:string, valor: Array<ResultadoA>){
-        let opcion = new OpcionR(info, valor)
+        let opcion = new OpcionP(info, valor)
         opcion.pregunta = this;
         this.opciones.push(opcion);
         this.opcionesHTML.append(opcion.opcion);
@@ -806,7 +813,8 @@ class OpcionP {
 
     constructor(info: string, valor: Array<ResultadoA>) {
         this.informacion = info;
-        this.opcion = document.createElement("div");
+        this.opcion = document.createElement("button");
+        this.opcion.className = "opcion__boton";
         this.valor = valor;
         this.opcion.innerHTML = info;
 

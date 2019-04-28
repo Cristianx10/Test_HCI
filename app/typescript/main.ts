@@ -103,7 +103,8 @@ class Navegable {
             this.progreso.setTotal(this.elementos.elementos.length);
             this.elementos.getElementosHTML().forEach((s, i) => {
                 if (i == 0) {
-                    s.style.display = "block";
+                    s.style.display = "flex";
+                   // s.style.flexDirection = "column";
                 } else {
                     s.style.display = "none";
                 }
@@ -185,7 +186,9 @@ class Navegable {
     }
 
     mostrar(seccion: HTMLElement) {
-        seccion.style.display = "block";
+        seccion.style.display = "flex";
+      
+        
     }
 
     ocultar(seccion: HTMLElement) {
@@ -382,7 +385,7 @@ class Contenido {
             this.timer.startTempo(this.segundos);
           
         }
-        console.log(this.segundos)
+       
     }
 
     setProgreso(progreso:Function){
@@ -421,7 +424,15 @@ function loadJson(ruta: string, result: Function) {
 
 }
 
+function ocultar(ubicacion:string){
+    let e:HTMLElement = <HTMLElement>document.querySelector(ubicacion);
+    e.style.display = "none";
+}
 
+function mostrar(ubicacion:string){
+    let e:HTMLElement = <HTMLElement>document.querySelector(ubicacion);
+    e.style.display = "flex";
+}
 
 function crearMatrix(colum: number, fil: number, wid: number, hei: number) {
     let columnas = colum;
@@ -733,3 +744,5 @@ resultados.calcularMaximo([
     {id:"pregunta2",valores:[{id:"Diseño",valor:30},{id:"Deportes",valor:5},{id:"Ingenieria",valor:0},{id:"Salud",valor:10},{id:"Educacion",valor:10},{id:"Fuerza publica",valor:0},{id:"Arte",valor:10},{id:"Ciencia",valor:5}]}
 
 ]);*/
+
+

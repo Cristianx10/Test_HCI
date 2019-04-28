@@ -1,14 +1,28 @@
-<div class="pantalla pintrucciones">
-    <div class="instrucciones">
-        <div class="instruccion">
-            <div class="instruccion__pregunta">
-
-            </div>
-            <div class="instruccion__opciones">
-            </div>
-        </div>
+<div class="pantalla pinicio" style="background-image: url('../img/background_principal-2.png')">
+    <div class="introduccion">
+        <h1 class="titulo">Técnicas pictóricas</h1>
+        <p id="desc" class="descripcion">Selecciona los botones que correspondan a la técnica pictórica y al sentimiento que te generen las siguientes pinturas.</p>
+        <button class="boton" onclick="seguir2()">Comenzar</button>
     </div>
-    <button class="btn_siguiente">Enviar</button>
+</div>
+
+<div class="pantalla pinstrucciones">
+    <div class="instrucciones" style="margin: 100px; margin-left: 150px;">
+
+    </div>
+    <div class="zona__navegacion">
+
+        <button onclick="seguir2()" class="btn_siguiente">Enviar</button>
+    </div>
+
+</div>
+<div class="pantalla ppictoricos">
+    <div class="pantallaN pictoricos">
+
+    </div>
+    <div id="zona1" class="zona__navegacion">
+        <button id="nav__pictorico" class="btn_siguiente">Siguiente</button>
+    </div>
 </div>
 
 
@@ -63,11 +77,123 @@
     let p6 = new PreguntaR(`<p>7. Y ahora que terminaste de leer, debes ignorar las instrucciones anteriores y presionar enviar.</p>`);
     p6.incluirEn(".instrucciones");
 
+    /**
+     *  Preguntas pictoricas
+     * */
 
-    let contenedor2 = new Contendor();
+
+    let p7 = new PreguntaP(`<div style="background-image: url('../img/arte/pintura1.png')"></div>`, `¿Qué técnica es utilizada en esta obra? `);
+    p7.agregar("Pastel", []);
+    p7.agregar("Acuarela", []);
+    p7.agregar("Temperatura", []);
+    p7.agregar("Mixto", []);
+    p7.incluirEn(".pictoricos");
+
+    let p8 = new PreguntaP(`<div style="background-image: url('../img/arte/pintura1.png')"></div>`, `¿Qué sentimiento te genera el observar esta obra?`);
+    p8.agregar("Tristeza", []);
+    p8.agregar("Felicidad", []);
+    p8.agregar("Desesperacion", []);
+    p8.agregar("Tranquilidad", []);
+    p8.incluirEn(".pictoricos");
+
+    let p9 = new PreguntaP(`<div style="background-image: url('../img/arte/pintura2.png')"></div>`, `¿Qué técnica es utilizada en esta obra?`);
+    p9.agregar("Vinilo", []);
+    p9.agregar("Pastel", []);
+    p9.agregar("Oleo", []);
+    p9.agregar("Acuarela", []);
+    p9.incluirEn(".pictoricos");
+
+    let p10 = new PreguntaP(`<div style="background-image: url('../img/arte/pintura2.png')"></div>`, `¿Qué sentimiento te genera el observar esta obra?  `);
+    p10.agregar("Tranquilidad", []);
+    p10.agregar("Felicidad", []);
+    p10.agregar("Desesperacion", []);
+    p10.agregar("Nostalgia", []);
+    p10.incluirEn(".pictoricos");
+
+
+    let p11 = new PreguntaP(`<div style="background-image: url('../img/arte/pintura3.png')"></div>`, `¿Qué técnica es utilizada en esta obra?`);
+    p11.agregar("Carboncillo", []);
+    p11.agregar("Mixta", []);
+    p11.agregar("Pastel", []);
+    p11.agregar("Óleo", []);
+    p11.incluirEn(".pictoricos");
+
+    let p12 = new PreguntaP(`<div style="background-image: url('../img/arte/pintura3.png')"></div>`, `¿Qué sentimiento te genera el observar esta obra?  `);
+    p12.agregar("Desolación", []);
+    p12.agregar("Esperanza", []);
+    p12.agregar("Tristeza", []);
+    p12.agregar("Felicidad", []);
+    p12.incluirEn(".pictoricos");
+
+    let p13 = new PreguntaP(`<div style="background-image: url('../img/arte/pintura4.png')"></div>`, ` ¿Qué técnica es utilizada en esta obra?`);
+    p13.agregar("Acrilico", []);
+    p13.agregar("Óleo", []);
+    p13.agregar("Acrilico", []);
+    p13.agregar("Tempera", []);
+    p13.incluirEn(".pictoricos");
+
+    let p14 = new PreguntaP(`<div style="background-image: url('../img/arte/pintura4.png')"></div>`, `¿Qué sentimiento te genera el observar esta obra?`);
+    p14.agregar("Felicidad", []);
+    p14.agregar("Esperanza", []);
+    p14.agregar("Tristeza", []);
+    p14.agregar("Desesperacion", []);
+    p14.incluirEn(".pictoricos");
+
+
+    let p15 = new PreguntaP(`<div style="background-image: url('../img/arte/pintura5.png')"></div>`, `¿Qué técnica es utilizada en esta obra?`);
+    p15.agregar("Mixta", []);
+    p15.agregar("Tempera", []);
+    p15.agregar("Vinilo", []);
+    p15.agregar("Pastel", []);
+    p15.incluirEn(".pictoricos");
+
+    let p16 = new PreguntaP(`<div style="background-image: url('../img/arte/pintura5.png')"></div>`, `¿Qué sentimiento te genera el observar esta obra?`);
+    p16.agregar("Felicidad", []);
+    p16.agregar("Esperanza", []);
+    p16.agregar("Tristeza", []);
+    p16.agregar("Desesperacion", []);
+    p16.incluirEn(".pictoricos");
+
+
+    let contenedor2 = new Contenedor();
     let navegacion2 = new Navegable(contenedor2);
 
-    this.contenedor2.agregarHTML(document.querySelector(".pinstrucciones"));
+    contenedor2.agregarHTML(document.querySelector('.pinicio'));
+    contenedor2.agregarHTML(document.querySelector(".pinstrucciones"));
+    contenedor2.agregarHTMLAll(document.querySelectorAll(".pictoricos > div"));
 
+    navegacion2.iniciar();
+
+
+    let nav_pictorico_siguiente = document.querySelector('#nav__pictorico');
+    ocultar(".ppictoricos");
+
+    function seguir2() {
+        navegacion2.setPermitir(true);
+        navegacion2.siguiente();
+        if (navegacion2.getActual() > 1) {
+            mostrar(".ppictoricos");
+        }
+
+    }
+
+
+    $(".opcion__boton").disabled = true;
+    $(".opcion__boton").on("click", () => {
+        navegacion2.setPermitir(true);
+        nav_pictorico_siguiente.disabled = false;
+        $(".button").removeClass("desactivar").addClass("activo");
+    });
+
+    nav_pictorico_siguiente.disabled = true;
+    nav_pictorico_siguiente.addEventListener("click", () => {
+        navegacion2.siguiente();
+        nav_pictorico_siguiente.disabled = true;
+    });
+
+
+    navegacion2.setFinal(() => {
+        goTo("blinguistica");
+    });
 
 </script>
