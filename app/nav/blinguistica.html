@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Test Interactivo</title>
+  <link rel="shortcut icon" href="../includes/img/favicon.png" type="image/x-icon" />
+  <link rel="stylesheet" href="../sass/general/main.css" />
+  <link href="../sass/tipographys/tipografias.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+
+
+  <link rel="stylesheet" href="../../sass/general/datosUsuario.css" type="text/css">
+</head>
+
+<body>
+  <div class="cont-principal" style="background-image: url('../img/deporte/fondo.png')">
+    <div class="principal" onselectstart="return false">
+
+      <div class="pantalla">
+        <div class="contenedor" style="background-image: url('../img/background_principal-2.png');">
+          <h1 class="titulo">Inteligencia Lingüística</h1>
+          <p id="desc" class="descripcion">En esta sección de la prueba se evaluará tus conocimientos en el área
+            Lingüística.</p>
+          <a class="boton" onclick="seguir()">Comenzar</a>
+        </div>
+      </div>
+
+      <div class="pantalla" style="text-align:center; ">
+
+        <div class="pregunta_titulo" style="padding:0 190px;font-size: 30px; text-align: center; font-weight: bold; margin-top: 50px;">
+          Las palabras están al azar , por favor enlaza una palabra de la izquierda con otra palabra de la derecha según
+          sea su antónimo.
+        </div>
+        <div id="relacionAzar"></div>
+        <button class="btn_siguiente" disabled="disabled" onclick="" style="text-align:center;">Siguiente</button>
+      </div>
+
+
+    </div>
+
+
+
+
+  </div>
+
+  <!--Codigo de precarga -->
+  <script src="../lib/jquery.js"></script>
+
+  <!--
+  <script src="../lib//colorMixer.js"></script>
+  <script src="../lib/jquery-ui.min.js"></script>
+  <script src="../lib/jquery.svg.js"></script>
+  <script src="../lib/jquery.knob.js"></script>
+  <script src="../lib/preloadjs.js"></script>
+  
+  <script src="../lib/tweenjs.js"></script>
+  -->
+
+  <script src="../lib/easeljs.js"></script>
+  <script src="../../js/compuestos.js"></script>
+  <script src="../lib/soundjs.js"></script>
+  <script src="../js/timer.js"></script>
+  <script src="../js/resultados.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/pregunta.js"></script>
+
+  <script type="text/javascript">
+
+    $(document).ready(function () {
+
+      // irA("./formulario.html");
+
+
+    });
+
+
+    $('.cont-principal').css("background-image", "url('../img/background-claro.png')");
+
+
+    let contenedor = new Contenedor();
+    let navegable = new Navegable(contenedor);
+
+
+
+
+    let tablero = new Tablero_Crelacion();
+    tablero.size(800, 450);
+    tablero.setStyleA(250, 440, "20px Heebo", 100, 30);
+    tablero.setStyleB(450, 440, "20px Heebo", 300, 30);
+
+    tablero.distancia(300);
+
+    tablero.setIntentoAcierto((a, b) => {
+      console.log("bien");
+      a.ocultar();
+      b.ocultar();
+    });
+
+    tablero.setIntentoFallo((a, b) => {
+      a.reset();
+      b.reset();
+      console.log("mal");
+    });
+
+    tablero.setValidacion((a, b) => {
+      console.log("Gano");
+      seguir();
+    });
+
+    let tipos = [
+      { tipo: "Facilidad", categoria: "Caos" }
+      , { tipo: "Evaporar", categoria: "Construir" }
+      , { tipo: "Implícito", categoria: "Acertado" }
+      , { tipo: "Derrumbar", categoria: "Explícito" }
+      , { tipo: "Idéntico", categoria: "Dificultad" }
+      , { tipo: "Fallido", categoria: "Acceder" }
+      , { tipo: "Orden", categoria: "Ignorante" }
+      , { tipo: "Denegar", categoria: "Solidificar" }
+      , { tipo: "Sabio", categoria: "Rígido" }
+      , { tipo: "Flexible", categoria: "Distinto" }
+    ];
+
+    let categorias = [];
+
+    shuffle(tipos);
+
+    for (let i = 0; i < tipos.length; i++) {
+      let e = tipos[i];
+      tablero.baseA.agregar(e.tipo, e.categoria);
+      categorias.push(e.categoria);
+    }
+
+    shuffle(categorias);
+
+    for (let i = 0; i < categorias.length; i++) {
+      let e = categorias[i];
+      tablero.baseB.agregar(e, e);
+    }
+    function seguir() {
+      navegable.setPermitir(true);
+      navegable.siguiente();
+    }
+
+    $('#relacionAzar').append(tablero.canvas);
+
+    let p2 = new PreguntaC("Lee el siguiente fragmento:2. En el fragmento hay unos cuantos errores de ortografía, dale click en el error para seleccionarlos. Cuando sientas que no hay más errores, haz click sobre el botón siguiente.", new OpcionC(`El hombre no se convierte en hombre más que en una sociedad y solamente por la acción colectiva de la sociedad entera; no se emansipa del llugo de la naturalesa exterior más que por el trabajo colectivo o social y sin esa emancipación material no puede haber emancipación intelectual y moral para nadie. El hombre aislado no puede tener conciencia de su libertad. Ser libre para el hombre sólo es posible por otro hombre, por todos los hombres que le rodean. La libertad no es, pues, un echo de aislamiento, sino de reflección mutua; no de exclución, sino, al contrario, de aliansa, pues la libertad de todo individuo no es otra cosa que el reflejo de su humanidad o de su derecho humano en la consciencia de todos los hombres libres: sus hermanos, sus iguales. No soy verdaderamente libre más que cuando todos los seres humanos que me rodean, hombres y mujeres, son igualmente libres. La libertad de otro, lejos de ser un límite o la negasión de mi libertad, es, al contrario, su condición necesaria y su confirmación. No me ago verdaderamente libre más que por la libertad de los otros... BAKUNIN, M. La Libertad.`));
+
+    let cp2 = new Contenido(p2.getElement(), p2, 26);
+
+    let op3 = [];
+    op3.push(
+      new Opcion("A) El riesgo de la dependencia", []),
+      new Opcion("B) La libertad a través de la conciencia social", []),
+      new Opcion("C) El trabajo social", []),
+      new Opcion("D) La democracia", []),
+    );
+    let p3 = new Pregunta("3.  El fragmento trata principalmente de:", op3);
+
+    cp3 = new Contenido(p3.getElement(), p3, 120);
+
+    let p4 = new PreguntaC("4. Agrega signos de puntuación", new OpcionC(`"Allí ___ a lo lejos__ canta un ruiseñor __ ahí cerca __ ronronea un gato __ aquí mismo__ Suspira un enamorado__"`));
+    let cp4 = new Contenido(p4.getElement(), p4);
+
+    let p5 = new PreguntaD("¿Del 1 al 5, qué que tan bien crees que te fue en esta prueba?", new OpcionC([]));
+    cp5 = new Contenido(p5.getElement(), p5);
+
+    contenedor.agregarHtmlAll(document.querySelectorAll(".pantalla"));
+    contenedor.agregar(cp2);
+    contenedor.agregar(cp3);
+    contenedor.agregar(cp4);
+    contenedor.agregar(cp5);
+    contenedor.incluirEn(document.querySelector(".principal"));
+
+
+    navegable.iniciar();
+
+    navegable.colocarTiempo();
+    navegable.colocarProgreso();
+
+    function seguir() {
+      navegable.setPermitir(true);
+      navegable.siguiente();
+    }
+
+  </script>
+
+
+
+
+
+
+</body>
+
+</html>

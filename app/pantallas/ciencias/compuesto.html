@@ -6,7 +6,9 @@ let tablero = new Tablero_Crelacion();
 tablero.size(800, 450);
 tablero.setStyleA(250, 440, "20px Heebo", 100, 30);
 tablero.setStyleB(450, 440, "20px Heebo", 300, 30);
+tablero.style();
 tablero.distancia(300);
+
 
 
 tablero.setIntentoAcierto((a,b)=>{
@@ -18,6 +20,7 @@ tablero.setIntentoAcierto((a,b)=>{
 tablero.setIntentoFallo((a, b)=>{
     a.reset();
     b.reset();
+    console.log("mal");
 });
 
 tablero.setValidacion((a, b)=>{
@@ -25,11 +28,11 @@ tablero.setValidacion((a, b)=>{
 });
 
 let tipos = [
-{tipo:"O2", categoria:"Oxigeno"}
+{tipo:"O2", categoria:"Dioxígeno"}
 ,{tipo:"CH4", categoria:"Metano"}
 ,{tipo:"CO2", categoria:"Dioxido de Carbono"}
 ,{tipo:"NaBr", categoria:"Bromuro de Sodio"}
-,{tipo:"NH3", categoria:"Amonico"}
+,{tipo:"NH3", categoria:"Amoniaco"}
 ,{tipo:"NaCl", categoria:"Sal"}
 ,{tipo:"KBr", categoria:"Bromuro de Potasio"}
 ];

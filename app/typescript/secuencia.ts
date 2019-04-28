@@ -35,16 +35,16 @@ class Secuencias {
 
 
     crearTablero() {
-        let con: Array<ContenidoA> = [];
+        this.contenedor = new Contenedor();
         let elementos: Array<HTMLElement> = [];
         let tabla = document.createElement('div');
         let total = document.createElement('div');
 
         this.elementos.forEach((e: SecuenciaElemento) => {
             let ele: any = e.elemento.cloneNode();
-            con.push(new ContenidoA(ele, e, 3));
-          
-            
+            if(this.contenedor != null){
+                this.contenedor.agregar(new Contenido(ele, e, e.tiempo));
+            }
             elementos.push(e.contenedor);
         });
 
@@ -56,11 +56,11 @@ class Secuencias {
         tabla.className = "tabla";
         total.className = "tabla__secuencia";
         tabla.append(total);
-        let pantalla = new PantallaHTML(tabla);
-        con.push(new ContenidoA(tabla, pantalla));
+        
+        this.contenedor.agregarHTML(tabla);
 
-        this.contenedor = new Contenedor(con);
-        this.navegable = new Navegable(this.contenedor, false);
+        this.navegable = new Navegable(this.contenedor);
+      
         this.navegable.permitirAll = true;
         this.contenedor.foreachElementos(this.elemento);
     }
@@ -78,8 +78,9 @@ class Secuencias {
 
     start() {
         if (this.navegable != null) {
-            this.navegable.comenzar();
+            this.navegable.iniciar();
             this.navegable.colocarProgreso();
+            this.navegable.colocarTiempo();
         }
 
     }
@@ -95,10 +96,10 @@ class SecuenciaElemento {
     contenedor:HTMLElement;
     orden: number;
     padre: Secuencias;
-    tiempo: Number;
+    tiempo: number;
     seleccionado = false;
 
-    constructor(padre: Secuencias, elemento: HTMLElement, orden: number, tiempo: Number) {
+    constructor(padre: Secuencias, elemento: HTMLElement, orden: number, tiempo: number) {
         this.padre = padre;
         this.tiempo = tiempo;
         this.contenedor = document.createElement("div");

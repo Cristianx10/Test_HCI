@@ -1,22 +1,32 @@
 <script src="../js/pregunta.js"></script>
 <script>
     //Navegacion principal
-    let navegacion;
+
     let preguntas = document.createElement('div');
     let siguiente = document.createElement('button');
     siguiente.innerHTML = "Siguiente";
     siguiente.className = "btn_siguiente";
-
-    let preguntas_total;
+    siguiente.disabled = "disabled";
     preguntas.className = "preguntas";
-    
-    
+
+    let preguntas_total = new Contenedor();
+    let navegacion = new Navegable(preguntas_total);
+    //let obt = new PreguntaC("Mira este titulo",new OpcionC("Texto inicial", [{opcion:"value", valor:5}]));
+    //let obt = new PreguntaI("/img/ecuacion.png", [new OpcionI("323", [{area:"mate", valor:2}]),new OpcionI("323", [])]);
+    /*let con = new Contenido(obt.getElement(), obt, 10);
+    preguntas_total.agregar(con);*/
+/*
+    con.setAccion(() => {
+        navegacion.setPermitir(true);
+        console.log("permitio");
+        siguiente.disabled = false;
+    }
+    );
+*/
+
     loadJson("../data/preguntas.1.json", (r) => {
 
-        let con_preguntas = [];
-
         r.preguntas.forEach(p => {
-
             let opciones = [];
 
             p.opciones.forEach(o => {
@@ -25,13 +35,15 @@
             });
 
             let obj_pregunta = new Pregunta(p.pregunta, opciones);
-            con_preguntas.push(new ContenidoA(obj_pregunta.getElement(), obj_pregunta, 0, 45));
+
+            let con = new Contenido(obj_pregunta.getElement(), obj_pregunta, 45);
+            preguntas_total.agregar(con);
+
         });
 
-        preguntas_total = new Contenedor(con_preguntas);
-        preguntas_total.foreachElementos(preguntas);
+        navegacion.iniciar();
+        preguntas_total.incluirEn(preguntas);
 
-        navegacion = new Navegable(preguntas_total, true);
 
         $(".principal").append(preguntas, siguiente);
 
@@ -39,29 +51,32 @@
         navegacion.colocarTiempo();
         navegacion.colocarProgreso();
 
-        navegacion.setSiguiente(()=>{
+        navegacion.setSiguiente(() => {
 
             navegacion.actualObjeto().validar();
-            $(".btn_siguiente").removeClass("activo").addClass( "desactivar" );
-            
+            $(".btn_siguiente").removeClass("activo").addClass("desactivar");
+            siguiente.disabled = true;
+
         });
 
-      
-        navegacion.setFinal(()=>{
+
+        navegacion.setFinal(() => {
             console.log("Finalizo");
             preguntas_total = null;
-                $(".principal").load("./pantallas/modulos/tarjetas.html");
-        });
-    
-        siguiente.addEventListener('click', () => {
-            navegacion.siguiente();
-       
+            $(".principal").load("./pantallas/modulos/tarjetas.html");
         });
 
-        $(".opcion_check").click(()=>{
+        siguiente.addEventListener('click', () => {
+            navegacion.siguiente();
+
+        });
+        $(".btn_siguiente").disabled = true;
+        $(".opcion_check").on("input", () => {
             navegacion.setPermitir(true);
-            
+            console.log("permitio");
+            siguiente.disabled = false;
             $(".btn_siguiente").removeClass("desactivar").addClass("activo");
+
         });
 
     });
@@ -69,4 +84,3 @@
 
 
 </script>
-

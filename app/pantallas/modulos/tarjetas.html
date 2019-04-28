@@ -12,8 +12,7 @@
 
   loadJson("./data/tarjetas.json", (r) => {
 
-    let con_tarjetas;
-    let contenido = [];
+    let con_tarjetas = new Contenedor();
     for (let i = 0; i < r.secciones.length; i++) {
       let sec = r.secciones[i];
       let fichas = [];
@@ -39,14 +38,15 @@
       }
 
       let tab = new tablero_tarjetas(parejas, sec.posiciones);
-      contenido.push(new ContenidoA(tab.tab_global, tab));
+      con_tarjetas.agregar(new Contenido(tab.tab_global, tab));
 
       $(".tableros").append(tab.tab_global);
 
     }
-    con_tarjetas = new Contenedor(contenido);
 
     nav = new Navegable(con_tarjetas);
+    nav.iniciar();
+    nav.setPermitirAll(true)
 
     nav.colocarAvance();
     nav.colocarTiempo();

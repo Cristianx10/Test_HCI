@@ -21,13 +21,16 @@ var Secuencias = /** @class */ (function () {
         }
     };
     Secuencias.prototype.crearTablero = function () {
-        var con = [];
+        var _this = this;
+        this.contenedor = new Contenedor();
         var elementos = [];
         var tabla = document.createElement('div');
         var total = document.createElement('div');
         this.elementos.forEach(function (e) {
             var ele = e.elemento.cloneNode();
-            con.push(new ContenidoA(ele, e, 3));
+            if (_this.contenedor != null) {
+                _this.contenedor.agregar(new Contenido(ele, e, e.tiempo));
+            }
             elementos.push(e.contenedor);
         });
         shuffle(elementos);
@@ -37,10 +40,8 @@ var Secuencias = /** @class */ (function () {
         tabla.className = "tabla";
         total.className = "tabla__secuencia";
         tabla.append(total);
-        var pantalla = new PantallaHTML(tabla);
-        con.push(new ContenidoA(tabla, pantalla));
-        this.contenedor = new Contenedor(con);
-        this.navegable = new Navegable(this.contenedor, false);
+        this.contenedor.agregarHTML(tabla);
+        this.navegable = new Navegable(this.contenedor);
         this.navegable.permitirAll = true;
         this.contenedor.foreachElementos(this.elemento);
     };
@@ -55,8 +56,9 @@ var Secuencias = /** @class */ (function () {
     };
     Secuencias.prototype.start = function () {
         if (this.navegable != null) {
-            this.navegable.comenzar();
+            this.navegable.iniciar();
             this.navegable.colocarProgreso();
+            this.navegable.colocarTiempo();
         }
     };
     Secuencias.prototype.getElemento = function () {

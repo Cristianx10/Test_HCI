@@ -1,23 +1,10 @@
 <link rel="stylesheet" href="../../sass/especificas/linguistica/main.css">
 
-<div class="portada">
-    <div class="contenedorBoton">
-        <button class="contenedorBoton__comenzar">Comenzar</button>
-    </div>
-</div>
-
-<div class="tiempo">
-    <h2 class="tiempo__vista">00:00</h2>
-
-</div>
-
 <div class="contenido">
-
 
     <div class="campo-texto">
         <textarea class="campo-texto__dictado" name="" placeholder="Escriba aquí" id="" cols="30" rows="10"></textarea>
     </div>
-
 
     <audio id="demo" src="../../audios/especificos/linguistica/audiodictado.mp3">
         Tu navegador no soporta el elemento <code>audio</code>.
@@ -37,10 +24,15 @@
 
 <script>
 
+$(".btn-reproducir").click((e)=>{
+    e.target.style.display = "none";
+})
     let original = "Se arrojó al agua, nadando para alejarse de la cercanía del pueblo. Llegó a un lugar donde encontró tranquilidad, aunque se le veía siempre triste por estar sola. A veces, permanecía por largas horas dentro de su caparazón, saliendo sólo para darse un chapuzón en las frescas aguas del río.";
     let usuario = "Se arrojo al agua, nadando para alejarse de la cercanía del pueblo. Llegó a un lugar donde encontró tranquilidad, aunque se le veía siempre triste por estar sola. A veces, permanecía por largas horas dentro de su caparazón, saliendo sólo para darse un chapuzón en las frescas aguas del río.";
 
     let texto = new Texto_validar(original, usuario);
+
+    
 
     //Da los errores sin tener encuenta mayusculas o puntuacion y las que faltaron
     console.log("Errores: " + texto.getErrores());

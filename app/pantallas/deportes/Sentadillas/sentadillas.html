@@ -1,14 +1,8 @@
 <style>
-    body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
+    
     .contenedor {
         width: 1280px;
         height: 720px;
-        background-image: url("../../../img/deporte/fondo.png");
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
@@ -168,10 +162,11 @@
 
         }
 
-        window.onload = function teclas() {
+        window.addEventListener('keypress', function (e) {
 
-            document.body.onkeyup = function (e) {
-                if (e.keyCode == 13) {
+            var key = e.which || e.keyCode;
+
+                if (key == 13) {
 
                     if (etapa == 1) {
                         pulsaciones1 = ingreso.value;
@@ -203,7 +198,7 @@
                     }
 
                 }
-                if (e.keyCode == 32) {
+                if (key == 32) {
                     console.log("etapa: " + etapa);
                     console.log("minutos: " + minutosDeseados);
                     console.log("pulsaciones ingresadas: " + ingreso.value);
@@ -211,8 +206,7 @@
                     console.log("pulsaciones 2: " + pulsaciones2);
                     console.log("pulsaciones 3: " + pulsaciones3);
                 }
-            }
 
-        };
+        });
 
     </script>

@@ -19,6 +19,10 @@ var Tablero_Crelacion = /** @class */ (function () {
             }
         });
     }
+    Tablero_Crelacion.prototype.style = function () {
+        this.baseA.styleDraw();
+        this.baseB.styleDraw();
+    };
     Tablero_Crelacion.prototype.size = function (width, height) {
         this.canvas.width = width;
         this.canvas.height = height;
@@ -60,6 +64,8 @@ var Tablero_Cbase = /** @class */ (function () {
         this.orientation = true;
     }
     Tablero_Cbase.prototype.drawTablero = function (width, height, style, w, h) {
+        this.width = width;
+        this.height = height;
         var tam = this.contenedor.getBounds();
         if (style != null) {
             this.style = style;
@@ -74,7 +80,12 @@ var Tablero_Cbase = /** @class */ (function () {
         else {
             this.contenedor.setBounds(0, 0, width, height);
         }
-        this.background.graphics.beginStroke("#D9D9D9").beginFill("#FFFFFF").setStrokeStyle(5).drawRoundRect(0, 0, width, height, 50);
+        this.stage.update();
+    };
+    Tablero_Cbase.prototype.styleDraw = function () {
+        if (this.width != null && this.height != null) {
+            this.background.graphics.beginStroke("#D9D9D9").beginFill("#FFFFFF").setStrokeStyle(5).drawRoundRect(0, 0, this.width, this.height, 50);
+        }
         this.stage.update();
     };
     Tablero_Cbase.prototype.setOrientacion = function (orientation) {

@@ -1,0 +1,73 @@
+<div class="pantalla pintrucciones">
+    <div class="instrucciones">
+        <div class="instruccion">
+            <div class="instruccion__pregunta">
+
+            </div>
+            <div class="instruccion__opciones">
+            </div>
+        </div>
+    </div>
+    <button class="btn_siguiente">Enviar</button>
+</div>
+
+
+<!--Carga de librerias-->
+<script src="../../js/pregunta.js"></script>
+
+
+<!--Instrucciones-->
+<script>
+
+    $('.cont-principal').css("background-image", "url('../img/background-claro.png')");
+
+    let p0 = new PreguntaR("<p>1. Lee todas las instrucciones antes de realizar algún movimiento.</p>");
+    p0.incluirEn(".instrucciones");
+
+    let p1 = new PreguntaR("<p>2. 2 y 2 son 4. 4 y 2 son 6. 6 y 2 son 8 y 8...?</p>");
+    p1.agregar(`<div class="circulo" style="background: #8CDF8B;"><p>8</p></div>`, []);
+    p1.agregar(`<div class="circulo" style="background: #8CDF8B;"><p>2</p></div>`, []);
+    p1.agregar(`<div class="circulo" style="background: #8CDF8B;"><p>16</p></div>`, []);
+    p1.agregar(`<div class="circulo" style="background: #8CDF8B;"><p>4</p></div>`, []);
+    p1.incluirEn(".instrucciones");
+
+    let p2 = new PreguntaR("<p>3. ¿Cual de estos es un colo frio?</p>");
+    p2.agregar(`<div class="circulo" style="background-color: #8CDF8B;"><p>0</p></div>`, []);
+    p2.agregar(`<div class="circulo" style="background-color: black;"></div>`, []);
+    p2.agregar(`<div class="circulo" style="background-color: #FF9900;"></div>`, []);
+    p2.agregar(`<div class="circulo" style="background-color: #588DDC;"></div>`, []);
+    p2.incluirEn(".instrucciones");
+
+    let p3 = new PreguntaR("<p>4. ¿Cuál de los siguientes números no es par?</p>");
+    p3.agregar(`<div class="circulo" style="background-color: #A80000;"></div>`, []);
+    p3.agregar(` <div class="circulo" style="background-color: #FF1313;"></div>`, []);
+    p3.agregar(` <div class="circulo" style="background-color: #30E3D9;"><p>6</p></div>`, []);
+    p3.agregar(`<div class="circulo" style="background-color: #30E3D9;"><p>11</p></div>`, []);
+    p3.incluirEn(".instrucciones");
+
+    let p4 = new PreguntaR("<p>5. ¿Cuál de los siguientes numeros es múltiplo de 5?</p>");
+    p4.agregar(`<div class="circulo" style="background-color: #30E3D9;"><p>54</p></div>`, []);
+    p4.agregar(`<div class="circulo" style="background-color: #30E3D9;"><p>62</p></div>`, []);
+    p4.agregar(`<div class="circulo" style="background-color: #30E3D9;"><p>4</p></div>`, []);
+    p4.agregar(`<div class="circulo" style="background-color: #E64973;"><p>42</p></div>`, []);
+    p4.incluirEn(".instrucciones");
+
+
+    let p5 = new PreguntaR("<p>6. Selecciona el símbolo químico del AGUA</p>");
+    p5.agregar(`<div class="circulo" style="background-color: #FFF97C;"><p>H</p></div>`, []);
+    p5.agregar(`<div class="circulo" style="background-color: #FFF97C;"><p>O</p></div>`, []);
+    p5.agregar(`<div class="circulo" style="background-color: #FFF97C;"><p>N</p></div>`, []);
+    p5.agregar(`<div class="circulo" style="background-color: #FFF97C;"><p>H20</p></div>`, []);
+    p5.incluirEn(".instrucciones");
+
+    let p6 = new PreguntaR(`<p>7. Y ahora que terminaste de leer, debes ignorar las instrucciones anteriores y presionar enviar.</p>`);
+    p6.incluirEn(".instrucciones");
+
+
+    let contenedor2 = new Contendor();
+    let navegacion2 = new Navegable(contenedor2);
+
+    this.contenedor2.agregarHTML(document.querySelector(".pinstrucciones"));
+
+
+</script>

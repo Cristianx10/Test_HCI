@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Test Interactivo</title>
+  <link rel="shortcut icon" href="../includes/img/favicon.png" type="image/x-icon" />
+  <link rel="stylesheet" href="../sass/general/main.css" />
+  <link href="../sass/tipographys/tipografias.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+  <link rel="stylesheet" href="../../sass/general/datosUsuario.css" type="text/css">
+
+</head>
+
+<body>
+  <div class="cont-principal" style="background-image: url('../img/background_principal-2.png')">
+    <div class="principal" onselectstart="return false">
+      <div class="pantalla">
+
+
+        <h1 class="titulo">Orientación Vocacional</h1>
+        <p id="desc" class="descripcion">A continuación, encontrarás un cuestionario que permite conocer tus intereses
+          vocacionales.</p>
+        <a class="boton" onclick="seguir()">Comenzar</a>
+
+
+      </div>
+
+
+      <div class="pantalla">
+        <div style="display:flex;justify-content: center; align-items: center">
+          <div class="p-contenido" style="width:550px; height: 600px; margin: 0">
+            <h1 class="titulo" style="text-align: center; width: 100%; position: initial;">Datos del Usuario</h1>
+
+            <div class="formulario">
+              <div class="datos_input">
+                <h3>Nombre</h3>
+                <input id="form-nombre" type="text" name="" class="input-nombre" placeholder="Nombre">
+              </div>
+
+              <div class="datos_input">
+                <h3>Edad</h3>
+                <input id="form-edad" type="text" name="" class="input-edad" placeholder="18">
+              </div>
+
+              <div class="datos_input">
+                <h3>Carrera</h3>
+
+                <select id="form-carrera" name="carrera">
+                  <option selected value="0"> Elige una opción </option>
+                  <optgroup label="Ingenieria">
+                    <option value="1">Ing. de Sistemas</option>
+                    <option value="2">Ing. Telematica</option>
+                    <option value="3">Ing. Industrial</option>
+                  </optgroup>
+                  <optgroup label="Diseño">
+                    <option value="10">Diseño de Medios</option>
+                    <option value="11">Diseño Industrial</option>
+                    <option value="12">Diseño Grafico</option>
+                  </optgroup>
+                </select>
+              </div>
+
+              <div class="datos_input">
+                <h3>Sexo</h3>
+                <form class="sexo">
+                  <label class="opcion_check"><input id="form-sexo-hombre" class="marcador" type="radio"
+                      name="opcion"><span class="opcion"></span>Hombre</label>
+
+                  <label class="opcion_check"><input id="form-sexo-mujer" class="marcador" type="radio"
+                      name="opcion"><span class="opcion"></span>Mujer</label>
+
+                  <label class="opcion_check"><input id="form-sexo-otro" class="marcador" type="radio"
+                      name="opcion"><span class="opcion"></span>Otro</label>
+                </form>
+              </div>
+
+              <div class="datos_input">
+                <h3>Mano de Preferencia</h3>
+                <form class="mano">
+                  <label class="opcion_check"><input id="form-mano-diestra" class="marcador" type="radio"
+                      name="opcion"><span class="opcion"></span>Diestro</label>
+
+                  <label class="opcion_check"><input id="form-mano-zurda" class="marcador" type="radio"
+                      name="opcion"><span class="opcion"></span>Zurdo</label>
+                </form>
+              </div>
+
+            </div>
+
+            <button class="btn_siguiente" style="margin-left: 140px;">Continuar</button>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+  </div>
+
+  <!--Codigo de precarga -->
+
+
+  <!--
+  <script src="../lib//colorMixer.js"></script>
+  <script src="../lib/jquery-ui.min.js"></script>
+  <script src="../lib/jquery.svg.js"></script>
+  <script src="../lib/jquery.knob.js"></script>
+  <script src="../lib/preloadjs.js"></script>
+  <script src="../lib/easeljs.js"></script>
+  <script src="../lib/tweenjs.js"></script>
+  -->
+
+  <!--Obligatorio -->
+  <script src="../lib/jquery.js"></script>
+  <script src="../lib/soundjs.js"></script>
+  <script src="../js/timer.js"></script>
+  <script src="../js/resultados.js"></script>
+  <script src="../js/main.js"></script>
+
+
+  <script>
+
+  </script>
+
+  <script type="text/javascript">
+
+
+
+
+
+    let contenedor1 = new Contenedor();
+    let navegable1 = new Navegable(contenedor1);
+
+    contenedor1.agregarHTMLAll(document.querySelectorAll(".pantalla"));
+    navegable1.iniciar();
+
+
+    function validarFormulario() {
+      let num = 0;
+      let info = {};
+      if (document.querySelector("#form-nombre").value != "") {
+        info.nombre = document.querySelector("#form-nombre").value;
+        num++;
+      }
+
+      if (document.querySelector("#form-edad").value != "") {
+        info.edad = document.querySelector("#form-edad").value;
+        num++;
+      }
+
+      let carrera = document.querySelector("#form-carrera")
+      let selectedOption = carrera.options[carrera.selectedIndex];
+
+      if (selectedOption.text != "Elige una opción") {
+        info.carrera = selectedOption.text;
+        num++;
+      }
+
+      if (document.querySelector("#form-sexo-hombre").checked) {
+        info.sexo = "hombre";
+        num++;
+      } else if (document.querySelector("#form-sexo-mujer").checked) {
+        info.sexo = "Mujer";
+        num++;
+      } else if (document.querySelector("#form-sexo-otro").checked) {
+        info.sexo = "Otro";
+        num++;
+      }
+
+      if (document.querySelector("#form-mano-diestra").checked) {
+        info.mano = "diestra";
+        num++;
+      } else if (document.querySelector("#form-mano-zurda").checked) {
+        info.mano = "zurda";
+        num++;
+      }
+
+      if (num >= 5) {
+
+        resultados.agregar("formulario", [
+          { id: "Nombre", value: info.nombre },
+          { id: "Edad", value: info.edad },
+          { id: "Carrera", value: info.carrera },
+          { id: "Sexo", value: info.sexo },
+          { id: "Mano", value: info.mano },
+        ]);
+
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+
+    let siguiente = document.querySelector(".btn_siguiente");
+    siguiente.addEventListener("click", () => {
+      if (validarFormulario()) {
+        navegable1.setPermitir(true);
+        navegable1.siguiente();
+      } else {
+
+      }
+    });
+
+
+    function seguir() {
+      navegable1.setPermitir(true);
+      navegable1.siguiente();
+    }
+
+    navegable1.setFinal(() => {
+      irA("bintroduccion.html");
+    });
+
+
+
+
+  </script>
+
+
+
+</body>
+
+</html>

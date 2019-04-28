@@ -284,9 +284,12 @@
 <script src="../../js/programacion.js"></script>
 <script>
 
-    let pantallas = document.querySelectorAll(".pantalla");
-    let navegable = new Navegable(toPantallas(pantallas));
-
+   
+    let pantallas = new Contenedor();
+    pantallas.agregarHtmlAll(document.querySelectorAll(".pantalla"));
+    let navegable = new Navegable(pantallas);
+    navegable.iniciar();
+    navegable.setPermitirAll(true);
     function seguir() {
         navegable.siguiente();
     }

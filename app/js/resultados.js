@@ -8,11 +8,13 @@ var Resultados = /** @class */ (function () {
             var variables = JSON.parse(val);
             this.categorias = variables.categorias;
             this.pruebas = variables.pruebas;
+            this.maximos = variables.maximos;
             reconozido = true;
         }
         if (reconozido == false) {
             this.categorias = new Array();
             this.pruebas = new Array();
+            this.maximos = new Array();
         }
     }
     Resultados.prototype.save = function () {
@@ -43,6 +45,69 @@ var Resultados = /** @class */ (function () {
         }
         this.save();
     };
+    Resultados.prototype.calcularMaximo = function (valores) {
+        var valorTotal = [];
+        valores.forEach(function (v) {
+            if (valorTotal != null) {
+                for (var i = 0; i < v.valores.length; i++) {
+                    var val = v.valores[i];
+                    var encontro = false;
+                    for (var j = 0; j < valorTotal.length; j++) {
+                        var t = valorTotal[j];
+                        if (val.id == t.id) {
+                            encontro = true;
+                            if (val.valor > t.valor) {
+                                t.valor = val.valor;
+                            }
+                        }
+                    }
+                    if (encontro == false) {
+                        valorTotal.push({ id: val.id, valor: val.valor });
+                    }
+                }
+            }
+        });
+        console.log(valorTotal);
+        var categoria = 0;
+        var encontrado = false;
+        var _loop_1 = function (h) {
+            var v = valorTotal[h];
+            if (this_1.maximos != null) {
+                this_1.maximos.forEach(function (c, index) {
+                    if (c.id == v.id) {
+                        categoria = index;
+                        encontrado = true;
+                    }
+                });
+                if (encontrado) {
+                    this_1.maximos[categoria].valor += v.valor;
+                }
+                else {
+                    this_1.maximos.push({ id: v.id, valor: v.valor });
+                }
+            }
+        };
+        var this_1 = this;
+        for (var h = 0; h < valorTotal.length; h++) {
+            _loop_1(h);
+        }
+        this.save();
+    };
+    /*
+    [
+        {id:"materia", valor:5},
+        {id:"materia2", valor:10},
+        {id:"materia3", valor:15},
+    ],
+    [
+        {id:"materia2", valor:5},
+        {id:"materia1", valor:10},
+        {id:"materia3", valor:15},
+    ],
+
+
+
+    */
     Resultados.prototype.limpiarTodo = function () {
         localStorage.clear();
     };
@@ -62,5 +127,35 @@ var Resultados = /** @class */ (function () {
         ;
         console.log("Total = " + (_lsTotal / 1024).toFixed(2) + " KB");
     };
+    Resultados.prototype.descargar = function () {
+        var text = JSON.stringify(this), blob = new Blob([text], { type: 'text/plain' }), anchor = document.createElement('a');
+        anchor.download = "resultadoDictado.json";
+        anchor.href = ( /*window.webkitURL ||*/window.URL).createObjectURL(blob);
+        anchor.dataset.downloadurl = ['text/plain', anchor.download, anchor.href].join(':');
+        anchor.click();
+    };
     return Resultados;
+}());
+var VerResultado = /** @class */ (function () {
+    function VerResultado() {
+        this.elemento = document.createElement("div");
+        this.elemento.className = "resultado__cuadro";
+        this.init = random(0, 360);
+    }
+    VerResultado.prototype.generar = function (categoria, valor, src) {
+        this.categoria = categoria;
+        this.valor = valor;
+        this.src = src;
+        this.elemento.innerHTML = "\n        <div class=\"resultado__porcentaje\">\n        <div class=\"circulo\">\n            <input class=\"porcentaje\" type=\"text\" value=\"" + this.valor + "\" data-linecap=round data-angleOffset = \"" + this.init + "\">\n        </div>\n        <img class=\"icono\" src=\"" + this.src + "\" alt=\"\">\n        </div>\n        <div class=\"resultado__informacion\">\n            <h2 class=\"titulo\">" + this.categoria + "</h2>\n            <h3 class=\"valor\">" + this.valor + "%</h3>\n        </div>\n    ";
+    };
+    VerResultado.prototype.getElemento = function () {
+        return this.elemento;
+    };
+    VerResultado.prototype.felicidades = function () {
+        var e = document.createElement("div");
+        e.className = "cuadro_felicitaciones";
+        e.innerHTML = "\n        <div class=\"cuadro_bordes_lados\">\n        <p><b>\u00A1Felicitaciones!</b> tienes un <b>" + this.valor + "%</b> de aptitud de ser un gran <b>" + this.categoria + "</b></p>\n\n        <div class=\"medalla_icon\">\n                <img src=\"../../includes/iconos/medalla.svg\" alt=\"\">\n                <img class=\"icono\" src=\"" + this.src + "\" alt=\"\">\n            </div>\n        </div>\n        ";
+        return e;
+    };
+    return VerResultado;
 }());

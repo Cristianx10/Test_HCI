@@ -37,6 +37,7 @@
 <script>
 
     let reciclaje = new Reciclaje();
+    $(".basura__elementos").append(reciclaje.getElemento());
 
     loadJson("../../data/ciencias/reciclaje.json", (r) => {
 
@@ -91,9 +92,9 @@
 
                 if (reciclaje.seleccion != null) {
                     if (reciclaje.validarBasura(t[0].id)) {
-                        
+                        console.log("bien");
                     } else {
-                        
+                        console.log("mal");
                     }
                 }
                 $item.find(".basura").remove();
