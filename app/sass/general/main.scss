@@ -120,7 +120,12 @@ button {
 }
 
 input[type=radio] {
-    transform: scale(2.5);
+    transform: scale(2);
+    position: absolute;
+    cursor: pointer;
+    top: -4px;
+    opacity: 0;
+    left: 3px;
 }
 
 form {
@@ -141,8 +146,15 @@ label {
       position: absolute;
       top: 8px;
         left: 8px;
+        margin-top: 6px;
+    height: 20px;
     }
 }
+
+.opcionC{
+    width: 100%;
+}
+
 
 .opcion_check {
     display: block;
@@ -331,6 +343,7 @@ label {
         display: flex;
         justify-content: center;
         width: 100%;
+        height: 70px;
     }
 
     &_valores {
@@ -342,11 +355,13 @@ label {
         display: flex;
         flex-wrap: wrap;
         width: 60%;
+     
         justify-content: space-between;
 
         progress {
             position: absolute;
-            width: 100%
+            width: 100%;
+            top: -4px;
         }
     }
 
@@ -405,9 +420,9 @@ label {
     }
 
     &__parrafo {
-        width: 50%;
-        height: 50%;
-        margin-top: 5em;
+        width: 80%;
+        height: 60%;
+    
         border: 2px solid #00DED3;
         border-radius: 20px;
         padding: 2em;
@@ -457,6 +472,10 @@ hr {
     background-size: contain;
     display: flex;
     flex-direction: column;
+}
+
+.pantallaP{
+    width: 60%;
 }
 
 .pantallaN {
@@ -810,6 +829,7 @@ Estilos de seleccionador
     left: 0;
     min-width: 40px;
     background: lightgrey;
+    z-index: 100000;
 
 }
 
@@ -820,7 +840,7 @@ Estilos de seleccionador
     justify-content: center;
     align-items: center;
     text-align: center;
-    border: 2px dashed lightgreen;
+    border: 1px dashed lightgreen;
 
     &:hover {
         background: grey;

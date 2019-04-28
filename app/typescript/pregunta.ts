@@ -220,7 +220,7 @@ class PreguntaC {
         this.pregunta = pregunta;
         this.opciones = opciones;
         this.elemento = document.createElement('div');
-        this.elemento.className = "pregunta";
+        this.elemento.className = "pantalla pregunta";
 
         let div_seccionA = document.createElement('section');
         let div_seccionA_h1 = document.createElement('h2');

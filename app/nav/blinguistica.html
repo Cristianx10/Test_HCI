@@ -19,31 +19,39 @@
   <div class="cont-principal" style="background-image: url('../img/deporte/fondo.png')">
     <div class="principal" onselectstart="return false">
 
-      <div class="pantalla pinicio" style="background-image: url('../img/background_principal-2.png')">
-        <div class="introduccion">
-          <h1 class="titulo">Inteligencia Lingüística</h1>
-          <p id="desc" class="descripcion">En esta sección de la prueba se evaluará tus conocimientos en el área
-            Lingüística.</p>
-          <button class="boton" onclick="seguir()">Comenzar</button>
+      <div class="pantalla ppreguntas">
+
+        <div class="pantalla pinicio" style="background-image: url('../img/background_principal-2.png')">
+          <div class="introduccion">
+            <h1 class="titulo">Inteligencia Lingüística</h1>
+            <p id="desc" class="descripcion">En esta sección de la prueba se evaluará tus conocimientos en el área
+              Lingüística.</p>
+            <button class="boton" onclick="seguir()">Comenzar</button>
+          </div>
+        </div>
+  
+        <div class="pantalla prelacionar" style="text-align:center; ">
+          <div class="pregunta_titulo"
+            style="padding:0 190px;font-size: 30px; text-align: center; font-weight: bold; margin-top: 50px;">
+            Las palabras están al azar , por favor enlaza una palabra de la izquierda con otra palabra de la derecha según
+            sea su antónimo.
+          </div>
+          <div id="relacionAzar"></div>
+  
+        </div>
+  
+        <div class="pantallaP pselecciona">
+          <p>Allí <span id="s1"></span> a lo lejos<span id="s2"></span> canta un ruiseñor <span id="s2"></span> ahí cerca
+            <span id="s3"></span> ronronea un gato <span id="s4"></span> aquí mismo<span id="s5"></span> Suspira un
+            enamorado<span id="s6"></span></p>
         </div>
       </div>
 
-      <div class="pantalla" style="text-align:center; ">
 
-        <div class="pregunta_titulo"
-          style="padding:0 190px;font-size: 30px; text-align: center; font-weight: bold; margin-top: 50px;">
-          Las palabras están al azar , por favor enlaza una palabra de la izquierda con otra palabra de la derecha según
-          sea su antónimo.
-        </div>
-        <div id="relacionAzar"></div>
-        <div class="zona__navegacion">
-          <button class="btn_siguiente" disabled="disabled" onclick="" style="text-align:center;">Siguiente</button>
-        </div>
+      <div class="zona__navegacion">
+        <button class="btn_siguiente" disabled="disabled" onclick="" style="text-align:center;">Siguiente</button>
       </div>
-
-
     </div>
-
 
 
 
@@ -150,8 +158,7 @@
     $('#relacionAzar').append(tablero.canvas);
 
     let p2 = new PreguntaC("Lee el siguiente fragmento:2. En el fragmento hay unos cuantos errores de ortografía, dale click en el error para seleccionarlos. Cuando sientas que no hay más errores, haz click sobre el botón siguiente.", new OpcionC(`El hombre no se convierte en hombre más que en una sociedad y solamente por la acción colectiva de la sociedad entera; no se emansipa del llugo de la naturalesa exterior más que por el trabajo colectivo o social y sin esa emancipación material no puede haber emancipación intelectual y moral para nadie. El hombre aislado no puede tener conciencia de su libertad. Ser libre para el hombre sólo es posible por otro hombre, por todos los hombres que le rodean. La libertad no es, pues, un echo de aislamiento, sino de reflección mutua; no de exclución, sino, al contrario, de aliansa, pues la libertad de todo individuo no es otra cosa que el reflejo de su humanidad o de su derecho humano en la consciencia de todos los hombres libres: sus hermanos, sus iguales. No soy verdaderamente libre más que cuando todos los seres humanos que me rodean, hombres y mujeres, son igualmente libres. La libertad de otro, lejos de ser un límite o la negasión de mi libertad, es, al contrario, su condición necesaria y su confirmación. No me ago verdaderamente libre más que por la libertad de los otros... BAKUNIN, M. La Libertad.`));
-
-    let cp2 = new Contenido(p2.getElement(), p2, 26);
+    let cp2 = new Contenido(p2.getElement(), p2);
 
     let op3 = [];
     op3.push(
@@ -162,30 +169,84 @@
     );
     let p3 = new Pregunta("3.  El fragmento trata principalmente de:", op3);
 
-    cp3 = new Contenido(p3.getElement(), p3, 120);
+    cp3 = new Contenido(p3.getElement(), p3);
 
-    let p4 = new PreguntaC("4. Agrega signos de puntuación", new OpcionC(`"Allí ___ a lo lejos__ canta un ruiseñor __ ahí cerca __ ronronea un gato __ aquí mismo__ Suspira un enamorado__"`));
-    let cp4 = new Contenido(p4.getElement(), p4);
+    let p4 = [];
+    p4.push(new PreguntaS());
+    p4[0].agregar(".", 10);
+    p4[0].agregar(",", 10);
+    p4[0].agregar(":", 10);
+    p4[0].agregar(";", 10);
+    p4[0].agregar(" ", 10);
 
-    let p5 = new PreguntaD("¿Del 1 al 5, qué que tan bien crees que te fue en esta prueba?", new OpcionC([]));
+    p4.push(new PreguntaS());
+    p4[1].agregar(".", 10);
+    p4[1].agregar(",", 10);
+    p4[1].agregar(":", 10);
+    p4[1].agregar(";", 10);
+    p4[1].agregar(" ", 10);
+
+    p4.push(new PreguntaS());
+    p4[2].agregar(".", 10);
+    p4[2].agregar(",", 10);
+    p4[2].agregar(":", 10);
+    p4[2].agregar(";", 10);
+    p4[2].agregar(" ", 10);
+
+    p4.push(new PreguntaS());
+    p4[3].agregar(".", 10);
+    p4[3].agregar(",", 10);
+    p4[3].agregar(":", 10);
+    p4[3].agregar(";", 10);
+    p4[3].agregar(" ", 10);
+
+    p4.push(new PreguntaS());
+    p4[4].agregar(".", 10);
+    p4[4].agregar(",", 10);
+    p4[4].agregar(":", 10);
+    p4[4].agregar(";", 10);
+    p4[4].agregar(" ", 10);
+
+    p4.push(new PreguntaS());
+    p4[5].agregar(".", 10);
+    p4[5].agregar(",", 10);
+    p4[5].agregar(":", 10);
+    p4[5].agregar(";", 10);
+    p4[5].agregar(" ", 10);
+
+
+
+    p4[0].incluirEn("#s1");
+    p4[1].incluirEn("#s2");
+    p4[2].incluirEn("#s3");
+    p4[3].incluirEn("#s4");
+    p4[4].incluirEn("#s5");
+    p4[5].incluirEn("#s6");
+
+
+    let p5 = new PreguntaD("¿Del 1 al 5, qué que tan bien crees que te fue en esta prueba?", new OpcionD([]));
     cp5 = new Contenido(p5.getElement(), p5);
 
-    contenedor.agregarHTMLAll(document.querySelectorAll(".pantalla"));
+    contenedor.agregarHTML(document.querySelector(".pinicio"));
+    contenedor.agregarHTML(document.querySelector(".prelacionar"), 5);
     contenedor.agregar(cp2);
     contenedor.agregar(cp3);
-    contenedor.agregar(cp4);
     contenedor.agregar(cp5);
-    contenedor.incluirEn(document.querySelector(".principal"));
+    contenedor.agregarHTML(document.querySelector('.pselecciona'));
 
-
+    contenedor.incluirEn(document.querySelector(".ppreguntas"));
     navegable.iniciar();
 
     navegable.colocarTiempo();
     navegable.colocarProgreso();
 
+    ocultar(".zona__navegacion");
     function seguir() {
       navegable.setPermitir(true);
       navegable.siguiente();
+      if (navegable.getActual() > 0) {
+        mostrar(".zona__navegacion");
+      }
     }
 
   </script>

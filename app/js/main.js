@@ -211,13 +211,19 @@ var Contenedor = /** @class */ (function () {
     function Contenedor() {
         this.elementos = new Array();
     }
-    Contenedor.prototype.agregarAll = function (elemetos) {
+    Contenedor.prototype.agregarAll = function (elemetos, tiempo) {
         var _this = this;
         elemetos.forEach(function (e) {
+            if (tiempo != null) {
+                e.tiempo(tiempo);
+            }
             _this.elementos.push(e);
         });
     };
-    Contenedor.prototype.agregar = function (elemeto) {
+    Contenedor.prototype.agregar = function (elemeto, tiempo) {
+        if (tiempo != null) {
+            elemeto.tiempo(tiempo);
+        }
         this.elementos.push(elemeto);
     };
     Contenedor.prototype.agregarHTML = function (elemeto, tiempo) {

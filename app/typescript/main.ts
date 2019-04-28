@@ -32,7 +32,7 @@ class Navegable {
     av: HTMLElement;
     permitir = false;
     permitirAll = false;
-    fcambioTiempo?:Function;
+    fcambioTiempo?: Function;
     iniciado = false;
 
     constructor(elementos: Contenedor) {
@@ -72,7 +72,7 @@ class Navegable {
     }
 
     iniciar() {
-        if(this.iniciado == false){
+        if (this.iniciado == false) {
 
             this.elementos.elementos.forEach(e => {
                 e.setTermino(() => {
@@ -80,14 +80,14 @@ class Navegable {
                         this.permitir = true;
                         this.siguiente();
                         this.permitir = false;
-            
+
                     }
                 });
-    
+
                 e.setProgreso((m: number, s: number) => {
                     if (e == this.actualPantalla()) {
-                        if(this.fcambioTiempo != null){
-                            this.fcambioTiempo(m ,s);
+                        if (this.fcambioTiempo != null) {
+                            this.fcambioTiempo(m, s);
                         }
                         if (s < 10 && s < 60 && s > -1 && m < 59) {
                             this.ti.innerText = "0" + m + ":0" + s;
@@ -97,27 +97,27 @@ class Navegable {
                     }
                 });
             });
-          
+
             this.av.innerText = this.actual + 1 + "/" + this.elementos.elementos.length;
-    
+
             this.progreso.setTotal(this.elementos.elementos.length);
             this.elementos.getElementosHTML().forEach((s, i) => {
                 if (i == 0) {
                     s.style.display = "flex";
-                   // s.style.flexDirection = "column";
+                    // s.style.flexDirection = "column";
                 } else {
                     s.style.display = "none";
                 }
             });
-    
-    
+
+
             this.actualPantalla().start();
-            this.iniciado =true;
+            this.iniciado = true;
         }
 
     }
 
-    cambioTiempo(cambio:Function){
+    cambioTiempo(cambio: Function) {
         this.fcambioTiempo = cambio;
     }
 
@@ -187,8 +187,8 @@ class Navegable {
 
     mostrar(seccion: HTMLElement) {
         seccion.style.display = "flex";
-      
-        
+
+
     }
 
     ocultar(seccion: HTMLElement) {
@@ -199,11 +199,11 @@ class Navegable {
         this.inicio = accion;
     }
 
-    getActual(){
+    getActual() {
         return this.actual;
     }
 
-    ocultarActual(){
+    ocultarActual() {
         this.ocultar(this.actualPantallaHtml())
     }
 
@@ -219,9 +219,9 @@ class Navegable {
     }
 
     siguiente(): void {
-        
+
         if (this.permitir || this.permitirAll) {
-    
+
             this.ocultar(this.actualPantallaHtml());
             if (this.actual < this.elementos.elementos.length - 1) {
                 if (this.inicio != null) {
@@ -281,42 +281,49 @@ class Contenedor implements Validable {
         this.elementos = new Array();
     }
 
-    agregarAll(elemetos: Array<Contenido>) {
+    agregarAll(elemetos: Array<Contenido>, tiempo?: number) {
+        
         elemetos.forEach((e) => {
+            if (tiempo != null) {
+                e.tiempo(tiempo);
+            }
             this.elementos.push(e)
         });
     }
 
-    agregar(elemeto: Contenido) {
+    agregar(elemeto: Contenido, tiempo?: number) {
+        if (tiempo != null) {
+            elemeto.tiempo(tiempo);
+        }
         this.elementos.push(elemeto)
     }
 
-    agregarHTML(elemeto: HTMLElement, tiempo?:number) {
+    agregarHTML(elemeto: HTMLElement, tiempo?: number) {
         let e = new PantallaHTML(elemeto);
-        if(tiempo != null){
+        if (tiempo != null) {
             this.elementos.push(new Contenido(elemeto, e, tiempo));
-        }else{
+        } else {
             this.elementos.push(new Contenido(elemeto, e));
         }
     }
 
-    agregarHTMLAll(elemetos: Array<HTMLElement>, tiempo?:number) {
+    agregarHTMLAll(elemetos: Array<HTMLElement>, tiempo?: number) {
 
-        if(tiempo != null){
+        if (tiempo != null) {
             elemetos.forEach((ele) => {
                 let e = new PantallaHTML(ele);
                 let c = new Contenido(ele, e, tiempo);
                 this.elementos.push(c);
             });
-        }else{
+        } else {
             elemetos.forEach((ele) => {
                 let e = new PantallaHTML(ele);
                 let c = new Contenido(ele, e);
                 this.elementos.push(c);
             });
         }
-        
-        
+
+
     }
 
     foreachElementos(elemento: HTMLElement) {
@@ -367,8 +374,8 @@ class Contenido {
         this.objeto = objeto;
         this.timer = new Timer();
         this.tiempoDefinido = false;
-        if (segundos != null) {         
-            this.segundos = segundos;    
+        if (segundos != null) {
+            this.segundos = segundos;
         }
     }
 
@@ -383,12 +390,12 @@ class Contenido {
         }
         if (this.segundos != null) {
             this.timer.startTempo(this.segundos);
-          
+
         }
-       
+
     }
 
-    setProgreso(progreso:Function){
+    setProgreso(progreso: Function) {
         this.timer.setProgreso(progreso);
     }
 
@@ -424,13 +431,13 @@ function loadJson(ruta: string, result: Function) {
 
 }
 
-function ocultar(ubicacion:string){
-    let e:HTMLElement = <HTMLElement>document.querySelector(ubicacion);
+function ocultar(ubicacion: string) {
+    let e: HTMLElement = <HTMLElement>document.querySelector(ubicacion);
     e.style.display = "none";
 }
 
-function mostrar(ubicacion:string){
-    let e:HTMLElement = <HTMLElement>document.querySelector(ubicacion);
+function mostrar(ubicacion: string) {
+    let e: HTMLElement = <HTMLElement>document.querySelector(ubicacion);
     e.style.display = "flex";
 }
 
@@ -530,7 +537,7 @@ class Progress {
         this.actualizarPosicion(this.actual);
     }
 
-    setTotal(total:number){
+    setTotal(total: number) {
         this.total = total;
         this.progress.max = total;
     }
@@ -555,8 +562,8 @@ function irA(url: string) {
     $(".principal").load(url);
 }
 
-function goTo(url:string){
-    window.location.href=url + ".html"; 
+function goTo(url: string) {
+    window.location.href = url + ".html";
 }
 
 function askConfirmation(evt: any) {
