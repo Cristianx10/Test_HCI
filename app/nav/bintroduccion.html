@@ -36,6 +36,15 @@
     </div>
 
 </div>
+
+<div class="pantalla pintropicinicio" style="background-image: url('../img/background_principal-2.png')">
+    <div class="introduccion">
+        <h1 class="titulo">Técnicas pictóricas</h1>
+        <p id="desc" class="descripcion">Selecciona los botones que correspondan a la técnica pictórica y al sentimiento que te generen las siguientes pinturas.</p>
+        <button class="boton" onclick="seguir2()">Comenzar</button>
+    </div>
+</div>
+
 <div class="pantalla ppictoricos">
     <div class="pantallaN pictoricos">
 
@@ -202,8 +211,9 @@
 
     contenedor2.agregarHTML(document.querySelector('.pinicio'));
     contenedor2.agregarHTML(document.querySelector(".pinstrucciones"));
+    contenedor2.agregarHTML(document.querySelector(".pintropicinicio"));
     contenedor2.agregarHTMLAll(document.querySelectorAll(".pictoricos > div"));
-
+    
     navegacion2.iniciar();
 
 
@@ -213,7 +223,7 @@
     function seguir2() {
         navegacion2.setPermitir(true);
         navegacion2.siguiente();
-        if (navegacion2.getActual() > 1) {
+        if (navegacion2.getActual() > 2) {
             mostrar(".ppictoricos");
         }
 
