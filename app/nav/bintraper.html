@@ -80,40 +80,29 @@
     let navegacion = new Navegable(contenedor);
 
     var preguntas = [];
-    preguntas.push(new PreguntaD("¿Del 1 al 4, qué tan amigable te consideras?", []));
-    preguntas.push(new PreguntaD("¿Del 1 al 4, qué tan empático te consideras?", []))
+    preguntas.push(new PreguntaD("Prefiro guiarme más por mi experiencia que por mi imaginación", [], "Imaginación", "Experiencia"));
+    preguntas.push(new PreguntaD("Suelo ser más apasionado que objetivo", [], "Apasionado", "Objetivo"));
+    preguntas.push(new PreguntaD("Me siento mas comodo trabajando  con maquinas que con personas", [], "Maquinas", "Personas"));
+    preguntas.push(new PreguntaD("A la hora de estudiar, me da tranquilidad organizar los temas antes de empezar", [], "Improvizar", "Organizado"));
+    preguntas.push(new PreguntaD("A la hora de trabajar, ¿Prefiero improvisar o planear?", [], "Improvizar", "Organizado"));
+    preguntas.push(new PreguntaD("Prefiero dedicarle tiempo a los detalles que valerme del contenido general", [], "Detalles", "Contenido General"));
+    preguntas.push(new PreguntaD("Me dan explosiones de inspiración mientas hago otra actividad", [], "Inspiración", "Actividad actual"));
+    preguntas.push(new PreguntaD("Me agrada realizar las actividades a mi modo y no necesariamente como lo hacen los demas", [], "Mi modo", "El modo establecido"));
+    preguntas.push(new PreguntaD("Me gusta buscar patrones en el ambiente que me rodea", [], "Patrones", "Sin Patrones"));
+
+
+
+
 
     contenedor.agregarHTML(document.querySelector('.pinicio'));
 
     shuffle(preguntas);
 
     preguntas.forEach(p => {
-        contenedor.agregar(p.getPregunta());
+        contenedor.agregar(p.getPregunta(),40);
     });
 
-    contenedor.agregar(intra.getPregunta()).setAccion(function(){
-      
-      navegacion.colocarTiempo();
-      navegacion.colocarProgreso();
-      mostrar(".zona__navegacion");
-    
-    });
-    contenedor.agregar(intra2.getPregunta()).setAccion(function(){
-    
-    });
     var siguiente = document.querySelector('.btn_siguiente');
-
-    contenedor.agregar(intra3.getPregunta()).setAccion(function(){
-        siguiente.disabled= false;
-        navegacion.ocultarTiempo();
-        console.log("ssss");
-    });
-
-    contenedor.agregar(intra4.getPregunta()).setAccion(function(){
-      siguiente.disabled= false;
-      navegacion.ocultarTiempo();
-    });
-
 
     contenedor.incluirEn(document.querySelector(".ppreguntas"));
     navegacion.iniciar();
@@ -123,10 +112,9 @@
     function seguir() {
       navegacion.setPermitir(true);
       navegacion.siguiente();
-      if(navegacion.getActual() < 3 ){
-        siguiente.disabled = true;
+      mostrar(".zona__navegacion");
+        siguiente.disabled = false;
 
-      }
     }
 
 
