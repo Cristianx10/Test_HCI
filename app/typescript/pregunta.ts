@@ -46,6 +46,7 @@ class Pregunta {
     pregunta: string;
     opciones: Array<Opcion>;
     formulario:HTMLElement;
+    contenido:Contenido;
 
     constructor(pregunta: string) {
         this.pregunta = pregunta;
@@ -77,6 +78,7 @@ class Pregunta {
         });*/
 
         div_seccionB.appendChild(this.formulario);
+        this.contenido = new Contenido(this.getElemento(), this);
     }
 
     agregar(info: string, valor: Array<ResultadoA>){
@@ -95,6 +97,10 @@ class Pregunta {
                     { id: "respuesta", valor: opcion.opcion.innerText }]);
             }
         });
+    }
+
+    getPregunta(){
+        return this.contenido;
     }
 
 
@@ -222,6 +228,7 @@ class PreguntaC {
     pregunta: string;
     opciones: OpcionC;
     validacion?: Function;
+    contenido:Contenido;
 
     constructor(pregunta: string, opciones: OpcionC) {
         this.pregunta = pregunta;
@@ -253,7 +260,7 @@ class PreguntaC {
         */
         div_seccionB.appendChild(this.opciones.areaTexto);
 
-
+        this.contenido = new Contenido(this.getElemento(), this);
     }
 
     validar() {
@@ -277,7 +284,11 @@ class PreguntaC {
          });*/
     }
 
-    getElement() {
+    getPregunta(){
+        return this.contenido;
+    }
+
+    getElemento() {
         return this.elemento;
     }
 

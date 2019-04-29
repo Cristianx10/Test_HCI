@@ -49,6 +49,7 @@ var Pregunta = /** @class */ (function () {
                     this.formulario.appendChild(element.getElemento());
                 });*/
         div_seccionB.appendChild(this.formulario);
+        this.contenido = new Contenido(this.getElemento(), this);
     }
     Pregunta.prototype.agregar = function (info, valor) {
         var opcion = new Opcion(info, valor);
@@ -64,6 +65,9 @@ var Pregunta = /** @class */ (function () {
                     { id: "respuesta", valor: opcion.opcion.innerText }]);
             }
         });
+    };
+    Pregunta.prototype.getPregunta = function () {
+        return this.contenido;
     };
     Pregunta.prototype.getElemento = function () {
         return this.elemento;
@@ -175,6 +179,7 @@ var PreguntaC = /** @class */ (function () {
                 });
         */
         div_seccionB.appendChild(this.opciones.areaTexto);
+        this.contenido = new Contenido(this.getElemento(), this);
     }
     PreguntaC.prototype.validar = function () {
         resultados.agregar("pregunta", [{ id: "pregunta", valor: this.pregunta },
@@ -192,7 +197,10 @@ var PreguntaC = /** @class */ (function () {
              o.opcion.classList.remove("opcion__select");
          });*/
     };
-    PreguntaC.prototype.getElement = function () {
+    PreguntaC.prototype.getPregunta = function () {
+        return this.contenido;
+    };
+    PreguntaC.prototype.getElemento = function () {
         return this.elemento;
     };
     PreguntaC.prototype.setValidacion = function (validacion) {

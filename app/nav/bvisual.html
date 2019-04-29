@@ -80,6 +80,10 @@
     let navegable = new Navegable(contenedor);
 
 
+    contenedor.agregarHTML(document.querySelector('.pinicio'));
+
+    navegable.iniciar();
+
     function seguir() {
       navegable.setPermitir(true);
       navegable.siguiente();
