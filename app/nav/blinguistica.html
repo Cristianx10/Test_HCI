@@ -301,7 +301,7 @@
 
 
     let p5 = new PreguntaD("¿Del 1 al 5, qué que tan bien crees que te fue en esta prueba?", new OpcionD([]));
-    cp5 = new Contenido(p5.getElement(), p5);
+ 
 
 
     let tableros = [];
@@ -450,7 +450,7 @@
       .setAccion(() => {
         siguiente.disabled = true;
       });
-    contenedor.agregar(cp5);
+    contenedor.agregar(p5.getPregunta());
     contenedor.agregarHTML(document.querySelector('.pselecciona'));
     contenedor.agregarHTML(document.querySelector('.pemperejado'))
       .setAccion(() => {
