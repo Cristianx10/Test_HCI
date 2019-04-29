@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Test Interactivo</title>
+  <link rel="shortcut icon" href="../includes/img/favicon.png" type="image/x-icon" />
+  <link rel="stylesheet" href="../sass/general/main.css" />
+  <link href="../sass/tipographys/tipografias.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+
+  <link rel="stylesheet" href="../sass/aplicaciones/targetas.css" />
+
+</head>
+
+<body>
+  <div class="cont-principal" style="background-image: url('../img/deporte/fondo.png')">
+    <div class="principal" onselectstart="return false">
+
+      <div class="pantalla ppreguntas">
+
+        <div class="pantalla pinicio" style="background-image: url('../img/background_principal-2.png')">
+          <div class="introduccion">
+              <h1 class="titulo">Inteligencia Intrapersonal</h1>
+              <p id="desc" class="descripcion">En esta sección de la prueba evaluaremos tus conocimientos en el area Intrapersonal</p>
+              <button class="boton" onclick="seguir()">Comenzar</button>
+          </div>
+        </div>
+  
+
+      </div>
+      <div class="zona__navegacion" style="display:none;">
+        <button class="btn_siguiente" style="text-align:center;" disabled onclick="seguir()">Siguiente</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!--Codigo de precarga -->
+  <script src="../lib/jquery.js"></script>
+  <script src="../lib/jquery-ui.min.js"></script>
+  <!--
+  <script src="../lib//colorMixer.js"></script>
+ 
+  <script src="../lib/jquery.svg.js"></script>
+  <script src="../lib/jquery.knob.js"></script>
+  <script src="../lib/preloadjs.js"></script>
+  
+  <script src="../lib/tweenjs.js"></script>
+  -->
+
+  <script src="../lib/easeljs.js"></script>
+  <script src="../../js/compuestos.js"></script>
+  <script src="../lib/soundjs.js"></script>
+  <script src="../js/timer.js"></script>
+  <script src="../js/resultados.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/pregunta.js"></script>
+
+  <!--Interacciones complejas-->
+  <script src="../js/tarjetas.js"></script>
+  <script src="../js/reciclaje.js"></script>
+
+  <script type="text/javascript">
+
+    $(document).ready(function () {
+
+      // irA("./formulario.html");
+
+
+    });
+
+        
+    $('.cont-principal').css("background-image", "url('../img/background-claro.png')");
+
+
+    let contenedor = new Contenedor();
+    let navegacion = new Navegable(contenedor);
+
+    var intra = new Pregunta("¿Cuántas veces he peleado físicamente con algún compañero del colegio?")
+
+    intra.agregar("Ninguna", []);
+    intra.agregar("Una vez", []);
+    intra.agregar("Entre 1 y 3 veces", []);
+    intra.agregar("Más de 3 veces", []);
+
+    var intra2 = new Pregunta("¿En el último año cuántas veces has evaluado tu progreso en el hobby que más te gusta? ")
+
+       intra2.agregar("Ninguna", []);
+    intra2.agregar("Una vez", []);
+    intra2.agregar("Entre 1 y 4 veces", []);
+    intra2.agregar("Más de 5  veces", []); 
+
+    var intra3 = new PreguntaD("¿Del 1 al 4, qué tan amigable te consideras?", [])
+    var intra4 = new PreguntaD("-¿Del 1 al 4, qué tan empático te consideras?", [])
+
+    contenedor.agregarHTML(document.querySelector('.pinicio')); 
+
+    contenedor.agregar(intra.getPregunta()).setAccion(function(){
+      
+      navegacion.colocarTiempo();
+      navegacion.colocarProgreso();
+      mostrar(".zona__navegacion");
+    
+    });
+    contenedor.agregar(intra2.getPregunta()).setAccion(function(){
+    
+    });
+    var siguiente = document.querySelector('.btn_siguiente');
+
+    contenedor.agregar(intra3.getPregunta()).setAccion(function(){
+        siguiente.disabled= false;
+        navegacion.ocultarTiempo();
+        console.log("ssss");
+    });
+
+    contenedor.agregar(intra4.getPregunta()).setAccion(function(){
+      siguiente.disabled= false;
+      navegacion.ocultarTiempo();
+    });
+
+
+    contenedor.incluirEn(document.querySelector(".ppreguntas"));
+    navegacion.iniciar();
+
+    ocultar(".zona__navegacion");
+
+    function seguir() {
+      navegacion.setPermitir(true);
+      navegacion.siguiente();
+      if(navegacion.getActual() < 3 ){
+        siguiente.disabled = true;
+
+      }
+    }
+
+
+    $(".opcion_check").click(() => {
+      siguiente.disabled = false;
+    });
+
+
+  </script>
+
+
+
+
+
+
+
+</body>
+
+</html>
