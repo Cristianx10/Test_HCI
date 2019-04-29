@@ -21,17 +21,23 @@
 
       <div class="pantalla ppreguntas">
 
+        <div class="pantalla pinicio" style="background-image: url('../img/background_principal-2.png')">
+          <div class="introduccion">
+              <h1 class="titulo">Inteligencia Lógico Matemática</h1>
+              <p id="desc" class="descripcion">En esta sección de la prueba se evaluará tus conocimientos en el área Lógico Matemática</p>
+              <button class="boton" onclick="seguir()">Comenzar</button>
+          </div>
+        </div>
+
+        <div class="preguntaMatematica">
+
+          
+        </div>
+  
       </div>
-
-
-
-
-      <div class="zona__navegacion">
+      <div class="zona__navegacion" style="display:none;">
         <button class="btn_siguiente" style="text-align:center;" onclick="seguir()">Siguiente</button>
       </div>
-
-
-
 
     </div>
   </div>
@@ -74,22 +80,69 @@
     $('.cont-principal').css("background-image", "url('../img/background-claro.png')");
 
 
+    let contenedor = new Contenedor();
+    let navegacion = new Navegable(contenedor);
 
+    var matematica = new Pregunta("La Empresa Eléctrica va instalar postes equidistantes cada 5m a lo largo de un pasaje de 95m de tal forma que haya uno al inicio y otro al final. Además emplean 15 minutos para colocar cada poste. ¿Cuánto tiempo demorarán en colocar todos los postes?")
+
+    matematica.agregar("4 horas y 45 minutos", []);
+    matematica.agregar("5 horas", []);
+    matematica.agregar("3 horas", []);
+    matematica.agregar("2 horas y 30 minutos", []);
+    var cp3 = new Contenido(matematica.getElemento(), matematica);
+
+    contenedor.agregar(cp3).setAccion(function(){
+      
+      navegacion.colocarTiempo();
+      navegacion.colocarProgreso();
+      mostrar(".zona__navegacion");
+    
+    });
+
+    var matematica2 = new Pregunta("Determina el valor entero más grande posible de n para que 2^n divida a 50^8")
+
+    matematica2.agregar("2", []);
+    matematica2.agregar("6", []);
+    matematica2.agregar("8", []);
+    matematica2.agregar("10", []);
+    var cp4 = new Contenido(matematica2.getElemento(), matematica2);
+
+    contenedor.agregarHTML(document.querySelector('.pinicio')); 
+
+    contenedor.agregar(cp4).setAccion(function(){
+      
+      navegacion.colocarTiempo();
+      navegacion.colocarProgreso();
+      mostrar(".zona__navegacion");
+    
+    });
+
+    var matematica3 = new Pregunta("Si x^2 =3 a que es igual x^6?")
+
+    matematica3.agregar("2", []);
+    matematica3.agregar("6", []);
+    matematica3.agregar("8", []);
+    matematica3.agregar("10", []);
+    var cp5 = new Contenido(matematica3.getElemento(), matematica3);
+
+    contenedor.agregarHTML(document.querySelector('.pinicio')); 
+
+    contenedor.agregar(cp5).setAccion(function(){
+      
+      navegacion.colocarTiempo();
+      navegacion.colocarProgreso();
+      mostrar(".zona__navegacion");
+
+    });
 
     contenedor.incluirEn(document.querySelector(".ppreguntas"));
-    navegable.iniciar();
-
-    navegable.colocarTiempo();
-    navegable.colocarProgreso();
+    navegacion.iniciar();
 
     ocultar(".zona__navegacion");
 
     function seguir() {
-      navegable.setPermitir(true);
-      navegable.siguiente();
-      if (navegable.getActual() == 1) {
-        mostrar(".zona__navegacion");
-      }
+      navegacion.setPermitir(true);
+      navegacion.siguiente();
 
 
     }
