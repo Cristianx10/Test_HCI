@@ -1,7 +1,3 @@
-Inteligencia Visual Espacial
-
-En esta sección de la prueba evaluaremos tus conocimientos en el area Visual Espacial
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -17,47 +13,6 @@ En esta sección de la prueba evaluaremos tus conocimientos en el area Visual Es
 
   <link rel="stylesheet" href="../sass/aplicaciones/targetas.css" />
 
-  <style>
-    #pintura__casilla1 {
-      position: absolute;
-      display: block;
-      width: 114px;
-      height: 115px;
-      top: 168px;
-      left: 176px;
-    }
-
-    .ppintura .pregunta__opciones{
-      flex-direction: column;
-      width: 500px;
-      height: 500px;
-    }
-
-    .ppintura .contenido-pintura{
-      margin-top: 100px;
-      display: flex;
-      padding: 0;
-    }
-
-    .ppintura .contenido-pintura h2{
-      margin: 30px;
-      text-align: center;
-    }
-
-    .ppintura .pregunta__opciones > div{
-      flex-wrap: wrap;
-      padding: 30px;
-    }
-
-    .ppintura .pregunta__opciones > div img{
-      margin-top: 40px;
-      margin-left: 40px;
-    }
-
-  </style>
-
-
-
 </head>
 
 <body>
@@ -66,72 +21,16 @@ En esta sección de la prueba evaluaremos tus conocimientos en el area Visual Es
 
       <div class="pantalla ppreguntas">
 
-        <div class="pantalla ppintura" style="flex-direction: row">
-          <div class="contenido-pintura">
-            <div id="correcto" class="pregunta__pintura">
-              <img src="../img/arte/pinturaParcial.png" alt="">
-              <div id="pintura__casilla1"></div>
-            </div>
-  
-            <div class="pregunta__opciones">
-              <h2>Arrastra a la pintura la sección que le hace falta </h2>
-              <img class="ima__opcion" src="../img/arte/fragmentoA.png" alt="">
-              <img class="ima__opcion" src="../img/arte/fragmentoB.png" alt="">
-              <img class="ima__opcion" src="../img/arte/fragmentoC.png" alt="">
-              <img class="ima__opcion" src="../img/arte/fragmentoD.png" alt="">
-            </div>
-          </div>
-
-        </div>
-
         <div class="pantalla pinicio" style="background-image: url('../img/background_principal-2.png')">
           <div class="introduccion">
-            <h1 class="titulo">Inteligencia Lingüística</h1>
-            <p id="desc" class="descripcion">En esta sección de la prueba se evaluará tus conocimientos en el área
-              Lingüística.</p>
+            <h1 class="titulo">Inteligencia Visual Espacial</h1>
+            <p id="desc" class="descripcion">En esta sección de la prueba evaluaremos tus conocimientos en el area
+              Visual Espacial
+            </p>
             <button class="boton" onclick="seguir()">Comenzar</button>
           </div>
         </div>
 
-        <div class="pantalla prelacionar" style="text-align:center; ">
-          <div class="pregunta_titulo"
-            style="padding:0 190px;font-size: 30px; text-align: center; font-weight: bold; margin-top: 50px;">
-            Las palabras están al azar , por favor enlaza una palabra de la izquierda con otra palabra de la derecha
-            según
-            sea su antónimo.
-          </div>
-          <div id="relacionAzar"></div>
-
-        </div>
-
-        <div class="pantallaP pselecciona">
-          <p>Allí <span id="s1"></span> a lo lejos<span id="s2"></span> canta un ruiseñor <span id="s2"></span> ahí
-            cerca
-            <span id="s3"></span> ronronea un gato <span id="s4"></span> aquí mismo<span id="s5"></span> Suspira un
-            enamorado<span id="s6"></span></p>
-        </div>
-
-        <div class="pantalla pemperejado" style="background-image: url('../img/background_principal-2.png')">
-          <div class="introduccion">
-            <h1 class="titulo">Emparejados</h1>
-            <p id="desc" class="descripcion">Presiona click sobre cada una de las tarjetas para que se muestre la
-              imagen. Deberás unir las imágenes similares con el menor tiempo e intentos posibles.</p>
-            <button class="boton" onclick="seguir()">Comenzar</button>
-          </div>
-        </div>
-
-        <div class="pantalla ptableros1"></div>
-        <div class="pantalla ptableros2"></div>
-        <div class="pantalla ptableros3"></div>
-
-      </div>
-
-
-
-
-
-      <div class="zona__navegacion">
-        <button class="btn_siguiente" style="text-align:center;" onclick="seguir()">Siguiente</button>
       </div>
 
 
@@ -142,7 +41,7 @@ En esta sección de la prueba evaluaremos tus conocimientos en el area Visual Es
 
   <!--Codigo de precarga -->
   <script src="../lib/jquery.js"></script>
-  
+
   <!--
       <script src="../lib/jquery-ui.min.js"></script>
   <script src="../lib//colorMixer.js"></script>
@@ -181,6 +80,19 @@ En esta sección de la prueba evaluaremos tus conocimientos en el area Visual Es
     let navegable = new Navegable(contenedor);
 
 
+    function seguir() {
+      navegable.setPermitir(true);
+      navegable.siguiente();
+      if (navegable.getActual() == 1) {
+        mostrar(".zona__navegacion");
+      }
+
+
+    }
+
+    $(".opcion_check").click(() => {
+      siguiente.disabled = false;
+    });
 
 
   </script>
