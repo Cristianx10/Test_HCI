@@ -225,14 +225,19 @@ var Contenedor = /** @class */ (function () {
             elemeto.tiempo(tiempo);
         }
         this.elementos.push(elemeto);
+        return elemeto;
     };
     Contenedor.prototype.agregarHTML = function (elemeto, tiempo) {
         var e = new PantallaHTML(elemeto);
         if (tiempo != null) {
-            this.elementos.push(new Contenido(elemeto, e, tiempo));
+            var c = new Contenido(elemeto, e, tiempo);
+            this.elementos.push(c);
+            return c;
         }
         else {
-            this.elementos.push(new Contenido(elemeto, e));
+            var c = new Contenido(elemeto, e);
+            this.elementos.push(c);
+            return c;
         }
     };
     Contenedor.prototype.agregarHTMLAll = function (elemetos, tiempo) {

@@ -13,6 +13,9 @@ var Tablero_Crelacion = /** @class */ (function () {
         this.baseA.setOrientacion(true);
         this.baseB.setOrientacion(false);
         this.stage.update();
+        this.intentos = 0;
+        this.fallos = 0;
+        this.aciertos = 0;
         this.stage.on("stagemousemove", function () {
             if (_this.seleccion != null) {
                 _this.seleccion.linea.dibujarInicial(_this.stage.mouseX, _this.stage.mouseY);
@@ -121,6 +124,14 @@ var Tablero_Cbase = /** @class */ (function () {
             c.setTamano(width, height);
         });
     };
+    Tablero_Cbase.prototype.actualizarPuntuacion = function () {
+        var _this = this;
+        this.tablero.aciertos = 0;
+        this.categorias.forEach(function (c) {
+            _this.tablero.aciertos += c.puntos;
+        });
+        this.tablero.fallos = this.categorias.length - this.tablero.aciertos;
+    };
     Tablero_Cbase.prototype.validar = function () {
         var con = 0;
         this.categorias.forEach(function (c) {
@@ -141,6 +152,7 @@ var Tablero_Categoria = /** @class */ (function () {
         this.orientacionLeft = true;
         this.tablero = tablero;
         this.stage = tablero.stage;
+        this.puntos = 0;
         this.contenedor = new createjs.Container();
         if (style != null) {
             this.texto = new createjs.Text(texto, style);
@@ -168,16 +180,19 @@ var Tablero_Categoria = /** @class */ (function () {
             if (_this.tablero.tablero.seleccion != null) {
                 if (_this.clasificado == false && _this.contenedor.hitTest(_this.stage.mouseX - _this.contenedor.x - tablero.contenedor.x, _this.stage.mouseY - _this.contenedor.y - tablero.contenedor.y) &&
                     _this.tablero.tablero.seleccion.tablero.categorias.indexOf(_this) == -1) {
-                    var tam = _this.contenedor.getBounds();
-                    _this.clasificado = true;
+                    _this.tablero.tablero.intentos++;
                     _this.pareja = _this.tablero.tablero.seleccion;
-                    _this.tablero.tablero.seleccion.clasificado = true;
-                    _this.tablero.tablero.seleccion.linea.terminar(_this.conexion.x, _this.conexion.y);
-                    _this.tablero.tablero.seleccion.linea.draw();
+                    _this.pareja.pareja = _this;
+                    _this.clasificado = true;
+                    _this.pareja.clasificado = true;
+                    _this.pareja.linea.terminar(_this.conexion.x, _this.conexion.y);
+                    _this.pareja.linea.draw();
                     if (_this.categoria == _this.pareja.categoria) {
                         if (_this.tablero.tablero.intentoAcierto != null) {
                             _this.tablero.tablero.intentoAcierto(_this, _this.tablero.tablero.seleccion);
                         }
+                        _this.puntos = 1;
+                        _this.pareja.puntos = 1;
                         if (_this.tablero.validar() && _this.tablero.tablero.validacion != null) {
                             _this.tablero.tablero.validacion();
                         }
@@ -186,6 +201,11 @@ var Tablero_Categoria = /** @class */ (function () {
                         if (_this.tablero.tablero.intentoFallo != null) {
                             _this.tablero.tablero.intentoFallo(_this, _this.tablero.tablero.seleccion);
                         }
+                        _this.puntos = -1;
+                        _this.pareja.puntos = -1;
+                    }
+                    if (_this.tablero.validar() && _this.tablero.tablero.validacion != null) {
+                        _this.tablero.tablero.validacion();
                     }
                     _this.tablero.tablero.seleccion = undefined;
                 }
@@ -193,10 +213,12 @@ var Tablero_Categoria = /** @class */ (function () {
                     _this.tablero.tablero.seleccion.linea.limpiar();
                 }
             }
+            _this.tablero.actualizarPuntuacion();
         });
     }
     Tablero_Categoria.prototype.reset = function () {
         if (this.pareja != null) {
+            this.linea.limpiar();
             this.pareja.linea.limpiar();
             this.clasificado = false;
             this.pareja.clasificado = false;
@@ -204,7 +226,7 @@ var Tablero_Categoria = /** @class */ (function () {
     };
     Tablero_Categoria.prototype.ocultar = function () {
         if (this.pareja != null) {
-            this.stage.removeChild(this.pareja.contenedor);
+            this.tablero.contenedor.removeChild(this.pareja.contenedor);
             this.pareja.linea.limpiar();
         }
         this.tablero.contenedor.removeChild(this.contenedor);

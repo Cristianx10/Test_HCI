@@ -49,7 +49,7 @@
 
 
       <div class="zona__navegacion">
-        <button class="btn_siguiente" disabled="disabled" onclick="" style="text-align:center;">Siguiente</button>
+        <button class="btn_siguiente" style="text-align:center;" onclick="seguir()">Siguiente</button>
       </div>
     </div>
 
@@ -99,8 +99,8 @@
 
     let tablero = new Tablero_Crelacion();
     tablero.size(650, 450);
-    tablero.setStyleA(250, 440, "20px Heebo", 100, 30);
-    tablero.setStyleB(450, 440, "20px Heebo", 300, 30);
+    tablero.setStyleA(250, 440, "20px Heebo", 230, 25);
+    tablero.setStyleB(450, 440, "20px Heebo", 230, 25);
 
     tablero.distancia(300);
 
@@ -122,15 +122,15 @@
     });
 
     let tipos = [
-      { tipo: "Facilidad", categoria: "Caos" }
-      , { tipo: "Evaporar", categoria: "Construir" }
-      , { tipo: "Implícito", categoria: "Acertado" }
-      , { tipo: "Derrumbar", categoria: "Explícito" }
-      , { tipo: "Idéntico", categoria: "Dificultad" }
-      , { tipo: "Fallido", categoria: "Acceder" }
-      , { tipo: "Orden", categoria: "Ignorante" }
-      , { tipo: "Denegar", categoria: "Solidificar" }
-      , { tipo: "Sabio", categoria: "Rígido" }
+      { tipo: "1Facilidad", categoria: "1Caos" }
+      , { tipo: "2Evaporar", categoria: "2Construir" }
+      , { tipo: "3Implícito", categoria: "3Acertado" }
+      , { tipo: "4Derrumbar", categoria: "4Explícito" }
+      , { tipo: "5Idéntico", categoria: "5Dificultad" }
+      , { tipo: "6Fallido", categoria: "6Acceder" }
+      , { tipo: "7Orden", categoria: "7Ignorante" }
+      , { tipo: "8Denegar", categoria: "8Solidificar" }
+      , { tipo: "9Sabio", categoria: "9Rígido" }
       , { tipo: "Flexible", categoria: "Distinto" }
     ];
 
@@ -150,10 +150,7 @@
       let e = categorias[i];
       tablero.baseB.agregar(e, e);
     }
-    function seguir() {
-      navegable.setPermitir(true);
-      navegable.siguiente();
-    }
+    
 
     $('#relacionAzar').append(tablero.canvas);
 
@@ -167,6 +164,7 @@
       new Opcion("C) El trabajo social", []),
       new Opcion("D) La democracia", []),
     );
+
     let p3 = new Pregunta("3.  El fragmento trata principalmente de:", op3);
 
     cp3 = new Contenido(p3.getElement(), p3);
@@ -227,10 +225,23 @@
     let p5 = new PreguntaD("¿Del 1 al 5, qué que tan bien crees que te fue en esta prueba?", new OpcionD([]));
     cp5 = new Contenido(p5.getElement(), p5);
 
+    
+    let siguiente = document.querySelector('.btn_siguiente');
+
     contenedor.agregarHTML(document.querySelector(".pinicio"));
-    contenedor.agregarHTML(document.querySelector(".prelacionar"), 5);
+    contenedor.agregarHTML(document.querySelector(".prelacionar"), 120)
+    .setAccion(()=>{
+      siguiente.disabled = true;
+    });
+
+    tablero.setValidacion(()=>{
+      siguiente.disabled = false;
+    });
     contenedor.agregar(cp2);
-    contenedor.agregar(cp3);
+    contenedor.agregar(cp3)
+    .setAccion(()=>{
+      siguiente.disabled = true;
+    });
     contenedor.agregar(cp5);
     contenedor.agregarHTML(document.querySelector('.pselecciona'));
 
@@ -240,6 +251,7 @@
     navegable.colocarTiempo();
     navegable.colocarProgreso();
 
+
     ocultar(".zona__navegacion");
     function seguir() {
       navegable.setPermitir(true);
@@ -247,7 +259,16 @@
       if (navegable.getActual() > 0) {
         mostrar(".zona__navegacion");
       }
+
+     
     }
+
+   $(".opcion_check").click(()=>{
+    siguiente.disabled = false;
+   });
+    
+
+   
 
   </script>
 

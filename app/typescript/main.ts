@@ -296,14 +296,19 @@ class Contenedor implements Validable {
             elemeto.tiempo(tiempo);
         }
         this.elementos.push(elemeto)
+        return elemeto;
     }
 
     agregarHTML(elemeto: HTMLElement, tiempo?: number) {
         let e = new PantallaHTML(elemeto);
         if (tiempo != null) {
-            this.elementos.push(new Contenido(elemeto, e, tiempo));
+            let c = new Contenido(elemeto, e, tiempo);
+            this.elementos.push(c);
+            return c;
         } else {
-            this.elementos.push(new Contenido(elemeto, e));
+            let c = new Contenido(elemeto, e);
+            this.elementos.push(c);
+            return c;
         }
     }
 
