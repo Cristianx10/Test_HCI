@@ -360,9 +360,9 @@ class PreguntaD {
     validacion?: Function;
     contenido:Contenido;
 
-    constructor(pregunta: string, valor: Array<ResultadoA>) {
+    constructor(pregunta: string, valor: Array<ResultadoA>, p?:string, m?:string) {
         this.pregunta = pregunta;
-        this.opciones = new OpcionD(valor);
+        this.opciones = new OpcionD(valor, p, m);
         this.elemento = document.createElement('div');
         this.elemento.className = "pregunta";
 
@@ -415,13 +415,20 @@ class OpcionD {
     progreso: HTMLProgressElement;
     input: HTMLInputElement;
 
-    constructor(valor: Array<ResultadoA>) {
+    constructor(valor: Array<ResultadoA>, p?:string, m?:string) {
         this.opcion = document.createElement("div");
         this.opcion.className = "likert_escala";
 
         let poco = document.createElement("label");
         poco.className = "likert_label";
-        poco.innerText = "Poco";
+
+        if(p!= null){
+            poco.innerText = p;
+        }else{
+            poco.innerText = "Poco";
+        }
+
+       
 
         let linker = document.createElement("div");
         linker.className = "likert_cont";
@@ -457,6 +464,12 @@ class OpcionD {
         let mucho = document.createElement("label");
         mucho.className = "likert_label";
         mucho.innerText = "Mucho";
+
+        if(m!= null){
+            mucho.innerText = m;
+        }else{
+            mucho.innerText = "Mucho";
+        }
 
         linker.append(this.progreso, this.input, label1, label2, label3);
 

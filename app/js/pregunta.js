@@ -253,9 +253,9 @@ var OpcionC = /** @class */ (function () {
 /* Escala de linker
 */
 var PreguntaD = /** @class */ (function () {
-    function PreguntaD(pregunta, valor) {
+    function PreguntaD(pregunta, valor, p, m) {
         this.pregunta = pregunta;
-        this.opciones = new OpcionD(valor);
+        this.opciones = new OpcionD(valor, p, m);
         this.elemento = document.createElement('div');
         this.elemento.className = "pregunta";
         var div_seccionA = document.createElement('section');
@@ -289,13 +289,18 @@ var PreguntaD = /** @class */ (function () {
     return PreguntaD;
 }());
 var OpcionD = /** @class */ (function () {
-    function OpcionD(valor) {
+    function OpcionD(valor, p, m) {
         var _this = this;
         this.opcion = document.createElement("div");
         this.opcion.className = "likert_escala";
         var poco = document.createElement("label");
         poco.className = "likert_label";
-        poco.innerText = "Poco";
+        if (p != null) {
+            poco.innerText = p;
+        }
+        else {
+            poco.innerText = "Poco";
+        }
         var linker = document.createElement("div");
         linker.className = "likert_cont";
         linker.style.position = " relative";
@@ -323,6 +328,12 @@ var OpcionD = /** @class */ (function () {
         var mucho = document.createElement("label");
         mucho.className = "likert_label";
         mucho.innerText = "Mucho";
+        if (m != null) {
+            mucho.innerText = m;
+        }
+        else {
+            mucho.innerText = "Mucho";
+        }
         linker.append(this.progreso, this.input, label1, label2, label3);
         this.opcion.append(poco, linker, mucho);
         this.validado = false;
