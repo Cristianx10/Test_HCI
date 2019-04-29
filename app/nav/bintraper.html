@@ -79,24 +79,17 @@
     let contenedor = new Contenedor();
     let navegacion = new Navegable(contenedor);
 
-    var intra = new Pregunta("¿Cuántas veces he peleado físicamente con algún compañero del colegio?")
+    var preguntas = [];
+    preguntas.push(new PreguntaD("¿Del 1 al 4, qué tan amigable te consideras?", []));
+    preguntas.push(new PreguntaD("¿Del 1 al 4, qué tan empático te consideras?", []))
 
-    intra.agregar("Ninguna", []);
-    intra.agregar("Una vez", []);
-    intra.agregar("Entre 1 y 3 veces", []);
-    intra.agregar("Más de 3 veces", []);
+    contenedor.agregarHTML(document.querySelector('.pinicio'));
 
-    var intra2 = new Pregunta("¿En el último año cuántas veces has evaluado tu progreso en el hobby que más te gusta? ")
+    shuffle(preguntas);
 
-       intra2.agregar("Ninguna", []);
-    intra2.agregar("Una vez", []);
-    intra2.agregar("Entre 1 y 4 veces", []);
-    intra2.agregar("Más de 5  veces", []); 
-
-    var intra3 = new PreguntaD("¿Del 1 al 4, qué tan amigable te consideras?", [])
-    var intra4 = new PreguntaD("-¿Del 1 al 4, qué tan empático te consideras?", [])
-
-    contenedor.agregarHTML(document.querySelector('.pinicio')); 
+    preguntas.forEach(p => {
+        contenedor.agregar(p.getPregunta());
+    });
 
     contenedor.agregar(intra.getPregunta()).setAccion(function(){
       
