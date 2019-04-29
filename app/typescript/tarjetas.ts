@@ -180,10 +180,10 @@
     intentoAcierto?:Function;
     intentoFallo?:Function;
 
-    constructor(fichas:Array<Pareja>, posiciones:Array<number>){
-      this.fichas = fichas;
+    constructor(){
+      this.fichas = new Array();
       this.tarjetas= new Array();
-      this.posiciones = posiciones;
+      this.posiciones = new Array();
       //console.log(this.posiciones);
       
       this.tablero = document.createElement("div");
@@ -192,9 +192,25 @@
       this.tab_global = document.createElement("div");
       this.tab_global.className = "tablerog";
       this.tab_global.appendChild(this.tablero);
+    }
 
-      for (let i = 0; i < fichas.length; i++) {
-        let par = fichas[i];
+    agregar(url:string, orden:number, url2:string, orden2:number){
+      let a = document.createElement("div");
+      a.innerHTML = `<div style="background-image:url('${url}'); width:100%; height:100%;background-size: contain;background-repeat: no-repeat;"></div>`;
+      this.posiciones.push(orden);
+
+      let b = document.createElement("div");
+      b.innerHTML = `<div style="background-image:url('${url2}'); width:100%; height:100%;background-size: contain;background-repeat: no-repeat;"></div>`;
+      this.posiciones.push(orden2);
+
+
+      let par = new Pareja(a, b);
+      this.fichas.push(par);
+    }
+
+    iniciar(){
+      for (let i = 0; i < this.fichas.length; i++) {
+        let par = this.fichas[i];
         par.tablero = this;
         this.tarjetas.push(par.getElementoA());
         this.tarjetas.push(par.getElementoB());
@@ -202,13 +218,15 @@
 
       //shuffle(this.tarjetas);
       
-
       for (let i = 0; i < this.tarjetas.length; i++) {
         this.tarjetas[this.posiciones[i]].draggable = false;
- 
         this.tablero.appendChild(this.tarjetas[this.posiciones[i]]);
       }
+    }
 
+    incluirEn(ubicacion:string){
+      let u:HTMLElement = <HTMLElement>document.querySelector(ubicacion);
+      u.append(this.tab_global);
     }
 
     verificar(){

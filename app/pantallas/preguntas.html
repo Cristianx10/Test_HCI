@@ -27,14 +27,12 @@
     loadJson("../data/preguntas.1.json", (r) => {
 
         r.preguntas.forEach(p => {
-            let opciones = [];
+          
 
+            let obj_pregunta = new Pregunta(p.pregunta);
             p.opciones.forEach(o => {
-                let opcion = new Opcion(o.opcion, o.valor.categorias);
-                opciones.push(opcion);
+                obj_pregunta.agregar(o.opcion, o.valor.categorias);
             });
-
-            let obj_pregunta = new Pregunta(p.pregunta, opciones);
 
             let con = new Contenido(obj_pregunta.getElement(), obj_pregunta, 45);
             preguntas_total.agregar(con);

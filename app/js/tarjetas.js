@@ -136,18 +136,30 @@ var Pareja = /** @class */ (function () {
     return Pareja;
 }());
 var tablero_tarjetas = /** @class */ (function () {
-    function tablero_tarjetas(fichas, posiciones) {
-        this.fichas = fichas;
+    function tablero_tarjetas() {
+        this.fichas = new Array();
         this.tarjetas = new Array();
-        this.posiciones = posiciones;
+        this.posiciones = new Array();
         //console.log(this.posiciones);
         this.tablero = document.createElement("div");
         this.tablero.className = "tablero";
         this.tab_global = document.createElement("div");
         this.tab_global.className = "tablerog";
         this.tab_global.appendChild(this.tablero);
-        for (var i = 0; i < fichas.length; i++) {
-            var par = fichas[i];
+    }
+    tablero_tarjetas.prototype.agregar = function (url, orden, url2, orden2) {
+        var a = document.createElement("div");
+        a.innerHTML = "<div style=\"background-image:url('" + url + "'); width:100%; height:100%;background-size: contain;background-repeat: no-repeat;\"></div>";
+        this.posiciones.push(orden);
+        var b = document.createElement("div");
+        b.innerHTML = "<div style=\"background-image:url('" + url2 + "'); width:100%; height:100%;background-size: contain;background-repeat: no-repeat;\"></div>";
+        this.posiciones.push(orden2);
+        var par = new Pareja(a, b);
+        this.fichas.push(par);
+    };
+    tablero_tarjetas.prototype.iniciar = function () {
+        for (var i = 0; i < this.fichas.length; i++) {
+            var par = this.fichas[i];
             par.tablero = this;
             this.tarjetas.push(par.getElementoA());
             this.tarjetas.push(par.getElementoB());
@@ -157,7 +169,11 @@ var tablero_tarjetas = /** @class */ (function () {
             this.tarjetas[this.posiciones[i]].draggable = false;
             this.tablero.appendChild(this.tarjetas[this.posiciones[i]]);
         }
-    }
+    };
+    tablero_tarjetas.prototype.incluirEn = function (ubicacion) {
+        var u = document.querySelector(ubicacion);
+        u.append(this.tab_global);
+    };
     tablero_tarjetas.prototype.verificar = function () {
         var cont = 0;
         for (var i = 0; i < this.fichas.length; i++) {

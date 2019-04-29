@@ -311,11 +311,12 @@ class Tablero_Categoria {
     ocultar() {
 
         if (this.pareja != null) {
-
             this.tablero.contenedor.removeChild(this.pareja.contenedor);
-
             this.pareja.linea.limpiar()
+            this.pareja.clasificado = true;
         }
+        this.clasificado = true;
+      
 
         this.tablero.contenedor.removeChild(this.contenedor);
         this.tablero.contenedor.removeChild(this.linea.linea);

@@ -11,8 +11,9 @@
   <link href="../sass/tipographys/tipografias.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
 
+  <link rel="stylesheet" href="../sass/aplicaciones/targetas.css" />
 
-  <link rel="stylesheet" href="../../sass/general/datosUsuario.css" type="text/css">
+
 </head>
 
 <body>
@@ -29,32 +30,50 @@
             <button class="boton" onclick="seguir()">Comenzar</button>
           </div>
         </div>
-  
+
         <div class="pantalla prelacionar" style="text-align:center; ">
           <div class="pregunta_titulo"
             style="padding:0 190px;font-size: 30px; text-align: center; font-weight: bold; margin-top: 50px;">
-            Las palabras están al azar , por favor enlaza una palabra de la izquierda con otra palabra de la derecha según
+            Las palabras están al azar , por favor enlaza una palabra de la izquierda con otra palabra de la derecha
+            según
             sea su antónimo.
           </div>
           <div id="relacionAzar"></div>
-  
+
         </div>
-  
+
         <div class="pantallaP pselecciona">
-          <p>Allí <span id="s1"></span> a lo lejos<span id="s2"></span> canta un ruiseñor <span id="s2"></span> ahí cerca
+          <p>Allí <span id="s1"></span> a lo lejos<span id="s2"></span> canta un ruiseñor <span id="s2"></span> ahí
+            cerca
             <span id="s3"></span> ronronea un gato <span id="s4"></span> aquí mismo<span id="s5"></span> Suspira un
             enamorado<span id="s6"></span></p>
         </div>
+
+        <div class="pantalla pemperejado" style="background-image: url('../img/background_principal-2.png')">
+          <div class="introduccion">
+            <h1 class="titulo">Emparejados</h1>
+            <p id="desc" class="descripcion">Presiona click sobre cada una de las tarjetas para que se muestre la imagen. Deberás unir las imágenes similares con el menor tiempo e intentos posibles.</p>
+            <button class="boton" onclick="seguir()">Comenzar</button>
+          </div>
+        </div>
+
+        <div class="pantalla ptableros1"></div>
+        <div class="pantalla ptableros2"></div>
+        <div class="pantalla ptableros3"></div>
       </div>
+     
 
 
-      <div class="zona__navegacion">
-        <button class="btn_siguiente" style="text-align:center;" onclick="seguir()">Siguiente</button>
-      </div>
+
+
+    <div class="zona__navegacion">
+      <button class="btn_siguiente" style="text-align:center;" onclick="seguir()">Siguiente</button>
     </div>
 
 
 
+
+  </div>
   </div>
 
   <!--Codigo de precarga -->
@@ -77,6 +96,7 @@
   <script src="../js/resultados.js"></script>
   <script src="../js/main.js"></script>
   <script src="../js/pregunta.js"></script>
+  <script src="../js/tarjetas.js"></script>
 
   <script type="text/javascript">
 
@@ -150,24 +170,21 @@
       let e = categorias[i];
       tablero.baseB.agregar(e, e);
     }
-    
+
 
     $('#relacionAzar').append(tablero.canvas);
 
     let p2 = new PreguntaC("Lee el siguiente fragmento:2. En el fragmento hay unos cuantos errores de ortografía, dale click en el error para seleccionarlos. Cuando sientas que no hay más errores, haz click sobre el botón siguiente.", new OpcionC(`El hombre no se convierte en hombre más que en una sociedad y solamente por la acción colectiva de la sociedad entera; no se emansipa del llugo de la naturalesa exterior más que por el trabajo colectivo o social y sin esa emancipación material no puede haber emancipación intelectual y moral para nadie. El hombre aislado no puede tener conciencia de su libertad. Ser libre para el hombre sólo es posible por otro hombre, por todos los hombres que le rodean. La libertad no es, pues, un echo de aislamiento, sino de reflección mutua; no de exclución, sino, al contrario, de aliansa, pues la libertad de todo individuo no es otra cosa que el reflejo de su humanidad o de su derecho humano en la consciencia de todos los hombres libres: sus hermanos, sus iguales. No soy verdaderamente libre más que cuando todos los seres humanos que me rodean, hombres y mujeres, son igualmente libres. La libertad de otro, lejos de ser un límite o la negasión de mi libertad, es, al contrario, su condición necesaria y su confirmación. No me ago verdaderamente libre más que por la libertad de los otros... BAKUNIN, M. La Libertad.`));
     let cp2 = new Contenido(p2.getElement(), p2);
 
-    let op3 = [];
-    op3.push(
-      new Opcion("A) El riesgo de la dependencia", []),
-      new Opcion("B) La libertad a través de la conciencia social", []),
-      new Opcion("C) El trabajo social", []),
-      new Opcion("D) La democracia", []),
-    );
+    let p3 = new Pregunta("3. El fragmento trata principalmente de:");
+    p3.agregar("A) El riesgo de la dependencia", []);
+    p3.agregar("B) La libertad a través de la conciencia social", []);
+    p3.agregar("C) El trabajo social", []);
+    p3.agregar("D) La democracia", []);
 
-    let p3 = new Pregunta("3.  El fragmento trata principalmente de:", op3);
 
-    cp3 = new Contenido(p3.getElement(), p3);
+    cp3 = new Contenido(p3.getElemento(), p3);
 
     let p4 = [];
     p4.push(new PreguntaS());
@@ -225,25 +242,96 @@
     let p5 = new PreguntaD("¿Del 1 al 5, qué que tan bien crees que te fue en esta prueba?", new OpcionD([]));
     cp5 = new Contenido(p5.getElement(), p5);
 
-    
+
+    let tableros = [];
+    tableros.push(new tablero_tarjetas());
+
+    tableros[0].agregar("../img/emparejados/card-1.png", 0, "../img/emparejados/card-1.png", 1);
+    tableros[0].agregar("../img/emparejados/card-2.png", 2, "../img/emparejados/card-2.png", 3);
+    tableros[0].agregar("../img/emparejados/card-3.png", 4, "../img/emparejados/card-3.png", 5);
+    tableros[0].agregar("../img/emparejados/card-4.png", 6, "../img/emparejados/card-4.png", 7);
+    tableros[0].agregar("../img/emparejados/card-5.png", 8, "../img/emparejados/card-5.png", 9);
+    tableros[0].agregar("../img/emparejados/card-6.png", 10, "../img/emparejados/card-6.png", 11);
+    tableros[0].agregar("../img/emparejados/card-7.png", 12, "../img/emparejados/card-7.png", 13);
+    tableros[0].agregar("../img/emparejados/card-8.png", 14, "../img/emparejados/card-8.png", 15);
+    tableros[0].agregar("../img/emparejados/card-9.png", 16, "../img/emparejados/card-9.png", 17);
+    tableros[0].agregar("../img/emparejados/card-10.png", 18, "../img/emparejados/card-10.png", 19);
+
+    tableros[0].incluirEn(".ptableros1");
+    tableros[0].iniciar();
+
+
+    tableros.push(new tablero_tarjetas());
+
+    tableros[1].agregar("../img/emparejados/card-1.png", 0, "../img/emparejados/card-1.png", 1);
+    tableros[1].agregar("../img/emparejados/card-2.png", 2, "../img/emparejados/card-2.png", 3);
+    tableros[1].agregar("../img/emparejados/card-3.png", 4, "../img/emparejados/card-3.png", 5);
+    tableros[1].agregar("../img/emparejados/card-4.png", 6, "../img/emparejados/card-4.png", 7);
+    tableros[1].agregar("../img/emparejados/card-5.png", 8, "../img/emparejados/card-5.png", 9);
+    tableros[1].agregar("../img/emparejados/card-6.png", 10, "../img/emparejados/card-6.png", 11);
+    tableros[1].agregar("../img/emparejados/card-7.png", 12, "../img/emparejados/card-7.png", 13);
+    tableros[1].agregar("../img/emparejados/card-8.png", 14, "../img/emparejados/card-8.png", 15);
+    tableros[1].agregar("../img/emparejados/card-9.png", 16, "../img/emparejados/card-9.png", 17);
+    tableros[1].agregar("../img/emparejados/card-10.png", 18, "../img/emparejados/card-10.png", 19);
+
+    tableros[1].incluirEn(".ptableros2");
+    tableros[1].iniciar();
+
+    tableros.push(new tablero_tarjetas());
+
+    tableros[2].agregar("../img/emparejados/card-1.png", 0, "../img/emparejados/card-1.png", 1);
+    tableros[2].agregar("../img/emparejados/card-2.png", 2, "../img/emparejados/card-2.png", 3);
+    tableros[2].agregar("../img/emparejados/card-3.png", 4, "../img/emparejados/card-3.png", 5);
+    tableros[2].agregar("../img/emparejados/card-4.png", 6, "../img/emparejados/card-4.png", 7);
+    tableros[2].agregar("../img/emparejados/card-5.png", 8, "../img/emparejados/card-5.png", 9);
+    tableros[2].agregar("../img/emparejados/card-6.png", 10, "../img/emparejados/card-6.png", 11);
+    tableros[2].agregar("../img/emparejados/card-7.png", 12, "../img/emparejados/card-7.png", 13);
+    tableros[2].agregar("../img/emparejados/card-8.png", 14, "../img/emparejados/card-8.png", 15);
+    tableros[2].agregar("../img/emparejados/card-9.png", 16, "../img/emparejados/card-9.png", 17);
+    tableros[2].agregar("../img/emparejados/card-10.png", 18, "../img/emparejados/card-10.png", 19);
+
+    tableros[2].incluirEn(".ptableros3");
+    tableros[2].iniciar();
+
+
+    tableros.forEach(t => {
+      t.setValidacion(()=>{
+      seguir();
+    });
+    });
+
+
+    //Navegacion--------------------------------------------
+
     let siguiente = document.querySelector('.btn_siguiente');
 
     contenedor.agregarHTML(document.querySelector(".pinicio"));
     contenedor.agregarHTML(document.querySelector(".prelacionar"), 120)
-    .setAccion(()=>{
-      siguiente.disabled = true;
-    });
+      .setAccion(() => {
+        siguiente.disabled = true;
+      });
 
-    tablero.setValidacion(()=>{
+    tablero.setValidacion(() => {
       siguiente.disabled = false;
     });
     contenedor.agregar(cp2);
     contenedor.agregar(cp3)
-    .setAccion(()=>{
-      siguiente.disabled = true;
-    });
+      .setAccion(() => {
+        siguiente.disabled = true;
+      });
     contenedor.agregar(cp5);
     contenedor.agregarHTML(document.querySelector('.pselecciona'));
+    contenedor.agregarHTML(document.querySelector('.pemperejado'))
+    .setAccion(() => {
+        ocultar(".zona__navegacion");
+      });;
+    
+    contenedor.agregar(new Contenido(document.querySelector('.ptableros1'), tableros[0]))
+      
+
+    contenedor.agregar(new Contenido(document.querySelector('.ptableros2'), tableros[1]));
+    contenedor.agregar(new Contenido(document.querySelector('.ptableros3'), tableros[2]));
+   
 
     contenedor.incluirEn(document.querySelector(".ppreguntas"));
     navegable.iniciar();
@@ -251,26 +339,25 @@
     navegable.colocarTiempo();
     navegable.colocarProgreso();
 
-
     ocultar(".zona__navegacion");
+
     function seguir() {
       navegable.setPermitir(true);
       navegable.siguiente();
-      if (navegable.getActual() > 0) {
+      if (navegable.getActual() == 1) {
         mostrar(".zona__navegacion");
       }
 
-     
+
     }
 
-   $(".opcion_check").click(()=>{
-    siguiente.disabled = false;
-   });
-    
+    $(".opcion_check").click(() => {
+      siguiente.disabled = false;
+    });
 
-   
 
   </script>
+
 
 
 

@@ -10,67 +10,123 @@
 
 <script>
 
-  loadJson("./data/tarjetas.json", (r) => {
+  let con_tarjetas = new Contenedor();
+  let tab = new tablero_tarjetas();
 
-    let con_tarjetas = new Contenedor();
-    for (let i = 0; i < r.secciones.length; i++) {
-      let sec = r.secciones[i];
-      let fichas = [];
+  tab.agregar("../img/emparejados/card-1.png", 0, "../img/emparejados/card-1.png", 1);
+  tab.agregar("../img/emparejados/card-2.png", 2, "../img/emparejados/card-2.png", 3);
+  tab.agregar("../img/emparejados/card-3.png", 4, "../img/emparejados/card-3.png", 5);
+  tab.agregar("../img/emparejados/card-4.png", 6, "../img/emparejados/card-4.png", 7);
+  tab.agregar("../img/emparejados/card-5.png", 8, "../img/emparejados/card-5.png", 9);
+  tab.agregar("../img/emparejados/card-6.png", 10, "../img/emparejados/card-6.png", 11);
+  tab.agregar("../img/emparejados/card-7.png", 12, "../img/emparejados/card-7.png", 13);
+  tab.agregar("../img/emparejados/card-8.png", 14, "../img/emparejados/card-8.png", 15);
+  tab.agregar("../img/emparejados/card-9.png", 16, "../img/emparejados/card-9.png", 17);
+  tab.agregar("../img/emparejados/card-10.png", 18, "../img/emparejados/card-10.png", 19);
 
-      for (let j = 0; j < sec.recursos.length; j++) {
-        let recur = sec.recursos[j];
-        let a = document.createElement("div");
-        a.innerHTML = `<div style="background-image:url('${recur}'); width:100%; height:100%;background-size: contain;
-    background-repeat: no-repeat;
-"></div>`;
+  tab.incluirEn(".tableros");
+  tab.iniciar();
 
-        fichas.push(a);
-      }
+  con_tarjetas.agregar(new Contenido(tab.tab_global, tab));
 
-      let parejas = [];
-      for (let i = 0; i < fichas.length; i++) {
-        let a = fichas[i];
-        i++;
-        let b = fichas[i];
-        let par = new Pareja(a, b);
-        parejas.push(par);
 
-      }
 
-      let tab = new tablero_tarjetas(parejas, sec.posiciones);
-      con_tarjetas.agregar(new Contenido(tab.tab_global, tab));
 
-      $(".tableros").append(tab.tab_global);
+  nav = new Navegable(con_tarjetas);
+  nav.iniciar();
+  nav.setPermitirAll(true)
 
-    }
+  nav.colocarAvance();
+  nav.colocarTiempo();
+  nav.colocarProgreso();
 
-    nav = new Navegable(con_tarjetas);
-    nav.iniciar();
-    nav.setPermitirAll(true)
+  nav.asignarCondiciones((o) => {
 
-    nav.colocarAvance();
-    nav.colocarTiempo();
-    nav.colocarProgreso();
+    o.setValidacion(() => {
+      console.log('ganador');
 
-    nav.asignarCondiciones((o) => {
-      o.setValidacion(() => {
-        console.log('ganador');
-
-        nav.siguiente(() => { }, () => {
-          $(".principal").load("./pantallas/modulos/pizarra.html");
-        });
-
+      nav.siguiente(() => { }, () => {
+        $(".principal").load("./pantallas/modulos/pizarra.html");
       });
 
-      o.setIntentoAcierto(() => {
-        console.log("Valido");
-      });
-
-      o.setIntentoFallo(() => {
-        console.log("Fallo");
-      });
     });
 
+    o.setIntentoAcierto(() => {
+      console.log("Valido");
+    });
+
+    o.setIntentoFallo(() => {
+      console.log("Fallo");
+    });
   });
+
+
+
+
+  /*
+    loadJson("./data/tarjetas.json", (r) => {
+
+      let con_tarjetas = new Contenedor();
+
+      for (let i = 0; i < r.secciones.length; i++) {
+        let sec = r.secciones[i];
+        let fichas = [];
+
+        for (let j = 0; j < sec.recursos.length; j++) {
+          let recur = sec.recursos[j];
+          let a = document.createElement("div");
+          a.innerHTML = `<div style="background-image:url('${recur}'); width:100%; height:100%;background-size: contain;
+      background-repeat: no-repeat;
+  "></div>`;
+
+          fichas.push(a);
+        }
+
+        let parejas = [];
+        for (let i = 0; i < fichas.length; i++) {
+          let a = fichas[i];
+          i++;
+          let b = fichas[i];
+          let par = new Pareja(a, b);
+          parejas.push(par);
+        }
+
+        let tab = new tablero_tarjetas(parejas, sec.posiciones);
+        con_tarjetas.agregar(new Contenido(tab.tab_global, tab));
+
+        $(".tableros").append(tab.tab_global);
+
+      }
+
+      nav = new Navegable(con_tarjetas);
+      nav.iniciar();
+      nav.setPermitirAll(true)
+
+      nav.colocarAvance();
+      nav.colocarTiempo();
+      nav.colocarProgreso();
+
+      nav.asignarCondiciones((o) => {
+        o.setValidacion(() => {
+          console.log('ganador');
+
+          nav.siguiente(() => { }, () => {
+            $(".principal").load("./pantallas/modulos/pizarra.html");
+          });
+
+        });
+
+        o.setIntentoAcierto(() => {
+          console.log("Valido");
+        });
+
+        o.setIntentoFallo(() => {
+          console.log("Fallo");
+        });
+      });
+
+    });
+
+    */
 
 </script>

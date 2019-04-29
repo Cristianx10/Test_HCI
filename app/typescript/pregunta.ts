@@ -35,7 +35,7 @@ class Opcion {
         });
     }
 
-    getElement() {
+    getElemento() {
         return this.opcion;
     }
 }
@@ -45,18 +45,19 @@ class Pregunta {
     elemento: HTMLElement;
     pregunta: string;
     opciones: Array<Opcion>;
+    formulario:HTMLElement;
 
-    constructor(pregunta: string, opciones: Array<Opcion>) {
+    constructor(pregunta: string) {
         this.pregunta = pregunta;
-        this.opciones = opciones;
+        this.opciones = new Array();
         this.elemento = document.createElement('div');
         this.elemento.className = "pregunta";
 
         let div_seccionA = document.createElement('section');
         let div_seccionA_h1 = document.createElement('h2');
         let div_seccionB = document.createElement('section');
-        let formulario = document.createElement('form');
-        formulario.className = "formulario_opciones";
+        this.formulario = document.createElement('form');
+        this.formulario.className = "formulario_opciones";
 
         div_seccionA.className = "pregunta__titulo";
         div_seccionB.className = "pregunta__opciones";
@@ -69,13 +70,19 @@ class Pregunta {
         div_seccionA.appendChild(div_seccionA_h1);
         div_seccionA.appendChild(document.createElement('hr'));
 
-
+/*
         opciones.forEach(element => {
 
-            formulario.appendChild(element.getElement());
-        });
+            this.formulario.appendChild(element.getElemento());
+        });*/
 
-        div_seccionB.appendChild(formulario);
+        div_seccionB.appendChild(this.formulario);
+    }
+
+    agregar(info: string, valor: Array<ResultadoA>){
+        let opcion = new Opcion(info, valor);
+        this.opciones.push(opcion);
+        this.formulario.append(opcion.getElemento());
     }
 
     validar() {
@@ -91,7 +98,7 @@ class Pregunta {
     }
 
 
-    getElement() {
+    getElemento() {
         return this.elemento;
     }
 }
@@ -588,18 +595,18 @@ class PreguntaS{
         this.bloque.append(this.lista);
 
         this.bloque.addEventListener("click", ()=>{
-            console.log(this.lista.style.display );
+            
             if(this.lista.style.display == ""){
                 this.lista.style.display = "flex";
-                console.log("puso vacio")
+              
             }
             
             else if(this.lista.style.display == "flex"){
                 this.lista.style.display = "none";
-                console.log("puso none")
+                
             }else{
                 this.lista.style.display = "flex";
-                console.log("puso flex")
+              
             }
             
         });

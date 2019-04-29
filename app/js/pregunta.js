@@ -20,22 +20,22 @@ var Opcion = /** @class */ (function () {
             resultados.sumar(v.area, v.valor);
         });
     };
-    Opcion.prototype.getElement = function () {
+    Opcion.prototype.getElemento = function () {
         return this.opcion;
     };
     return Opcion;
 }());
 var Pregunta = /** @class */ (function () {
-    function Pregunta(pregunta, opciones) {
+    function Pregunta(pregunta) {
         this.pregunta = pregunta;
-        this.opciones = opciones;
+        this.opciones = new Array();
         this.elemento = document.createElement('div');
         this.elemento.className = "pregunta";
         var div_seccionA = document.createElement('section');
         var div_seccionA_h1 = document.createElement('h2');
         var div_seccionB = document.createElement('section');
-        var formulario = document.createElement('form');
-        formulario.className = "formulario_opciones";
+        this.formulario = document.createElement('form');
+        this.formulario.className = "formulario_opciones";
         div_seccionA.className = "pregunta__titulo";
         div_seccionB.className = "pregunta__opciones";
         div_seccionA_h1.innerHTML = this.pregunta;
@@ -43,11 +43,18 @@ var Pregunta = /** @class */ (function () {
         this.elemento.appendChild(div_seccionB);
         div_seccionA.appendChild(div_seccionA_h1);
         div_seccionA.appendChild(document.createElement('hr'));
-        opciones.forEach(function (element) {
-            formulario.appendChild(element.getElement());
-        });
-        div_seccionB.appendChild(formulario);
+        /*
+                opciones.forEach(element => {
+        
+                    this.formulario.appendChild(element.getElemento());
+                });*/
+        div_seccionB.appendChild(this.formulario);
     }
+    Pregunta.prototype.agregar = function (info, valor) {
+        var opcion = new Opcion(info, valor);
+        this.opciones.push(opcion);
+        this.formulario.append(opcion.getElemento());
+    };
     Pregunta.prototype.validar = function () {
         var _this = this;
         this.opciones.forEach(function (opcion) {
@@ -58,7 +65,7 @@ var Pregunta = /** @class */ (function () {
             }
         });
     };
-    Pregunta.prototype.getElement = function () {
+    Pregunta.prototype.getElemento = function () {
         return this.elemento;
     };
     return Pregunta;
@@ -404,18 +411,14 @@ var PreguntaS = /** @class */ (function () {
         this.lista.className = "elegir__lista";
         this.bloque.append(this.lista);
         this.bloque.addEventListener("click", function () {
-            console.log(_this.lista.style.display);
             if (_this.lista.style.display == "") {
                 _this.lista.style.display = "flex";
-                console.log("puso vacio");
             }
             else if (_this.lista.style.display == "flex") {
                 _this.lista.style.display = "none";
-                console.log("puso none");
             }
             else {
                 _this.lista.style.display = "flex";
-                console.log("puso flex");
             }
         });
     }
