@@ -40,7 +40,7 @@ select)
 	git checkout $nuevarama
 
 	;;
-subir)
+push)
 	git push -u origin master
 
 	;;
@@ -74,7 +74,7 @@ autor)
 	git config --global user.email $correo	
 
 	;;
-refrescar)
+pull)
 	git pull
 
 	;;
