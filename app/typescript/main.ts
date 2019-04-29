@@ -333,13 +333,15 @@ class Contenedor implements Validable {
 
     foreachElementos(elemento: HTMLElement) {
         this.elementos.forEach(e => {
-            elemento.appendChild(e.elementoHTML);
+
+            elemento.append(e.elementoHTML);
         });
     }
 
     incluirEn(elemento: HTMLElement) {
         this.elementos.forEach(e => {
-            elemento.appendChild(e.elementoHTML);
+            
+            elemento.append(e.elementoHTML);
         });
     }
 
