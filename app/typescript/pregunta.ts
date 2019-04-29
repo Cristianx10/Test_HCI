@@ -358,10 +358,11 @@ class PreguntaD {
     pregunta: string;
     opciones: OpcionD;
     validacion?: Function;
+    contenido:Contenido;
 
-    constructor(pregunta: string, opciones: OpcionD) {
+    constructor(pregunta: string, valor: Array<ResultadoA>) {
         this.pregunta = pregunta;
-        this.opciones = opciones;
+        this.opciones = new OpcionD(valor);
         this.elemento = document.createElement('div');
         this.elemento.className = "pregunta";
 
@@ -383,6 +384,7 @@ class PreguntaD {
         div_seccionA.appendChild(document.createElement('hr'));
 
         div_seccionB.appendChild(this.opciones.opcion);
+        this.contenido = new Contenido(this.getElemento(), this);
     }
 
     validar() {
@@ -392,7 +394,11 @@ class PreguntaD {
             { id: "respuesta", valor: this.opciones.input.value }]);
     }
 
-    getElement() {
+    getPregunta(){
+        return this.contenido;
+    }
+
+    getElemento() {
         return this.elemento;
     }
 

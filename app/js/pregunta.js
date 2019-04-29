@@ -253,9 +253,9 @@ var OpcionC = /** @class */ (function () {
 /* Escala de linker
 */
 var PreguntaD = /** @class */ (function () {
-    function PreguntaD(pregunta, opciones) {
+    function PreguntaD(pregunta, valor) {
         this.pregunta = pregunta;
-        this.opciones = opciones;
+        this.opciones = new OpcionD(valor);
         this.elemento = document.createElement('div');
         this.elemento.className = "pregunta";
         var div_seccionA = document.createElement('section');
@@ -270,13 +270,17 @@ var PreguntaD = /** @class */ (function () {
         div_seccionA.appendChild(div_seccionA_h1);
         div_seccionA.appendChild(document.createElement('hr'));
         div_seccionB.appendChild(this.opciones.opcion);
+        this.contenido = new Contenido(this.getElemento(), this);
     }
     PreguntaD.prototype.validar = function () {
         this.opciones.validacion();
         resultados.agregar("pregunta", [{ id: "pregunta", valor: this.pregunta },
             { id: "respuesta", valor: this.opciones.input.value }]);
     };
-    PreguntaD.prototype.getElement = function () {
+    PreguntaD.prototype.getPregunta = function () {
+        return this.contenido;
+    };
+    PreguntaD.prototype.getElemento = function () {
         return this.elemento;
     };
     PreguntaD.prototype.setValidacion = function (validacion) {
