@@ -2,46 +2,164 @@
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Test Interactivo</title>
-  <link rel="shortcut icon" href="../includes/img/favicon.png" type="image/x-icon" />
-  <link rel="stylesheet" href="../sass/general/main.css" />
-  <link href="../sass/tipographys/tipografias.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Test Interactivo</title>
+    <link rel="shortcut icon" href="../includes/img/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../sass/general/main.css" />
+    <link href="../sass/tipographys/tipografias.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
 
-  <link rel="stylesheet" href="../sass/aplicaciones/targetas.css" />
+    <link rel="stylesheet" href="../sass/aplicaciones/targetas.css" />
 
 </head>
 
 <body>
-  <div class="cont-principal" style="background-image: url('../img/deporte/fondo.png')">
-    <div class="principal" onselectstart="return false">
+    <div class="cont-principal" style="background-image: url('../img/deporte/fondo.png')">
+        <div class="principal" onselectstart="return false">
 
-      <div class="pantalla ppreguntas">
+            <div class="pantalla ppreguntas">
 
-        <div class="pantalla pinicio" style="background-image: url('../img/background_principal-2.png')">
-          <div class="introduccion">
-              <h1 class="titulo">Inteligencia Intrapersonal</h1>
-              <p id="desc" class="descripcion">En esta sección de la prueba evaluaremos tus conocimientos en el area Intrapersonal</p>
-              <button class="boton" onclick="seguir()">Comenzar</button>
-          </div>
+                <div class="pantalla pinicio" style="background-image: url('../img/background_principal-2.png')">
+                    <div class="introduccion">
+                        <h1 class="titulo">Inteligencia Intrapersonal</h1>
+                        <p id="desc" class="descripcion">En esta sección de la prueba evaluaremos tus conocimientos en
+                            el area Intrapersonal</p>
+                        <button class="boton" onclick="seguir()">Comenzar</button>
+                    </div>
+                </div>
+
+                <div class="pantalla pintroequilibrio" style="background-image: url('../img/background_principal-2.png')">
+                    <div class="introduccion">
+                        <h1 class="titulo">Equilibrio</h1>
+                        <p id="desc" class="descripcion">Permanece en equilibrio estando parado en la plataforma en un
+                            solo pie, durante un minuto. Tienes 6 intentos para lograrlo, por cada vez que toques el
+                            suelo pierdes un intento y se reinicia el tiempo.</p>
+                        <button class="boton" onclick="seguir()">Comenzar</button>
+                    </div>
+                </div>
+
+                <div class="pantalla pequilibrio">
+
+                    <style>
+                        .contenedor {
+        width: 1280px;
+        height: 720px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .contenido {
+        width: 937px;
+        height: 499px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 80px;
+        margin-bottom: 30px;
+    }
+
+    p {
+        font-family: 'Heebo', sans-serif;
+        font-weight: bold;
+    }
+
+    #time {
+        font-size: 36px;
+        color: rgba(0, 222, 211);
+        margin-top: 50px;
+        margin-bottom: 5px;
+    }
+
+    #tiempo {
+        margin: 0;
+        line-height: 1;
+        height: 115px;
+        font-size: 140px;
+        color: rgba(0, 222, 211);
+    }
+
+    #titulo1 {
+        margin-top: 75px;
+        margin-bottom: 20px;
+        font-size: 36px;
+        color: rgba(230, 73, 115, 1);
+    }
+
+    #intentos {
+        margin: 0;
+        margin-bottom: 50px;
+        font-size: 64px;
+        line-height: 1;
+        color: rgba(230, 73, 115, 1);
+    }
+    .boton_next:disabled{
+            width: 170.38px;
+            height: 52px;
+            border: solid rgba(230, 73, 115, 1);
+            border-radius: 10px;
+            border-width: 2px;
+            font-family: 'Heebo', sans-serif;
+            font-size: 20px;
+            text-decoration: none;
+            line-height: 2.5;
+            text-align: center;
+            background-color: rgba(230, 73, 115, 0);
+            color: rgba(230, 73, 115, 1);
+        }
+
+        .boton_next:enabled {
+            width: 170.38px;
+            height: 52px;
+            border: solid rgba(230, 73, 115, 1);
+            border-radius: 10px;
+            border-width: 2px;
+            font-family: 'Heebo', sans-serif;
+            font-size: 20px;
+            text-decoration: none;
+            line-height: 2.5;
+            text-align: center;
+            background-color: rgba(230, 73, 115, 1);
+            color: white;  
+            }
+
+        .boton_next:enabled:hover {
+            border: solid rgb(209, 54, 95);
+            background-color:  rgb(209, 54, 95);
+        }
+
+                    </style>
+
+                    <div class="contenedor">
+                        <div class="contenido">
+                            <p id="time">Tiempo:</p>
+                            <p id="tiempo">00:00</p>
+                            <p id="titulo1">Intentos:</p>
+                            <p id="intentos">0</p>
+                            <p id="final"></p>
+                        </div>
+                        <button class="boton_next" disabled="disabled" onclick="seguir()">Siguiente</button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="zona__navegacion" style="display:none;">
+                <button class="btn_siguiente" style="text-align:center;" disabled onclick="seguir()">Siguiente</button>
+            </div>
+
         </div>
-  
-
-      </div>
-      <div class="zona__navegacion" style="display:none;">
-        <button class="btn_siguiente" style="text-align:center;" disabled onclick="seguir()">Siguiente</button>
-      </div>
-
     </div>
-  </div>
 
-  <!--Codigo de precarga -->
-  <script src="../lib/jquery.js"></script>
-  <script src="../lib/jquery-ui.min.js"></script>
-  <!--
+    <!--Codigo de precarga -->
+    <script src="../lib/jquery.js"></script>
+    <script src="../lib/jquery-ui.min.js"></script>
+    <!--
   <script src="../lib//colorMixer.js"></script>
  
   <script src="../lib/jquery.svg.js"></script>
@@ -51,85 +169,183 @@
   <script src="../lib/tweenjs.js"></script>
   -->
 
-  <script src="../lib/easeljs.js"></script>
-  <script src="../../js/compuestos.js"></script>
-  <script src="../lib/soundjs.js"></script>
-  <script src="../js/timer.js"></script>
-  <script src="../js/resultados.js"></script>
-  <script src="../js/main.js"></script>
-  <script src="../js/pregunta.js"></script>
+    <script src="../lib/easeljs.js"></script>
+    <script src="../../js/compuestos.js"></script>
+    <script src="../lib/soundjs.js"></script>
+    <script src="../js/timer.js"></script>
+    <script src="../js/resultados.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/pregunta.js"></script>
 
-  <!--Interacciones complejas-->
-  <script src="../js/tarjetas.js"></script>
-  <script src="../js/reciclaje.js"></script>
+    <!--Interacciones complejas-->
+    <script src="../js/tarjetas.js"></script>
+    <script src="../js/reciclaje.js"></script>
 
-  <script type="text/javascript">
-
-    $(document).ready(function () {
-
-      // irA("./formulario.html");
+    <script type="text/javascript">
 
 
-    });
+        var intentos = 0;
+        var puntuacion;
+        var minutosDeseados = 0;
+        var segundosDeseados = 60 * minutosDeseados;
 
-        
-    $('.cont-principal').css("background-image", "url('../img/background-claro.png')");
+        $(document).ready(function () {
 
-
-    let contenedor = new Contenedor();
-    let navegacion = new Navegable(contenedor);
-
-    var preguntas = [];
-    preguntas.push(new PreguntaD("Prefiro guiarme más por mi experiencia que por mi imaginación", [], "Imaginación", "Experiencia"));
-    preguntas.push(new PreguntaD("Suelo ser más apasionado que objetivo", [], "Apasionado", "Objetivo"));
-    preguntas.push(new PreguntaD("Me siento mas comodo trabajando  con maquinas que con personas", [], "Maquinas", "Personas"));
-    preguntas.push(new PreguntaD("A la hora de estudiar, me da tranquilidad organizar los temas antes de empezar", [], "Improvizar", "Organizado"));
-    preguntas.push(new PreguntaD("A la hora de trabajar, ¿Prefiero improvisar o planear?", [], "Improvizar", "Organizado"));
-    preguntas.push(new PreguntaD("Prefiero dedicarle tiempo a los detalles que valerme del contenido general", [], "Detalles", "Contenido General"));
-    preguntas.push(new PreguntaD("Me dan explosiones de inspiración mientas hago otra actividad", [], "Inspiración", "Actividad actual"));
-    preguntas.push(new PreguntaD("Me agrada realizar las actividades a mi modo y no necesariamente como lo hacen los demas", [], "Mi modo", "El modo establecido"));
-    preguntas.push(new PreguntaD("Me gusta buscar patrones en el ambiente que me rodea", [], "Patrones", "Sin Patrones"));
+            // irA("./formulario.html");
 
 
+        });
 
 
-
-    contenedor.agregarHTML(document.querySelector('.pinicio'));
-
-    shuffle(preguntas);
-
-    preguntas.forEach(p => {
-        contenedor.agregar(p.getPregunta(),40);
-    });
-
-    var siguiente = document.querySelector('.btn_siguiente');
-
-    contenedor.incluirEn(document.querySelector(".ppreguntas"));
-    navegacion.iniciar();
-
-    ocultar(".zona__navegacion");
-
-    function seguir() {
-      navegacion.setPermitir(true);
-      navegacion.siguiente();
-      mostrar(".zona__navegacion");
-        siguiente.disabled = false;
-
-    }
+        $('.cont-principal').css("background-image", "url('../img/background-claro.png')");
 
 
-    $(".opcion_check").click(() => {
-      siguiente.disabled = false;
-    });
+        let contenedor = new Contenedor();
+        let navegacion = new Navegable(contenedor);
+
+        var preguntas = [];
+        preguntas.push(new PreguntaD("Prefiro guiarme más por mi experiencia que por mi imaginación", [], "Imaginación", "Experiencia"));
+        preguntas.push(new PreguntaD("Suelo ser más apasionado que objetivo", [], "Apasionado", "Objetivo"));
+        preguntas.push(new PreguntaD("Me siento mas comodo trabajando  con maquinas que con personas", [], "Maquinas", "Personas"));
+        preguntas.push(new PreguntaD("A la hora de estudiar, me da tranquilidad organizar los temas antes de empezar", [], "Improvizar", "Organizado"));
+        preguntas.push(new PreguntaD("A la hora de trabajar, ¿Prefiero improvisar o planear?", [], "Improvizar", "Organizado"));
+        preguntas.push(new PreguntaD("Prefiero dedicarle tiempo a los detalles que valerme del contenido general", [], "Detalles", "Contenido General"));
+        preguntas.push(new PreguntaD("Me dan explosiones de inspiración mientas hago otra actividad", [], "Inspiración", "Actividad actual"));
+        preguntas.push(new PreguntaD("Me agrada realizar las actividades a mi modo y no necesariamente como lo hacen los demas", [], "Mi modo", "El modo establecido"));
+        preguntas.push(new PreguntaD("Me gusta buscar patrones en el ambiente que me rodea", [], "Patrones", "Sin Patrones"));
+        preguntas.push(new PreguntaD("Me llena investigar  acerca de inventos o descubrimientos que me ayuden a entender el mundo", [], "Curioso", "Zona de confort"));
+        preguntas.push(new PreguntaD("Prefiero comprobar la veracidad de las cosas yo mismo", [], "Comprobar", "No comprobar"));
+        preguntas.push(new PreguntaD("Prefiero planificar detalladamente mis pasos antes de actuar", [], "Detalles", "Actuar"));
+        preguntas.push(new PreguntaD("Me hace feliz que los demas se puedan enriquecer con lo que les cuento", [], "Compartir", "Reservarmelos"));
+        preguntas.push(new PreguntaD("Es agradable para mi tratar con gente mas joven ya que se me facilita ser paciente", [], "Paciente", "Impaciente"));
+        preguntas.push(new PreguntaD(" Me encanta aprender, suelo leer incluso mas de lo que me piden", [], "Leer", "No leer"));
+        preguntas.push(new PreguntaD("Disfruto de hablar en publico, soy bueno exponiendo", [], "Comunicación", "No comunicación"));
 
 
-  </script>
+        contenedor.agregarHTML(document.querySelector('.pinicio'));
+
+        shuffle(preguntas);
+
+        preguntas.forEach(p => {
+            contenedor.agregar(p.getPregunta(), 40);
+        });
+        contenedor.agregarHTML(document.querySelector('.pintroequilibrio')).setAccion(() => {
+            ocultar(".zona__navegacion");
+            navegacion.ocultarProgreso();
+            navegacion.ocultarTiempo();
+
+        });
+
+        contenedor.agregarHTML(document.querySelector('.pequilibrio')).setAccion(() => {
+            ocultar(".zona__navegacion");
+            navegacion.ocultarProgreso();
+            navegacion.ocultarTiempo();
+
+                        function startTimer(duracion) {
+
+                var temporizador = duracion, minutos, segundos;
+
+                var refreshintervalID = setInterval(function () {
+                    minutos = parseInt(temporizador / 60, 10)
+                    segundos = parseInt(temporizador % 60, 10);
+
+                    minutos = minutos < 10 ? "0" + minutos : minutos;
+                    segundos = segundos < 10 ? "0" + segundos : segundos;
+
+                    document.getElementById("tiempo").innerHTML = minutos + ":" + segundos;
+                    document.getElementById("intentos").innerHTML = intentos;
+
+                    if (intentos <= 1) {
+                        puntuacion = 100;
+                    } else if (intentos == 2) {
+                        puntuacion = 80;
+                    } else if (intentos == 3) {
+                        puntuacion = 60;
+                    } else if (intentos == 4) {
+                        puntuacion = 40;
+                    } else if (intentos == 5) {
+                        puntuacion = 20;
+                    } else if (intentos == 6) {
+                        puntuacion = 0;
+                    }
+
+                    temporizador++;
+
+                    if (segundos === "00" && minutos == "01") {
+                        document.getElementById("tiempo").innerHTML = "00:00";
+                        document.getElementById("intentos").innerHTML = intentos;
+                        document.querySelector('.boton_next').disabled = false;
+                        document.getElementById("final").innerHTML = "La prueba ha terminado.";
+                        clearInterval(refreshintervalID);
+                        console.log(puntuacion);
+                    } else if (intentos >= 6) {
+                        document.getElementById("tiempo").innerHTML = "00:00";
+                        document.getElementById("intentos").innerHTML = intentos;
+                        document.querySelector('.boton_next').disabled = false;
+                        document.getElementById("final").innerHTML = "La prueba ha terminado.";
+                        clearInterval(refreshintervalID);
+                        console.log(puntuacion);
+                    }
+
+                    window.addEventListener('keyup', function (e) {
+                        var key = e.which || e.keyCode;
+                        if (key == 32) {
+                            clearInterval(refreshintervalID);
+                        }
+                    });
+                    window.addEventListener('keypress', function (e) {
+                        var key = e.which || e.keyCode;
+                        if (key == 32) {
+                            document.getElementById("tiempo").innerHTML = "00:00";
+                        }
+                    });
+                }, 1000);
+                }
+
+                window.addEventListener('keypress', function (e) {
+
+                var key = e.which || e.keyCode;
+                if (key == 13) {
+                    startTimer(segundosDeseados);
+                }
+
+                });
+
+                window.addEventListener('keyup', function (e) {
+                var key = e.which || e.keyCode;
+                if (key == 32) {
+                    intentos += 1;
+                    document.getElementById("intentos").innerHTML = intentos;
+                    console.log(intentos);
+                    startTimer(segundosDeseados);
+                }
+                });
+
+        });
+        /*/*//**/
+        var siguiente = document.querySelector('.btn_siguiente');
+
+        contenedor.incluirEn(document.querySelector(".ppreguntas"));
+        navegacion.iniciar();
 
 
+        ocultar(".zona__navegacion");
+
+        function seguir() {
+            mostrar(".zona__navegacion");
+            navegacion.setPermitir(true);
+            navegacion.siguiente();
+            siguiente.disabled = false;
+
+        }
 
 
+        $(".opcion_check").click(() => {
+            siguiente.disabled = false;
+        });
 
 
+    </script>
 
 </body>
 
