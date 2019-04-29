@@ -259,12 +259,12 @@ var Contenedor = /** @class */ (function () {
     };
     Contenedor.prototype.foreachElementos = function (elemento) {
         this.elementos.forEach(function (e) {
-            elemento.appendChild(e.elementoHTML);
+            elemento.append(e.elementoHTML);
         });
     };
     Contenedor.prototype.incluirEn = function (elemento) {
         this.elementos.forEach(function (e) {
-            elemento.appendChild(e.elementoHTML);
+            elemento.append(e.elementoHTML);
         });
     };
     Contenedor.prototype.getHtmlIndex = function (index) {

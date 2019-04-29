@@ -33,6 +33,11 @@
 
       </div>
 
+      
+      <div class="zona__navegacion">
+        <button class="btn_siguiente" style="text-align:center;" onclick="seguir()">Siguiente</button>
+      </div>
+
 
 
 
@@ -68,8 +73,6 @@
     $(document).ready(function () {
 
       // irA("./formulario.html");
-
-
     });
 
 
@@ -80,18 +83,27 @@
     let navegable = new Navegable(contenedor);
 
 
+    let p1 = new PreguntaI("../img/arte/fragmentoB.png");
+    p1.agregar("<button>opocin</button>", []);
+
+
     contenedor.agregarHTML(document.querySelector('.pinicio'));
+    contenedor.agregar(p1.getPregunta()).setAccion(()=>{
+      mostrar(".zona__navegacion");
+    });
+
+    contenedor.incluirEn(document.querySelector(".ppreguntas"));
 
     navegable.iniciar();
+
+    let siguiente = document.querySelector(".btn_siguiente");
+
+    ocultar(".zona__navegacion");
 
     function seguir() {
       navegable.setPermitir(true);
       navegable.siguiente();
-      if (navegable.getActual() == 1) {
-        mostrar(".zona__navegacion");
-      }
-
-
+      
     }
 
     $(".opcion_check").click(() => {
