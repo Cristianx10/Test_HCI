@@ -36,7 +36,7 @@
   
       </div>
       <div class="zona__navegacion" style="display:none;">
-        <button class="btn_siguiente" style="text-align:center;" onclick="seguir()">Siguiente</button>
+        <button class="btn_siguiente" style="text-align:center;" disabled onclick="seguir()">Siguiente</button>
       </div>
 
     </div>
@@ -89,15 +89,6 @@
     matematica.agregar("5 horas", []);
     matematica.agregar("3 horas", []);
     matematica.agregar("2 horas y 30 minutos", []);
-    var cp3 = new Contenido(matematica.getElemento(), matematica);
-
-    contenedor.agregar(cp3).setAccion(function(){
-      
-      navegacion.colocarTiempo();
-      navegacion.colocarProgreso();
-      mostrar(".zona__navegacion");
-    
-    });
 
     var matematica2 = new Pregunta("Determina el valor entero más grande posible de n para que 2^n divida a 50^8")
 
@@ -105,17 +96,6 @@
     matematica2.agregar("6", []);
     matematica2.agregar("8", []);
     matematica2.agregar("10", []);
-    var cp4 = new Contenido(matematica2.getElemento(), matematica2);
-
-    contenedor.agregarHTML(document.querySelector('.pinicio')); 
-
-    contenedor.agregar(cp4).setAccion(function(){
-      
-      navegacion.colocarTiempo();
-      navegacion.colocarProgreso();
-      mostrar(".zona__navegacion");
-    
-    });
 
     var matematica3 = new Pregunta("Si x^2 =3 a que es igual x^6?")
 
@@ -123,11 +103,35 @@
     matematica3.agregar("6", []);
     matematica3.agregar("8", []);
     matematica3.agregar("10", []);
-    var cp5 = new Contenido(matematica3.getElemento(), matematica3);
+
+    var matematica4 = new PreguntaD("¿Del 1 al 5, qué que tan bien crees que te fue en esta prueba?", [])
 
     contenedor.agregarHTML(document.querySelector('.pinicio')); 
 
-    contenedor.agregar(cp5).setAccion(function(){
+    contenedor.agregar(matematica.getPregunta()).setAccion(function(){
+      
+      navegacion.colocarTiempo();
+      navegacion.colocarProgreso();
+      mostrar(".zona__navegacion");
+    
+    });
+    contenedor.agregar(matematica2.getPregunta()).setAccion(function(){
+      
+      navegacion.colocarTiempo();
+      navegacion.colocarProgreso();
+      mostrar(".zona__navegacion");
+    
+    });
+
+    contenedor.agregar(matematica3.getPregunta()).setAccion(function(){
+      
+      navegacion.colocarTiempo();
+      navegacion.colocarProgreso();
+      mostrar(".zona__navegacion");
+
+    });
+
+    contenedor.agregar(matematica4.getPregunta()).setAccion(function(){
       
       navegacion.colocarTiempo();
       navegacion.colocarProgreso();
@@ -139,13 +143,16 @@
     navegacion.iniciar();
 
     ocultar(".zona__navegacion");
+    var siguiente = document.querySelector('.btn_siguiente');
 
     function seguir() {
       navegacion.setPermitir(true);
       navegacion.siguiente();
+      siguiente.disabled = true;
 
 
     }
+
 
     $(".opcion_check").click(() => {
       siguiente.disabled = false;
