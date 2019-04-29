@@ -2,140 +2,205 @@
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Test Interactivo</title>
-  <link rel="shortcut icon" href="../includes/img/favicon.png" type="image/x-icon" />
-  <link rel="stylesheet" href="../sass/general/main.css" />
-  <link href="../sass/tipographys/tipografias.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Test Interactivo</title>
+    <link rel="shortcut icon" href="../includes/img/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../sass/general/main.css" />
+    <link href="../sass/tipographys/tipografias.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
 
-  <link rel="stylesheet" href="../sass/aplicaciones/targetas.css" />
+    <link rel="stylesheet" href="../sass/aplicaciones/targetas.css" />
 
 </head>
 
 <body>
-  <div class="cont-principal" style="background-image: url('../img/deporte/fondo.png')">
-    <div class="principal" onselectstart="return false">
+    <div class="cont-principal" style="background-image: url('../img/deporte/fondo.png')">
+        <div class="principal" onselectstart="return false">
 
-      <div class="pantalla ppreguntas">
+            <div class="pantalla ppreguntas">
 
-        <div class="pantalla pinicio" style="background-image: url('../img/background_principal-2.png')">
-          <div class="introduccion">
-              <h1 class="titulo">Inteligencia Lógico Matemática</h1>
-              <p id="desc" class="descripcion">En esta sección de la prueba se evaluará tus conocimientos en el área Lógico Matemática</p>
-              <button class="boton" onclick="seguir()">Comenzar</button>
-          </div>
-        </div>
-  
-        <div class="pantalla pguacainicio" style="background-image: url('../img/background_principal-2.png')">
-          <div class="introduccion">
-              <h1 class="titulo">Ojo Veloz</h1>
-              <p id="desc" class="descripcion">Debes precionar lo más rapido que puedas el boton correspondiente a la figuras  presentadas en pantalla. Al acertar 6 figuras termina la prueba.</p>
-              <button class="boton" onclick="seguir()">Comenzar</button>
-          </div>
-        </div>
-        
-        <div class="pantalla pantallaGuaca">
-          <style>
-        
-            #contenedor {
-    
-                width: 1280px;
-                height: 720px;
-                background-position: center;
-                background-repeat: no-repeat;
-                background-size: cover;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-            }
-    
-            .contenido {
-                width: 937px;
-                height: 499px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: space-between;
-                margin-top: 80px;
-                margin-bottom: 30px;
-            }
-    
-            p {
-                font-family: 'Heebo', sans-serif;
-                font-weight: bold;
-            }
-    
-            .tituloGuaca{
-                font-size: 36px;
-                color: rgba(230, 73, 115, 1);
-            }
-    
-            #final{
-                font-size: 25px;
-                color: rgba(0, 222, 211);
-            }
+                <div class="pantalla pinicio" style="background-image: url('../img/background_principal-2.png')">
+                    <div class="introduccion">
+                        <h1 class="titulo">Inteligencia Lógico Matemática</h1>
+                        <p id="desc" class="descripcion">En esta sección de la prueba se evaluará tus conocimientos en
+                            el área Lógico Matemática</p>
+                        <button class="boton" onclick="seguir()">Comenzar</button>
+                    </div>
+                </div>
 
-            #estimulo{
-                width: 300px;
-                flex-basis: 300px;
-                height: 300px;    
-            }
-            
-            #aciertos{
-                font-size: 50px;
-                text-align: center;
-                color: rgb(81, 222, 0);
-            }
+                <div class="pantalla pguacainicio" style="background-image: url('../img/background_principal-2.png')">
+                    <div class="introduccion">
+                        <h1 class="titulo">Ojo Veloz</h1>
+                        <p id="desc" class="descripcion">Debes precionar lo más rapido que puedas el boton
+                            correspondiente a la figuras presentadas en pantalla. Al acertar 6 figuras termina la
+                            prueba.</p>
+                        <button class="boton" onclick="seguir()">Comenzar</button>
+                    </div>
+                </div>
 
-            .boton_next:enabled {
-                width: 170.38px;
-                height: 52px;
-                border: solid rgba(230, 73, 115, 1);
-                border-radius: 10px;
-                border-width: 2px;
-                font-family: 'Heebo', sans-serif;
-                font-size: 20px;
-                text-decoration: none;
-                line-height: 2.5;
-                text-align: center;
-                background-color: rgba(230, 73, 115, 1);
-                color: white;  
-                }
-    
-                .boton_next:enabled:hover {
-                border: solid rgb(209, 54, 95);
-                background-color:  rgb(209, 54, 95);
-            }
-    
-        </style>
-    
-        <div id="contenedor">
-            <div class="contenido">
-                    <img src="" alt="" id="estimulo">
-                    <p id="aciertos">Aciertos:<br><br>0</p>
-                    <p id="final"></p>
-                   
+                <div class="pantalla pantallaGuaca">
+                    <style>
+                        #contenedor {
+
+                            width: 1280px;
+                            height: 720px;
+                            background-position: center;
+                            background-repeat: no-repeat;
+                            background-size: cover;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                        }
+
+                        .contenido {
+                            width: 937px;
+                            height: 499px;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: space-between;
+                            margin-top: 80px;
+                            margin-bottom: 30px;
+                        }
+
+                        p {
+                            font-family: 'Heebo', sans-serif;
+                            font-weight: bold;
+                        }
+
+                        .tituloGuaca {
+                            font-size: 36px;
+                            color: rgba(230, 73, 115, 1);
+                        }
+
+                        #final {
+                            font-size: 25px;
+                            color: rgba(0, 222, 211);
+                        }
+
+                        #estimulo {
+                            width: 300px;
+                            flex-basis: 300px;
+                            height: 300px;
+                        }
+
+                        #aciertos {
+                            font-size: 50px;
+                            text-align: center;
+                            color: rgb(81, 222, 0);
+                        }
+
+                        .boton_next:enabled {
+                            width: 170.38px;
+                            height: 52px;
+                            border: solid rgba(230, 73, 115, 1);
+                            border-radius: 10px;
+                            border-width: 2px;
+                            font-family: 'Heebo', sans-serif;
+                            font-size: 20px;
+                            text-decoration: none;
+                            line-height: 2.5;
+                            text-align: center;
+                            background-color: rgba(230, 73, 115, 1);
+                            color: white;
+                        }
+
+                        .boton_next:enabled:hover {
+                            border: solid rgb(209, 54, 95);
+                            background-color: rgb(209, 54, 95);
+                        }
+                    </style>
+
+                    <div id="contenedor">
+                        <div class="contenido">
+                            <img src="" alt="" id="estimulo">
+                            <p id="aciertos">Aciertos:<br><br>0</p>
+                            <p id="final"></p>
+
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
-        </div>
+
+            <div class="secuencias">
+                <style>
+                    .secuencias {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 100%;
+                        height: 100%;
+                        margin: auto;
+                    }
+                
+                    .secuencia {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 100%;
+                        height: 80%;
+                        margin: auto;
+                    }
+                
+                    .tabla {
+                        width: 100%;
+                    }
+                
+                    .contenedor__imagen{
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 250px;
+                        height: 250px;
+                    }
+                
+                    img {
+                        transition: all .5s ease;
+                        width: 150px;
+                        height: 150px;
+                    }
+                
+                    .contenedor__imagen img:hover {
+                        transition: all .5s ease;
+                        width: 250px;
+                        height: 250px;
+                    }
+                
+                    .tabla__secuencia {
+                        display: flex;
+                        width: 100%;
+                        padding: 100px;
+                        justify-content: space-around;
+                        flex-wrap: wrap;
+                    }
+                
+                    .selecionado {
+                        border: 15px solid lightgreen;
+                        border-radius: 130px;
+                    }
+                
+                    .selecionado img {
+                        width: 190px;
+                        height: 200px;
+                    }
+                </style>
+            </div>
+            <div class="zona__navegacion" style="display:none;">
+                <button class="btn_siguiente" style="text-align:center;" disabled onclick="seguir()">Siguiente</button>
+            </div>
 
         </div>
-
-      </div>
-      <div class="zona__navegacion" style="display:none;">
-        <button class="btn_siguiente" style="text-align:center;" disabled onclick="seguir()">Siguiente</button>
-      </div>
-
     </div>
-  </div>
 
-  <!--Codigo de precarga -->
-  <script src="../lib/jquery.js"></script>
-  <script src="../lib/jquery-ui.min.js"></script>
-  <!--
+    <!--Codigo de precarga -->
+    <script src="../lib/jquery.js"></script>
+
+    <!--
   <script src="../lib//colorMixer.js"></script>
  
   <script src="../lib/jquery.svg.js"></script>
@@ -144,295 +209,358 @@
   
   <script src="../lib/tweenjs.js"></script>
   -->
+  <script src="../lib/preloadjs.js"></script>
+    <script src="../lib/easeljs.js"></script>
+    <script src="../../js/compuestos.js"></script>
+    <script src="../lib/soundjs.js"></script>
+    <script src="../js/timer.js"></script>
+    <script src="../js/resultados.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/pregunta.js"></script>
 
-  <script src="../lib/easeljs.js"></script>
-  <script src="../../js/compuestos.js"></script>
-  <script src="../lib/soundjs.js"></script>
-  <script src="../js/timer.js"></script>
-  <script src="../js/resultados.js"></script>
-  <script src="../js/main.js"></script>
-  <script src="../js/pregunta.js"></script>
+    <!--Interacciones complejas-->
 
-  <!--Interacciones complejas-->
-  <script src="../js/tarjetas.js"></script>
-  <script src="../js/reciclaje.js"></script>
-
-  <script type="text/javascript">
-
-    $(document).ready(function () {
-
-      // irA("./formulario.html");
+    <script src="../../js/secuencia.js"></script>
 
 
-    });
+    <script type="text/javascript">
 
-            var aciertos = 0;
-            var puntuacion;
-            var imagen, url;
+        $(document).ready(function () {
 
-            var centesimas = 0;
-            var segundos = 0;
-            var tiempo1,tiempo2,tiempo3,tiempo4,tiempo5,tiempo6;
-    
-            function inicio () {
-                control = setInterval(cronometro,10);
-                console.log("empezo");
+            // irA("./formulario.html");
+
+
+        });
+
+        var aciertos = 0;
+        var puntuacion;
+        var imagen, url;
+
+        var centesimas = 0;
+        var segundos = 0;
+        var tiempo1, tiempo2, tiempo3, tiempo4, tiempo5, tiempo6;
+
+        function inicio() {
+            control = setInterval(cronometro, 10);
+            console.log("empezo");
+        }
+
+        function reinicio() {
+            document.querySelector(".contenido").innerHTML = '<img src="" alt="" id="estimulo"><p id="aciertos">Aciertos:<br><br>' + aciertos + '</p><p id="final"></p>'
+            clearInterval(control);
+
+            var tiempo = segundos + (centesimas / 100);
+            console.log(tiempo);
+
+            if (aciertos == 1) {
+                tiempo1 = tiempo;
+            } else if (aciertos == 2) {
+                tiempo2 = tiempo;
+            } else if (aciertos == 3) {
+                tiempo3 = tiempo;
+            } else if (aciertos == 4) {
+                tiempo4 = tiempo;
+            } else if (aciertos == 5) {
+                tiempo5 = tiempo;
+            } else if (aciertos == 6) {
+                tiempo6 = tiempo;
+            }
+            centesimas = 0;
+            segundos = 0;
+            if (aciertos < 6) {
+                startTimer();
+            }
+        }
+
+        function cronometro() {
+
+            if (centesimas < 99) {
+                centesimas++;
+            }
+            if (centesimas == 99) {
+                centesimas = -1;
+            }
+            if (centesimas == 0) {
+                segundos++;
+            }
+            if (segundos == 59) {
+                segundos = -1;
             }
 
-            function reinicio () {
-                document.querySelector(".contenido").innerHTML= '<img src="" alt="" id="estimulo"><p id="aciertos">Aciertos:<br><br>'+aciertos+'</p><p id="final"></p>'
-                clearInterval(control);
-                
-                var tiempo = segundos + (centesimas/100);
-                console.log(tiempo);
+        }
 
-                if(aciertos ==1){
-                        tiempo1=tiempo;
-                } else if(aciertos ==2){
-                        tiempo2=tiempo;
-                } else if(aciertos ==3){
-                        tiempo3=tiempo;
-                }else if(aciertos ==4){
-                        tiempo4=tiempo;
-                }else if(aciertos ==5){
-                        tiempo5=tiempo;
-                }else if(aciertos ==6){
-                        tiempo6=tiempo;
-                }
-                centesimas = 0;
-                segundos = 0;
-                if(aciertos<6){
-                    startTimer();
-                }
-            }
-    
-            function cronometro () {
+        function puntaje() {
 
-                if (centesimas < 99) {
-                    centesimas++;
-                }
-                if (centesimas == 99) {
-                    centesimas = -1;
-                }
-                if (centesimas == 0) {
-                    segundos ++;
-                }
-                if (segundos == 59) {
-                    segundos = -1;
-                }
-            
-            }
-            
-            function puntaje(){
+            var promedio = (tiempo1 + tiempo2 + tiempo3 + tiempo4 + tiempo5 + tiempo6) / 6
+            console.log("promedio = " + promedio);
 
-                var promedio = (tiempo1+tiempo2+tiempo3+tiempo4+tiempo5+tiempo6)/6
-                console.log("promedio = " +promedio);
-
-                    if(promedio <= 0.50){
-                                    puntuacion = 100;
-                    } else if(promedio >= 0.51 && promedio < 1){
-                                    puntuacion = 75;
-                    }  else if(promedio >= 1 && promedio < 1.5){
-                                    puntuacion = 62.5;
-                    }  else if(promedio >= 1.5 && promedio < 2){
-                                    puntuacion = 50;
-                    }  else if(promedio >= 2 && promedio < 2.5){
-                                    puntuacion = 37.5;
-                    }else if(promedio >= 2.5 && promedio < 3){
-                                    puntuacion = 25;
-                    } else if(promedio >= 3 && promedio < 3.5){
-                                    puntuacion = 12.5;
-                    } else if(promedio >= 3.5){
-                                    puntuacion = 0;
-                    }
-                    
-                    console.log("puntuacion = " +puntuacion);
-                    
+            if (promedio <= 0.50) {
+                puntuacion = 100;
+            } else if (promedio >= 0.51 && promedio < 1) {
+                puntuacion = 75;
+            } else if (promedio >= 1 && promedio < 1.5) {
+                puntuacion = 62.5;
+            } else if (promedio >= 1.5 && promedio < 2) {
+                puntuacion = 50;
+            } else if (promedio >= 2 && promedio < 2.5) {
+                puntuacion = 37.5;
+            } else if (promedio >= 2.5 && promedio < 3) {
+                puntuacion = 25;
+            } else if (promedio >= 3 && promedio < 3.5) {
+                puntuacion = 12.5;
+            } else if (promedio >= 3.5) {
+                puntuacion = 0;
             }
 
-                function startTimer() {
+            console.log("puntuacion = " + puntuacion);
 
-                    var duracion =  Math.floor((Math.random() * 9) + 1);
-                    var temporizador = duracion, minutos, segundos;
-                    var random = Math.floor((Math.random() * 5) + 1);
+        }
 
-                    console.log(random);
-                    console.log(duracion);
-                    if(random >=1 && random <2){
-                        imagen =1;
-                        url= "../../../img/deporte/cuadrado.png";
-                    } else if(random >=2 && random <3){
-                        imagen =2;
-                        url = "../../../img/deporte/elipse.png";
-                    } else if(random >=3 && random <4){
-                        imagen =3;
-                        url = "../../../img/deporte/equis.png";
-                    } else if(random >=4 && random <=5){
-                        imagen =4;
-                        url = "../../../img/deporte/triangulo.png";
-                    }
+        function startTimer() {
 
-                    var refreshintervalID = setInterval(function () {
-                        segundos = parseInt(temporizador % 60, 10);
-            
-                        segundos = segundos < 10 ? "0" + segundos : segundos;
-            
-                        document.getElementById("aciertos").innerHTML =  '<p id="aciertos">Aciertos:<br><br>'+aciertos+'</p>';
-            
-                        temporizador--;
-                        console.log(segundos);
-                        if (segundos === "00" ) {
-                            console.log("ya");          
-                            document.querySelector(".contenido").innerHTML= '<img src="'+url+'" alt="" id="estimulo"><p id="aciertos">Aciertos:<br><br>'+aciertos+'</p><p id="final">'
-                            clearInterval(refreshintervalID);
-                            inicio();
-                           // timerDos();
-                        }
-            
-                    }, 1000);
-                }
-                    
-                function acierto(){
-                    if( document.querySelector(".contenido").innerHTML == '<img src="'+url+'" alt="" id="estimulo"><p id="aciertos">Aciertos:<br><br>'+aciertos+'</p><p id="final"></p>'){
-                            aciertos +=1;
-                    }
+            var duracion = Math.floor((Math.random() * 9) + 1);
+            var temporizador = duracion, minutos, segundos;
+            var random = Math.floor((Math.random() * 5) + 1);
+
+            console.log(random);
+            console.log(duracion);
+            if (random >= 1 && random < 2) {
+                imagen = 1;
+                url = "../../../img/deporte/cuadrado.png";
+            } else if (random >= 2 && random < 3) {
+                imagen = 2;
+                url = "../../../img/deporte/elipse.png";
+            } else if (random >= 3 && random < 4) {
+                imagen = 3;
+                url = "../../../img/deporte/equis.png";
+            } else if (random >= 4 && random <= 5) {
+                imagen = 4;
+                url = "../../../img/deporte/triangulo.png";
+            }
+
+            var refreshintervalID = setInterval(function () {
+                segundos = parseInt(temporizador % 60, 10);
+
+                segundos = segundos < 10 ? "0" + segundos : segundos;
+
+                document.getElementById("aciertos").innerHTML = '<p id="aciertos">Aciertos:<br><br>' + aciertos + '</p>';
+
+                temporizador--;
+                console.log(segundos);
+                if (segundos === "00") {
+                    console.log("ya");
+                    document.querySelector(".contenido").innerHTML = '<img src="' + url + '" alt="" id="estimulo"><p id="aciertos">Aciertos:<br><br>' + aciertos + '</p><p id="final">'
+                    clearInterval(refreshintervalID);
+                    inicio();
+                    // timerDos();
                 }
 
-        
-    $('.cont-principal').css("background-image", "url('../img/background-claro.png')");
+            }, 1000);
+        }
+
+        function acierto() {
+            if (document.querySelector(".contenido").innerHTML == '<img src="' + url + '" alt="" id="estimulo"><p id="aciertos">Aciertos:<br><br>' + aciertos + '</p><p id="final"></p>') {
+                aciertos += 1;
+            }
+        }
 
 
-    let contenedor = new Contenedor();
-    let navegacion = new Navegable(contenedor);
+        $('.cont-principal').css("background-image", "url('../img/background-claro.png')");
 
-    var matematica = new Pregunta("La Empresa Eléctrica va instalar postes equidistantes cada 5m a lo largo de un pasaje de 95m de tal forma que haya uno al inicio y otro al final. Además emplean 15 minutos para colocar cada poste. ¿Cuánto tiempo demorarán en colocar todos los postes?")
 
-    matematica.agregar("4 horas y 45 minutos", []);
-    matematica.agregar("5 horas", []);
-    matematica.agregar("3 horas", []);
-    matematica.agregar("2 horas y 30 minutos", []);
+        let contenedor = new Contenedor();
+        let navegacion = new Navegable(contenedor);
 
-    var matematica2 = new Pregunta("Determina el valor entero más grande posible de n para que 2^n divida a 50^8")
+        var matematica = new Pregunta("La Empresa Eléctrica va instalar postes equidistantes cada 5m a lo largo de un pasaje de 95m de tal forma que haya uno al inicio y otro al final. Además emplean 15 minutos para colocar cada poste. ¿Cuánto tiempo demorarán en colocar todos los postes?")
 
-    matematica2.agregar("2", []);
-    matematica2.agregar("6", []);
-    matematica2.agregar("8", []);
-    matematica2.agregar("10", []);
+        matematica.agregar("4 horas y 45 minutos", []);
+        matematica.agregar("5 horas", []);
+        matematica.agregar("3 horas", []);
+        matematica.agregar("2 horas y 30 minutos", []);
 
-    var matematica3 = new Pregunta("Si x^2 =3 a que es igual x^6?")
+        var matematica2 = new Pregunta("Determina el valor entero más grande posible de n para que 2^n divida a 50^8")
 
-    matematica3.agregar("2", []);
-    matematica3.agregar("6", []);
-    matematica3.agregar("8", []);
-    matematica3.agregar("10", []);
+        matematica2.agregar("2", []);
+        matematica2.agregar("6", []);
+        matematica2.agregar("8", []);
+        matematica2.agregar("10", []);
 
-    var matematica4 = new PreguntaD("¿Del 1 al 3, qué que tan bien crees que te fue en esta prueba?", [])
+        var matematica3 = new Pregunta("Si x^2 =3 a que es igual x^6?")
 
-    contenedor.agregarHTML(document.querySelector('.pinicio')); 
+        matematica3.agregar("2", []);
+        matematica3.agregar("6", []);
+        matematica3.agregar("8", []);
+        matematica3.agregar("10", []);
 
-    contenedor.agregar(matematica.getPregunta()).setAccion(function(){
-      
-      navegacion.colocarTiempo();
-      navegacion.colocarProgreso();
-      mostrar(".zona__navegacion");
-    
-    });
-    contenedor.agregar(matematica2.getPregunta()).setAccion(function(){
-    
-    });
+        var matematica4 = new PreguntaD("¿Del 1 al 3, qué que tan bien crees que te fue en esta prueba?", [])
 
-    contenedor.agregar(matematica3.getPregunta()).setAccion(function(){
- 
+        contenedor.agregarHTML(document.querySelector('.pinicio'));
 
-    });
+        contenedor.agregar(matematica.getPregunta()).setAccion(function () {
 
-    contenedor.agregar(matematica4.getPregunta()).setAccion(function(){
-      siguiente.disabled= false;
-      console.log("aaa");
-    });
+            navegacion.colocarTiempo();
+            navegacion.colocarProgreso();
+            mostrar(".zona__navegacion");
 
-        contenedor.agregarHTML(document.querySelector('.pguacainicio')).setAccion(()=>{
-          ocultar(".zona__navegacion");  
-          navegacion.ocultarProgreso();
-          navegacion.ocultarTiempo();
+        });
+        contenedor.agregar(matematica2.getPregunta()).setAccion(function () {
 
-        }); 
-        contenedor.agregarHTML(document.querySelector('.pantallaGuaca')).setAccion(()=>{
-          mostrar(".zona__navegacion");
-        
-          window.addEventListener("keydown", function (e) {
-            
-            var key = e.which || e.keyCode;
-    
+        });
+
+        contenedor.agregar(matematica3.getPregunta()).setAccion(function () {
+
+
+        });
+
+        contenedor.agregar(matematica4.getPregunta()).setAccion(function () {
+            siguiente.disabled = false;
+            console.log("aaa");
+        });
+
+        contenedor.agregarHTML(document.querySelector('.pguacainicio')).setAccion(() => {
+            ocultar(".zona__navegacion");
+            navegacion.ocultarProgreso();
+            navegacion.ocultarTiempo();
+
+        });
+        contenedor.agregarHTML(document.querySelector('.pantallaGuaca')).setAccion(() => {
+            mostrar(".zona__navegacion");
+
+            window.addEventListener("keydown", function (e) {
+
+                var key = e.which || e.keyCode;
+
                 if (key == 13) {
                     startTimer();
                 }
                 if (key == 32) {
                     console.log(aciertos);
                 }
-              // 37 izquierda imagen 1 cuadrado /// 38 arriba imagen 2 circulo /// 39 derecha imagen 3 x /// 40 abajo imagen 4 triangulo
-        });
+                // 37 izquierda imagen 1 cuadrado /// 38 arriba imagen 2 circulo /// 39 derecha imagen 3 x /// 40 abajo imagen 4 triangulo
+            });
 
-        window.addEventListener("keydown", function (e) {
+            window.addEventListener("keydown", function (e) {
 
-            var key = e.which || e.keyCode;
-            if (key == 37 && imagen ==1 && aciertos <=5) {
-                acierto();
-                reinicio();
-            } else if (key == 38 && imagen ==2 && aciertos <=5) {
-                acierto();
-                reinicio();
-            } else if (key == 39 && imagen ==3 && aciertos <=5) {
-                acierto();
-                reinicio();
-            } else if (key == 40 && imagen ==4 && aciertos <=5) {
-                acierto();
-                reinicio();
-            } 
-            
-            if( (key == 37 || key == 38 || key == 39 || key == 40) && aciertos >5 ){
-                puntaje();
-                document.querySelector('.btn_siguiente').disabled= false;
-                document.getElementById("final").innerHTML = "La prueba ha terminado.";
-            }
-            
-        });
+                var key = e.which || e.keyCode;
+                if (key == 37 && imagen == 1 && aciertos <= 5) {
+                    acierto();
+                    reinicio();
+                } else if (key == 38 && imagen == 2 && aciertos <= 5) {
+                    acierto();
+                    reinicio();
+                } else if (key == 39 && imagen == 3 && aciertos <= 5) {
+                    acierto();
+                    reinicio();
+                } else if (key == 40 && imagen == 4 && aciertos <= 5) {
+                    acierto();
+                    reinicio();
+                }
 
-        window.addEventListener("keydown", function(e) {
+                if ((key == 37 || key == 38 || key == 39 || key == 40) && aciertos > 5) {
+                    puntaje();
+                    document.querySelector('.btn_siguiente').disabled = false;
+                    document.getElementById("final").innerHTML = "La prueba ha terminado.";
+                }
+
+            });
+
+            window.addEventListener("keydown", function (e) {
                 // space and arrow keys
-                if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+                if ([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
                     e.preventDefault();
                 }
             }, false);
-    
-        }); 
+
+        });
+
+        contenedor.agregarHTML(document.querySelector(".secuencias")).setAccion(() => {
+
+            loadJson("../../data/ciencias/secuencias.json", (r) => {
+                let secuencias = [];
+                let actual = 0;
+
+                let s = r.secuencias;
+                let base = document.querySelector(".secuencia");
+
+                for (let i = 0; i < s.length; i++) {
+                    let e = s[i];
+                    let se = new Secuencias();
+                    for (let j = 0; j < e.recursos.length; j++) {
+                        let re = e.recursos[j];
+                        let ima = document.createElement('img');
+                        ima.src = re.src;
+                        se.agregar(ima, re.tiempo);
+                    }
+                    secuencias.push(se);
+                }
+
+                secuencias.forEach((secuencia, index) => {
+                    secuencia.crearTablero();
+
+                    secuencia.setIntentoAcierto(() => {
+                        console.log("acierto");
+                    });
+
+                    secuencia.setIntentoFallo(() => {
+                        console.log("fallo");
+                        secuencias[actual].terminar();
+                        actual++;
+                        if (actual < secuencias.length) {
+                            secuencias[actual].start();
+                            $(".secuencias").append(secuencias[actual].getElemento());
+                        }
+
+                    });
+
+                    secuencia.setValidacion((seguir) => {
+                        console.log("validado");
+                        if (seguir) {
+                            console.log("gano");
+                        }
+                        secuencias[actual].terminar();
+                        actual++;
+                        if (actual < secuencias.length) {
+                            secuencias[actual].start();
+                            $(".secuencias").append(secuencias[actual].getElemento());
+                        }
+
+                    });
+
+                    if (index == 0) {
+                        secuencia.start();
+                        $(".secuencias").append(secuencia.getElemento());
+                    }
+                });
+
+            });
+        });
 
 
-    contenedor.incluirEn(document.querySelector(".ppreguntas"));
-    navegacion.iniciar();
+            contenedor.incluirEn(document.querySelector(".ppreguntas"));
+            navegacion.iniciar();
 
-    ocultar(".zona__navegacion");
-    var siguiente = document.querySelector('.btn_siguiente');
+            ocultar(".zona__navegacion");
+            var siguiente = document.querySelector('.btn_siguiente');
 
-    function seguir() {
-      navegacion.setPermitir(true);
-      navegacion.siguiente();
-      if(navegacion.getActual() != 4){
-        siguiente.disabled = true;
+            function seguir() {
+                navegacion.setPermitir(true);
+                navegacion.siguiente();
+                if (navegacion.getActual() != 4) {
+                    siguiente.disabled = true;
 
-      }
-     
-
-
-    }
+                }
 
 
-    $(".opcion_check").click(() => {
-      siguiente.disabled = false;
-    });
+
+            }
 
 
-  </script>
+            $(".opcion_check").click(() => {
+                siguiente.disabled = false;
+            });
+
+
+    </script>
 
 
 
