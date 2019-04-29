@@ -903,6 +903,13 @@ Estilos de seleccionador
     font-size: 10px;
 }
 
+.pregunta__pintura{
+    position: relative;
+    & > div > img{
+        margin: 0;
+    }
+}
+
 .preguntaImagen {
 
     width: 100%;

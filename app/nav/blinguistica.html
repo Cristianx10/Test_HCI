@@ -13,6 +13,46 @@
 
   <link rel="stylesheet" href="../sass/aplicaciones/targetas.css" />
 
+  <style>
+    #pintura__casilla1 {
+      position: absolute;
+      display: block;
+      width: 114px;
+      height: 115px;
+      top: 168px;
+      left: 176px;
+    }
+
+    .ppintura .pregunta__opciones{
+      flex-direction: column;
+      width: 500px;
+      height: 500px;
+    }
+
+    .ppintura .contenido-pintura{
+      margin-top: 100px;
+      display: flex;
+      padding: 0;
+    }
+
+    .ppintura .contenido-pintura h2{
+      margin: 30px;
+      text-align: center;
+    }
+
+    .ppintura .pregunta__opciones > div{
+      flex-wrap: wrap;
+      padding: 30px;
+    }
+
+    .ppintura .pregunta__opciones > div img{
+      margin-top: 40px;
+      margin-left: 40px;
+    }
+
+  </style>
+
+
 
 </head>
 
@@ -21,6 +61,24 @@
     <div class="principal" onselectstart="return false">
 
       <div class="pantalla ppreguntas">
+
+        <div class="pantalla ppintura" style="flex-direction: row">
+          <div class="contenido-pintura">
+            <div id="correcto" class="pregunta__pintura">
+              <img src="../img/arte/pinturaParcial.png" alt="">
+              <div id="pintura__casilla1"></div>
+            </div>
+  
+            <div class="pregunta__opciones">
+              <h2>Arrastra a la pintura la sección que le hace falta </h2>
+              <img class="ima__opcion" src="../img/arte/fragmentoA.png" alt="">
+              <img class="ima__opcion" src="../img/arte/fragmentoB.png" alt="">
+              <img class="ima__opcion" src="../img/arte/fragmentoC.png" alt="">
+              <img class="ima__opcion" src="../img/arte/fragmentoD.png" alt="">
+            </div>
+          </div>
+
+        </div>
 
         <div class="pantalla pinicio" style="background-image: url('../img/background_principal-2.png')">
           <div class="introduccion">
@@ -52,7 +110,8 @@
         <div class="pantalla pemperejado" style="background-image: url('../img/background_principal-2.png')">
           <div class="introduccion">
             <h1 class="titulo">Emparejados</h1>
-            <p id="desc" class="descripcion">Presiona click sobre cada una de las tarjetas para que se muestre la imagen. Deberás unir las imágenes similares con el menor tiempo e intentos posibles.</p>
+            <p id="desc" class="descripcion">Presiona click sobre cada una de las tarjetas para que se muestre la
+              imagen. Deberás unir las imágenes similares con el menor tiempo e intentos posibles.</p>
             <button class="boton" onclick="seguir()">Comenzar</button>
           </div>
         </div>
@@ -60,28 +119,29 @@
         <div class="pantalla ptableros1"></div>
         <div class="pantalla ptableros2"></div>
         <div class="pantalla ptableros3"></div>
+
       </div>
-     
 
 
 
 
-    <div class="zona__navegacion">
-      <button class="btn_siguiente" style="text-align:center;" onclick="seguir()">Siguiente</button>
+
+      <div class="zona__navegacion">
+        <button class="btn_siguiente" style="text-align:center;" onclick="seguir()">Siguiente</button>
+      </div>
+
+
+
+
     </div>
-
-
-
-
-  </div>
   </div>
 
   <!--Codigo de precarga -->
   <script src="../lib/jquery.js"></script>
-
+  <script src="../lib/jquery-ui.min.js"></script>
   <!--
   <script src="../lib//colorMixer.js"></script>
-  <script src="../lib/jquery-ui.min.js"></script>
+ 
   <script src="../lib/jquery.svg.js"></script>
   <script src="../lib/jquery.knob.js"></script>
   <script src="../lib/preloadjs.js"></script>
@@ -96,7 +156,10 @@
   <script src="../js/resultados.js"></script>
   <script src="../js/main.js"></script>
   <script src="../js/pregunta.js"></script>
+
+  <!--Interacciones complejas-->
   <script src="../js/tarjetas.js"></script>
+  <script src="../js/reciclaje.js"></script>
 
   <script type="text/javascript">
 
@@ -295,10 +358,80 @@
 
 
     tableros.forEach(t => {
-      t.setValidacion(()=>{
-      seguir();
+      t.setValidacion(() => {
+        seguir();
+      });
     });
+
+
+    /**
+     * Bloque de arrastre de pintura
+    */
+
+
+    let reciclaje = new Reciclaje();
+    $(".pregunta__opciones").append(reciclaje.getElemento());
+    let sonidos = document.querySelectorAll(".ima__opcion");
+    let categoria = ["pintura__casilla1", "mal", "mal", "mal"]
+    sonidos.forEach((ele, index) => {
+      reciclaje.agregar(new Basura_elemento(ele, categoria[index]));
     });
+
+    // There's the gallery and the trash
+    let elementos = $(".pregunta__opciones");
+    let pintura = $("#pintura__casilla1");
+
+
+    // Let the gallery items be draggable
+    $(".ima__opcion", elementos).draggable({
+      cancel: "a.ui-icon", // clicking an icon won't initiate dragging
+      revert: "invalid", // when not dropped, the item will revert back to its initial position
+      containment: "document",
+      // helper: "clone",
+      cursor: "move"
+    });
+
+    // Let the trash be droppable, accepting the gallery items
+
+    function almacenaje(contenedores) {
+      contenedores.forEach(c => {
+        c.droppable({
+          accept: ".pregunta__opciones img",
+          drop: function (event, ui) {
+            deleteImage(ui.draggable, c);
+          }
+        });
+      });
+    }
+
+    almacenaje([pintura]);
+
+
+    // Image deletion function
+
+    function deleteImage($item, t) {
+      $item.fadeIn(function () {
+        $item.appendTo(t);
+        if (reciclaje.seleccion != null) {
+      
+          if (reciclaje.validarBasura(t[0].id)) {
+
+            console.log("bien");
+          } else {
+            console.log("Mal");
+          }
+          reciclaje.reset((s)=>{
+            s.style.margin = "0";
+            s.style.left = "0";
+            s.style.right = "0";
+            s.style.top = "0";
+          });
+        }
+      });
+     
+    }
+
+
 
 
     //Navegacion--------------------------------------------
@@ -322,16 +455,17 @@
     contenedor.agregar(cp5);
     contenedor.agregarHTML(document.querySelector('.pselecciona'));
     contenedor.agregarHTML(document.querySelector('.pemperejado'))
-    .setAccion(() => {
+      .setAccion(() => {
         ocultar(".zona__navegacion");
       });;
-    
+
     contenedor.agregar(new Contenido(document.querySelector('.ptableros1'), tableros[0]))
-      
+
 
     contenedor.agregar(new Contenido(document.querySelector('.ptableros2'), tableros[1]));
     contenedor.agregar(new Contenido(document.querySelector('.ptableros3'), tableros[2]));
-   
+    contenedor.agregarHTML(document.querySelector(".ppintura"));
+
 
     contenedor.incluirEn(document.querySelector(".ppreguntas"));
     navegable.iniciar();
