@@ -36,6 +36,7 @@ var Pregunta = /** @class */ (function () {
         var div_seccionB = document.createElement('section');
         this.formulario = document.createElement('form');
         this.formulario.className = "formulario_opciones";
+        this.formulario.onsubmit = function () { return false; };
         div_seccionA.className = "pregunta__titulo";
         div_seccionB.className = "pregunta__opciones";
         div_seccionA_h1.innerHTML = this.pregunta;
@@ -369,7 +370,10 @@ var PreguntaI = /** @class */ (function () {
         div_seccionC.className = "pregunta__opciones";
         div_seccionC.style.width = "100%";
         this.formulario = document.createElement('form');
-        this.formulario.className = "formulario_opciones";
+        this.formulario.className = "formulario__opciones__imagen";
+        this.formulario.name = "f";
+        this.formulario.method = "GET";
+        this.formulario.onsubmit = function () { return false; };
         contenedor.appendChild(div_seccionA);
         contenedor.append(div_seccionB);
         div_seccionB.append(div_seccionC);
@@ -378,19 +382,16 @@ var PreguntaI = /** @class */ (function () {
         this.contenido = new Contenido(this.getElemento(), this);
     }
     PreguntaI.prototype.agregar = function (info, valor) {
-        var elemento = new OpcionI(info, valor);
+        var elemento = new OpcionI(info, valor, this);
         this.formulario.append(elemento.getElement());
         this.opciones.push(elemento);
     };
     PreguntaI.prototype.validar = function () {
-        var _this = this;
-        this.opciones.forEach(function (opcion) {
-            if (opcion.check.checked) {
-                opcion.validacion();
-                resultados.agregar("pregunta", [{ id: "pregunta", valor: _this.pregunta },
-                    { id: "respuesta", valor: opcion.opcion.innerText }]);
-            }
-        });
+        if (this.seleecion != null) {
+            this.seleecion.validacion();
+            resultados.agregar("pregunta", [{ id: "pregunta", valor: this.pregunta },
+                { id: "respuesta", valor: this.seleecion.opcion.innerText }]);
+        }
     };
     PreguntaI.prototype.getPregunta = function () {
         return this.contenido;
@@ -401,7 +402,9 @@ var PreguntaI = /** @class */ (function () {
     return PreguntaI;
 }());
 var OpcionI = /** @class */ (function () {
-    function OpcionI(info, valor) {
+    function OpcionI(info, valor, pregunta) {
+        var _this = this;
+        this.pregunta = pregunta;
         this.opcion = document.createElement("label");
         this.check = document.createElement("input");
         this.contenido = document.createElement("span");
@@ -417,6 +420,13 @@ var OpcionI = /** @class */ (function () {
         this.opcion.append(informacion);
         informacion.innerHTML = info;
         this.valor = valor;
+        this.opcion.addEventListener("click", function () {
+            if (_this.pregunta.seleecion != null) {
+                _this.pregunta.seleecion.opcion.classList.remove("seleccion");
+            }
+            _this.pregunta.seleecion = _this;
+            _this.opcion.classList.add("seleccion");
+        });
     }
     OpcionI.prototype.validacion = function () {
         this.valor.forEach(function (v) {

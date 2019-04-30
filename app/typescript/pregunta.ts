@@ -45,8 +45,8 @@ class Pregunta {
     elemento: HTMLElement;
     pregunta: string;
     opciones: Array<Opcion>;
-    formulario:HTMLElement;
-    contenido:Contenido;
+    formulario: HTMLElement;
+    contenido: Contenido;
 
     constructor(pregunta: string) {
         this.pregunta = pregunta;
@@ -59,6 +59,9 @@ class Pregunta {
         let div_seccionB = document.createElement('section');
         this.formulario = document.createElement('form');
         this.formulario.className = "formulario_opciones";
+        this.formulario.onsubmit = function () { return false };
+
+
 
         div_seccionA.className = "pregunta__titulo";
         div_seccionB.className = "pregunta__opciones";
@@ -71,17 +74,17 @@ class Pregunta {
         div_seccionA.appendChild(div_seccionA_h1);
         div_seccionA.appendChild(document.createElement('hr'));
 
-/*
-        opciones.forEach(element => {
-
-            this.formulario.appendChild(element.getElemento());
-        });*/
+        /*
+                opciones.forEach(element => {
+        
+                    this.formulario.appendChild(element.getElemento());
+                });*/
 
         div_seccionB.appendChild(this.formulario);
         this.contenido = new Contenido(this.getElemento(), this);
     }
 
-    agregar(info: string, valor: Array<ResultadoA>){
+    agregar(info: string, valor: Array<ResultadoA>) {
         let opcion = new Opcion(info, valor);
         this.opciones.push(opcion);
         this.formulario.append(opcion.getElemento());
@@ -99,7 +102,7 @@ class Pregunta {
         });
     }
 
-    getPregunta(){
+    getPregunta() {
         return this.contenido;
     }
 
@@ -228,7 +231,7 @@ class PreguntaC {
     pregunta: string;
     opciones: OpcionC;
     validacion?: Function;
-    contenido:Contenido;
+    contenido: Contenido;
 
     constructor(pregunta: string, opciones: OpcionC) {
         this.pregunta = pregunta;
@@ -284,7 +287,7 @@ class PreguntaC {
          });*/
     }
 
-    getPregunta(){
+    getPregunta() {
         return this.contenido;
     }
 
@@ -358,9 +361,9 @@ class PreguntaD {
     pregunta: string;
     opciones: OpcionD;
     validacion?: Function;
-    contenido:Contenido;
+    contenido: Contenido;
 
-    constructor(pregunta: string, valor: Array<ResultadoA>, p?:string, m?:string) {
+    constructor(pregunta: string, valor: Array<ResultadoA>, p?: string, m?: string) {
         this.pregunta = pregunta;
         this.opciones = new OpcionD(valor, p, m);
         this.elemento = document.createElement('div');
@@ -370,7 +373,7 @@ class PreguntaD {
         let div_seccionA_h1 = document.createElement('h2');
         let div_seccionB = document.createElement('section');
         let formulario = document.createElement('div');
-        
+
 
         div_seccionA.className = "pregunta__titulo";
         div_seccionB.className = "pregunta__opciones";
@@ -394,7 +397,7 @@ class PreguntaD {
             { id: "respuesta", valor: this.opciones.input.value }]);
     }
 
-    getPregunta(){
+    getPregunta() {
         return this.contenido;
     }
 
@@ -415,20 +418,20 @@ class OpcionD {
     progreso: HTMLProgressElement;
     input: HTMLInputElement;
 
-    constructor(valor: Array<ResultadoA>, p?:string, m?:string) {
+    constructor(valor: Array<ResultadoA>, p?: string, m?: string) {
         this.opcion = document.createElement("div");
         this.opcion.className = "likert_escala";
 
         let poco = document.createElement("label");
         poco.className = "likert_label";
 
-        if(p!= null){
+        if (p != null) {
             poco.innerText = p;
-        }else{
+        } else {
             poco.innerText = "Poco";
         }
 
-       
+
 
         let linker = document.createElement("div");
         linker.className = "likert_cont";
@@ -465,9 +468,9 @@ class OpcionD {
         mucho.className = "likert_label";
         mucho.innerText = "Mucho";
 
-        if(m!= null){
+        if (m != null) {
             mucho.innerText = m;
-        }else{
+        } else {
             mucho.innerText = "Mucho";
         }
 
@@ -501,8 +504,9 @@ class PreguntaI {
     elemento: HTMLElement;
     pregunta: string;
     opciones: Array<OpcionI>;
-    formulario:HTMLElement;
-    contenido:Contenido;
+    formulario: HTMLFormElement;
+    contenido: Contenido;
+    seleecion?: OpcionI;
 
     constructor(pregunta: string) {
         this.pregunta = pregunta;
@@ -528,7 +532,10 @@ class PreguntaI {
 
 
         this.formulario = document.createElement('form');
-        this.formulario.className = "formulario_opciones";
+        this.formulario.className = "formulario__opciones__imagen";
+        this.formulario.name = "f";
+        this.formulario.method = "GET";
+        this.formulario.onsubmit = function () { return false };
 
         contenedor.appendChild(div_seccionA);
         contenedor.append(div_seccionB);
@@ -538,25 +545,26 @@ class PreguntaI {
         this.contenido = new Contenido(this.getElemento(), this);
     }
 
-    agregar(info: string, valor: Array<ResultadoA>){
-        let elemento = new OpcionI(info, valor);
+    agregar(info: string, valor: Array<ResultadoA>) {
+        let elemento = new OpcionI(info, valor, this);
         this.formulario.append(elemento.getElement());
         this.opciones.push(elemento);
     }
 
     validar() {
 
-        this.opciones.forEach((opcion) => {
-            if (opcion.check.checked) {
-                opcion.validacion();
-                resultados.agregar("pregunta",
-                    [{ id: "pregunta", valor: this.pregunta },
-                    { id: "respuesta", valor: opcion.opcion.innerText }]);
-            }
-        });
+
+        if (this.seleecion != null) {
+            this.seleecion.validacion();
+            resultados.agregar("pregunta",
+                [{ id: "pregunta", valor: this.pregunta },
+                { id: "respuesta", valor: this.seleecion.opcion.innerText }]);
+        }
+
+
     }
 
-    getPregunta(){
+    getPregunta() {
         return this.contenido;
     }
 
@@ -573,8 +581,10 @@ class OpcionI {
     valor: Array<ResultadoA>;
     check: HTMLInputElement;
     contenido: HTMLElement;
+    pregunta: PreguntaI;
 
-    constructor(info: string, valor: Array<ResultadoA>) {
+    constructor(info: string, valor: Array<ResultadoA>, pregunta: PreguntaI) {
+        this.pregunta = pregunta;
         this.opcion = document.createElement("label");
         this.check = document.createElement("input");
         this.contenido = document.createElement("span");
@@ -590,9 +600,17 @@ class OpcionI {
         this.opcion.append(this.check);
         this.opcion.append(this.contenido);
         this.opcion.append(informacion);
-        
+
         informacion.innerHTML = info;
         this.valor = valor;
+
+        this.opcion.addEventListener("click", () => {
+            if(this.pregunta.seleecion != null){
+                this.pregunta.seleecion.opcion.classList.remove("seleccion");
+            }
+            this.pregunta.seleecion = this;
+            this.opcion.classList.add("seleccion");
+        });
     }
 
     validacion() {
@@ -607,19 +625,19 @@ class OpcionI {
     }
 }
 
-interface FOpcionS{
-    id:string;
-    valor:number;
+interface FOpcionS {
+    id: string;
+    valor: number;
 }
 
-class PreguntaS{
-    texto:HTMLElement;
-    bloque:HTMLElement;
-    lista:HTMLElement;
-    opciones:Array<OpcionS>;
-    seleccionActual?:OpcionS;
+class PreguntaS {
+    texto: HTMLElement;
+    bloque: HTMLElement;
+    lista: HTMLElement;
+    opciones: Array<OpcionS>;
+    seleccionActual?: OpcionS;
 
-    constructor(){
+    constructor() {
         this.opciones = new Array();
 
         this.texto = document.createElement("p");
@@ -636,50 +654,50 @@ class PreguntaS{
 
         this.bloque.append(this.lista);
 
-        this.bloque.addEventListener("click", ()=>{
-            
-            if(this.lista.style.display == ""){
+        this.bloque.addEventListener("click", () => {
+
+            if (this.lista.style.display == "") {
                 this.lista.style.display = "flex";
-              
+
             }
-            
-            else if(this.lista.style.display == "flex"){
+
+            else if (this.lista.style.display == "flex") {
                 this.lista.style.display = "none";
-                
-            }else{
+
+            } else {
                 this.lista.style.display = "flex";
-              
+
             }
-            
+
         });
     }
 
-    agregar(info:string, valor:number){
+    agregar(info: string, valor: number) {
         let o = new OpcionS(info, valor, this)
         this.opciones.push(o);
         this.lista.append(o.elemento);
     }
 
-    incluirEn(lugar:string){
-        let e:HTMLElement = <HTMLElement>document.querySelector(lugar);
+    incluirEn(lugar: string) {
+        let e: HTMLElement = <HTMLElement>document.querySelector(lugar);
         e.append(this.bloque);
     }
 }
 
-class OpcionS{
+class OpcionS {
 
-    padre:PreguntaS;
-    elemento:HTMLElement;
-    valor:number;
+    padre: PreguntaS;
+    elemento: HTMLElement;
+    valor: number;
 
-    constructor(info:string, valor:number, padre:PreguntaS){
+    constructor(info: string, valor: number, padre: PreguntaS) {
         this.padre = padre;
         this.elemento = document.createElement('span');
         this.elemento.className = "elegir__opcion";
         this.elemento.innerText = info;
         this.valor = valor;
 
-        this.elemento.addEventListener("click", ()=>{
+        this.elemento.addEventListener("click", () => {
             this.padre.seleccionActual = this;
             this.padre.texto.innerHTML = this.elemento.innerText;
         });
@@ -693,16 +711,16 @@ class PreguntaR {
     pregunta: string;
     opciones: Array<OpcionR>;
     validacion?: Function;
-    seleccion?:OpcionR;
-    preguntaHTML:HTMLElement;
-    opcionesHTML:HTMLElement;
+    seleccion?: OpcionR;
+    preguntaHTML: HTMLElement;
+    opcionesHTML: HTMLElement;
 
     constructor(pregunta: string) {
         this.pregunta = pregunta;
         this.opciones = new Array();
         this.elemento = document.createElement('div');
         this.elemento.className = "instruccion";
-     
+
 
         this.preguntaHTML = document.createElement('div');
         this.preguntaHTML.innerHTML = pregunta;
@@ -715,7 +733,7 @@ class PreguntaR {
         this.elemento.append(this.opcionesHTML);
     }
 
-    agregar(info:string, valor: Array<ResultadoA>){
+    agregar(info: string, valor: Array<ResultadoA>) {
         let opcion = new OpcionR(info, valor)
         opcion.pregunta = this;
         this.opciones.push(opcion);
@@ -724,17 +742,17 @@ class PreguntaR {
 
     validar() {
 
-        if(this.seleccion != null){
+        if (this.seleccion != null) {
             this.seleccion.validacion();
             resultados.agregar("pregunta",
-                    [{ id: "pregunta", valor: this.pregunta },
-                    { id: "respuesta", valor: this.seleccion.informacion}]);
+                [{ id: "pregunta", valor: this.pregunta },
+                { id: "respuesta", valor: this.seleccion.informacion }]);
         }
-    
+
     }
 
-    incluirEn(lugar:string){
-        let e:HTMLElement = <HTMLElement>document.querySelector(lugar);
+    incluirEn(lugar: string) {
+        let e: HTMLElement = <HTMLElement>document.querySelector(lugar);
         e.append(this.elemento);
     }
 
@@ -752,7 +770,7 @@ class OpcionR {
     opcion: HTMLElement;
     valor: Array<ResultadoA>;
     pregunta?: PreguntaR;
-    informacion:string;
+    informacion: string;
 
     constructor(info: string, valor: Array<ResultadoA>) {
         this.informacion = info;
@@ -762,7 +780,7 @@ class OpcionR {
 
         this.opcion.addEventListener('click', () => {
             if (this.pregunta != null) {
-                if(this.pregunta.seleccion != null){
+                if (this.pregunta.seleccion != null) {
                     this.pregunta.seleccion.opcion.classList.remove("seleccion");
                 }
                 this.pregunta.seleccion = this;
@@ -771,7 +789,7 @@ class OpcionR {
         });
     }
 
-    
+
 
     validacion() {
         this.valor.forEach(v => {
@@ -792,17 +810,17 @@ class PreguntaP {
     pregunta: string;
     opciones: Array<OpcionP>;
     validacion?: Function;
-    seleccion?:OpcionR;
-    preguntaHTML:HTMLElement;
-    opcionesHTML:HTMLElement;
-    preguntaText:HTMLElement;
+    seleccion?: OpcionR;
+    preguntaHTML: HTMLElement;
+    opcionesHTML: HTMLElement;
+    preguntaText: HTMLElement;
 
-    constructor(imagen:string,pregunta: string) {
+    constructor(imagen: string, pregunta: string) {
         this.pregunta = pregunta;
         this.opciones = new Array();
         this.elemento = document.createElement('div');
         this.elemento.className = "preguntaImagen";
-     
+
         this.preguntaHTML = document.createElement('div');
         this.preguntaHTML.className = "preguntaImagen__imagen";
         this.preguntaHTML.innerHTML = imagen;
@@ -812,7 +830,7 @@ class PreguntaP {
         this.preguntaText = document.createElement('div');
         this.preguntaText.innerHTML = pregunta;
         this.preguntaText.className = "preguntaImagen__pregunta";
-        
+
 
         this.opcionesHTML.className = "preguntaImagen__info";
 
@@ -821,7 +839,7 @@ class PreguntaP {
         this.elemento.appendChild(this.opcionesHTML);
     }
 
-    agregar(info:string, valor: Array<ResultadoA>){
+    agregar(info: string, valor: Array<ResultadoA>) {
         let opcion = new OpcionP(info, valor)
         opcion.pregunta = this;
         this.opciones.push(opcion);
@@ -830,17 +848,17 @@ class PreguntaP {
 
     validar() {
 
-        if(this.seleccion != null){
+        if (this.seleccion != null) {
             this.seleccion.validacion();
             resultados.agregar("pregunta",
-                    [{ id: "pregunta", valor: this.pregunta },
-                    { id: "respuesta", valor: this.seleccion.informacion}]);
+                [{ id: "pregunta", valor: this.pregunta },
+                { id: "respuesta", valor: this.seleccion.informacion }]);
         }
-    
+
     }
 
-    incluirEn(lugar:string){
-        let e:HTMLElement = <HTMLElement>document.querySelector(lugar);
+    incluirEn(lugar: string) {
+        let e: HTMLElement = <HTMLElement>document.querySelector(lugar);
         e.append(this.elemento);
     }
 
@@ -858,7 +876,7 @@ class OpcionP {
     opcion: HTMLElement;
     valor: Array<ResultadoA>;
     pregunta?: PreguntaR;
-    informacion:string;
+    informacion: string;
 
     constructor(info: string, valor: Array<ResultadoA>) {
         this.informacion = info;
@@ -869,7 +887,7 @@ class OpcionP {
 
         this.opcion.addEventListener('click', () => {
             if (this.pregunta != null) {
-                if(this.pregunta.seleccion != null){
+                if (this.pregunta.seleccion != null) {
                     this.pregunta.seleccion.opcion.classList.remove("seleccion");
                 }
                 this.pregunta.seleccion = this;
@@ -878,7 +896,7 @@ class OpcionP {
         });
     }
 
-    
+
 
     validacion() {
         this.valor.forEach(v => {

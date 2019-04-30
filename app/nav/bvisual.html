@@ -80,11 +80,16 @@
 
 
     let contenedor = new Contenedor();
-    let navegable = new Navegable(contenedor);
+    let navegacion = new Navegable(contenedor);
 
 
     let p1 = new PreguntaI("../img/arte/fragmentoB.png");
-    p1.agregar("<button>opocin</button>", []);
+    p1.agregar("<div class=' boton'>opocin</div>", []);
+    p1.agregar("<div class=' boton'>opocin</div>", []);
+    p1.agregar("<div class=' boton'>opocin</div>", []);
+    p1.agregar("<div class=' boton'>opocin</div>", []);
+    p1.agregar("<div class=' boton'>opocin</div>", []);
+    p1.agregar("<div class=' boton'>opocin</div>", []);
 
 
     contenedor.agregarHTML(document.querySelector('.pinicio'));
@@ -94,15 +99,15 @@
 
     contenedor.incluirEn(document.querySelector(".ppreguntas"));
 
-    navegable.iniciar();
+    navegacion.iniciar();
 
     let siguiente = document.querySelector(".btn_siguiente");
 
     ocultar(".zona__navegacion");
 
     function seguir() {
-      navegable.setPermitir(true);
-      navegable.siguiente();
+      navegacion.setPermitir(true);
+      navegacion.siguiente();
       
     }
 
@@ -110,7 +115,9 @@
       siguiente.disabled = false;
     });
 
-    navegable.setFinal("bmatematica");
+    navegacion.setFinal(()=>{
+      goTo("bmatematicas");
+    });
 
 
   </script>

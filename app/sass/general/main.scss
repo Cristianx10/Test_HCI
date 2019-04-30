@@ -59,6 +59,10 @@ p {
 .btn_siguiente,
 .boton,
 button {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
     background: white;
     box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
     border: 1px solid #e4537a;
@@ -422,12 +426,29 @@ label {
     &__parrafo {
         width: 80%;
         height: 80%;
-        font-size: 17gitpx;
+        font-size: 17px;
         border: 2px solid #00DED3;
         border-radius: 20px;
         padding: 2em;
         text-align: start;
 
+    }
+}
+
+.formulario__opciones{
+  
+    &__imagen{
+        display: flex;
+        flex-direction: row;
+
+        .seleccion{
+            background: white;
+
+            button,.boton{
+                color: white;
+                background: #E64973;
+            }
+        }
     }
 }
 
