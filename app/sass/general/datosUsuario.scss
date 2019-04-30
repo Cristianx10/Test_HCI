@@ -36,34 +36,14 @@ input{
 .sexo, .mano{
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-content: flex-start;
+    justify-content: space-evenly;
+    align-content: center;
     align-items: center;
     color: white;
     border-radius: 5px;
     border: 2px solid $color-decoracion;
     height: 60px;
-    
 }
 
-.mano{
-    width: 330px;
-}
-
-.formulario{
-    margin-top: 100px;
-    .btn_siguiente:enabled {
-        background: $color-btn;
-        border: 1px solid $color-btn;
-        color: black;
-    }
-
-    input[type=radio] {
-        -webkit-transform: scale(2.5);
-        transform: scale(1.7);
-        margin: 0;
-    }
-}
 
 

@@ -1,30 +1,4 @@
 "use strict";
-var Opcion = /** @class */ (function () {
-    function Opcion(info, valor) {
-        this.opcion = document.createElement("label");
-        this.check = document.createElement("input");
-        this.contenido = document.createElement("span");
-        this.opcion.className = "opcion_check";
-        this.contenido.className = "opcion";
-        this.check.className = "marcador";
-        this.check.type = "radio";
-        this.check.name = "opcion";
-        this.check.checked = false;
-        this.opcion.append(this.check);
-        this.opcion.append(this.contenido);
-        this.opcion.append(info);
-        this.valor = valor;
-    }
-    Opcion.prototype.validacion = function () {
-        this.valor.forEach(function (v) {
-            resultados.sumar(v.area, v.valor);
-        });
-    };
-    Opcion.prototype.getElemento = function () {
-        return this.opcion;
-    };
-    return Opcion;
-}());
 var Pregunta = /** @class */ (function () {
     function Pregunta(pregunta) {
         this.pregunta = pregunta;
@@ -44,28 +18,20 @@ var Pregunta = /** @class */ (function () {
         this.elemento.appendChild(div_seccionB);
         div_seccionA.appendChild(div_seccionA_h1);
         div_seccionA.appendChild(document.createElement('hr'));
-        /*
-                opciones.forEach(element => {
-        
-                    this.formulario.appendChild(element.getElemento());
-                });*/
         div_seccionB.appendChild(this.formulario);
         this.contenido = new Contenido(this.getElemento(), this);
     }
     Pregunta.prototype.agregar = function (info, valor) {
-        var opcion = new Opcion(info, valor);
+        var opcion = new Opcion(info, valor, this);
         this.opciones.push(opcion);
         this.formulario.append(opcion.getElemento());
     };
     Pregunta.prototype.validar = function () {
-        var _this = this;
-        this.opciones.forEach(function (opcion) {
-            if (opcion.check.checked) {
-                opcion.validacion();
-                resultados.agregar("pregunta", [{ id: "pregunta", valor: _this.elemento.innerText },
-                    { id: "respuesta", valor: opcion.opcion.innerText }]);
-            }
-        });
+        if (this.seleccion != null) {
+            this.seleccion.validacion();
+            resultados.agregar("pregunta", [{ id: "pregunta", valor: this.elemento.innerText },
+                { id: "respuesta", valor: this.seleccion.opcion.innerText }]);
+        }
     };
     Pregunta.prototype.getPregunta = function () {
         return this.contenido;
@@ -74,6 +40,32 @@ var Pregunta = /** @class */ (function () {
         return this.elemento;
     };
     return Pregunta;
+}());
+var Opcion = /** @class */ (function () {
+    function Opcion(info, valor, pregunta) {
+        var _this = this;
+        this.pregunta = pregunta;
+        this.opcion = document.createElement("label");
+        this.opcion.className = "opcion vertical";
+        this.opcion.innerHTML = "\n        <div class=\"opcion__check\">\n            <input class=\"marcador__input\" type=\"radio\" name=\"opcion\"></input><span class=\"marcador\"></span>\n        </div>\n        <div class=\"informacion\">" + info + "</div>";
+        this.valor = valor;
+        this.opcion.addEventListener("click", function () {
+            if (_this.pregunta.seleccion != null) {
+                _this.pregunta.seleccion.opcion.classList.remove("seleccion");
+            }
+            _this.pregunta.seleccion = _this;
+            _this.opcion.classList.add("seleccion");
+        });
+    }
+    Opcion.prototype.validacion = function () {
+        this.valor.forEach(function (v) {
+            resultados.sumar(v.area, v.valor);
+        });
+    };
+    Opcion.prototype.getElemento = function () {
+        return this.opcion;
+    };
+    return Opcion;
 }());
 var PreguntaB = /** @class */ (function () {
     function PreguntaB(pregunta, opciones) {
@@ -357,15 +349,13 @@ var PreguntaI = /** @class */ (function () {
         this.pregunta = pregunta;
         this.opciones = new Array();
         this.elemento = document.createElement('div');
-        this.elemento.className = "pregunta";
+        this.elemento.className = "pregunta pimagen";
         var contenedor = document.createElement("div");
-        contenedor.className = "cont_imgYabc";
+        contenedor.className = "pregunta__contenedor";
         this.elemento.appendChild(contenedor);
         var div_seccionA = document.createElement('div');
-        div_seccionA.className = "cont_imgYabc_img";
-        div_seccionA.style.backgroundImage = "url(" + pregunta + ")";
-        var div_seccionB = document.createElement('div');
-        div_seccionB.className = "cont_imgYabc_abc";
+        div_seccionA.className = "pregunta__titulo";
+        div_seccionA.innerHTML = pregunta;
         var div_seccionC = document.createElement('section');
         div_seccionC.className = "pregunta__opciones";
         div_seccionC.style.width = "100%";
@@ -375,8 +365,7 @@ var PreguntaI = /** @class */ (function () {
         this.formulario.method = "GET";
         this.formulario.onsubmit = function () { return false; };
         contenedor.appendChild(div_seccionA);
-        contenedor.append(div_seccionB);
-        div_seccionB.append(div_seccionC);
+        contenedor.append(div_seccionC);
         div_seccionC.append(this.formulario);
         console.log(this.getElemento());
         this.contenido = new Contenido(this.getElemento(), this);
@@ -405,20 +394,10 @@ var OpcionI = /** @class */ (function () {
     function OpcionI(info, valor, pregunta) {
         var _this = this;
         this.pregunta = pregunta;
+        this.informacion = info;
         this.opcion = document.createElement("label");
-        this.check = document.createElement("input");
-        this.contenido = document.createElement("span");
-        this.opcion.className = "opcion_check";
-        this.contenido.className = "opcion";
-        this.check.className = "marcador";
-        this.check.type = "radio";
-        this.check.name = "opcion";
-        this.check.checked = false;
-        var informacion = document.createElement('div');
-        this.opcion.append(this.check);
-        this.opcion.append(this.contenido);
-        this.opcion.append(informacion);
-        informacion.innerHTML = info;
+        this.opcion.className = "opcion";
+        this.opcion.innerHTML = "\n        <div class=\"opcion__check\">\n            <input class=\"marcador__input\" type=\"radio\" name=\"opcion\"></input><span class=\"marcador\"></span>\n        </div>\n        <div class=\"informacion\">" + info + "</div>";
         this.valor = valor;
         this.opcion.addEventListener("click", function () {
             if (_this.pregunta.seleecion != null) {
@@ -569,10 +548,13 @@ var PreguntaP = /** @class */ (function () {
         this.preguntaText = document.createElement('div');
         this.preguntaText.innerHTML = pregunta;
         this.preguntaText.className = "preguntaImagen__pregunta";
-        this.opcionesHTML.className = "preguntaImagen__info";
-        this.opcionesHTML.append(this.preguntaText);
-        this.elemento.appendChild(this.preguntaHTML);
-        this.elemento.appendChild(this.opcionesHTML);
+        var cont_temp = document.createElement('div');
+        cont_temp.className = "preguntaImagen__info";
+        this.opcionesHTML.className = "preguntaImagen__opciones";
+        this.elemento.append(this.preguntaHTML);
+        cont_temp.appendChild(this.preguntaText);
+        cont_temp.appendChild(this.opcionesHTML);
+        this.elemento.appendChild(cont_temp);
     }
     PreguntaP.prototype.agregar = function (info, valor) {
         var opcion = new OpcionP(info, valor);

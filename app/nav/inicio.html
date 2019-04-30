@@ -36,12 +36,12 @@
           <div class="formulario__opciones">
             <div class="datos_input">
               <h3>Nombre</h3>
-              <input id="form-nombre" autocomplete="off" type="text" name="" class="input-nombre" placeholder="Nombre">
+              <input id="form-nombre" autocomplete="off" spellcheck="false" type="text" name="" class="input-nombre" placeholder="Nombre">
             </div>
 
             <div class="datos_input">
               <h3>Edad</h3>
-              <input id="form-edad" autocomplete="off" type="text" name="" class="input-edad" placeholder="18">
+              <input id="form-edad" autocomplete="off" spellcheck="false" type="text" name="" class="input-edad" placeholder="18">
             </div>
 
             <div class="datos_input">
@@ -64,25 +64,55 @@
 
             <div class="datos_input">
               <h3>Sexo</h3>
-              <form class="sexo">
-                <label class="opcion_check"><input id="form-sexo-hombre" class="marcador" type="radio"
-                    name="opcion"><span class="opcion"></span>Hombre</label>
+              <form class="sexo" onsubmit="return false">
 
-                <label class="opcion_check"><input id="form-sexo-mujer" class="marcador" type="radio"
-                    name="opcion"><span class="opcion"></span>Mujer</label>
+                <label class="opcion">
+                  <div class="opcion__check">
+                    <input id="form-sexo-hombre" class="marcador__input" type="radio" name="opcion"></input><span
+                      class="marcador"></span>
+                  </div>
+                  <div class="informacion">Hombre</div>
+                </label>
 
-                <label class="opcion_check"><input id="form-sexo-otro" class="marcador" type="radio" name="opcion"><span class="opcion"></span>Otro</label>
+                <label class="opcion">
+                  <div class="opcion__check">
+                    <input id="form-sexo-mujer" class="marcador__input" type="radio" name="opcion"></input><span
+                      class="marcador"></span>
+                  </div>
+                  <div class="informacion">Mujer</div>
+                </label>
+
+                <label class="opcion">
+                  <div class="opcion__check">
+                    <input id="form-sexo-otro" class="marcador__input" type="radio" name="opcion"></input><span
+                      class="marcador"></span>
+                  </div>
+                  <div class="informacion">Otro</div>
+                </label>
+
               </form>
             </div>
 
             <div class="datos_input">
               <h3>Mano de Preferencia</h3>
               <form class="mano">
-                <label class="opcion_check"><input id="form-mano-diestra" class="marcador" type="radio"
-                    name="opcion"><span class="opcion"></span>Diestro</label>
 
-                <label class="opcion_check"><input id="form-mano-zurda" class="marcador" type="radio"
-                    name="opcion"><span class="opcion"></span>Zurdo</label>
+                <label class="opcion">
+                  <div class="opcion__check">
+                    <input id="form-mano-diestra" class="marcador__input" type="radio" name="opcion"></input><span
+                      class="marcador"></span>
+                  </div>
+                  <div class="informacion">Diestro</div>
+                </label>
+
+                <label class="opcion">
+                  <div class="opcion__check">
+                    <input id="form-mano-zurda" class="marcador__input" type="radio" name="opcion"></input><span
+                      class="marcador"></span>
+                  </div>
+                  <div class="informacion">Zurdo</div>
+                </label>
+
               </form>
             </div>
 
@@ -203,9 +233,9 @@
       if (validarFormulario()) {
         navegable1.setPermitir(true);
         navegable1.siguiente();
-       
+
       } else {
-        
+
       }
     });
 

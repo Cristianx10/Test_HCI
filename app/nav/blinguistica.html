@@ -23,33 +23,32 @@
       left: 176px;
     }
 
-    .ppintura .pregunta__opciones{
+    .ppintura .pregunta__opciones {
       flex-direction: column;
       width: 500px;
       height: 500px;
     }
 
-    .ppintura .contenido-pintura{
+    .ppintura .contenido-pintura {
       margin-top: 100px;
       display: flex;
       padding: 0;
     }
 
-    .ppintura .contenido-pintura h2{
+    .ppintura .contenido-pintura h2 {
       margin: 30px;
       text-align: center;
     }
 
-    .ppintura .pregunta__opciones > div{
+    .ppintura .pregunta__opciones>div {
       flex-wrap: wrap;
       padding: 30px;
     }
 
-    .ppintura .pregunta__opciones > div img{
+    .ppintura .pregunta__opciones>div img {
       margin-top: 40px;
       margin-left: 40px;
     }
-
   </style>
 
 
@@ -68,7 +67,7 @@
               <img src="../img/arte/pinturaParcial.png" alt="">
               <div id="pintura__casilla1"></div>
             </div>
-  
+
             <div class="pregunta__opciones">
               <h2>Arrastra a la pintura la sección que le hace falta </h2>
               <img class="ima__opcion" src="../img/arte/fragmentoA.png" alt="">
@@ -100,11 +99,11 @@
 
         </div>
 
-        
+
         <div class="pantallaP pselecciona">
 
           <div class="titulo">
-              Agrega signos de puntuación
+            Agrega signos de puntuación
           </div>
           <p>Allí <span id="s1"></span> a lo lejos<span id="s2"></span> canta un ruiseñor <span id="s2"></span> ahí
             cerca
@@ -132,7 +131,7 @@
 
 
       <div class="zona__navegacion">
-        <button class="btn_siguiente" style="text-align:center;" onclick="seguir()">Siguiente</button>
+        <button class="btn_siguiente" onclick="seguir()">Siguiente</button>
       </div>
 
 
@@ -243,14 +242,14 @@
     $('#relacionAzar').append(tablero.canvas);
 
     let p2 = new PreguntaC("Lee el siguiente fragmento:2. En el fragmento hay unos cuantos errores de ortografía, dale click en el error para seleccionarlos. Cuando sientas que no hay más errores, haz click sobre el botón siguiente.", new OpcionC(`El hombre no se convierte en hombre más que en una sociedad y solamente por la acción colectiva de la sociedad entera; no se emansipa del llugo de la naturalesa exterior más que por el trabajo colectivo o social y sin esa emancipación material no puede haber emancipación intelectual y moral para nadie. El hombre aislado no puede tener conciencia de su libertad. Ser libre para el hombre sólo es posible por otro hombre, por todos los hombres que le rodean. La libertad no es, pues, un echo de aislamiento, sino de reflección mutua; no de exclución, sino, al contrario, de aliansa, pues la libertad de todo individuo no es otra cosa que el reflejo de su humanidad o de su derecho humano en la consciencia de todos los hombres libres: sus hermanos, sus iguales. No soy verdaderamente libre más que cuando todos los seres humanos que me rodean, hombres y mujeres, son igualmente libres. La libertad de otro, lejos de ser un límite o la negasión de mi libertad, es, al contrario, su condición necesaria y su confirmación. No me ago verdaderamente libre más que por la libertad de los otros... BAKUNIN, M. La Libertad.`));
- 
+
 
     let p3 = new Pregunta("3. El fragmento trata principalmente de:");
     p3.agregar("A) El riesgo de la dependencia", []);
     p3.agregar("B) La libertad a través de la conciencia social", []);
     p3.agregar("C) El trabajo social", []);
     p3.agregar("D) La democracia", []);
-    
+
 
     let p4 = [];
     p4.push(new PreguntaS());
@@ -306,7 +305,7 @@
 
 
     let p5 = new PreguntaD("¿Del 1 al 5, qué que tan bien crees que te fue en esta prueba?", new OpcionD([]));
- 
+
 
 
     let tableros = [];
@@ -416,14 +415,15 @@
       $item.fadeIn(function () {
         $item.appendTo(t);
         if (reciclaje.seleccion != null) {
-      
-          if (reciclaje.validarBasura(t[0].id)) {
 
+          if (reciclaje.validarBasura(t[0].id)) {
+            navegable.setPermitir(true);
+            navegable.siguiente();
             console.log("bien");
           } else {
             console.log("Mal");
           }
-          reciclaje.reset((s)=>{
+          reciclaje.reset((s) => {
             s.style.margin = "0";
             s.style.left = "0";
             s.style.right = "0";
@@ -431,7 +431,7 @@
           });
         }
       });
-     
+
     }
 
 
@@ -450,7 +450,11 @@
     tablero.setValidacion(() => {
       siguiente.disabled = false;
     });
-    contenedor.agregar(p2.getPregunta());
+
+    contenedor.agregar(p2.getPregunta())
+      .setAccion(() => {
+        siguiente.disabled = false;
+      });;
     contenedor.agregar(p3.getPregunta())
       .setAccion(() => {
         siguiente.disabled = true;
@@ -488,11 +492,13 @@
 
     }
 
-    $(".opcion_check").click(() => {
+    $(".opcion").click(() => {
       siguiente.disabled = false;
     });
 
-    navegable.setFinal("bmatematicas");
+    navegable.setFinal(() => {
+      goTo("bmatematicas")
+    });
 
 
   </script>

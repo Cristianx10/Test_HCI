@@ -33,13 +33,11 @@ input {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  -ms-flex-wrap: nowrap;
-      flex-wrap: nowrap;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -ms-flex-line-pack: start;
-      align-content: flex-start;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -ms-flex-line-pack: center;
+      align-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -47,25 +45,5 @@ input {
   border-radius: 5px;
   border: 2px solid #17CCD7;
   height: 60px;
-}
-
-.mano {
-  width: 330px;
-}
-
-.formulario {
-  margin-top: 100px;
-}
-
-.formulario .btn_siguiente:enabled {
-  background: #FFFA7C;
-  border: 1px solid #FFFA7C;
-  color: black;
-}
-
-.formulario input[type=radio] {
-  -webkit-transform: scale(2.5);
-  transform: scale(1.7);
-  margin: 0;
 }
 /*# sourceMappingURL=datosUsuario.css.map */

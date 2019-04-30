@@ -34,28 +34,6 @@ p {
     align-items: center;
 }
 
-/*
-.boton {
-    background: #FFF97C;
-    border: 1px solid #FFF97C;
-    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 30px;
-    width: 200px;
-    height: 50px;
-
-    font-weight: bold;
-    font-size: 1.3em;
-    color: $color-morado;
-
-    transition: all .5s ease;
-
-    &:hover {
-        cursor: pointer;
-        background: yellow;
-    }
-}
-*/
-
 .btn_siguiente,
 .boton,
 button {
@@ -94,8 +72,7 @@ button {
     }
 }
 
-.btn_siguiente:enabled,
-.seleccion {
+.btn_siguiente:enabled{
     background: #e4537a;
     color: white;
 
@@ -104,11 +81,6 @@ button {
         background: #d43e66;
     }
 }
-
-
-
-
-
 
 .principal {
     position: relative;
@@ -125,11 +97,9 @@ button {
 
 input[type=radio] {
     transform: scale(2);
-    position: absolute;
     cursor: pointer;
-    top: -4px;
-    opacity: 0;
-    left: 3px;
+    //opacity: 0;
+  
 }
 
 form {
@@ -141,27 +111,73 @@ form {
 }
 
 label {
-    display: block;
-    margin: 0 20px;
-    width: auto;
+  
+}
 
-    input {
-      //  margin: 15px;
-      position: absolute;
-      top: 8px;
-        left: 8px;
-        margin-top: 6px;
-    height: 20px;
+.opcion{
+
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    margin: 5px;
+    justify-content: center;
+    align-items: center;
+
+    &__check{
+        position: relative;
+        width: 25px;
+        height: 25px;
+        margin-right: 10px;
+        
+
+        & .marcador{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #00DED3;
+            border-radius: 50px;
+            position: absolute;
+            left: 0;
+            top: -2px;
+            width: 100%;
+            height: 100%;
+            transition: all .4s ease;
+            
+            &::after{
+                content: "";
+                width: 50%;
+                height: 50%;
+                display: block;
+                border-radius: 50px;
+            }
+        }
+
+        & input{
+            
+            opacity: 0;
+            &:checked~.marcador{
+                background-color: #00DED3;
+    
+                &::after{
+                    background: white;
+                }
+            }
+
+        }      
     }
+    
+    & .informacion{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    
 }
 
-.opcionC{
-    width: 100%;
-}
-
-
+/*
 .opcion_check {
-    display: block;
+    display: flex;
     position: relative;
     text-align: left;
 
@@ -172,7 +188,6 @@ label {
 
     & input {
         cursor: pointer;
-
     }
 
     &:hover input~.opcion {
@@ -187,12 +202,12 @@ label {
         border-radius: 50%;
         background: white;
     }
-}
-
+}*/
+/*
 .opcion {
     position: absolute;
-    top: 0;
     left: 0;
+    top: 8px;
     height: 25px;
     width: 25px;
     border: 1px solid #00DED3;
@@ -203,16 +218,15 @@ label {
         position: absolute;
         display: none;
     }
-}
-
+}*/
+/*
 .opcion_check input:checked~.opcion {
     background-color: #00DED3;
-    ;
 
     &:after {
         display: block;
     }
-}
+}*/
 
 .cont_imgYpreg {
     display: flex;
@@ -359,7 +373,7 @@ label {
         display: flex;
         flex-wrap: wrap;
         width: 60%;
-     
+
         justify-content: space-between;
 
         progress {
@@ -398,7 +412,7 @@ label {
     flex-direction: column;
     text-align: center;
     color: black;
-  
+
     height: 100%;
     margin: 0;
 
@@ -435,16 +449,18 @@ label {
     }
 }
 
-.formulario__opciones{
-  
-    &__imagen{
+.formulario__opciones {
+
+    &__imagen {
         display: flex;
         flex-direction: row;
+        padding: 0px 150px;
 
-        .seleccion{
+        .seleccion {
             background: white;
 
-            button,.boton{
+            button,
+            .boton {
                 color: white;
                 background: #E64973;
             }
@@ -497,7 +513,7 @@ hr {
 
 }
 
-.pantallaP{
+.pantallaP {
     margin: 0 auto;
     width: 60%;
 }
@@ -773,7 +789,7 @@ hr {
     /*margin-left: 320px;*/
     width: 550px;
 
-  
+
 
     font-family: 'Heebo', sans-serif;
     font-style: normal;
@@ -787,7 +803,7 @@ hr {
 .descripcion {
     /*margin-left: 320px;*/
     width: 450px;
- 
+
     font-family: 'Muli', sans-serif;
     font-style: normal;
     font-weight: normal;
@@ -797,19 +813,19 @@ hr {
     color: #EFF5FF;
 }
 
-.centrar{
+.centrar {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.introduccion{
+.introduccion {
     position: absolute;
     top: 150px;
     left: 300px;
 
-    & > *{
+    &>* {
         margin-top: 50px;
     }
 }
@@ -924,9 +940,10 @@ Estilos de seleccionador
     font-size: 10px;
 }
 
-.pregunta__pintura{
+.pregunta__pintura {
     position: relative;
-    & > div > img{
+
+    &>div>img {
         margin: 0;
     }
 }
@@ -942,7 +959,7 @@ Estilos de seleccionador
         height: 100%;
         padding: 50px;
 
-        & > div {
+        &>div {
             width: 100%;
             height: 100%;
             background-size: cover;
@@ -952,14 +969,6 @@ Estilos de seleccionador
 
     &__info {
         width: 50%;
-
-        & button {
-            width: 45%;
-            height: 90px;
-            margin-left: 20px;
-            margin-top: 50px;
-            flex-wrap: wrap;
-        }
     }
 
     &__pregunta {
@@ -976,16 +985,30 @@ Estilos de seleccionador
     }
 
     &__opciones {
+        display: flex;
         width: 100%;
         height: 50%;
         flex-direction: row;
         flex-wrap: wrap;
 
-       
+        & .seleccion{
+
+            background: #E4537A;
+            color: white;
+            
+        }
+
+        & button {
+            width: 45%;
+            height: 90px;
+            margin-left: 20px;
+            margin-top: 50px;
+         
+        }
     }
 
 
-    
+
 
 }
 
@@ -995,6 +1018,6 @@ Estilos de seleccionador
         justify-content: center;
         align-items: center;
         height: 10%;
-        
+
     }
 }
