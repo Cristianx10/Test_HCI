@@ -993,16 +993,20 @@ Estilos de seleccionador
 
         & .seleccion{
 
-            background: #E4537A;
-            color: white;
+
+            .boton{
+                background: #E4537A;
+                color: white;
+            }
+           
             
         }
 
-        & button {
-            width: 45%;
+        & .boton {
+            width: 250px;
             height: 90px;
             margin-left: 20px;
-            margin-top: 50px;
+          
          
         }
     }

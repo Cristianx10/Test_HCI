@@ -1,48 +1,79 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var Pregunta = /** @class */ (function () {
-    function Pregunta(pregunta) {
-        this.pregunta = pregunta;
-        this.opciones = new Array();
+    function Pregunta(informacion) {
+        this.informacion = informacion;
         this.elemento = document.createElement('div');
-        this.elemento.className = "pregunta";
+    }
+    Pregunta.prototype.incluirEn = function (lugar) {
+        var e = document.querySelector(lugar);
+        e.append(this.elemento);
+    };
+    Pregunta.prototype.getElemento = function () {
+        return this.elemento;
+    };
+    Pregunta.prototype.agregarClases = function (clase) {
+        this.elemento.classList.add(clase);
+    };
+    Pregunta.prototype.removerClases = function (clase) {
+        this.elemento.classList.remove(clase);
+    };
+    return Pregunta;
+}());
+var PreguntaA = /** @class */ (function (_super) {
+    __extends(PreguntaA, _super);
+    function PreguntaA(informacion) {
+        var _this = _super.call(this, informacion) || this;
+        _this.opciones = new Array();
+        _this.elemento.className = "pregunta";
         var div_seccionA = document.createElement('section');
         var div_seccionA_h1 = document.createElement('h2');
         var div_seccionB = document.createElement('section');
-        this.formulario = document.createElement('form');
-        this.formulario.className = "formulario_opciones";
-        this.formulario.onsubmit = function () { return false; };
+        _this.formulario = document.createElement('form');
+        _this.formulario.className = "formulario_opciones";
+        _this.formulario.onsubmit = function () { return false; };
         div_seccionA.className = "pregunta__titulo";
         div_seccionB.className = "pregunta__opciones";
-        div_seccionA_h1.innerHTML = this.pregunta;
-        this.elemento.appendChild(div_seccionA);
-        this.elemento.appendChild(div_seccionB);
+        div_seccionA_h1.innerHTML = _this.informacion;
+        _this.elemento.appendChild(div_seccionA);
+        _this.elemento.appendChild(div_seccionB);
         div_seccionA.appendChild(div_seccionA_h1);
         div_seccionA.appendChild(document.createElement('hr'));
-        div_seccionB.appendChild(this.formulario);
-        this.contenido = new Contenido(this.getElemento(), this);
+        div_seccionB.appendChild(_this.formulario);
+        _this.contenido = new Contenido(_this.getElemento(), _this);
+        return _this;
     }
-    Pregunta.prototype.agregar = function (info, valor) {
-        var opcion = new Opcion(info, valor, this);
+    PreguntaA.prototype.agregar = function (info, valor) {
+        var opcion = new OpcionA(info, valor, this);
         this.opciones.push(opcion);
         this.formulario.append(opcion.getElemento());
     };
-    Pregunta.prototype.validar = function () {
+    PreguntaA.prototype.validar = function () {
         if (this.seleccion != null) {
             this.seleccion.validacion();
             resultados.agregar("pregunta", [{ id: "pregunta", valor: this.elemento.innerText },
                 { id: "respuesta", valor: this.seleccion.opcion.innerText }]);
         }
     };
-    Pregunta.prototype.getPregunta = function () {
+    PreguntaA.prototype.getPregunta = function () {
         return this.contenido;
     };
-    Pregunta.prototype.getElemento = function () {
-        return this.elemento;
-    };
-    return Pregunta;
-}());
-var Opcion = /** @class */ (function () {
-    function Opcion(info, valor, pregunta) {
+    return PreguntaA;
+}(Pregunta));
+var OpcionA = /** @class */ (function () {
+    function OpcionA(info, valor, pregunta) {
         var _this = this;
         this.pregunta = pregunta;
         this.opcion = document.createElement("label");
@@ -57,32 +88,31 @@ var Opcion = /** @class */ (function () {
             _this.opcion.classList.add("seleccion");
         });
     }
-    Opcion.prototype.validacion = function () {
+    OpcionA.prototype.validacion = function () {
         this.valor.forEach(function (v) {
             resultados.sumar(v.area, v.valor);
         });
     };
-    Opcion.prototype.getElemento = function () {
+    OpcionA.prototype.getElemento = function () {
         return this.opcion;
     };
-    return Opcion;
+    return OpcionA;
 }());
-var PreguntaB = /** @class */ (function () {
-    function PreguntaB(pregunta, opciones) {
-        var _this = this;
-        this.pregunta = pregunta;
-        this.opciones = opciones;
-        this.elemento = document.createElement('div');
-        this.elemento.className = "pregunta";
+var PreguntaB = /** @class */ (function (_super) {
+    __extends(PreguntaB, _super);
+    function PreguntaB(informacion, opciones) {
+        var _this = _super.call(this, informacion) || this;
+        _this.opciones = opciones;
+        _this.elemento.className = "pregunta";
         var div_seccionA = document.createElement('section');
         var div_seccionA_h1 = document.createElement('h2');
         var div_seccionB = document.createElement('section');
         var formulario = document.createElement('div');
         div_seccionA.className = "pregunta__titulo";
         div_seccionB.className = "pregunta__opciones";
-        div_seccionA_h1.innerHTML = this.pregunta;
-        this.elemento.appendChild(div_seccionA);
-        this.elemento.appendChild(div_seccionB);
+        div_seccionA_h1.innerHTML = _this.informacion;
+        _this.elemento.appendChild(div_seccionA);
+        _this.elemento.appendChild(div_seccionB);
         div_seccionA.appendChild(div_seccionA_h1);
         div_seccionA.appendChild(document.createElement('hr'));
         opciones.forEach(function (o) {
@@ -90,6 +120,7 @@ var PreguntaB = /** @class */ (function () {
             formulario.appendChild(o.getElement());
         });
         div_seccionB.appendChild(formulario);
+        return _this;
     }
     PreguntaB.prototype.validar = function () {
         var _this = this;
@@ -107,14 +138,11 @@ var PreguntaB = /** @class */ (function () {
             o.opcion.classList.remove("opcion__select");
         });
     };
-    PreguntaB.prototype.getElement = function () {
-        return this.elemento;
-    };
     PreguntaB.prototype.setValidacion = function (validacion) {
         this.validacion = validacion;
     };
     return PreguntaB;
-}());
+}(Pregunta));
 var OpcionB = /** @class */ (function () {
     function OpcionB(info, valor) {
         var _this = this;
@@ -148,21 +176,21 @@ var OpcionB = /** @class */ (function () {
     Inicio de la pregunta C
 
 */
-var PreguntaC = /** @class */ (function () {
-    function PreguntaC(pregunta, opciones) {
-        this.pregunta = pregunta;
-        this.opciones = opciones;
-        this.elemento = document.createElement('div');
-        this.elemento.className = "pantalla pregunta";
+var PreguntaC = /** @class */ (function (_super) {
+    __extends(PreguntaC, _super);
+    function PreguntaC(informacion, opciones) {
+        var _this = _super.call(this, informacion) || this;
+        _this.opciones = opciones;
+        _this.elemento.className = "pantalla pregunta";
         var div_seccionA = document.createElement('section');
         var div_seccionA_h1 = document.createElement('h2');
         var div_seccionB = document.createElement('section');
         var formulario = document.createElement('div');
         div_seccionA.className = "pregunta__titulo";
         div_seccionB.className = "pregunta__opciones";
-        div_seccionA_h1.innerHTML = this.pregunta;
-        this.elemento.appendChild(div_seccionA);
-        this.elemento.appendChild(div_seccionB);
+        div_seccionA_h1.innerHTML = _this.informacion;
+        _this.elemento.appendChild(div_seccionA);
+        _this.elemento.appendChild(div_seccionB);
         div_seccionA.appendChild(div_seccionA_h1);
         div_seccionA.appendChild(document.createElement('hr'));
         /*
@@ -171,18 +199,13 @@ var PreguntaC = /** @class */ (function () {
                     formulario.appendChild(o.getElement());
                 });
         */
-        div_seccionB.appendChild(this.opciones.areaTexto);
-        this.contenido = new Contenido(this.getElemento(), this);
+        div_seccionB.appendChild(_this.opciones.areaTexto);
+        _this.contenido = new Contenido(_this.getElemento(), _this);
+        return _this;
     }
     PreguntaC.prototype.validar = function () {
-        resultados.agregar("pregunta", [{ id: "pregunta", valor: this.pregunta },
+        resultados.agregar("pregunta", [{ id: "pregunta", valor: this.informacion },
             { id: "respuesta", valor: this.opciones.areaTexto.value }]);
-        /* this.opciones.forEach((o: any) => {
-             if (o.validado) {
-                 o.validacion();
-                 
-             }
-         });*/
     };
     PreguntaC.prototype.reset = function () {
         /* this.opciones.forEach(o => {
@@ -193,14 +216,11 @@ var PreguntaC = /** @class */ (function () {
     PreguntaC.prototype.getPregunta = function () {
         return this.contenido;
     };
-    PreguntaC.prototype.getElemento = function () {
-        return this.elemento;
-    };
     PreguntaC.prototype.setValidacion = function (validacion) {
         this.validacion = validacion;
     };
     return PreguntaC;
-}());
+}(Pregunta));
 var OpcionC = /** @class */ (function () {
     function OpcionC(info, valor) {
         var _this = this;
@@ -245,42 +265,40 @@ var OpcionC = /** @class */ (function () {
 }());
 /* Escala de linker
 */
-var PreguntaD = /** @class */ (function () {
-    function PreguntaD(pregunta, valor, p, m) {
-        this.pregunta = pregunta;
-        this.opciones = new OpcionD(valor, p, m);
-        this.elemento = document.createElement('div');
-        this.elemento.className = "pregunta";
+var PreguntaD = /** @class */ (function (_super) {
+    __extends(PreguntaD, _super);
+    function PreguntaD(informacion, valor, p, m) {
+        var _this = _super.call(this, informacion) || this;
+        _this.opciones = new OpcionD(valor, p, m);
+        _this.elemento.className = "pregunta";
         var div_seccionA = document.createElement('section');
         var div_seccionA_h1 = document.createElement('h2');
         var div_seccionB = document.createElement('section');
         var formulario = document.createElement('div');
         div_seccionA.className = "pregunta__titulo";
         div_seccionB.className = "pregunta__opciones";
-        div_seccionA_h1.innerHTML = this.pregunta;
-        this.elemento.appendChild(div_seccionA);
-        this.elemento.appendChild(div_seccionB);
+        div_seccionA_h1.innerHTML = _this.informacion;
+        _this.elemento.appendChild(div_seccionA);
+        _this.elemento.appendChild(div_seccionB);
         div_seccionA.appendChild(div_seccionA_h1);
         div_seccionA.appendChild(document.createElement('hr'));
-        div_seccionB.appendChild(this.opciones.opcion);
-        this.contenido = new Contenido(this.getElemento(), this);
+        div_seccionB.appendChild(_this.opciones.opcion);
+        _this.contenido = new Contenido(_this.getElemento(), _this);
+        return _this;
     }
     PreguntaD.prototype.validar = function () {
         this.opciones.validacion();
-        resultados.agregar("pregunta", [{ id: "pregunta", valor: this.pregunta },
+        resultados.agregar("pregunta", [{ id: "pregunta", valor: this.informacion },
             { id: "respuesta", valor: this.opciones.input.value }]);
     };
     PreguntaD.prototype.getPregunta = function () {
         return this.contenido;
     };
-    PreguntaD.prototype.getElemento = function () {
-        return this.elemento;
-    };
     PreguntaD.prototype.setValidacion = function (validacion) {
         this.validacion = validacion;
     };
     return PreguntaD;
-}());
+}(Pregunta));
 var OpcionD = /** @class */ (function () {
     function OpcionD(valor, p, m) {
         var _this = this;
@@ -344,31 +362,32 @@ var OpcionD = /** @class */ (function () {
     };
     return OpcionD;
 }());
-var PreguntaI = /** @class */ (function () {
-    function PreguntaI(pregunta) {
-        this.pregunta = pregunta;
-        this.opciones = new Array();
-        this.elemento = document.createElement('div');
-        this.elemento.className = "pregunta pimagen";
+var PreguntaI = /** @class */ (function (_super) {
+    __extends(PreguntaI, _super);
+    function PreguntaI(informacion) {
+        var _this = _super.call(this, informacion) || this;
+        _this.opciones = new Array();
+        _this.elemento.className = "pregunta pimagen";
         var contenedor = document.createElement("div");
         contenedor.className = "pregunta__contenedor";
-        this.elemento.appendChild(contenedor);
+        _this.elemento.appendChild(contenedor);
         var div_seccionA = document.createElement('div');
         div_seccionA.className = "pregunta__titulo";
-        div_seccionA.innerHTML = pregunta;
+        div_seccionA.innerHTML = informacion;
         var div_seccionC = document.createElement('section');
         div_seccionC.className = "pregunta__opciones";
         div_seccionC.style.width = "100%";
-        this.formulario = document.createElement('form');
-        this.formulario.className = "formulario__opciones__imagen";
-        this.formulario.name = "f";
-        this.formulario.method = "GET";
-        this.formulario.onsubmit = function () { return false; };
+        _this.formulario = document.createElement('form');
+        _this.formulario.className = "formulario__opciones__imagen";
+        _this.formulario.name = "f";
+        _this.formulario.method = "GET";
+        _this.formulario.onsubmit = function () { return false; };
         contenedor.appendChild(div_seccionA);
         contenedor.append(div_seccionC);
-        div_seccionC.append(this.formulario);
-        console.log(this.getElemento());
-        this.contenido = new Contenido(this.getElemento(), this);
+        div_seccionC.append(_this.formulario);
+        console.log(_this.getElemento());
+        _this.contenido = new Contenido(_this.getElemento(), _this);
+        return _this;
     }
     PreguntaI.prototype.agregar = function (info, valor) {
         var elemento = new OpcionI(info, valor, this);
@@ -378,18 +397,15 @@ var PreguntaI = /** @class */ (function () {
     PreguntaI.prototype.validar = function () {
         if (this.seleecion != null) {
             this.seleecion.validacion();
-            resultados.agregar("pregunta", [{ id: "pregunta", valor: this.pregunta },
+            resultados.agregar("pregunta", [{ id: "pregunta", valor: this.informacion },
                 { id: "respuesta", valor: this.seleecion.opcion.innerText }]);
         }
     };
     PreguntaI.prototype.getPregunta = function () {
         return this.contenido;
     };
-    PreguntaI.prototype.getElemento = function () {
-        return this.elemento;
-    };
     return PreguntaI;
-}());
+}(Pregunta));
 var OpcionI = /** @class */ (function () {
     function OpcionI(info, valor, pregunta) {
         var _this = this;
@@ -424,14 +440,14 @@ var PreguntaS = /** @class */ (function () {
         this.texto = document.createElement("p");
         this.texto.innerText = "___";
         this.texto.style.textAlign = "center";
-        this.bloque = document.createElement('div');
-        this.bloque.style.display = "inline-block";
-        this.bloque.className = "elegir__resultado";
-        this.bloque.append(this.texto);
+        this.elemento = document.createElement('div');
+        this.elemento.style.display = "inline-block";
+        this.elemento.className = "elegir__resultado";
+        this.elemento.append(this.texto);
         this.lista = document.createElement('span');
         this.lista.className = "elegir__lista";
-        this.bloque.append(this.lista);
-        this.bloque.addEventListener("click", function () {
+        this.elemento.append(this.lista);
+        this.elemento.addEventListener("click", function () {
             if (_this.lista.style.display == "") {
                 _this.lista.style.display = "flex";
             }
@@ -450,7 +466,7 @@ var PreguntaS = /** @class */ (function () {
     };
     PreguntaS.prototype.incluirEn = function (lugar) {
         var e = document.querySelector(lugar);
-        e.append(this.bloque);
+        e.append(this.elemento);
     };
     return PreguntaS;
 }());
@@ -469,19 +485,20 @@ var OpcionS = /** @class */ (function () {
     }
     return OpcionS;
 }());
-var PreguntaR = /** @class */ (function () {
-    function PreguntaR(pregunta) {
-        this.pregunta = pregunta;
-        this.opciones = new Array();
-        this.elemento = document.createElement('div');
-        this.elemento.className = "instruccion";
-        this.preguntaHTML = document.createElement('div');
-        this.preguntaHTML.innerHTML = pregunta;
-        this.opcionesHTML = document.createElement('div');
-        this.preguntaHTML.className = "instruccion__pregunta";
-        this.opcionesHTML.className = "instruccion__opciones";
-        this.elemento.append(this.preguntaHTML);
-        this.elemento.append(this.opcionesHTML);
+var PreguntaR = /** @class */ (function (_super) {
+    __extends(PreguntaR, _super);
+    function PreguntaR(informacion) {
+        var _this = _super.call(this, informacion) || this;
+        _this.opciones = new Array();
+        _this.elemento.className = "instruccion";
+        _this.preguntaHTML = document.createElement('div');
+        _this.preguntaHTML.innerHTML = informacion;
+        _this.opcionesHTML = document.createElement('div');
+        _this.preguntaHTML.className = "instruccion__pregunta";
+        _this.opcionesHTML.className = "instruccion__opciones";
+        _this.elemento.append(_this.preguntaHTML);
+        _this.elemento.append(_this.opcionesHTML);
+        return _this;
     }
     PreguntaR.prototype.agregar = function (info, valor) {
         var opcion = new OpcionR(info, valor);
@@ -492,22 +509,15 @@ var PreguntaR = /** @class */ (function () {
     PreguntaR.prototype.validar = function () {
         if (this.seleccion != null) {
             this.seleccion.validacion();
-            resultados.agregar("pregunta", [{ id: "pregunta", valor: this.pregunta },
+            resultados.agregar("pregunta", [{ id: "pregunta", valor: this.informacion },
                 { id: "respuesta", valor: this.seleccion.informacion }]);
         }
-    };
-    PreguntaR.prototype.incluirEn = function (lugar) {
-        var e = document.querySelector(lugar);
-        e.append(this.elemento);
-    };
-    PreguntaR.prototype.getElemento = function () {
-        return this.elemento;
     };
     PreguntaR.prototype.setValidacion = function (validacion) {
         this.validacion = validacion;
     };
     return PreguntaR;
-}());
+}(Pregunta));
 var OpcionR = /** @class */ (function () {
     function OpcionR(info, valor) {
         var _this = this;
@@ -535,26 +545,27 @@ var OpcionR = /** @class */ (function () {
     };
     return OpcionR;
 }());
-var PreguntaP = /** @class */ (function () {
-    function PreguntaP(imagen, pregunta) {
-        this.pregunta = pregunta;
-        this.opciones = new Array();
-        this.elemento = document.createElement('div');
-        this.elemento.className = "preguntaImagen";
-        this.preguntaHTML = document.createElement('div');
-        this.preguntaHTML.className = "preguntaImagen__imagen";
-        this.preguntaHTML.innerHTML = imagen;
-        this.opcionesHTML = document.createElement('div');
-        this.preguntaText = document.createElement('div');
-        this.preguntaText.innerHTML = pregunta;
-        this.preguntaText.className = "preguntaImagen__pregunta";
+var PreguntaP = /** @class */ (function (_super) {
+    __extends(PreguntaP, _super);
+    function PreguntaP(imagen, informacion) {
+        var _this = _super.call(this, informacion) || this;
+        _this.opciones = new Array();
+        _this.elemento.className = "preguntaImagen";
+        _this.preguntaHTML = document.createElement('div');
+        _this.preguntaHTML.className = "preguntaImagen__imagen";
+        _this.preguntaHTML.innerHTML = imagen;
+        _this.opcionesHTML = document.createElement('div');
+        _this.preguntaText = document.createElement('div');
+        _this.preguntaText.innerHTML = informacion;
+        _this.preguntaText.className = "preguntaImagen__pregunta";
         var cont_temp = document.createElement('div');
         cont_temp.className = "preguntaImagen__info";
-        this.opcionesHTML.className = "preguntaImagen__opciones";
-        this.elemento.append(this.preguntaHTML);
-        cont_temp.appendChild(this.preguntaText);
-        cont_temp.appendChild(this.opcionesHTML);
-        this.elemento.appendChild(cont_temp);
+        _this.opcionesHTML.className = "preguntaImagen__opciones";
+        _this.elemento.append(_this.preguntaHTML);
+        cont_temp.appendChild(_this.preguntaText);
+        cont_temp.appendChild(_this.opcionesHTML);
+        _this.elemento.appendChild(cont_temp);
+        return _this;
     }
     PreguntaP.prototype.agregar = function (info, valor) {
         var opcion = new OpcionP(info, valor);
@@ -565,27 +576,20 @@ var PreguntaP = /** @class */ (function () {
     PreguntaP.prototype.validar = function () {
         if (this.seleccion != null) {
             this.seleccion.validacion();
-            resultados.agregar("pregunta", [{ id: "pregunta", valor: this.pregunta },
+            resultados.agregar("pregunta", [{ id: "pregunta", valor: this.informacion },
                 { id: "respuesta", valor: this.seleccion.informacion }]);
         }
-    };
-    PreguntaP.prototype.incluirEn = function (lugar) {
-        var e = document.querySelector(lugar);
-        e.append(this.elemento);
-    };
-    PreguntaP.prototype.getElemento = function () {
-        return this.elemento;
     };
     PreguntaP.prototype.setValidacion = function (validacion) {
         this.validacion = validacion;
     };
     return PreguntaP;
-}());
+}(Pregunta));
 var OpcionP = /** @class */ (function () {
     function OpcionP(info, valor) {
         var _this = this;
         this.informacion = info;
-        this.opcion = document.createElement("button");
+        this.opcion = document.createElement("div");
         this.opcion.className = "opcion__boton";
         this.valor = valor;
         this.opcion.innerHTML = info;
