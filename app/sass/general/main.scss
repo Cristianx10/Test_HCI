@@ -48,7 +48,7 @@ button {
     transition: all .5s ease;
 }
 
-.botonComenzar{
+.botonComenzar {
     display: flex;
     justify-content: center;
     align-content: center;
@@ -65,7 +65,7 @@ button {
     font-size: 1.3em;
     transition: all .5s ease;
 
-    &:hover{
+    &:hover {
         background: #e0e002;
         border: 1px solid #e0e002;
     }
@@ -90,7 +90,7 @@ button {
     }
 }
 
-.btn_siguiente:enabled{
+.btn_siguiente:enabled {
     background: #e4537a;
     color: white;
 
@@ -102,10 +102,9 @@ button {
 
 .principal {
     position: relative;
-    max-width: 1280px;
-    max-height: 720px;
-    width: 100%;
-    height: 80%;
+    width: 1280px;
+    height: 720px;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -116,7 +115,7 @@ input[type=radio] {
     transform: scale(2);
     cursor: pointer;
     //opacity: 0;
-  
+
 }
 
 form {
@@ -127,11 +126,9 @@ form {
     flex-direction: column;
 }
 
-label {
-  
-}
+label {}
 
-.opcion{
+.opcion {
 
     display: flex;
     flex-direction: row;
@@ -140,14 +137,14 @@ label {
     justify-content: center;
     align-items: center;
 
-    &__check{
+    &__check {
         position: relative;
         width: 25px;
         height: 25px;
         margin-right: 10px;
-        
 
-        & .marcador{
+
+        & .marcador {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -159,8 +156,8 @@ label {
             width: 100%;
             height: 100%;
             transition: all .4s ease;
-            
-            &::after{
+
+            &::after {
                 content: "";
                 width: 50%;
                 height: 50%;
@@ -169,27 +166,28 @@ label {
             }
         }
 
-        & input{
-            
+        & input {
+
             opacity: 0;
-            &:checked~.marcador{
+
+            &:checked~.marcador {
                 background-color: #00DED3;
-    
-                &::after{
+
+                &::after {
                     background: white;
                 }
             }
 
-        }      
+        }
     }
-    
-    & .informacion{
+
+    & .informacion {
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    
-    
+
+
 }
 
 /*
@@ -362,7 +360,7 @@ label {
     width: 100%;
     margin: 0 0;
     z-index: 1;
-    top:-5px;
+    top: -5px;
     height: 20px;
 
     &:focus {
@@ -374,16 +372,16 @@ label {
         width: 15%;
     }
 
-    &__lateral{
+    &__lateral {
         display: flex;
         flex-direction: row;
     }
 
-    &__barra{
+    &__barra {
         position: relative;
         width: 70%;
 
-        progress{
+        progress {
             position: absolute;
             top: 0;
             left: 0;
@@ -391,7 +389,7 @@ label {
         }
     }
 
-    &__opciones{
+    &__opciones {
         width: 70%;
         margin: 0 15%;
         display: flex;
@@ -421,8 +419,8 @@ label {
         border-radius: 25px;
         border: 1px solid #00ded3;
     }
-    
-    
+
+
 
 }
 
@@ -492,7 +490,7 @@ label {
         padding: 0px 150px;
 
         .seleccion {
-            background: white;
+
 
             button,
             .boton {
@@ -1020,28 +1018,26 @@ Estilos de seleccionador
 
     &__opciones {
         display: flex;
+        justify-content: space-evenly;
         width: 100%;
         height: 50%;
         flex-direction: row;
         flex-wrap: wrap;
 
-        & .seleccion{
+        & .seleccion {
 
 
-            .boton{
+            .boton {
                 background: #E4537A;
                 color: white;
             }
-           
-            
+
+
         }
 
         & .boton {
             width: 250px;
             height: 90px;
-            margin-left: 20px;
-          
-         
         }
     }
 
@@ -1058,4 +1054,116 @@ Estilos de seleccionador
         height: 10%;
 
     }
+}
+
+
+.pestilo2 {
+
+    & .preguntaImagen__pregunta {
+        height: auto;
+    }
+
+    & .preguntaImagen__info {
+
+
+        & .preguntaImagen__opciones {
+            height: auto;
+            flex-direction: column;
+
+            .opcion {
+                img {
+                    width: 100px;
+                    height: 100px;
+                }
+            }
+        }
+    }
+
+}
+
+.pestilo3 {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+    .preguntaImagen__imagen {
+        width: 100%;
+        height: 100px;
+        justify-content: center;
+    }
+
+    & .preguntaImagen__pregunta {
+        height: auto;
+    }
+
+    & .preguntaImagen__info {
+        width: 100%;
+
+
+        & .preguntaImagen__opciones {
+            height: auto;
+
+            .opcion {
+                margin: 20px 150px;
+
+                img {
+                    width: 100px;
+                    height: 100px;
+                }
+            }
+        }
+    }
+
+}
+
+
+
+.pestilo4 {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+    .preguntaImagen__imagen {
+        width: 100%;
+        height: 100px;
+        justify-content: center;
+        padding: 0;
+    }
+
+
+    & .preguntaImagen__info {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+
+
+        & .preguntaImagen__pregunta {
+            width: 50%;
+            height: auto;
+            img {
+                width: 100%;
+           
+            }
+        }
+
+
+        & .preguntaImagen__opciones {
+            display: flex;
+            flex-direction: row;
+            width: 50%;
+            height: auto;
+            padding: 80px;
+            padding-top: 150px;
+
+            .opcion {
+               margin-bottom: 40px;
+
+                img {
+                    width: 100px;
+                    height: 100px;
+                }
+            }
+        }
+    }
+
 }

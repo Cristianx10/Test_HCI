@@ -21,7 +21,7 @@
 
       <div class="pantalla ppreguntas">
 
-        <div class="pantalla pinicio"  style="background-image: url('../img/background_principal-2.png')">
+        <div class="pantalla pinicio" style="background-image: url('../img/background_principal-2.png')">
           <div class="introduccion">
             <h1 class="titulo">Inteligencia Visual Espacial</h1>
             <p id="desc" class="descripcion">En esta sección de la prueba evaluaremos tus conocimientos en el area
@@ -33,11 +33,12 @@
 
       </div>
 
-      
+
       <div class="zona__navegacion">
         <button class="btn_siguiente" style="text-align:center;" onclick="seguir()">Siguiente</button>
       </div>
 
+  
 
 
 
@@ -66,7 +67,7 @@
   <script src="../js/main.js"></script>
   <script src="../js/pregunta.js"></script>
 
-
+  <img src="../img/preguntasGenerales/VisualEspacial/octagonoA.png" alt="">
 
   <script type="text/javascript">
 
@@ -83,20 +84,59 @@
     let navegacion = new Navegable(contenedor);
 
 
-    let p1 = new PreguntaI("../img/arte/fragmentoB.png");
-    p1.agregar("<div class=' boton'>opocin</div>", []);
-    p1.agregar("<div class=' boton'>opocin</div>", []);
-    p1.agregar("<div class=' boton'>opocin</div>", []);
-    p1.agregar("<div class=' boton'>opocin</div>", []);
-    p1.agregar("<div class=' boton'>opocin</div>", []);
-    p1.agregar("<div class=' boton'>opocin</div>", []);
+    let p1 = new PreguntaP(`<img style="width:100%; height="100%; src="../img/preguntasGenerales/VisualEspacial/secuenciaOctagono.png" alt="">`,
+      `<h3>1. Elige la imagen que continúa la secuencia</h3>`);
+    p1.agregarB(`<h2>a)</h2><img src="../img/preguntasGenerales/VisualEspacial/octagonoA.png" alt="">`, []);
+    p1.agregarB(`<h2>b)</h2><img src="../img/preguntasGenerales/VisualEspacial/octagonoB.png" alt="">`, []);
+    p1.agregarB(`<h2>c)</h2><img src="../img/preguntasGenerales/VisualEspacial/octagonoC.png" alt="">`, []);
+    p1.agregarB(`<h2>d)</h2><img src="../img/preguntasGenerales/VisualEspacial/octagonoD.png" alt="">`, []);
+    p1.agregarClase("pestilo2");
+
+    let p2 = new PreguntaI(`<h1>2. Elige la imagen donde el cuadro azul más claro esté en el centro</h1>`,
+      `<h3>1. Elige la imagen que continúa la secuencia</h3>`);
+    p2.agregar(`<h2>a)</h2><img style="width:260px; margin: 15px;" src="../img/preguntasGenerales/VisualEspacial/centroazulA.png" alt="">`, []);
+    p2.agregar(`<h2>b)</h2><img style="width:260px; margin: 15px;" src="../img/preguntasGenerales/VisualEspacial/centroazulB.png" alt="">`, []);
+    p2.agregar(`<h2>c)</h2><img style="width:260px; margin: 15px;" src="../img/preguntasGenerales/VisualEspacial/centroazulC.png" alt="">`, []);
+    p2.agregar(`<h2>d)</h2><img style="width:260px; margin: 15px;" src="../img/preguntasGenerales/VisualEspacial/centroazulD.png" alt="">`, []);
+
+    let p3 = new PreguntaP(`<h1>3. Elige la imagen que continúa la secuencia (IMG3)</h1>`,
+      `<img src="../img/preguntasGenerales/VisualEspacial/secuenciaRelog.png">`);
+    p3.agregarB(`<h2>a)</h2><img src="../img/preguntasGenerales/VisualEspacial/relogA.png" alt="">`, []);
+    p3.agregarB(`<h2>b)</h2><img src="../img/preguntasGenerales/VisualEspacial/relogB.png" alt="">`, []);
+    p3.agregarB(`<h2>c)</h2><img src="../img/preguntasGenerales/VisualEspacial/relogC.png" alt="">`, []);
+    p3.agregarB(`<h2>d)</h2><img src="../img/preguntasGenerales/VisualEspacial/relogD.png" alt="">`, []);
+    p3.agregarClase("pestilo3");
 
 
+    let p4 = new PreguntaP(`<h1>4. Indica cual/es de los siguientes cubos podrían formarse a partir de la figura desplegada. Puede existir más de una respuesta correcta.</h1>`,
+      `<img src="../img/preguntasGenerales/VisualEspacial/secuenciaFiguras.png">`);
+    p4.agregarB(`<h2>a)</h2><img src="../img/preguntasGenerales/VisualEspacial/figurasA.png" alt="">`, []);
+    p4.agregarB(`<h2>b)</h2><img src="../img/preguntasGenerales/VisualEspacial/figurasB.png" alt="">`, []);
+    p4.agregarB(`<h2>c)</h2><img src="../img/preguntasGenerales/VisualEspacial/figurasC.png" alt="">`, []);
+    p4.agregarB(`<h2>d)</h2><img src="../img/preguntasGenerales/VisualEspacial/figurasD.png" alt="">`, []);
+    p4.agregarClase("pestilo4");
+
+    let p5 = new PreguntaP(`<h1>4. Indica cual/es de los siguientes cubos podrían formarse a partir de la figura desplegada. Puede existir más de una respuesta correcta.</h1>`,
+      `<img src="../img/preguntasGenerales/VisualEspacial/referenciaCuadrilatero.png">`);
+    p5.agregarB(`<h2>a)</h2><img src="../img/preguntasGenerales/VisualEspacial/cuadrilateroA.png" alt="">`, []);
+    p5.agregarB(`<h2>b)</h2><img src="../img/preguntasGenerales/VisualEspacial/cuadrilateroB.png" alt="">`, []);
+    p5.agregarB(`<h2>c)</h2><img src="../img/preguntasGenerales/VisualEspacial/cuadrilateroC.png" alt="">`, []);
+    p5.agregarB(`<h2>d)</h2><img src="../img/preguntasGenerales/VisualEspacial/cuadrilateroD.png" alt="">`, []);
+    p5.agregarClase("pestilo4");
+    
+    
+   
+    
     contenedor.agregarHTML(document.querySelector('.pinicio'));
-    contenedor.agregar(p1.getPregunta()).setAccion(()=>{
+    contenedor.agregar(p1.getPregunta()).setAccion(() => {
       mostrar(".zona__navegacion");
     });
-
+    
+    contenedor.agregar(p2.getPregunta());
+    contenedor.agregar(p3.getPregunta());
+    contenedor.agregar(p4.getPregunta());
+    contenedor.agregar(p5.getPregunta());
+    
     contenedor.incluirEn(document.querySelector(".ppreguntas"));
 
     navegacion.iniciar();
@@ -104,18 +144,18 @@
     let siguiente = document.querySelector(".btn_siguiente");
 
     ocultar(".zona__navegacion");
+  
 
     function seguir() {
       navegacion.setPermitir(true);
       navegacion.siguiente();
-      
     }
 
     $(".opcion_check").click(() => {
       siguiente.disabled = false;
     });
 
-    navegacion.setFinal(()=>{
+    navegacion.setFinal(() => {
       goTo("bmatematicas");
     });
 
