@@ -1,4 +1,10 @@
 "use strict";
+/*
+interface RespuestaV {
+    id: string;
+    valor: number;
+}
+*/
 var Resultados = /** @class */ (function () {
     function Resultados(id) {
         this.id = id;
@@ -25,6 +31,49 @@ var Resultados = /** @class */ (function () {
             this.pruebas.push({ id: id, pruebas: prueba });
         }
         this.save();
+    };
+    Resultados.prototype.getAreas = function (areas) {
+        var areasArray = [];
+        for (var i = 0; i < areas.length; i++) {
+            var a = areas[i];
+            if (this.categorias != null) {
+                for (var j = 0; j < this.categorias.length; j++) {
+                    var c = this.categorias[j];
+                    if (a == c.nombre) {
+                        areasArray.push(c);
+                        j = this.categorias.length;
+                    }
+                }
+            }
+        }
+        return areasArray;
+    };
+    Resultados.prototype.getAreasMaximo = function (areas) {
+        var areasArray = [];
+        for (var i = 0; i < areas.length; i++) {
+            var a = areas[i];
+            if (this.maximos != null) {
+                for (var j = 0; j < this.maximos.length; j++) {
+                    var c = this.maximos[j];
+                    if (a == c.area) {
+                        areasArray.push(c);
+                        j = this.maximos.length;
+                    }
+                }
+            }
+        }
+        return areasArray;
+    };
+    Resultados.prototype.getMaximo = function (area) {
+        var max;
+        if (this.maximos != null) {
+            this.maximos.forEach(function (e) {
+                if (area == e.area) {
+                    max = e;
+                }
+            });
+        }
+        return max;
     };
     Resultados.prototype.sumar = function (nombre, valor) {
         var categoria = 0;
@@ -54,7 +103,7 @@ var Resultados = /** @class */ (function () {
                     var encontro = false;
                     for (var j = 0; j < valorTotal.length; j++) {
                         var t = valorTotal[j];
-                        if (val.id == t.id) {
+                        if (val.area == t.area) {
                             encontro = true;
                             if (val.valor > t.valor) {
                                 t.valor = val.valor;
@@ -62,19 +111,18 @@ var Resultados = /** @class */ (function () {
                         }
                     }
                     if (encontro == false) {
-                        valorTotal.push({ id: val.id, valor: val.valor });
+                        valorTotal.push({ area: val.area, valor: val.valor });
                     }
                 }
             }
         });
-        console.log(valorTotal);
         var categoria = 0;
         var encontrado = false;
         var _loop_1 = function (h) {
             var v = valorTotal[h];
             if (this_1.maximos != null) {
                 this_1.maximos.forEach(function (c, index) {
-                    if (c.id == v.id) {
+                    if (c.area == v.area) {
                         categoria = index;
                         encontrado = true;
                     }
@@ -83,7 +131,7 @@ var Resultados = /** @class */ (function () {
                     this_1.maximos[categoria].valor += v.valor;
                 }
                 else {
-                    this_1.maximos.push({ id: v.id, valor: v.valor });
+                    this_1.maximos.push({ area: v.area, valor: v.valor });
                 }
             }
         };
@@ -146,7 +194,8 @@ var VerResultado = /** @class */ (function () {
         this.categoria = categoria;
         this.valor = valor;
         this.src = src;
-        this.elemento.innerHTML = "\n        <div class=\"resultado__porcentaje\">\n        <div class=\"circulo\">\n            <input class=\"porcentaje\" type=\"text\" value=\"" + this.valor + "\" data-linecap=round data-angleOffset = \"" + this.init + "\">\n        </div>\n        <img class=\"icono\" src=\"" + this.src + "\" alt=\"\">\n        </div>\n        <div class=\"resultado__informacion\">\n            <h2 class=\"titulo\">" + this.categoria + "</h2>\n            <h3 class=\"valor\">" + this.valor + "%</h3>\n        </div>\n    ";
+        var simpli = categoria.split(" ");
+        this.elemento.innerHTML = "\n        <div class=\"resultado__porcentaje\">\n        <div class=\"resultado__porcentaje__circulo\">\n            <input id=\"" + simpli[0] + "\" class=\"porcentaje\" type=\"text\" value=\"" + this.valor + "\" data-linecap=round data-angleOffset = \"" + this.init + "\">\n        </div>\n        <img class=\"icono\" src=\"" + this.src + "\" alt=\"\">\n        </div>\n        <div class=\"resultado__informacion\">\n            <h2 class=\"rtitulo\">" + this.categoria + "</h2>\n            <h3 class=\"rvalor\">" + this.valor + "%</h3>\n        </div>\n    ";
     };
     VerResultado.prototype.getElemento = function () {
         return this.elemento;

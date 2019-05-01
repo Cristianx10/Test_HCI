@@ -21,6 +21,7 @@ var Pregunta = /** @class */ (function () {
             this.informacion = informacion;
         }
         this.tipoId = "pregunta";
+        this.valores = new Array();
         this.elemento = document.createElement('div');
         this.contenido = new Contenido(this.getElemento(), this);
     }
@@ -36,6 +37,12 @@ var Pregunta = /** @class */ (function () {
     };
     Pregunta.prototype.removerClase = function (clase) {
         this.elemento.classList.remove(clase);
+    };
+    Pregunta.prototype.agregarResultados = function () {
+        if (this.seleccion != null) {
+            this.seleccion.validacion();
+            resultados.calcularMaximo(this.valores);
+        }
     };
     Pregunta.prototype.registro = function () {
         if (this.seleccion != null) {
@@ -100,6 +107,7 @@ var PreguntaA = /** @class */ (function (_super) {
         var opcion = new OpcionA(this, info, valor);
         this.opciones.push(opcion);
         this.formulario.append(opcion.getElemento());
+        this.valores.push({ id: this.tipoId, valores: opcion.valor });
     };
     return PreguntaA;
 }(Pregunta));
@@ -140,6 +148,7 @@ var PreguntaB = /** @class */ (function (_super) {
         var opcion = new OpcionB(this, info, valor);
         this.opciones.push(opcion);
         this.formulario.append(opcion.getElemento());
+        this.valores.push({ id: this.tipoId, valores: opcion.valor });
     };
     PreguntaB.prototype.setValidacion = function (validacion) {
         this.validacion = validacion;
@@ -183,9 +192,10 @@ var PreguntaC = /** @class */ (function (_super) {
         return _this;
     }
     PreguntaC.prototype.agregar = function (info, valor) {
-        var p = new OpcionC(this, info, valor);
-        this.div_seccionB.appendChild(p.areaTexto);
-        this.opciones.push(p);
+        var opcion = new OpcionC(this, info, valor);
+        this.div_seccionB.appendChild(opcion.areaTexto);
+        this.opciones.push(opcion);
+        this.valores.push({ id: this.tipoId, valores: opcion.valor });
     };
     PreguntaC.prototype.getPregunta = function () {
         return this.contenido;
@@ -279,9 +289,9 @@ var PreguntaD = /** @class */ (function (_super) {
         return _this;
     }
     PreguntaD.prototype.agregar = function (informacion, valor) {
-        var p = new OpcionD(this, informacion, valor);
-        this.opciones.push(p);
-        this.formulario.append(p.getElemento());
+        var opcion = new OpcionD(this, informacion, valor);
+        this.opciones.push(opcion);
+        this.formulario.append(opcion.getElemento());
         this.progreso.max = this.opciones.length - 1;
         this.input.max = this.opciones.length + "";
         var resul = this.opciones.length / 2;
@@ -300,6 +310,7 @@ var PreguntaD = /** @class */ (function (_super) {
         }
         this.seleccion = this.opciones[v - 1];
         this.seleccion.elemento.classList.add("seleccion");
+        this.valores.push({ id: this.tipoId, valores: opcion.valor });
     };
     PreguntaD.prototype.setValidacion = function (validacion) {
         this.validacion = validacion;
@@ -345,9 +356,10 @@ var PreguntaI = /** @class */ (function (_super) {
         return _this;
     }
     PreguntaI.prototype.agregar = function (info, valor) {
-        var elemento = new OpcionI(this, info, valor);
-        this.formulario.append(elemento.getElemento());
-        this.opciones.push(elemento);
+        var opcion = new OpcionI(this, info, valor);
+        this.formulario.append(opcion.getElemento());
+        this.opciones.push(opcion);
+        this.valores.push({ id: this.tipoId, valores: opcion.valor });
     };
     return PreguntaI;
 }(Pregunta));
@@ -391,9 +403,10 @@ var PreguntaS = /** @class */ (function (_super) {
         return _this;
     }
     PreguntaS.prototype.agregar = function (info, valor) {
-        var o = new OpcionS(this, info, valor);
-        this.opciones.push(o);
-        this.lista.append(o.elemento);
+        var opcion = new OpcionS(this, info, valor);
+        this.opciones.push(opcion);
+        this.lista.append(opcion.elemento);
+        this.valores.push({ id: this.tipoId, valores: opcion.valor });
     };
     return PreguntaS;
 }(Pregunta));
@@ -440,6 +453,7 @@ var PreguntaR = /** @class */ (function (_super) {
         opcion.pregunta = this;
         this.opciones.push(opcion);
         this.opcionesHTML.append(opcion.elemento);
+        this.valores.push({ id: this.tipoId, valores: opcion.valor });
     };
     PreguntaR.prototype.validar = function () {
         if (this.seleccion != null) {
@@ -490,12 +504,14 @@ var PreguntaP = /** @class */ (function (_super) {
         opcion.pregunta = this;
         this.opciones.push(opcion);
         this.opcionesHTML.append(opcion.elemento);
+        this.valores.push({ id: this.tipoId, valores: opcion.valor });
     };
     PreguntaP.prototype.agregarB = function (info, valor) {
         var opcion = new OpcionPB(this, info, valor);
         opcion.pregunta = this;
         this.opciones.push(opcion);
         this.opcionesHTML.append(opcion.elemento);
+        this.valores.push({ id: this.tipoId, valores: opcion.valor });
     };
     PreguntaP.prototype.setValidacion = function (validacion) {
         this.validacion = validacion;

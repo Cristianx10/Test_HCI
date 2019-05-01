@@ -14,9 +14,7 @@ function shuffle(array: any) {
 
 
 
-interface Validable {
-    getElementosHTML(): Array<HTMLElement>;
-}
+
 
 class Navegable {
 
@@ -78,6 +76,7 @@ class Navegable {
                 e.setTermino(() => {
                     if (e == this.elementos.elementos[this.actual]) {
                         this.permitir = true;
+                        this.elementos.elementos[this.actual].agregarResultados();
                         this.siguiente();
                         this.permitir = false;
 
@@ -233,6 +232,8 @@ class Navegable {
                     this.elementos.elementos[this.actual].timer.stop();
                 }
 
+                this.elementos.elementos[this.actual].agregarResultados();
+
                 this.actual++;
                 this.av.innerText = this.actual + 1 + "/" + this.elementos.elementos.length;
                 this.progreso.actualizarPosicion(this.actual);
@@ -249,7 +250,8 @@ class Navegable {
     }
 }
 
-class PantallaHTML {
+class PantallaHTML implements Validable{
+    
     elemento: HTMLElement;
 
     constructor(elemento: HTMLElement) {
@@ -258,6 +260,10 @@ class PantallaHTML {
 
     getElemento() {
         return this.elemento;
+    }
+
+    agregarResultados(): void {
+
     }
 }
 
@@ -273,7 +279,10 @@ function toPantallas(pantallas: Array<HTMLElement>) {
     return contenido;
 }
 
-class Contenedor implements Validable {
+
+
+
+class Contenedor {
 
     elementos: Array<Contenido>;
 
@@ -366,16 +375,20 @@ class Contenedor implements Validable {
 
 }
 
-class Contenido {
+interface Validable {
+    agregarResultados():void;
+}
 
-    objeto: Object;
+class Contenido{
+
+    objeto: Validable;
     elementoHTML: HTMLElement;
     timer: Timer;
     segundos?: number;
     tiempoDefinido: boolean;
     accion?: Function;
 
-    constructor(elementoHTML: HTMLElement, objeto: Object, segundos?: number) {
+    constructor(elementoHTML: HTMLElement, objeto: Validable, segundos?: number) {
         this.elementoHTML = elementoHTML;
         this.elementoHTML.style.display = "none";
         this.objeto = objeto;
@@ -418,7 +431,11 @@ class Contenido {
         return this.elementoHTML;
     }
 
-    getObjeto() {
+    agregarResultados(){
+        this.objeto.agregarResultados();
+    }
+
+    getObjeto(){
         return this.objeto;
     }
 
@@ -730,7 +747,10 @@ This method is often used with .removeClass() to switch elements' classes from o
 $( "p" ).removeClass( "myClass noClass" ).addClass( "yourClass" );
 */
 
-
+interface ResultadoA {
+    area: string;
+    valor: number;
+}
 
 var resultados = new Resultados("resultados");
 

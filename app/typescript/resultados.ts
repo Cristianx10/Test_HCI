@@ -20,19 +20,19 @@ interface RPruebaS {
 
 interface Respuesta {
     id: string;
-    valores: Array<RespuestaV>;
+    valores: Array<ResultadoA>;
 }
-
+/*
 interface RespuestaV {
     id: string;
     valor: number;
 }
-
+*/
 class Resultados {
 
     categorias?: Array<RCategoria>;
     pruebas?: Array<RRegistro>;
-    maximos?: Array<RespuestaV>;
+    maximos?: Array<ResultadoA>;
     id: string;
 
 
@@ -61,11 +61,58 @@ class Resultados {
     }
 
     agregar(id: string, prueba: Array<RPruebaS>) {
-
         if (this.pruebas != null) {
             this.pruebas.push({ id: id, pruebas: prueba });
         }
         this.save();
+    }
+
+    getAreas(areas: Array<string>) {
+        let areasArray = [];
+        for (let i = 0; i < areas.length; i++) {
+            let a = areas[i];
+
+            if (this.categorias != null) {
+                for (let j = 0; j < this.categorias.length; j++) {
+                    let c = this.categorias[j];
+                    if (a == c.nombre) {
+                        areasArray.push(c);
+                        j = this.categorias.length;
+                    }
+                }
+            }
+        }
+        return areasArray;
+    }
+
+    getAreasMaximo(areas: Array<string>) {
+        let areasArray = [];
+        for (let i = 0; i < areas.length; i++) {
+            let a = areas[i];
+
+            if (this.maximos != null) {
+                for (let j = 0; j < this.maximos.length; j++) {
+                    let c = this.maximos[j];
+                    if (a == c.area) {
+                        areasArray.push(c);
+                        j = this.maximos.length;
+                    }
+                }
+            }
+        }
+        return areasArray;
+    }
+
+    getMaximo(area: string) {
+        let max;
+        if (this.maximos != null) {
+            this.maximos.forEach(e => {
+                if(area == e.area){
+                    max = e;
+                }
+            });
+        }
+        return max;
     }
 
     sumar(nombre: string, valor: number) {
@@ -91,8 +138,10 @@ class Resultados {
 
     calcularMaximo(valores: Array<Respuesta>) {
 
-        let valorTotal:Array<RespuestaV> = [];
+        let valorTotal: Array<ResultadoA> = [];
+
         valores.forEach((v) => {
+
             if (valorTotal != null) {
                 for (let i = 0; i < v.valores.length; i++) {
                     let val = v.valores[i];
@@ -100,7 +149,7 @@ class Resultados {
 
                     for (let j = 0; j < valorTotal.length; j++) {
                         let t = valorTotal[j];
-                        if (val.id == t.id) {
+                        if (val.area == t.area) {
                             encontro = true;
                             if (val.valor > t.valor) {
                                 t.valor = val.valor;
@@ -108,34 +157,34 @@ class Resultados {
                         }
                     }
                     if (encontro == false) {
-                        valorTotal.push({id: val.id, valor: val.valor});
+                        valorTotal.push({ area: val.area, valor: val.valor });
                     }
                 }
             }
         });
-        console.log(valorTotal)
+
 
         let categoria: number = 0;
         let encontrado = false;
         for (let h = 0; h < valorTotal.length; h++) {
             let v = valorTotal[h];
-            
+
             if (this.maximos != null) {
                 this.maximos.forEach((c, index) => {
-                    if (c.id == v.id) {
+                    if (c.area == v.area) {
                         categoria = index;
                         encontrado = true
                     }
                 });
-    
+
                 if (encontrado) {
                     this.maximos[categoria].valor += v.valor;
                 } else {
-                    this.maximos.push({ id: v.id, valor: v.valor });
+                    this.maximos.push({ area: v.area, valor: v.valor });
                 }
             }
         }
-       
+
         this.save();
     }
     /*
@@ -203,16 +252,17 @@ class VerResultado {
         this.categoria = categoria;
         this.valor = valor;
         this.src = src;
+        let simpli = categoria.split(" ");
         this.elemento.innerHTML = `
         <div class="resultado__porcentaje">
-        <div class="circulo">
-            <input class="porcentaje" type="text" value="${this.valor}" data-linecap=round data-angleOffset = "${this.init}">
+        <div class="resultado__porcentaje__circulo">
+            <input id="${simpli[0]}" class="porcentaje" type="text" value="${this.valor}" data-linecap=round data-angleOffset = "${this.init}">
         </div>
         <img class="icono" src="${this.src}" alt="">
         </div>
         <div class="resultado__informacion">
-            <h2 class="titulo">${this.categoria}</h2>
-            <h3 class="valor">${this.valor}%</h3>
+            <h2 class="rtitulo">${this.categoria}</h2>
+            <h3 class="rvalor">${this.valor}%</h3>
         </div>
     `;
     }

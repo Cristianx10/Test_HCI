@@ -2,11 +2,9 @@
 
 <script>
 
-
     let palo = new Palillos(1280, 720);
     
     palo.cuadrado();
-    
     palo.agregar(4);
     palo.agregar(5);
     palo.agregar(7);
@@ -20,24 +18,25 @@
     palo.agregar(18);
     palo.agregar(19);
     
-/*
+
+    /*
     palo.crear(0, 0, "vertical");
     palo.crear(0, 0, "diagonalRightDown");
     palo.crear(0, 120, "diagonalRightTop");
 
-    palo.crear(260, -10, "vertical");
     palo.crear(260, -10, "diagonalLeftDown");
     palo.crear(260, 110, "diagonalLeftTop");
+    palo.crear(260, -10, "vertical");
 
     palo.crear(125, 60, "vertical");
-    palo.crear(260, 120, "vertical");
-    palo.crear(260, 120, "diagonalLeftDown");
-    palo.crear(260, 240, "diagonalLeftTop");
     palo.crear(0, 130, "diagonalRightDown");
-
+    palo.crear(260, 120, "diagonalLeftDown");
+    
     palo.crear(120, 190, "vertical");
+    palo.crear(260, 240, "diagonalLeftTop");
+    palo.crear(260, 120, "vertical");
     palo.crear(130, 320, "diagonalRightTop");
-    */
+*/
 
     //palo.crear(0,0, "diagonalLeftDown");
     //palo.crear(0,200, "diagonalLeftTop");
@@ -56,6 +55,11 @@
         } else if (palo.equals(r, "22,18,19,7,15,9,10,11,12,13,14,16")) {
             console.log("gano")
         }
+
+        if (palo.equals(r, "0,1,2,3,5,7,9,10,11,12")) {
+            console.log("gano")
+        }
+        
     });
 
 

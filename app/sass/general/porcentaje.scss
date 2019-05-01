@@ -54,7 +54,7 @@
         color: $color-ciencias-n;
 
 
-        & .circulo {
+        &__circulo {
             position: absolute;
             display: block;
             margin-left: 20px;
@@ -145,7 +145,7 @@
     align-items: center;
 }
 
-.resultado__porcentaje .circulo {
+.resultado__porcentaje__circulo {
     position: absolute;
     display: block;
 }
@@ -161,9 +161,9 @@
     color: red;
 }
 
-.menor .titulo,
-.menor .valor {
-    font-size: 1.1em;
+.mayores .rtitulo,
+.mayores .rvalor {
+    font-size: 2em;
 }
 
 //Un cambio cualquiera

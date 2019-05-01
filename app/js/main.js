@@ -50,6 +50,7 @@ var Navegable = /** @class */ (function () {
                 e.setTermino(function () {
                     if (e == _this.elementos.elementos[_this.actual]) {
                         _this.permitir = true;
+                        _this.elementos.elementos[_this.actual].agregarResultados();
                         _this.siguiente();
                         _this.permitir = false;
                     }
@@ -172,6 +173,7 @@ var Navegable = /** @class */ (function () {
                 if (this.elementos.elementos[this.actual].timer.enEjecucion) {
                     this.elementos.elementos[this.actual].timer.stop();
                 }
+                this.elementos.elementos[this.actual].agregarResultados();
                 this.actual++;
                 this.av.innerText = this.actual + 1 + "/" + this.elementos.elementos.length;
                 this.progreso.actualizarPosicion(this.actual);
@@ -195,6 +197,8 @@ var PantallaHTML = /** @class */ (function () {
     }
     PantallaHTML.prototype.getElemento = function () {
         return this.elemento;
+    };
+    PantallaHTML.prototype.agregarResultados = function () {
     };
     return PantallaHTML;
 }());
@@ -319,6 +323,9 @@ var Contenido = /** @class */ (function () {
     };
     Contenido.prototype.getElementoHTML = function () {
         return this.elementoHTML;
+    };
+    Contenido.prototype.agregarResultados = function () {
+        this.objeto.agregarResultados();
     };
     Contenido.prototype.getObjeto = function () {
         return this.objeto;
@@ -510,67 +517,6 @@ function hsvToRgb(h, s, v) {
         Math.round(b * 255)
     ];
 }
-/*
-
-if (!Math.cbrt) {
-      Math.cbrt = (function (pow) {
-        return function cbrt() {
-          // ensure negative numbers remain negative:
-          return x < 0 ? -pow(-x, 1 / 3) : pow(x, 1 / 3);
-        };
-      })(Math.pow); // localize Math.pow to increase efficiency
-}*/
-//window.addEventListener('beforeunload', askConfirmation);
-/*
-
-    validacion?:Function;
-    intentoFallo?:Function;
-    intentoAcierto?:Function;
-
-
-setValidacion(validacion:Function){
-      this.validacion = validacion;
-    }
-    setIntentoFallo(intentoFallo:Function){
-      this.intentoFallo = intentoFallo;
-    }
-
-    setIntentoAcierto(intentoAcierto:Function){
-      this.intentoAcierto = intentoAcierto;
-    }
-
-
-
-    //Implementacion
-    con_tablero.getObjectIndex(nav.actual).setValidacion(()=>{
-
-    });
-
-    con_tablero.getObjectIndex(nav.actual).setIntentoAcierto(()=>{
-
-    });
-
-    con_tablero.getObjectIndex(nav.actual).setIntentoFallo(()=>{
-
-    });
-
-
-
-*/
-/*
-  let e = ()=>{
-            console.log("Finalizo");
-    };
-        createjs.Ticker.addEventListener("tick", e);
-        createjs.Ticker.removeEventListener("tick", e);
-
-
-        $( "p" ).addClass( "myClass yourClass" );
-This method is often used with .removeClass() to switch elements' classes from one to another, like so:
-
-1
-$( "p" ).removeClass( "myClass noClass" ).addClass( "yourClass" );
-*/
 var resultados = new Resultados("resultados");
 /*
 resultados.calcularMaximo([

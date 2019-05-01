@@ -11,31 +11,21 @@
 
     let preguntas_total = new Contenedor();
     let navegacion = new Navegable(preguntas_total);
-    //let obt = new PreguntaC("Mira este titulo",new OpcionC("Texto inicial", [{opcion:"value", valor:5}]));
-    //let obt = new PreguntaI("/img/ecuacion.png", [new OpcionI("323", [{area:"mate", valor:2}]),new OpcionI("323", [])]);
-    /*let con = new Contenido(obt.getElement(), obt, 10);
-    preguntas_total.agregar(con);*/
-/*
-    con.setAccion(() => {
-        navegacion.setPermitir(true);
-        console.log("permitio");
-        siguiente.disabled = false;
-    }
-    );
-*/
+  
 
     loadJson("../data/preguntas.1.json", (r) => {
 
         r.preguntas.forEach(p => {
           
+            
+            let obj_pregunta = new PreguntaA(p.pregunta);
 
-            let obj_pregunta = new Pregunta(p.pregunta);
             p.opciones.forEach(o => {
                 obj_pregunta.agregar(o.opcion, o.valor.categorias);
             });
 
-            let con = new Contenido(obj_pregunta.getElement(), obj_pregunta, 45);
-            preguntas_total.agregar(con);
+        
+            preguntas_total.agregar(obj_pregunta.getPregunta());
 
         });
 
@@ -51,7 +41,7 @@
 
         navegacion.setSiguiente(() => {
 
-            navegacion.actualObjeto().validar();
+          //  navegacion.actualObjeto().validar();
             $(".btn_siguiente").removeClass("activo").addClass("desactivar");
             siguiente.disabled = true;
 
@@ -70,7 +60,7 @@
         });
 
         $(".btn_siguiente").disabled = true;
-        $(".opcion_check").on("input", () => {
+        $(".opcion").on("input", () => {
             navegacion.setPermitir(true);
             console.log("permitio");
             siguiente.disabled = false;

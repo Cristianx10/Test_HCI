@@ -1,7 +1,5 @@
-interface ResultadoA {
-    area: string;
-    valor: number;
-}
+
+
 
 class Pregunta {
 
@@ -10,6 +8,7 @@ class Pregunta {
     seleccion?: Opcion;
     tipoId: string;
     contenido:Contenido;
+    valores:Array<Respuesta>;
 
     constructor(informacion?: string) {
 
@@ -19,6 +18,7 @@ class Pregunta {
             this.informacion = informacion;
         }
         this.tipoId = "pregunta";
+        this.valores = new Array();
 
         this.elemento = document.createElement('div');
 
@@ -40,6 +40,13 @@ class Pregunta {
 
     removerClase(clase: string) {
         this.elemento.classList.remove(clase);
+    }
+
+    agregarResultados(){
+        if(this.seleccion != null){
+            this.seleccion.validacion();
+            resultados.calcularMaximo(this.valores);
+        }
     }
 
     registro() {
@@ -130,6 +137,7 @@ class PreguntaA extends Pregunta {
         let opcion = new OpcionA(this, info, valor);
         this.opciones.push(opcion);
         this.formulario.append(opcion.getElemento());
+        this.valores.push({id:this.tipoId, valores:opcion.valor});
     }
 
     
@@ -188,6 +196,7 @@ class PreguntaB extends Pregunta {
         let opcion = new OpcionB(this, info, valor);
         this.opciones.push(opcion);
         this.formulario.append(opcion.getElemento());
+        this.valores.push({id:this.tipoId, valores:opcion.valor});
     }
 
     setValidacion(validacion: Function) {
@@ -247,9 +256,10 @@ class PreguntaC extends Pregunta {
     }
 
     agregar(info: string, valor: Array<ResultadoA>) {
-        let p = new OpcionC(this, info, valor);
-        this.div_seccionB.appendChild(p.areaTexto);
-        this.opciones.push(p);
+        let opcion = new OpcionC(this, info, valor);
+        this.div_seccionB.appendChild(opcion.areaTexto);
+        this.opciones.push(opcion);
+        this.valores.push({id:this.tipoId, valores:opcion.valor});
     }
 
     getPregunta() {
@@ -384,9 +394,9 @@ class PreguntaD extends Pregunta {
     }
 
     agregar(informacion: string, valor: Array<ResultadoA>) {
-        let p = new OpcionD(this, informacion, valor);
-        this.opciones.push(p);
-        this.formulario.append(p.getElemento());
+        let opcion = new OpcionD(this, informacion, valor);
+        this.opciones.push(opcion);
+        this.formulario.append(opcion.getElemento());
         this.progreso.max = this.opciones.length - 1;
         this.input.max = this.opciones.length + "";
 
@@ -408,6 +418,7 @@ class PreguntaD extends Pregunta {
         }
         this.seleccion = this.opciones[v-1];
         this.seleccion.elemento.classList.add("seleccion");
+        this.valores.push({id:this.tipoId, valores:opcion.valor});
     }
 
     setValidacion(validacion: Function) {
@@ -473,9 +484,11 @@ class PreguntaI extends Pregunta {
     }
 
     agregar(info: string, valor: Array<ResultadoA>) {
-        let elemento = new OpcionI(this, info, valor);
-        this.formulario.append(elemento.getElemento());
-        this.opciones.push(elemento);
+        let opcion = new OpcionI(this, info, valor);
+        this.formulario.append(opcion.getElemento());
+        this.opciones.push(opcion);
+       
+        this.valores.push({id:this.tipoId, valores:opcion.valor});
     }
 
 }
@@ -543,9 +556,10 @@ class PreguntaS extends Pregunta {
     }
 
     agregar(info: string, valor: Array<ResultadoA>) {
-        let o = new OpcionS(this, info, valor);
-        this.opciones.push(o);
-        this.lista.append(o.elemento);
+        let opcion = new OpcionS(this, info, valor);
+        this.opciones.push(opcion);
+        this.lista.append(opcion.elemento);
+        this.valores.push({id:this.tipoId, valores:opcion.valor});
     }
 
 }
@@ -606,6 +620,7 @@ class PreguntaR extends Pregunta {
         opcion.pregunta = this;
         this.opciones.push(opcion);
         this.opcionesHTML.append(opcion.elemento);
+        this.valores.push({id:this.tipoId, valores:opcion.valor});
     }
 
     validar() {
@@ -679,6 +694,7 @@ class PreguntaP extends Pregunta {
         opcion.pregunta = this;
         this.opciones.push(opcion);
         this.opcionesHTML.append(opcion.elemento);
+        this.valores.push({id:this.tipoId, valores:opcion.valor});
     }
 
     agregarB(info: string, valor: Array<ResultadoA>) {
@@ -686,6 +702,7 @@ class PreguntaP extends Pregunta {
         opcion.pregunta = this;
         this.opciones.push(opcion);
         this.opcionesHTML.append(opcion.elemento);
+        this.valores.push({id:this.tipoId, valores:opcion.valor});
     }
 
 

@@ -13,6 +13,10 @@
 
   <link rel="stylesheet" href="../sass/aplicaciones/targetas.css" />
 
+  <style>
+    .palillos__info {}
+  </style>
+
 </head>
 
 <body>
@@ -33,12 +37,44 @@
 
       </div>
 
+      <div class="pantalla ppalillosn1">
+        <div>
+          <div class="palillos__info">
+            <h1>Nivel 1</h1>
+            <h2>Retira 3 de los 13 palillos 7 haz que queden formados solo 3 triángulos</h2>
+          </div>
+        </div>
+        <div>
+          <div id="palillosn1"></div>
+          <div id="palillosn1__almacen"></div>
+        </div>
+      </div>
+
+      <div class="pantalla ppalillos" style="background-image: url('../img/background_principal-2.png')">
+        <div class="introduccion">
+          <h1 class="titulo">Los 3 palillos</h1>
+          <p id="desc" class="descripcion">Retira o mueve 3 de los palillos de lugar para formar las figuras que se indican, en menos de 30 segundos. Entre más movimientos realices, menos puntos obtendrás
+          </p>
+          <button class="botonComenzar" onclick="seguir()">Comenzar</button>
+        </div>
+      </div>
+
+      <div class="pantalla ppalillosn2">
+        <div class="palillos__info">
+            <h1>Nivel 2</h1>
+          <h2>Cambia de lugar 3 de los 12 palillos y haz que queden formados 3 cuadrados iguales</h2>
+        </div>
+        <div>
+          <div id="palillosn2"></div>
+        </div>
+      </div>
+
 
       <div class="zona__navegacion">
         <button class="btn_siguiente" style="text-align:center;" onclick="seguir()">Siguiente</button>
       </div>
 
-  
+
 
 
 
@@ -54,11 +90,11 @@
  
   <script src="../lib/jquery.svg.js"></script>
   <script src="../lib/jquery.knob.js"></script>
-  <script src="../lib/preloadjs.js"></script>
-  
+ 
   <script src="../lib/tweenjs.js"></script>
   -->
 
+  <script src="../lib/preloadjs.js"></script>
   <script src="../lib/easeljs.js"></script>
   <script src="../../js/compuestos.js"></script>
   <script src="../lib/soundjs.js"></script>
@@ -66,6 +102,7 @@
   <script src="../js/resultados.js"></script>
   <script src="../js/main.js"></script>
   <script src="../js/pregunta.js"></script>
+  <script src="../../js/palillos.js"></script>
 
   <img src="../img/preguntasGenerales/VisualEspacial/octagonoA.png" alt="">
 
@@ -123,20 +160,90 @@
     p5.agregarB(`<h2>c)</h2><img src="../img/preguntasGenerales/VisualEspacial/cuadrilateroC.png" alt="">`, []);
     p5.agregarB(`<h2>d)</h2><img src="../img/preguntasGenerales/VisualEspacial/cuadrilateroD.png" alt="">`, []);
     p5.agregarClase("pestilo4");
-    
-    
-   
-    
+
+    let palo = new Palillos(300, 350);
+
+    palo.almacenarEn("#palillosn1__almacen");
+
+    palo.crear(0, 0, "vertical");
+    palo.crear(0, 0, "diagonalRightDown");
+    palo.crear(0, 120, "diagonalRightTop");
+
+    palo.crear(260, -10, "diagonalLeftDown");
+    palo.crear(260, 110, "diagonalLeftTop");
+    palo.crear(260, -10, "vertical");
+
+    palo.crear(125, 60, "vertical");
+    palo.crear(0, 130, "diagonalRightDown");
+    palo.crear(260, 120, "diagonalLeftDown");
+
+    palo.crear(120, 190, "vertical");
+    palo.crear(260, 240, "diagonalLeftTop");
+    palo.crear(260, 120, "vertical");
+    palo.crear(130, 320, "diagonalRightTop");
+
+    palo.incluirEn('#palillosn1');
+
+    palo.setResultado((r) => {
+      console.log(r);
+      if (palo.equals(r, "0,1,2,3,5,7,9,10,11,12")) {
+        console.log("gano");
+      }
+    });
+
+
+    let palo2 = new Palillos(400, 400);
+
+    palo2.cuadrado();
+
+    palo2.agregar(4);
+    palo2.agregar(5);
+    palo2.agregar(7);
+    palo2.agregar(8);
+    palo2.agregar(9);
+    palo2.agregar(11);
+    palo2.agregar(12);
+    palo2.agregar(14);
+    palo2.agregar(16);
+    palo2.agregar(15);
+    palo2.agregar(18);
+    palo2.agregar(19);
+
+    palo2.incluirEn('#palillosn2');
+
+
+
+    palo2.setResultado((r) => {
+      console.log(r);
+      if (palo.equals(r, "1,4,5,7,8,9,10,11,12,13,14,16")) {
+        console.log("gano")
+      } else if (palo.equals(r, "5,19,1,8,15,22,4,11,18,7,14,10")) {
+        console.log("gano")
+      }
+      else if (palo.equals(r, "5,12,19,1,8,15,22,4,18,9,16,13")) {
+        console.log("gano")
+      } else if (palo.equals(r, "22,18,19,7,15,9,10,11,12,13,14,16")) {
+        console.log("gano")
+      }
+    });
+
+
     contenedor.agregarHTML(document.querySelector('.pinicio'));
     contenedor.agregar(p1.getPregunta()).setAccion(() => {
       mostrar(".zona__navegacion");
     });
-    
+
     contenedor.agregar(p2.getPregunta());
     contenedor.agregar(p3.getPregunta());
     contenedor.agregar(p4.getPregunta());
     contenedor.agregar(p5.getPregunta());
-    
+
+    contenedor.agregarHTML(document.querySelector('.ppalillos'));
+    contenedor.agregarHTML(document.querySelector('.ppalillosn1'));
+    contenedor.agregarHTML(document.querySelector('.ppalillosn2'));
+
+
+
     contenedor.incluirEn(document.querySelector(".ppreguntas"));
 
     navegacion.iniciar();
@@ -144,7 +251,7 @@
     let siguiente = document.querySelector(".btn_siguiente");
 
     ocultar(".zona__navegacion");
-  
+
 
     function seguir() {
       navegacion.setPermitir(true);
