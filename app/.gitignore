@@ -10,9 +10,10 @@ sass/especificas/linguistica/main.css
 sass/especificas/linguistica/main.map
 sass/especificas/diseno/main.css
 sass/especificas/diseno/main.map
-
+sass/general/datosUsuario.css.map
+ sass/general/datosUsuario.css
 sass/general/main.css
-sass/general/main.map
+sass/general/main.css.map
 sass/general/porcentaje.css
 sass/general/porcentaje.map
 node_modules
