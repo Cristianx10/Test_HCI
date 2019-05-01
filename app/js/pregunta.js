@@ -51,9 +51,7 @@ var Opcion = /** @class */ (function () {
         this.elemento = document.createElement('label');
         this.informacion = "";
         this.valor = valor;
-        console.log("clicks");
         this.elemento.addEventListener("click", function () {
-            console.log("clicks");
             if (_this.pregunta.seleccion != null) {
                 _this.pregunta.seleccion.elemento.classList.remove("seleccion");
             }
@@ -434,7 +432,11 @@ var OpcionS = /** @class */ (function (_super) {
         _this.elemento.innerText = info;
         _this.valor = valor;
         _this.elemento.addEventListener("click", function () {
+            if (_this.pregunta.seleccion != null) {
+                _this.pregunta.seleccion.elemento.classList.remove("seleccion");
+            }
             _this.pregunta.seleccion = _this;
+            _this.elemento.classList.add("seleccion");
             var ptem = (_this.pregunta);
             ptem.texto.innerHTML = _this.elemento.innerText;
         });

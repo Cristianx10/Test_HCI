@@ -61,9 +61,7 @@ class Opcion {
         this.informacion = "";
         this.valor = valor;
 
-        console.log("clicks");
         this.elemento.addEventListener("click", () => {
-            console.log("clicks");
             if (this.pregunta.seleccion != null) {
                 this.pregunta.seleccion.elemento.classList.remove("seleccion");
             }
@@ -568,7 +566,6 @@ class PreguntaS extends Pregunta {
 
             if (this.lista.style.display == "") {
                 this.lista.style.display = "flex";
-
             }
 
             else if (this.lista.style.display == "flex") {
@@ -601,10 +598,17 @@ class OpcionS extends Opcion {
         this.valor = valor;
 
         this.elemento.addEventListener("click", () => {
+            if (this.pregunta.seleccion != null) {
+                this.pregunta.seleccion.elemento.classList.remove("seleccion");
+            }
             this.pregunta.seleccion = this;
+            this.elemento.classList.add("seleccion");
+            
             let ptem = <PreguntaS>(this.pregunta);
             ptem.texto.innerHTML = this.elemento.innerText;
         });
+
+        
     }
 }
 
