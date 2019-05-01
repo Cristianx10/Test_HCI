@@ -45,11 +45,12 @@ var Pregunta = /** @class */ (function () {
     return Pregunta;
 }());
 var Opcion = /** @class */ (function () {
-    function Opcion(pregunta) {
+    function Opcion(pregunta, valor) {
         var _this = this;
         this.pregunta = pregunta;
         this.elemento = document.createElement('label');
         this.informacion = "";
+        this.valor = valor;
         console.log("clicks");
         this.elemento.addEventListener("click", function () {
             console.log("clicks");
@@ -61,6 +62,9 @@ var Opcion = /** @class */ (function () {
         });
     }
     Opcion.prototype.validacion = function () {
+        this.valor.forEach(function (v) {
+            resultados.sumar(v.area, v.valor);
+        });
     };
     Opcion.prototype.getElemento = function () {
         return this.elemento;
@@ -110,17 +114,12 @@ var PreguntaA = /** @class */ (function (_super) {
 var OpcionA = /** @class */ (function (_super) {
     __extends(OpcionA, _super);
     function OpcionA(pregunta, info, valor) {
-        var _this = _super.call(this, pregunta) || this;
+        var _this = _super.call(this, pregunta, valor) || this;
         _this.elemento.className = "opcion vertical";
         _this.elemento.innerHTML = "\n        <div class=\"opcion__check\">\n            <input class=\"marcador__input\" type=\"radio\" name=\"opcion\"></input><span class=\"marcador\"></span>\n        </div>\n        <div class=\"informacion\">" + info + "</div>";
         _this.valor = valor;
         return _this;
     }
-    OpcionA.prototype.validacion = function () {
-        this.valor.forEach(function (v) {
-            resultados.sumar(v.area, v.valor);
-        });
-    };
     return OpcionA;
 }(Opcion));
 var PreguntaB = /** @class */ (function (_super) {
@@ -171,18 +170,13 @@ var PreguntaB = /** @class */ (function (_super) {
 var OpcionB = /** @class */ (function (_super) {
     __extends(OpcionB, _super);
     function OpcionB(pregunta, info, valor) {
-        var _this = _super.call(this, pregunta) || this;
+        var _this = _super.call(this, pregunta, valor) || this;
         _this.elemento.className = "opcionB";
         _this.validado = false;
         _this.valor = valor;
         _this.elemento.innerHTML = info;
         return _this;
     }
-    OpcionB.prototype.validacion = function () {
-        this.valor.forEach(function (v) {
-            resultados.sumar(v.area, v.valor);
-        });
-    };
     return OpcionB;
 }(Opcion));
 /*
@@ -191,40 +185,33 @@ var OpcionB = /** @class */ (function (_super) {
 */
 var PreguntaC = /** @class */ (function (_super) {
     __extends(PreguntaC, _super);
-    function PreguntaC(informacion, opciones) {
+    function PreguntaC(informacion) {
         var _this = _super.call(this, informacion) || this;
-        _this.opciones = opciones;
         _this.elemento.className = "pantalla pregunta";
         var div_seccionA = document.createElement('section');
         var div_seccionA_h1 = document.createElement('h2');
-        var div_seccionB = document.createElement('section');
+        _this.div_seccionB = document.createElement('section');
         var formulario = document.createElement('div');
         div_seccionA.className = "pregunta__titulo";
-        div_seccionB.className = "pregunta__opciones";
+        _this.div_seccionB.className = "pregunta__opciones";
         div_seccionA_h1.innerHTML = _this.informacion;
         _this.elemento.appendChild(div_seccionA);
-        _this.elemento.appendChild(div_seccionB);
+        _this.elemento.appendChild(_this.div_seccionB);
         div_seccionA.appendChild(div_seccionA_h1);
         div_seccionA.appendChild(document.createElement('hr'));
-        /*
-                opciones.forEach(o => {
-                    o.pregunta = this;
-                    formulario.appendChild(o.getElement());
-                });
-        */
-        div_seccionB.appendChild(_this.opciones.areaTexto);
         _this.contenido = new Contenido(_this.getElemento(), _this);
         return _this;
     }
-    PreguntaC.prototype.validar = function () {
-        resultados.agregar("pregunta", [{ id: "pregunta", valor: this.informacion },
-            { id: "respuesta", valor: this.opciones.areaTexto.value }]);
+    PreguntaC.prototype.agregar = function (info, valor) {
+        var p = new OpcionC(this, info, valor);
+        this.div_seccionB.appendChild(p.areaTexto);
+        this.opciones = p;
     };
-    PreguntaC.prototype.reset = function () {
-        /* this.opciones.forEach(o => {
-             o.validado = false;
-             o.opcion.classList.remove("opcion__select");
-         });*/
+    PreguntaC.prototype.validar = function () {
+        if (this.opciones != null) {
+            resultados.agregar("pregunta", [{ id: "pregunta", valor: this.informacion },
+                { id: "respuesta", valor: this.opciones.areaTexto.value }]);
+        }
     };
     PreguntaC.prototype.getPregunta = function () {
         return this.contenido;
@@ -237,31 +224,18 @@ var PreguntaC = /** @class */ (function (_super) {
 var OpcionC = /** @class */ (function (_super) {
     __extends(OpcionC, _super);
     function OpcionC(pregunta, info, valor) {
-        var _this = _super.call(this, pregunta) || this;
-        if (valor != null) {
-            _this.valor = valor;
-        }
-        else {
-            _this.valor = new Array();
-        }
+        var _this = _super.call(this, pregunta, valor) || this;
         _this.elemento.className = "opcionC";
         _this.areaTexto = document.createElement("textarea");
         _this.areaTexto.className = "pregunta__parrafo";
         _this.areaTexto.spellcheck = false;
         // this.areaTexto.type = "text";
         _this.areaTexto.placeholder = "Escribe tu respuesta";
-        if (info != null) {
-            _this.areaTexto.innerText = info;
-        }
+        _this.areaTexto.innerText = info;
         _this.elemento.append(_this.areaTexto);
         _this.validado = false;
         return _this;
     }
-    OpcionC.prototype.validacion = function () {
-        this.valor.forEach(function (v) {
-            resultados.sumar(v.area, v.valor);
-        });
-    };
     return OpcionC;
 }(Opcion));
 /* Escala de linker
@@ -302,7 +276,7 @@ var PreguntaD = /** @class */ (function (_super) {
 var OpcionD = /** @class */ (function (_super) {
     __extends(OpcionD, _super);
     function OpcionD(pregunta, valor, p, m) {
-        var _this = _super.call(this, pregunta) || this;
+        var _this = _super.call(this, pregunta, valor) || this;
         _this.elemento.className = "likert_escala";
         var poco = document.createElement("label");
         poco.className = "likert_label";
@@ -407,18 +381,13 @@ var PreguntaI = /** @class */ (function (_super) {
 var OpcionI = /** @class */ (function (_super) {
     __extends(OpcionI, _super);
     function OpcionI(pregunta, info, valor) {
-        var _this = _super.call(this, pregunta) || this;
+        var _this = _super.call(this, pregunta, valor) || this;
         _this.informacion = info;
         _this.elemento.className = "opcion";
         _this.elemento.innerHTML = "\n        <div class=\"opcion__check\">\n            <input class=\"marcador__input\" type=\"radio\" name=\"opcion\"></input><span class=\"marcador\"></span>\n        </div>\n        <div class=\"informacion\">" + info + "</div>";
         _this.valor = valor;
         return _this;
     }
-    OpcionI.prototype.validacion = function () {
-        this.valor.forEach(function (v) {
-            resultados.sumar(v.area, v.valor);
-        });
-    };
     return OpcionI;
 }(Opcion));
 var PreguntaS = /** @class */ (function (_super) {
@@ -458,7 +427,7 @@ var PreguntaS = /** @class */ (function (_super) {
 var OpcionS = /** @class */ (function (_super) {
     __extends(OpcionS, _super);
     function OpcionS(pregunta, info, valor) {
-        var _this = _super.call(this, pregunta) || this;
+        var _this = _super.call(this, pregunta, valor) || this;
         var con_temp = document.createElement('span');
         _this.elemento.append(con_temp);
         _this.elemento.className = "elegir__opcion";
@@ -509,17 +478,11 @@ var PreguntaR = /** @class */ (function (_super) {
 var OpcionR = /** @class */ (function (_super) {
     __extends(OpcionR, _super);
     function OpcionR(pregunta, info, valor) {
-        var _this = _super.call(this, pregunta) || this;
+        var _this = _super.call(this, pregunta, valor) || this;
         _this.informacion = info;
-        _this.valor = valor;
         _this.elemento.innerHTML = info;
         return _this;
     }
-    OpcionR.prototype.validacion = function () {
-        this.valor.forEach(function (v) {
-            resultados.sumar(v.area, v.valor);
-        });
-    };
     return OpcionR;
 }(Opcion));
 var PreguntaP = /** @class */ (function (_super) {
@@ -558,17 +521,11 @@ var PreguntaP = /** @class */ (function (_super) {
 var OpcionP = /** @class */ (function (_super) {
     __extends(OpcionP, _super);
     function OpcionP(pregunta, info, valor) {
-        var _this = _super.call(this, pregunta) || this;
+        var _this = _super.call(this, pregunta, valor) || this;
         _this.informacion = info;
         _this.elemento.className = "opcion__boton";
-        _this.valor = valor;
         _this.elemento.innerHTML = info;
         return _this;
     }
-    OpcionP.prototype.validacion = function () {
-        this.valor.forEach(function (v) {
-            resultados.sumar(v.area, v.valor);
-        });
-    };
     return OpcionP;
 }(Opcion));
