@@ -18,11 +18,11 @@
   <div class="cont-principal" style="background-image: url('../img/background_principal-2.png')">
     <div class="principal" onselectstart="return false">
 
-<div class="pantalla pinicio" style="background-image: url('../img/background_principal-2.png')">
+<div class="pantalla pinicio"  style="background-image: url('../img/background_principal-2.png')">
     <div class="introduccion">
         <h1 class="titulo">¡Rompamos el hielo!</h1>
         <p id="desc" class="descripcion">Queremos conocerte mejor. Sigue las instrucciones usando el mouse y el teclado.</p>
-        <button class="boton" onclick="seguir2()">Comenzar</button>
+        <button class="botonComenzar" onclick="seguir2()">Comenzar</button>
     </div>
 </div>
 
@@ -41,7 +41,7 @@
     <div class="introduccion">
         <h1 class="titulo">Técnicas pictóricas</h1>
         <p id="desc" class="descripcion">Selecciona los botones que correspondan a la técnica pictórica y al sentimiento que te generen las siguientes pinturas.</p>
-        <button class="boton" onclick="seguir2()">Comenzar</button>
+        <button class="botonComenzar" onclick="seguir2()">Comenzar</button>
     </div>
 </div>
  
@@ -51,10 +51,12 @@
 
     </div>
     <div id="zona1" class="zona__navegacion">
-        <button id="nav__pictorico" class="btn_siguiente">Siguiente</button>
+        <button id="nav__pictorico" onclick="seguir2()" class="btn_siguiente">Siguiente</button>
     </div>
 </div>
-
+</div>
+</div>
+</body>
  <!--Codigo de precarga -->
  <script src="../lib/jquery.js"></script>
  <script src="../lib/jquery-ui.min.js"></script>

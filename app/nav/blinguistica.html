@@ -56,7 +56,7 @@
 </head>
 
 <body>
-  <div class="cont-principal" style="background-image: url('../img/deporte/fondo.png')">
+  <div class="cont-principal"style="background-image: url('../img/background_principal-2.png')">
     <div class="principal" onselectstart="return false">
 
       <div class="pantalla ppreguntas">
@@ -79,12 +79,12 @@
 
         </div>
 
-        <div class="pantalla pinicio" style="background-image: url('../img/background_principal-2.png')">
+        <div class="pantalla pinicio"  style="background-image: url('../img/background_principal-2.png')">
           <div class="introduccion">
             <h1 class="titulo">Inteligencia Lingüística</h1>
             <p id="desc" class="descripcion">En esta sección de la prueba se evaluará tus conocimientos en el área
               Lingüística.</p>
-            <button class="boton" onclick="seguir()">Comenzar</button>
+            <button class="botonComenzar" onclick="seguir()">Comenzar</button>
           </div>
         </div>
 
@@ -116,7 +116,7 @@
             <h1 class="titulo">Emparejados</h1>
             <p id="desc" class="descripcion">Presiona click sobre cada una de las tarjetas para que se muestre la
               imagen. Deberás unir las imágenes similares con el menor tiempo e intentos posibles.</p>
-            <button class="boton" onclick="seguir()">Comenzar</button>
+            <button class="botonComenzar" onclick="seguir()">Comenzar</button>
           </div>
         </div>
 
@@ -241,7 +241,7 @@
 
     $('#relacionAzar').append(tablero.canvas);
 
-    let p2 = new PreguntaC("Lee el siguiente fragmento:2. En el fragmento hay unos cuantos errores de ortografía, dale click en el error para seleccionarlos. Cuando sientas que no hay más errores, haz click sobre el botón siguiente.", new OpcionC(`El hombre no se convierte en hombre más que en una sociedad y solamente por la acción colectiva de la sociedad entera; no se emansipa del llugo de la naturalesa exterior más que por el trabajo colectivo o social y sin esa emancipación material no puede haber emancipación intelectual y moral para nadie. El hombre aislado no puede tener conciencia de su libertad. Ser libre para el hombre sólo es posible por otro hombre, por todos los hombres que le rodean. La libertad no es, pues, un echo de aislamiento, sino de reflección mutua; no de exclución, sino, al contrario, de aliansa, pues la libertad de todo individuo no es otra cosa que el reflejo de su humanidad o de su derecho humano en la consciencia de todos los hombres libres: sus hermanos, sus iguales. No soy verdaderamente libre más que cuando todos los seres humanos que me rodean, hombres y mujeres, son igualmente libres. La libertad de otro, lejos de ser un límite o la negasión de mi libertad, es, al contrario, su condición necesaria y su confirmación. No me ago verdaderamente libre más que por la libertad de los otros... BAKUNIN, M. La Libertad.`));
+    let p2 = new PreguntaC("En el fragmento hay unos cuantos errores de ortografía, dale click en el error para seleccionarlos. Cuando sientas que no hay más errores, haz click sobre el botón siguiente.", new OpcionC(`El hombre no se convierte en hombre más que en una sociedad y solamente por la acción colectiva de la sociedad entera; no se emansipa del llugo de la naturalesa exterior más que por el trabajo colectivo o social y sin esa emancipación material no puede haber emancipación intelectual y moral para nadie. El hombre aislado no puede tener conciencia de su libertad. Ser libre para el hombre sólo es posible por otro hombre, por todos los hombres que le rodean. La libertad no es, pues, un echo de aislamiento, sino de reflección mutua; no de exclución, sino, al contrario, de aliansa, pues la libertad de todo individuo no es otra cosa que el reflejo de su humanidad o de su derecho humano en la consciencia de todos los hombres libres: sus hermanos, sus iguales. No soy verdaderamente libre más que cuando todos los seres humanos que me rodean, hombres y mujeres, son igualmente libres. La libertad de otro, lejos de ser un límite o la negasión de mi libertad, es, al contrario, su condición necesaria y su confirmación. No me ago verdaderamente libre más que por la libertad de los otros... BAKUNIN, M. La Libertad.`));
 
 
     let p3 = new PreguntaA("3. El fragmento trata principalmente de:");
@@ -473,12 +473,10 @@
     contenedor.agregar(new Contenido(document.querySelector('.ptableros3'), tableros[2]));
     contenedor.agregarHTML(document.querySelector(".ppintura"));
 
-
     contenedor.incluirEn(document.querySelector(".ppreguntas"));
     navegable.iniciar();
 
-    navegable.colocarTiempo();
-    navegable.colocarProgreso();
+
 
     ocultar(".zona__navegacion");
 
@@ -486,6 +484,8 @@
       navegable.setPermitir(true);
       navegable.siguiente();
       if (navegable.getActual() == 1) {
+        navegable.colocarTiempo();
+    navegable.colocarProgreso();
         mostrar(".zona__navegacion");
       }
 
