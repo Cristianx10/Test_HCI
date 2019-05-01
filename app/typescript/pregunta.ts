@@ -3,13 +3,19 @@ interface ResultadoA {
     valor: number;
 }
 
-class Pregunta{
+class Pregunta {
 
     elemento: HTMLElement;
-    informacion:string;
+    informacion: string;
+    seleccion?: Opcion;
 
-    constructor(informacion:string){
-        this.informacion = informacion;
+    constructor(informacion?: string) {
+
+        if(informacion == null){
+            this.informacion = "";
+        }else{
+            this.informacion = informacion;
+        }
         this.elemento = document.createElement('div');
     }
 
@@ -22,18 +28,58 @@ class Pregunta{
         return this.elemento;
     }
 
-    agregarClases(clase:string){
+    agregarClases(clase: string) {
         this.elemento.classList.add(clase);
     }
 
-    removerClases(clase:string){
+    removerClases(clase: string) {
         this.elemento.classList.remove(clase);
     }
-    
+
+    registro() {
+        if (this.seleccion != null) {
+            this.seleccion.validacion();
+            resultados.agregar("pregunta",
+                [{ id: "pregunta", valor: this.informacion },
+                { id: "respuesta", valor: this.seleccion.informacion }]);
+        }
+    }
 
 }
 
-class PreguntaA extends Pregunta{
+class Opcion {
+
+    elemento: HTMLElement;
+    pregunta: Pregunta;
+    informacion:string;
+
+    constructor(pregunta: Pregunta) {
+        this.pregunta = pregunta;
+        this.elemento = document.createElement('label');
+        this.informacion = "";
+        
+        console.log("clicks");
+        this.elemento.addEventListener("click", () => {
+            console.log("clicks");
+            if (this.pregunta.seleccion != null) {
+                this.pregunta.seleccion.elemento.classList.remove("seleccion");
+            }
+            this.pregunta.seleccion = this;
+            this.elemento.classList.add("seleccion");
+        });
+    }
+
+    validacion(){
+
+    }
+
+    getElemento() {
+        return this.elemento;
+    }
+
+}
+
+class PreguntaA extends Pregunta {
 
     opciones: Array<OpcionA>;
     formulario: HTMLElement;
@@ -69,21 +115,18 @@ class PreguntaA extends Pregunta{
     }
 
     agregar(info: string, valor: Array<ResultadoA>) {
-        let opcion = new OpcionA(info, valor, this);
+        let opcion = new OpcionA(this, info, valor);
         this.opciones.push(opcion);
         this.formulario.append(opcion.getElemento());
     }
 
     validar() {
-
-
         if (this.seleccion != null) {
             this.seleccion.validacion();
             resultados.agregar("pregunta",
                 [{ id: "pregunta", valor: this.elemento.innerText },
-                { id: "respuesta", valor: this.seleccion.opcion.innerText }]);
+                { id: "respuesta", valor: this.seleccion.elemento.innerText }]);
         }
-
     }
 
     getPregunta() {
@@ -91,50 +134,37 @@ class PreguntaA extends Pregunta{
     }
 
 
-    
+
 }
 
-class OpcionA {
+class OpcionA extends Opcion {
 
-    opcion: HTMLElement;
     valor: Array<ResultadoA>;
-    pregunta: PreguntaA;
 
-    constructor(info: string, valor: Array<ResultadoA>, pregunta: PreguntaA) {
-        this.pregunta = pregunta;
-        this.opcion = document.createElement("label");
-        this.opcion.className = "opcion vertical";
-        this.opcion.innerHTML = `
+    constructor(pregunta: Pregunta, info: string, valor: Array<ResultadoA>) {
+        super(pregunta);
+        this.elemento.className = "opcion vertical";
+        this.elemento.innerHTML = `
         <div class="opcion__check">
             <input class="marcador__input" type="radio" name="opcion"></input><span class="marcador"></span>
         </div>
         <div class="informacion">${info}</div>`;
         this.valor = valor;
 
-        this.opcion.addEventListener("click", () => {
-            if (this.pregunta.seleccion != null) {
-                this.pregunta.seleccion.opcion.classList.remove("seleccion");
-            }
-            this.pregunta.seleccion = this;
-            this.opcion.classList.add("seleccion");
-        });
+
     }
 
     validacion() {
-
         this.valor.forEach(v => {
             resultados.sumar(v.area, v.valor);
         });
     }
 
-    getElemento() {
-        return this.opcion;
-    }
 }
 
 
 
-class PreguntaB extends Pregunta{
+class PreguntaB extends Pregunta {
 
     opciones: Array<OpcionB>;
     validacion?: Function;
@@ -163,7 +193,7 @@ class PreguntaB extends Pregunta{
 
         opciones.forEach(o => {
             o.pregunta = this;
-            formulario.appendChild(o.getElement());
+            formulario.appendChild(o.getElemento());
         });
 
         div_seccionB.appendChild(formulario);
@@ -177,7 +207,7 @@ class PreguntaB extends Pregunta{
                 o.validacion();
                 resultados.agregar("pregunta",
                     [{ id: "pregunta", valor: this.elemento.innerText },
-                    { id: "respuesta", valor: o.opcion.innerText }]);
+                    { id: "respuesta", valor: o.elemento.innerText }]);
             }
         });
     }
@@ -186,7 +216,7 @@ class PreguntaB extends Pregunta{
     reset() {
         this.opciones.forEach(o => {
             o.validado = false;
-            o.opcion.classList.remove("opcion__select");
+            o.elemento.classList.remove("opcion__select");
         });
     }
 
@@ -197,29 +227,17 @@ class PreguntaB extends Pregunta{
 
 }
 
-class OpcionB {
-    opcion: HTMLElement;
+class OpcionB extends Opcion {
+
     valor: Array<ResultadoA>;
     validado: boolean;
-    pregunta?: PreguntaB;
 
-    constructor(info: string, valor: Array<ResultadoA>) {
-        this.opcion = document.createElement("div");
-        this.opcion.className = "opcionB";
+    constructor(pregunta:Pregunta, info: string, valor: Array<ResultadoA>) {
+        super(pregunta);
+        this.elemento.className = "opcionB";
         this.validado = false;
         this.valor = valor;
-        this.opcion.innerHTML = info;
-
-        this.opcion.addEventListener('click', () => {
-            if (this.pregunta != null) {
-                this.pregunta.reset();
-                this.validado = true;
-                this.opcion.classList.add("opcion__select");
-                if (this.pregunta.validacion != null) {
-                    this.pregunta.validacion();
-                }
-            }
-        });
+        this.elemento.innerHTML = info;
     }
 
     validacion() {
@@ -227,11 +245,6 @@ class OpcionB {
             resultados.sumar(v.area, v.valor);
         });
     }
-
-    getElement() {
-        return this.opcion;
-    }
-
 }
 
 /*
@@ -239,7 +252,7 @@ class OpcionB {
 
 */
 
-class PreguntaC extends Pregunta{
+class PreguntaC extends Pregunta {
 
     opciones: OpcionC;
     validacion?: Function;
@@ -303,21 +316,20 @@ class PreguntaC extends Pregunta{
 
 }
 
-class OpcionC {
-    opcion: HTMLElement;
+class OpcionC extends Opcion {
+
     valor: Array<ResultadoA>;
     validado: boolean;
-    pregunta?: PreguntaB;
     areaTexto: HTMLTextAreaElement;
 
-    constructor(info?: string, valor?: Array<ResultadoA>) {
+    constructor(pregunta:Pregunta, info?: string, valor?: Array<ResultadoA>) {
+        super(pregunta);
         if (valor != null) {
             this.valor = valor;
         } else {
             this.valor = new Array();
         }
-        this.opcion = document.createElement("div");
-        this.opcion.className = "opcionC";
+        this.elemento.className = "opcionC";
         this.areaTexto = document.createElement("textarea");
         this.areaTexto.className = "pregunta__parrafo";
         this.areaTexto.spellcheck = false;
@@ -327,19 +339,8 @@ class OpcionC {
             this.areaTexto.innerText = info;
         }
 
-        this.opcion.append(this.areaTexto);
+        this.elemento.append(this.areaTexto);
         this.validado = false;
-
-        this.opcion.addEventListener('click', () => {
-            if (this.pregunta != null) {
-                this.pregunta.reset();
-                this.validado = true;
-                this.opcion.classList.add("opcion__select");
-                if (this.pregunta.validacion != null) {
-                    this.pregunta.validacion();
-                }
-            }
-        });
     }
 
     validacion() {
@@ -348,16 +349,12 @@ class OpcionC {
         });
     }
 
-    getElement() {
-        return this.opcion;
-    }
-
 }
 
 /* Escala de linker
 */
 
-class PreguntaD extends Pregunta{
+class PreguntaD extends Pregunta {
 
     opciones: OpcionD;
     validacion?: Function;
@@ -365,15 +362,13 @@ class PreguntaD extends Pregunta{
 
     constructor(informacion: string, valor: Array<ResultadoA>, p?: string, m?: string) {
         super(informacion);
-       
-        this.opciones = new OpcionD(valor, p, m);
+
+        this.opciones = new OpcionD(this, valor, p, m);
         this.elemento.className = "pregunta";
 
         let div_seccionA = document.createElement('section');
         let div_seccionA_h1 = document.createElement('h2');
         let div_seccionB = document.createElement('section');
-        let formulario = document.createElement('div');
-
 
         div_seccionA.className = "pregunta__titulo";
         div_seccionB.className = "pregunta__opciones";
@@ -386,7 +381,7 @@ class PreguntaD extends Pregunta{
         div_seccionA.appendChild(div_seccionA_h1);
         div_seccionA.appendChild(document.createElement('hr'));
 
-        div_seccionB.appendChild(this.opciones.opcion);
+        div_seccionB.appendChild(this.opciones.elemento);
         this.contenido = new Contenido(this.getElemento(), this);
     }
 
@@ -407,16 +402,16 @@ class PreguntaD extends Pregunta{
 
 }
 
-class OpcionD {
-    opcion: HTMLElement;
+class OpcionD extends Opcion {
+
     valor: Array<ResultadoA>;
     validado: boolean;
     progreso: HTMLProgressElement;
     input: HTMLInputElement;
 
-    constructor(valor: Array<ResultadoA>, p?: string, m?: string) {
-        this.opcion = document.createElement("div");
-        this.opcion.className = "likert_escala";
+    constructor(pregunta:Pregunta, valor: Array<ResultadoA>, p?: string, m?: string) {
+        super(pregunta);
+        this.elemento.className = "likert_escala";
 
         let poco = document.createElement("label");
         poco.className = "likert_label";
@@ -472,7 +467,7 @@ class OpcionD {
 
         linker.append(this.progreso, this.input, label1, label2, label3);
 
-        this.opcion.append(poco, linker, mucho);
+        this.elemento.append(poco, linker, mucho);
 
         this.validado = false;
         this.valor = valor;
@@ -487,15 +482,11 @@ class OpcionD {
         }
     }
 
-    getElement() {
-        return this.opcion;
-    }
-
 }
 
 
 
-class PreguntaI extends Pregunta{
+class PreguntaI extends Pregunta {
 
     opciones: Array<OpcionI>;
     formulario: HTMLFormElement;
@@ -535,8 +526,8 @@ class PreguntaI extends Pregunta{
     }
 
     agregar(info: string, valor: Array<ResultadoA>) {
-        let elemento = new OpcionI(info, valor, this);
-        this.formulario.append(elemento.getElement());
+        let elemento = new OpcionI(this, info, valor);
+        this.formulario.append(elemento.getElemento());
         this.opciones.push(elemento);
     }
 
@@ -545,7 +536,7 @@ class PreguntaI extends Pregunta{
             this.seleecion.validacion();
             resultados.agregar("pregunta",
                 [{ id: "pregunta", valor: this.informacion },
-                { id: "respuesta", valor: this.seleecion.opcion.innerText }]);
+                { id: "respuesta", valor: this.seleecion.elemento.innerText }]);
         }
     }
 
@@ -556,32 +547,24 @@ class PreguntaI extends Pregunta{
 }
 
 
-class OpcionI {
-    opcion: HTMLElement;
-    valor: Array<ResultadoA>;
-    pregunta: PreguntaI;
-    informacion:string;
+class OpcionI extends Opcion {
 
-    constructor(info: string, valor: Array<ResultadoA>, pregunta: PreguntaI) {
-        this.pregunta = pregunta;
+    valor: Array<ResultadoA>;
+ 
+    informacion: string;
+
+    constructor(pregunta:Pregunta, info: string, valor: Array<ResultadoA>) {
+        super(pregunta);
+      
         this.informacion = info;
-        this.opcion = document.createElement("label");
-        this.opcion.className = "opcion";
-        this.opcion.innerHTML = `
+        this.elemento.className = "opcion";
+        this.elemento.innerHTML = `
         <div class="opcion__check">
             <input class="marcador__input" type="radio" name="opcion"></input><span class="marcador"></span>
         </div>
         <div class="informacion">${info}</div>`;
 
         this.valor = valor;
-
-        this.opcion.addEventListener("click", () => {
-            if (this.pregunta.seleecion != null) {
-                this.pregunta.seleecion.opcion.classList.remove("seleccion");
-            }
-            this.pregunta.seleecion = this;
-            this.opcion.classList.add("seleccion");
-        });
     }
 
     validacion() {
@@ -591,9 +574,6 @@ class OpcionI {
         });
     }
 
-    getElement() {
-        return this.opcion;
-    }
 }
 
 interface FOpcionS {
@@ -601,21 +581,20 @@ interface FOpcionS {
     valor: number;
 }
 
-class PreguntaS{
+class PreguntaS extends Pregunta{
+
     texto: HTMLElement;
-    elemento: HTMLElement;
     lista: HTMLElement;
     opciones: Array<OpcionS>;
-    seleccionActual?: OpcionS;
 
     constructor() {
+        super();
         this.opciones = new Array();
 
         this.texto = document.createElement("p");
         this.texto.innerText = "___";
         this.texto.style.textAlign = "center";
 
-        this.elemento = document.createElement('div');
         this.elemento.style.display = "inline-block";
         this.elemento.className = "elegir__resultado";
         this.elemento.append(this.texto);
@@ -644,43 +623,38 @@ class PreguntaS{
     }
 
     agregar(info: string, valor: number) {
-        let o = new OpcionS(info, valor, this)
+        let o = new OpcionS(this, info, valor);
         this.opciones.push(o);
         this.lista.append(o.elemento);
     }
 
-    incluirEn(lugar: string) {
-        let e: HTMLElement = <HTMLElement>document.querySelector(lugar);
-        e.append(this.elemento);
-    }
 }
 
-class OpcionS {
+class OpcionS extends Opcion {
 
-    padre: PreguntaS;
-    elemento: HTMLElement;
     valor: number;
 
-    constructor(info: string, valor: number, padre: PreguntaS) {
-        this.padre = padre;
-        this.elemento = document.createElement('span');
+    constructor(pregunta:PreguntaS, info: string, valor: number) {
+        super(pregunta);
+        let con_temp = document.createElement('span');
+        this.elemento.append(con_temp);
         this.elemento.className = "elegir__opcion";
         this.elemento.innerText = info;
         this.valor = valor;
 
         this.elemento.addEventListener("click", () => {
-            this.padre.seleccionActual = this;
-            this.padre.texto.innerHTML = this.elemento.innerText;
+            this.pregunta.seleccion = this;
+            let ptem = <PreguntaS>(this.pregunta);
+            ptem.texto.innerHTML = this.elemento.innerText;
         });
     }
 }
 
 
-class PreguntaR extends Pregunta{
+class PreguntaR extends Pregunta {
 
     opciones: Array<OpcionR>;
     validacion?: Function;
-    seleccion?: OpcionR;
     preguntaHTML: HTMLElement;
     opcionesHTML: HTMLElement;
 
@@ -702,10 +676,10 @@ class PreguntaR extends Pregunta{
     }
 
     agregar(info: string, valor: Array<ResultadoA>) {
-        let opcion = new OpcionR(info, valor)
+        let opcion = new OpcionR(this, info, valor)
         opcion.pregunta = this;
         this.opciones.push(opcion);
-        this.opcionesHTML.append(opcion.opcion);
+        this.opcionesHTML.append(opcion.elemento);
     }
 
     validar() {
@@ -725,27 +699,17 @@ class PreguntaR extends Pregunta{
 
 }
 
-class OpcionR {
-    opcion: HTMLElement;
+class OpcionR extends Opcion{
+  
     valor: Array<ResultadoA>;
-    pregunta?: PreguntaR;
     informacion: string;
 
-    constructor(info: string, valor: Array<ResultadoA>) {
+    constructor(pregunta:Pregunta, info: string, valor: Array<ResultadoA>) {
+        super(pregunta);
         this.informacion = info;
-        this.opcion = document.createElement("div");
         this.valor = valor;
-        this.opcion.innerHTML = info;
+        this.elemento.innerHTML = info;
 
-        this.opcion.addEventListener('click', () => {
-            if (this.pregunta != null) {
-                if (this.pregunta.seleccion != null) {
-                    this.pregunta.seleccion.opcion.classList.remove("seleccion");
-                }
-                this.pregunta.seleccion = this;
-                this.opcion.classList.add("seleccion");
-            }
-        });
     }
 
 
@@ -756,18 +720,13 @@ class OpcionR {
         });
     }
 
-    getElemento() {
-        return this.opcion;
-    }
-
 }
 
 
-class PreguntaP extends Pregunta{
+class PreguntaP extends Pregunta {
 
     opciones: Array<OpcionP>;
     validacion?: Function;
-    seleccion?: OpcionR;
     preguntaHTML: HTMLElement;
     preguntaText: HTMLElement;
     opcionesHTML: HTMLElement;
@@ -776,7 +735,7 @@ class PreguntaP extends Pregunta{
     constructor(imagen: string, informacion: string) {
         super(informacion);
         this.opciones = new Array();
-       
+
         this.elemento.className = "preguntaImagen";
 
         this.preguntaHTML = document.createElement('div');
@@ -799,25 +758,14 @@ class PreguntaP extends Pregunta{
         cont_temp.appendChild(this.opcionesHTML);
         this.elemento.appendChild(cont_temp);
 
-     
+
     }
 
     agregar(info: string, valor: Array<ResultadoA>) {
-        let opcion = new OpcionP(info, valor)
+        let opcion = new OpcionP(this, info, valor)
         opcion.pregunta = this;
         this.opciones.push(opcion);
-        this.opcionesHTML.append(opcion.opcion);
-    }
-
-    validar() {
-
-        if (this.seleccion != null) {
-            this.seleccion.validacion();
-            resultados.agregar("pregunta",
-                [{ id: "pregunta", valor: this.informacion },
-                { id: "respuesta", valor: this.seleccion.informacion }]);
-        }
-
+        this.opcionesHTML.append(opcion.elemento);
     }
 
     
@@ -828,28 +776,16 @@ class PreguntaP extends Pregunta{
 
 }
 
-class OpcionP {
-    opcion: HTMLElement;
+class OpcionP extends Opcion{
+
     valor: Array<ResultadoA>;
-    pregunta?: PreguntaR;
-    informacion: string;
 
-    constructor(info: string, valor: Array<ResultadoA>) {
+    constructor(pregunta:Pregunta, info: string, valor: Array<ResultadoA>) {
+        super(pregunta);
         this.informacion = info;
-        this.opcion = document.createElement("div");
-        this.opcion.className = "opcion__boton";
+        this.elemento.className = "opcion__boton";
         this.valor = valor;
-        this.opcion.innerHTML = info;
-
-        this.opcion.addEventListener('click', () => {
-            if (this.pregunta != null) {
-                if (this.pregunta.seleccion != null) {
-                    this.pregunta.seleccion.opcion.classList.remove("seleccion");
-                }
-                this.pregunta.seleccion = this;
-                this.opcion.classList.add("seleccion");
-            }
-        });
+        this.elemento.innerHTML = info;
     }
 
 
@@ -859,9 +795,4 @@ class OpcionP {
             resultados.sumar(v.area, v.valor);
         });
     }
-
-    getElemento() {
-        return this.opcion;
-    }
-
 }
