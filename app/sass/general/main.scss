@@ -443,6 +443,8 @@ label {
 
         & h2 {
             text-align: center;
+            margin-bottom: 25px;
+
         }
     }
 
@@ -495,7 +497,7 @@ label {
 
 hr {
     width: 30%;
-    margin: 25px auto;
+    margin: 0 auto;
     border: 1px solid #00DED3;
 }
 
@@ -813,7 +815,6 @@ hr {
     font-weight: bold;
     font-size: 64px;
     line-height: 70px;
-
     color: #EFF5FF;
 }
 
