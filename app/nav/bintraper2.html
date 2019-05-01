@@ -23,12 +23,13 @@
 
         <div class="pantalla pinicio" style="background-image: url('../img/background_principal-2.png')">
           <div class="introduccion">
-              <h1 class="titulo">Inteligencia Intrapersonal 2</h1>
-              <p id="desc" class="descripcion">En esta sección de la prueba evaluaremos tus conocimientos en el area Intrapersonal</p>
-              <button class="botonComenzar" onclick="seguir()">Comenzar</button>
+            <h1 class="titulo">Inteligencia Intrapersonal 2</h1>
+            <p id="desc" class="descripcion">En esta sección de la prueba evaluaremos tus conocimientos en el area
+              Intrapersonal</p>
+            <button class="botonComenzar" onclick="seguir()">Comenzar</button>
           </div>
         </div>
-  
+
 
       </div>
       <div class="zona__navegacion" style="display:none;">
@@ -72,7 +73,7 @@
 
     });
 
-        
+
     $('.cont-principal').css("background-image", "url('../img/background-claro.png')");
 
 
@@ -80,23 +81,102 @@
     let navegacion = new Navegable(contenedor);
 
     var preguntas = [];
-    preguntas.push(new PreguntaD("La constancia y la planificación son importantes en mi vida", [], "Constancia", "Sín planificación"));
-    preguntas.push(new PreguntaD("Me gusta pensar en los demás incluso antes que en mi", [], "Los demás", "Yo primero"));
-    preguntas.push(new PreguntaD("Me encanta aprender sobre el cuerpo humano, lo considero fascinante", [], "Si", "No"));
-    preguntas.push(new PreguntaD("Me gusta ser una persona limpia y aseada", [], "Pulcritud", "No Pulcritud"));
-    preguntas.push(new PreguntaD("Prefiero ser el intelectual que el de la fuerza", [], "Intelectual", "Fuerza"));
-    preguntas.push(new PreguntaD("Me gusta pertenecer a asociaciones de ayuda social", [], "No pertenecer", "Pertenecer"));
-    preguntas.push(new PreguntaD("Mis videojuegos preferidos son los Shooter", [], "No", "Si"));
-    preguntas.push(new PreguntaD("Me gusta la adrenalina porque me hace sentir vivo", [], "No", "Si"));
-    preguntas.push(new PreguntaD("En clase de educacion fisica, al hacer equipos me escogen en", [], "Primer lugar", "Ultimo lugar"));
-    preguntas.push(new PreguntaD("Me considero competitivo", [], "No soy competitivo", "Soy competitivo"));
-    preguntas.push(new PreguntaD("Es importante para mi sacar tiempo de mi semana para ejercitarme", [], "No", "Si"));
-    preguntas.push(new PreguntaD("Medir mi tiempo en ciertas actividades me motiva a mejorar cada vez mas", [], "No", "Me motiva mucho"));
-    preguntas.push(new PreguntaD("Me agrada trabajar en equipo, juntos se puede lograr mas", [], "De acuerdo", "En desacuerdo"));
-    preguntas.push(new PreguntaD("En una grafica trato de que todo quede lo mas entendible posible", [], "No", "Si"));
-    preguntas.push(new PreguntaD("Me encanta usar colores diferentes para resaltar y organizar informacion", [], "Si", "No"));
-    preguntas.push(new PreguntaD("Me gusta  buscar  referencias de trabajos parecidos al que estoy efectuando, esto aviva mis ideas", [], "Muy de acuerdo", "En desacuerdo"));
 
+    let temp__pregunta = new PreguntaD("La constancia y la planificación son importantes en mi vida", "Constancia", "Sín planificación")
+    temp__pregunta.agregar("1", []);
+    temp__pregunta.agregar("2", []);
+    temp__pregunta.agregar("3", []);
+    preguntas.push(temp__pregunta);
+
+    temp__pregunta = new PreguntaD("Me gusta pensar en los demás incluso antes que en mi", "Los demás", "Yo primero");
+    temp__pregunta.agregar("1", []);
+    temp__pregunta.agregar("2", []);
+    temp__pregunta.agregar("3", []);
+    preguntas.push(temp__pregunta);
+
+    temp__pregunta = new PreguntaD("Me encanta aprender sobre el cuerpo humano, lo considero fascinante", "Si", "No")
+    temp__pregunta.agregar("1", []);
+    temp__pregunta.agregar("2", []);
+    temp__pregunta.agregar("3", []);
+    preguntas.push(temp__pregunta);
+
+    temp__pregunta = new PreguntaD("Me gusta ser una persona limpia y aseada", "Pulcritud", "No Pulcritud")
+    temp__pregunta.agregar("1", []);
+    temp__pregunta.agregar("2", []);
+    temp__pregunta.agregar("3", []);
+    preguntas.push(temp__pregunta);
+
+    temp__pregunta = new PreguntaD("Prefiero ser el intelectual que el de la fuerza", "Intelectual", "Fuerza");
+    temp__pregunta.agregar("1", []);
+    temp__pregunta.agregar("2", []);
+    temp__pregunta.agregar("3", []);
+    preguntas.push(temp__pregunta);
+
+    temp__pregunta = new PreguntaD("Me gusta pertenecer a asociaciones de ayuda social", "No pertenecer", "Pertenecer")
+    temp__pregunta.agregar("1", []);
+    temp__pregunta.agregar("2", []);
+    temp__pregunta.agregar("3", []);
+    preguntas.push(temp__pregunta);
+
+    temp__pregunta = new PreguntaD("Mis videojuegos preferidos son los Shooter", "No", "Si")
+    temp__pregunta.agregar("1", []);
+    temp__pregunta.agregar("2", []);
+    temp__pregunta.agregar("3", []);
+    preguntas.push(temp__pregunta);
+
+    temp__pregunta = new PreguntaD("Me gusta la adrenalina porque me hace sentir vivo", "No", "Si")
+    temp__pregunta.agregar("1", []);
+    temp__pregunta.agregar("2", []);
+    temp__pregunta.agregar("3", []);
+    preguntas.push(temp__pregunta);
+
+    temp__pregunta = new PreguntaD("En clase de educacion fisica, al hacer equipos me escogen en", "Primer lugar", "Ultimo lugar")
+    temp__pregunta.agregar("1", []);
+    temp__pregunta.agregar("2", []);
+    temp__pregunta.agregar("3", []);
+    preguntas.push(temp__pregunta);
+
+    temp__pregunta = new PreguntaD("Me considero competitivo", "No soy competitivo", "Soy competitivo")
+    temp__pregunta.agregar("1", []);
+    temp__pregunta.agregar("2", []);
+    temp__pregunta.agregar("3", []);
+    preguntas.push(temp__pregunta);
+
+    temp__pregunta = new PreguntaD("Es importante para mi sacar tiempo de mi semana para ejercitarme", "No", "Si")
+    temp__pregunta.agregar("1", []);
+    temp__pregunta.agregar("2", []);
+    temp__pregunta.agregar("3", []);
+    preguntas.push(temp__pregunta);
+
+    temp__pregunta = new PreguntaD("Medir mi tiempo en ciertas actividades me motiva a mejorar cada vez mas", "No", "Me motiva mucho")
+    temp__pregunta.agregar("1", []);
+    temp__pregunta.agregar("2", []);
+    temp__pregunta.agregar("3", []);
+    preguntas.push(temp__pregunta);
+
+    temp__pregunta = new PreguntaD("Me agrada trabajar en equipo, juntos se puede lograr mas", "De acuerdo", "En desacuerdo")
+    temp__pregunta.agregar("1", []);
+    temp__pregunta.agregar("2", []);
+    temp__pregunta.agregar("3", []);
+    preguntas.push(temp__pregunta);
+
+    temp__pregunta = new PreguntaD("En una grafica trato de que todo quede lo mas entendible posible", "No", "Si")
+    temp__pregunta.agregar("1", []);
+    temp__pregunta.agregar("2", []);
+    temp__pregunta.agregar("3", []);
+    preguntas.push(temp__pregunta);
+
+    temp__pregunta = new PreguntaD("Me encanta usar colores diferentes para resaltar y organizar informacion", "Si", "No")
+    temp__pregunta.agregar("1", []);
+    temp__pregunta.agregar("2", []);
+    temp__pregunta.agregar("3", []);
+    preguntas.push(temp__pregunta);
+
+    temp__pregunta = new PreguntaD("Me gusta  buscar  referencias de trabajos parecidos al que estoy efectuando, esto aviva mis ideas", "Muy de acuerdo", "En desacuerdo")
+    temp__pregunta.agregar("1", []);
+    temp__pregunta.agregar("2", []);
+    temp__pregunta.agregar("3", []);
+    preguntas.push(temp__pregunta);
 
 
     contenedor.agregarHTML(document.querySelector('.pinicio'));
@@ -104,7 +184,7 @@
     shuffle(preguntas);
 
     preguntas.forEach(p => {
-        contenedor.agregar(p.getPregunta(),40);
+      contenedor.agregar(p.getPregunta(), 40);
     });
 
     var siguiente = document.querySelector('.btn_siguiente');
@@ -118,7 +198,7 @@
       navegacion.setPermitir(true);
       navegacion.siguiente();
       mostrar(".zona__navegacion");
-        siguiente.disabled = false;
+      siguiente.disabled = false;
 
     }
 

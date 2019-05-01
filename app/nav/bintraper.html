@@ -204,22 +204,102 @@
         let navegacion = new Navegable(contenedor);
 
         var preguntas = [];
-        preguntas.push(new PreguntaD("Prefiro guiarme más por mi experiencia que por mi imaginación", [], "Imaginación", "Experiencia"));
-        preguntas.push(new PreguntaD("Suelo ser más apasionado que objetivo", [], "Apasionado", "Objetivo"));
-        preguntas.push(new PreguntaD("Me siento mas comodo trabajando  con maquinas que con personas", [], "Maquinas", "Personas"));
-        preguntas.push(new PreguntaD("A la hora de estudiar, me da tranquilidad organizar los temas antes de empezar", [], "Improvizar", "Organizado"));
-        preguntas.push(new PreguntaD("A la hora de trabajar, ¿Prefiero improvisar o planear?", [], "Improvizar", "Organizado"));
-        preguntas.push(new PreguntaD("Prefiero dedicarle tiempo a los detalles que valerme del contenido general", [], "Detalles", "Contenido General"));
-        preguntas.push(new PreguntaD("Me dan explosiones de inspiración mientas hago otra actividad", [], "Inspiración", "Actividad actual"));
-        preguntas.push(new PreguntaD("Me agrada realizar las actividades a mi modo y no necesariamente como lo hacen los demas", [], "Mi modo", "El modo establecido"));
-        preguntas.push(new PreguntaD("Me gusta buscar patrones en el ambiente que me rodea", [], "Patrones", "Sin Patrones"));
-        preguntas.push(new PreguntaD("Me llena investigar  acerca de inventos o descubrimientos que me ayuden a entender el mundo", [], "Curioso", "Zona de confort"));
-        preguntas.push(new PreguntaD("Prefiero comprobar la veracidad de las cosas yo mismo", [], "Comprobar", "No comprobar"));
-        preguntas.push(new PreguntaD("Prefiero planificar detalladamente mis pasos antes de actuar", [], "Detalles", "Actuar"));
-        preguntas.push(new PreguntaD("Me hace feliz que los demas se puedan enriquecer con lo que les cuento", [], "Compartir", "Reservarmelos"));
-        preguntas.push(new PreguntaD("Es agradable para mi tratar con gente mas joven ya que se me facilita ser paciente", [], "Paciente", "Impaciente"));
-        preguntas.push(new PreguntaD(" Me encanta aprender, suelo leer incluso mas de lo que me piden", [], "Leer", "No leer"));
-        preguntas.push(new PreguntaD("Disfruto de hablar en publico, soy bueno exponiendo", [], "Comunicación", "No comunicación"));
+        let temp__pregunta = new PreguntaD("Prefiro guiarme más por mi experiencia que por mi imaginación", "Imaginación", "Experiencia");
+        temp__pregunta.agregar("1", []);
+        temp__pregunta.agregar("2", []);
+        temp__pregunta.agregar("3", []);
+        preguntas.push(temp__pregunta);
+
+        temp__pregunta = new PreguntaD("Suelo ser más apasionado que objetivo", "Apasionado", "Objetivo");
+        temp__pregunta.agregar("1", []);
+        temp__pregunta.agregar("2", []);
+        temp__pregunta.agregar("3", []);
+        preguntas.push(temp__pregunta);
+
+        temp__pregunta = new PreguntaD("Me siento mas comodo trabajando  con maquinas que con personas", "Maquinas", "Personas");
+        temp__pregunta.agregar("1", []);
+        temp__pregunta.agregar("2", []);
+        temp__pregunta.agregar("3", []);
+        preguntas.push(temp__pregunta);
+
+        temp__pregunta = new PreguntaD("A la hora de estudiar, me da tranquilidad organizar los temas antes de empezar", "Improvizar", "Organizado");
+        temp__pregunta.agregar("1", []);
+        temp__pregunta.agregar("2", []);
+        temp__pregunta.agregar("3", []);
+        preguntas.push(temp__pregunta);
+
+        temp__pregunta = new PreguntaD("A la hora de trabajar, ¿Prefiero improvisar o planear?", "Improvizar", "Organizado");
+        temp__pregunta.agregar("1", []);
+        temp__pregunta.agregar("2", []);
+        temp__pregunta.agregar("3", []);
+        preguntas.push(temp__pregunta);
+
+        temp__pregunta = new PreguntaD("Prefiero dedicarle tiempo a los detalles que valerme del contenido general", "Detalles", "Contenido General");
+        temp__pregunta.agregar("1", []);
+        temp__pregunta.agregar("2", []);
+        temp__pregunta.agregar("3", []);
+        preguntas.push(temp__pregunta);
+
+        temp__pregunta = new PreguntaD("Me dan explosiones de inspiración mientas hago otra actividad", "Inspiración", "Actividad actual");
+        temp__pregunta.agregar("1", []);
+        temp__pregunta.agregar("2", []);
+        temp__pregunta.agregar("3", []);
+        preguntas.push(temp__pregunta);
+
+        temp__pregunta = new PreguntaD("Me agrada realizar las actividades a mi modo y no necesariamente como lo hacen los demas", "Mi modo", "El modo establecido");
+        temp__pregunta.agregar("1", []);
+        temp__pregunta.agregar("2", []);
+        temp__pregunta.agregar("3", []);
+        preguntas.push(temp__pregunta);
+
+        temp__pregunta = new PreguntaD("Me gusta buscar patrones en el ambiente que me rodea", "Patrones", "Sin Patrones");
+        temp__pregunta.agregar("1", []);
+        temp__pregunta.agregar("2", []);
+        temp__pregunta.agregar("3", []);
+        preguntas.push(temp__pregunta);
+
+        temp__pregunta = new PreguntaD("Me llena investigar  acerca de inventos o descubrimientos que me ayuden a entender el mundo", "Curioso", "Zona de confort");
+        temp__pregunta.agregar("1", []);
+        temp__pregunta.agregar("2", []);
+        temp__pregunta.agregar("3", []);
+        preguntas.push(temp__pregunta);
+
+        temp__pregunta = new PreguntaD("Prefiero comprobar la veracidad de las cosas yo mismo", "Comprobar", "No comprobar");
+        temp__pregunta.agregar("1", []);
+        temp__pregunta.agregar("2", []);
+        temp__pregunta.agregar("3", []);
+        preguntas.push(temp__pregunta);
+
+        temp__pregunta = new PreguntaD("Prefiero planificar detalladamente mis pasos antes de actuar", "Detalles", "Actuar");
+        temp__pregunta.agregar("1", []);
+        temp__pregunta.agregar("2", []);
+        temp__pregunta.agregar("3", []);
+        preguntas.push(temp__pregunta);
+
+        temp__pregunta = new PreguntaD("Me hace feliz que los demas se puedan enriquecer con lo que les cuento", "Compartir", "Reservarmelos");
+        temp__pregunta.agregar("1", []);
+        temp__pregunta.agregar("2", []);
+        temp__pregunta.agregar("3", []);
+        preguntas.push(temp__pregunta);
+
+        temp__pregunta = new PreguntaD("Es agradable para mi tratar con gente mas joven ya que se me facilita ser paciente", "Paciente", "Impaciente");
+        temp__pregunta.agregar("1", []);
+        temp__pregunta.agregar("2", []);
+        temp__pregunta.agregar("3", []);
+        preguntas.push(temp__pregunta);
+
+        temp__pregunta = new PreguntaD(" Me encanta aprender, suelo leer incluso mas de lo que me piden", "Leer", "No leer");
+        temp__pregunta.agregar("1", []);
+        temp__pregunta.agregar("2", []);
+        temp__pregunta.agregar("3", []);
+        preguntas.push(temp__pregunta);
+
+        temp__pregunta = new PreguntaD("Disfruto de hablar en publico, soy bueno exponiendo", "Comunicación", "No comunicación");
+        temp__pregunta.agregar("1", []);
+        temp__pregunta.agregar("2", []);
+        temp__pregunta.agregar("3", []);
+        preguntas.push(temp__pregunta);
+
 
 
         contenedor.agregarHTML(document.querySelector('.pinicio'));

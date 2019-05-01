@@ -21,7 +21,7 @@
 
             <div class="pantalla ppreguntas">
 
-                <div class="pantalla pinicio"  style="background-image: url('../img/background_principal-2.png')">
+                <div class="pantalla pinicio" style="background-image: url('../img/background_principal-2.png')">
                     <div class="introduccion">
                         <h1 class="titulo">Inteligencia Lógico Matemática</h1>
                         <p id="desc" class="descripcion">En esta sección de la prueba se evaluará tus conocimientos en
@@ -30,7 +30,7 @@
                     </div>
                 </div>
 
-                <div class="pantalla pguacainicio"  style="background-image: url('../img/background_principal-2.png')">
+                <div class="pantalla pguacainicio" style="background-image: url('../img/background_principal-2.png')">
                     <div class="introduccion">
                         <h1 class="titulo">Ojo Veloz</h1>
                         <p id="desc" class="descripcion">Debes precionar lo más rapido que puedas el boton
@@ -137,7 +137,7 @@
                         height: 100%;
                         margin: auto;
                     }
-                
+
                     .secuencia {
                         display: flex;
                         justify-content: center;
@@ -146,31 +146,31 @@
                         height: 80%;
                         margin: auto;
                     }
-                
+
                     .tabla {
                         width: 100%;
                     }
-                
-                    .contenedor__imagen{
+
+                    .contenedor__imagen {
                         display: flex;
                         justify-content: center;
                         align-items: center;
                         width: 250px;
                         height: 250px;
                     }
-                
+
                     img {
                         transition: all .5s ease;
                         width: 150px;
                         height: 150px;
                     }
-                
+
                     .contenedor__imagen img:hover {
                         transition: all .5s ease;
                         width: 250px;
                         height: 250px;
                     }
-                
+
                     .tabla__secuencia {
                         display: flex;
                         width: 100%;
@@ -178,12 +178,12 @@
                         justify-content: space-around;
                         flex-wrap: wrap;
                     }
-                
+
                     .selecionado {
                         border: 15px solid lightgreen;
                         border-radius: 130px;
                     }
-                
+
                     .selecionado img {
                         width: 190px;
                         height: 200px;
@@ -209,7 +209,7 @@
   
   <script src="../lib/tweenjs.js"></script>
   -->
-  <script src="../lib/preloadjs.js"></script>
+    <script src="../lib/preloadjs.js"></script>
     <script src="../lib/easeljs.js"></script>
     <script src="../../js/compuestos.js"></script>
     <script src="../lib/soundjs.js"></script>
@@ -392,7 +392,11 @@
         matematica3.agregar("8", []);
         matematica3.agregar("10", []);
 
-        var matematica4 = new PreguntaD("¿Del 1 al 3, qué que tan bien crees que te fue en esta prueba?", [])
+        var matematica4 = new PreguntaD("¿Del 1 al 3, qué que tan bien crees que te fue en esta prueba?");
+
+        matematica4.agregar("1", []);
+        matematica4.agregar("2", []);
+        matematica4.agregar("3", []);
 
         contenedor.agregarHTML(document.querySelector('.pinicio'));
 
@@ -403,6 +407,7 @@
             mostrar(".zona__navegacion");
 
         });
+
         contenedor.agregar(matematica2.getPregunta()).setAccion(function () {
 
         });
@@ -536,29 +541,29 @@
         });
 
 
-            contenedor.incluirEn(document.querySelector(".ppreguntas"));
-            navegacion.iniciar();
+        contenedor.incluirEn(document.querySelector(".ppreguntas"));
+        navegacion.iniciar();
 
-            ocultar(".zona__navegacion");
-            var siguiente = document.querySelector('.btn_siguiente');
+        ocultar(".zona__navegacion");
+        var siguiente = document.querySelector('.btn_siguiente');
 
-            function seguir() {
-                navegacion.setPermitir(true);
-                navegacion.siguiente();
-                if (navegacion.getActual() != 4) {
-                    siguiente.disabled = true;
+        function seguir() {
+            navegacion.setPermitir(true);
+            navegacion.siguiente();
+            if (navegacion.getActual() != 4) {
+                siguiente.disabled = true;
 
-                }
             }
+        }
 
 
-            $(".opcion").click(() => {
-                siguiente.disabled = false;
-            });
+        $(".opcion").click(() => {
+            siguiente.disabled = false;
+        });
 
-            navegacion.setFinal(()=>{
-                goTo("bintraper");
-            });
+        navegacion.setFinal(() => {
+            goTo("bintraper");
+        });
 
 
     </script>

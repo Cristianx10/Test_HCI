@@ -20,6 +20,7 @@ var Pregunta = /** @class */ (function () {
         else {
             this.informacion = informacion;
         }
+        this.tipoId = "pregunta";
         this.elemento = document.createElement('div');
     }
     Pregunta.prototype.incluirEn = function (lugar) {
@@ -38,7 +39,7 @@ var Pregunta = /** @class */ (function () {
     Pregunta.prototype.registro = function () {
         if (this.seleccion != null) {
             this.seleccion.validacion();
-            resultados.agregar("pregunta", [{ id: "pregunta", valor: this.informacion },
+            resultados.agregar(this.tipoId, [{ id: "pregunta", valor: this.informacion },
                 { id: "respuesta", valor: this.seleccion.informacion }]);
         }
     };
@@ -97,13 +98,6 @@ var PreguntaA = /** @class */ (function (_super) {
         this.opciones.push(opcion);
         this.formulario.append(opcion.getElemento());
     };
-    PreguntaA.prototype.validar = function () {
-        if (this.seleccion != null) {
-            this.seleccion.validacion();
-            resultados.agregar("pregunta", [{ id: "pregunta", valor: this.elemento.innerText },
-                { id: "respuesta", valor: this.seleccion.elemento.innerText }]);
-        }
-    };
     PreguntaA.prototype.getPregunta = function () {
         return this.contenido;
     };
@@ -113,23 +107,25 @@ var OpcionA = /** @class */ (function (_super) {
     __extends(OpcionA, _super);
     function OpcionA(pregunta, info, valor) {
         var _this = _super.call(this, pregunta, valor) || this;
-        _this.elemento.className = "opcion vertical";
+        _this.elemento.className = "opcion";
         _this.elemento.innerHTML = "\n        <div class=\"opcion__check\">\n            <input class=\"marcador__input\" type=\"radio\" name=\"opcion\"></input><span class=\"marcador\"></span>\n        </div>\n        <div class=\"informacion\">" + info + "</div>";
         _this.valor = valor;
+        _this.informacion = info;
         return _this;
     }
     return OpcionA;
 }(Opcion));
 var PreguntaB = /** @class */ (function (_super) {
     __extends(PreguntaB, _super);
-    function PreguntaB(informacion, opciones) {
+    function PreguntaB(informacion) {
         var _this = _super.call(this, informacion) || this;
-        _this.opciones = opciones;
+        _this.opciones = new Array();
         _this.elemento.className = "pregunta";
         var div_seccionA = document.createElement('section');
         var div_seccionA_h1 = document.createElement('h2');
         var div_seccionB = document.createElement('section');
-        var formulario = document.createElement('div');
+        _this.formulario = document.createElement('form');
+        _this.formulario.onsubmit = function () { return false; };
         div_seccionA.className = "pregunta__titulo";
         div_seccionB.className = "pregunta__opciones";
         div_seccionA_h1.innerHTML = _this.informacion;
@@ -137,28 +133,13 @@ var PreguntaB = /** @class */ (function (_super) {
         _this.elemento.appendChild(div_seccionB);
         div_seccionA.appendChild(div_seccionA_h1);
         div_seccionA.appendChild(document.createElement('hr'));
-        opciones.forEach(function (o) {
-            o.pregunta = _this;
-            formulario.appendChild(o.getElemento());
-        });
-        div_seccionB.appendChild(formulario);
+        div_seccionB.appendChild(_this.formulario);
         return _this;
     }
-    PreguntaB.prototype.validar = function () {
-        var _this = this;
-        this.opciones.forEach(function (o) {
-            if (o.validado) {
-                o.validacion();
-                resultados.agregar("pregunta", [{ id: "pregunta", valor: _this.elemento.innerText },
-                    { id: "respuesta", valor: o.elemento.innerText }]);
-            }
-        });
-    };
-    PreguntaB.prototype.reset = function () {
-        this.opciones.forEach(function (o) {
-            o.validado = false;
-            o.elemento.classList.remove("opcion__select");
-        });
+    PreguntaB.prototype.agregar = function (info, valor) {
+        var opcion = new OpcionB(this, info, valor);
+        this.opciones.push(opcion);
+        this.formulario.append(opcion.getElemento());
     };
     PreguntaB.prototype.setValidacion = function (validacion) {
         this.validacion = validacion;
@@ -173,6 +154,7 @@ var OpcionB = /** @class */ (function (_super) {
         _this.validado = false;
         _this.valor = valor;
         _this.elemento.innerHTML = info;
+        _this.informacion = info;
         return _this;
     }
     return OpcionB;
@@ -205,12 +187,6 @@ var PreguntaC = /** @class */ (function (_super) {
         this.div_seccionB.appendChild(p.areaTexto);
         this.opciones = p;
     };
-    PreguntaC.prototype.validar = function () {
-        if (this.opciones != null) {
-            resultados.agregar("pregunta", [{ id: "pregunta", valor: this.informacion },
-                { id: "respuesta", valor: this.opciones.areaTexto.value }]);
-        }
-    };
     PreguntaC.prototype.getPregunta = function () {
         return this.contenido;
     };
@@ -227,11 +203,10 @@ var OpcionC = /** @class */ (function (_super) {
         _this.areaTexto = document.createElement("textarea");
         _this.areaTexto.className = "pregunta__parrafo";
         _this.areaTexto.spellcheck = false;
-        // this.areaTexto.type = "text";
+        _this.informacion = info;
         _this.areaTexto.placeholder = "Escribe tu respuesta";
         _this.areaTexto.innerText = info;
         _this.elemento.append(_this.areaTexto);
-        _this.validado = false;
         return _this;
     }
     return OpcionC;
@@ -240,9 +215,9 @@ var OpcionC = /** @class */ (function (_super) {
 */
 var PreguntaD = /** @class */ (function (_super) {
     __extends(PreguntaD, _super);
-    function PreguntaD(informacion, valor, p, m) {
+    function PreguntaD(informacion, p, m) {
         var _this = _super.call(this, informacion) || this;
-        _this.opciones = new OpcionD(_this, valor, p, m);
+        _this.opciones = new Array();
         _this.elemento.className = "pregunta";
         var div_seccionA = document.createElement('section');
         var div_seccionA_h1 = document.createElement('h2');
@@ -254,14 +229,79 @@ var PreguntaD = /** @class */ (function (_super) {
         _this.elemento.appendChild(div_seccionB);
         div_seccionA.appendChild(div_seccionA_h1);
         div_seccionA.appendChild(document.createElement('hr'));
-        div_seccionB.appendChild(_this.opciones.elemento);
+        //Configuracion de la barra de linker
+        var linker = document.createElement('div');
+        linker.className = "likert_escala";
+        var poco = document.createElement("label");
+        poco.className = "likert_label";
+        if (p != null) {
+            poco.innerText = p;
+        }
+        else {
+            poco.innerText = "Poco";
+        }
+        _this.formulario = document.createElement("div");
+        _this.formulario.className = "likert__opciones";
+        _this.formulario.style.position = " relative";
+        _this.progreso = document.createElement("progress");
+        _this.progreso.max = _this.opciones.length - 1;
+        _this.input = document.createElement("input");
+        _this.input.className = "likert";
+        _this.input.type = "range";
+        _this.input.min = "1";
+        _this.progreso.value = parseInt(_this.input.value) - 1;
+        _this.input.addEventListener("input", function (e) {
+            var v = parseInt(_this.input.value);
+            _this.progreso.value = v - 1;
+            if (_this.seleccion != null) {
+                _this.seleccion.elemento.classList.remove("seleccion");
+            }
+            _this.seleccion = _this.opciones[v - 1];
+            _this.seleccion.elemento.classList.add("seleccion");
+        });
+        var mucho = document.createElement("label");
+        mucho.className = "likert_label";
+        mucho.innerText = "Mucho";
+        if (m != null) {
+            mucho.innerText = m;
+        }
+        else {
+            mucho.innerText = "Mucho";
+        }
+        var linker__barra = document.createElement('div');
+        linker__barra.className = "likert__barra";
+        linker__barra.append(_this.progreso, _this.input);
+        var linker__lateral = document.createElement('div');
+        linker__lateral.className = "likert__lateral";
+        linker__lateral.append(poco, linker__barra, mucho);
+        linker.append(linker__lateral, _this.formulario);
+        div_seccionB.appendChild(linker);
+        //--------------------------------------------------------------------------
         _this.contenido = new Contenido(_this.getElemento(), _this);
         return _this;
     }
-    PreguntaD.prototype.validar = function () {
-        this.opciones.validacion();
-        resultados.agregar("pregunta", [{ id: "pregunta", valor: this.informacion },
-            { id: "respuesta", valor: this.opciones.input.value }]);
+    PreguntaD.prototype.agregar = function (informacion, valor) {
+        var p = new OpcionD(this, informacion, valor);
+        this.opciones.push(p);
+        this.formulario.append(p.getElemento());
+        this.progreso.max = this.opciones.length - 1;
+        this.input.max = this.opciones.length + "";
+        var resul = this.opciones.length / 2;
+        if (resul % 2 == 0) {
+            this.input.value = ((this.opciones.length) / 2) + "";
+            this.progreso.value = (((this.opciones.length) / 2) - 1);
+        }
+        else {
+            this.input.value = ((this.opciones.length + 1) / 2) + "";
+            this.progreso.value = (((this.opciones.length + 1) / 2) - 1);
+        }
+        var v = parseInt(this.input.value);
+        this.progreso.value = v - 1;
+        if (this.seleccion != null) {
+            this.seleccion.elemento.classList.remove("seleccion");
+        }
+        this.seleccion = this.opciones[v - 1];
+        this.seleccion.elemento.classList.add("seleccion");
     };
     PreguntaD.prototype.getPregunta = function () {
         return this.contenido;
@@ -273,63 +313,15 @@ var PreguntaD = /** @class */ (function (_super) {
 }(Pregunta));
 var OpcionD = /** @class */ (function (_super) {
     __extends(OpcionD, _super);
-    function OpcionD(pregunta, valor, p, m) {
+    function OpcionD(pregunta, informacion, valor) {
         var _this = _super.call(this, pregunta, valor) || this;
-        _this.elemento.className = "likert_escala";
-        var poco = document.createElement("label");
-        poco.className = "likert_label";
-        if (p != null) {
-            poco.innerText = p;
-        }
-        else {
-            poco.innerText = "Poco";
-        }
-        var linker = document.createElement("div");
-        linker.className = "likert_cont";
-        linker.style.position = " relative";
-        _this.progreso = document.createElement("progress");
-        _this.progreso.max = 2;
-        _this.progreso.value = 1;
-        _this.input = document.createElement("input");
-        _this.input.className = "likert";
-        _this.input.type = "range";
-        _this.input.value = "2";
-        _this.input.min = "1";
-        _this.input.max = "3";
-        _this.input.addEventListener("input", function (e) {
-            _this.progreso.value = parseInt(_this.input.value) - 1;
-        });
-        var label1 = document.createElement("label");
-        label1.className = "likert_valores";
-        label1.innerText = "1";
-        var label2 = document.createElement("label");
-        label2.className = "likert_valores";
-        label2.innerText = "2";
-        var label3 = document.createElement("label");
-        label3.className = "likert_valores";
-        label3.innerText = "3";
-        var mucho = document.createElement("label");
-        mucho.className = "likert_label";
-        mucho.innerText = "Mucho";
-        if (m != null) {
-            mucho.innerText = m;
-        }
-        else {
-            mucho.innerText = "Mucho";
-        }
-        linker.append(_this.progreso, _this.input, label1, label2, label3);
-        _this.elemento.append(poco, linker, mucho);
-        _this.validado = false;
+        _this.informacion = informacion;
+        _this.elemento = document.createElement("label");
+        _this.elemento.className = "likert_valores";
+        _this.elemento.innerText = _this.informacion;
         _this.valor = valor;
         return _this;
     }
-    OpcionD.prototype.validacion = function () {
-        var index = parseInt(this.input.value);
-        if (index < parseInt(this.input.max)) {
-            var inp = this.valor[index - 1];
-            resultados.sumar(inp.area, inp.valor);
-        }
-    };
     return OpcionD;
 }(Opcion));
 var PreguntaI = /** @class */ (function (_super) {
@@ -363,13 +355,6 @@ var PreguntaI = /** @class */ (function (_super) {
         var elemento = new OpcionI(this, info, valor);
         this.formulario.append(elemento.getElemento());
         this.opciones.push(elemento);
-    };
-    PreguntaI.prototype.validar = function () {
-        if (this.seleecion != null) {
-            this.seleecion.validacion();
-            resultados.agregar("pregunta", [{ id: "pregunta", valor: this.informacion },
-                { id: "respuesta", valor: this.seleecion.elemento.innerText }]);
-        }
     };
     PreguntaI.prototype.getPregunta = function () {
         return this.contenido;
@@ -431,6 +416,7 @@ var OpcionS = /** @class */ (function (_super) {
         _this.elemento.className = "elegir__opcion";
         _this.elemento.innerText = info;
         _this.valor = valor;
+        _this.informacion = info;
         _this.elemento.addEventListener("click", function () {
             if (_this.pregunta.seleccion != null) {
                 _this.pregunta.seleccion.elemento.classList.remove("seleccion");
