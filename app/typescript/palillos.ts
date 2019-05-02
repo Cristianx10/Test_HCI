@@ -1,6 +1,35 @@
+<<<<<<< HEAD
 class Palillos {
     stage: createjs.Stage;
     canvas: HTMLCanvasElement;
+=======
+class Actividad{
+    stage:createjs.Stage;
+    canvas: HTMLCanvasElement;
+    elemento:HTMLElement;
+
+    constructor(width:number, height:number) {
+        this.canvas = document.createElement("canvas");
+        this.canvas.width = width;
+        this.canvas.height = height;
+        this.stage = new createjs.Stage(this.canvas);
+        this.elemento = document.createElement('div');
+        this.elemento.append(this.canvas)
+    }
+
+    incluirEn(lugar: string) {
+        let e: HTMLElement = <HTMLElement>document.querySelector(lugar);
+        e.append(this.elemento);
+    }
+
+    getElemento(){
+        return this.elemento;
+    }
+}
+
+class Palillos extends Actividad{
+    
+>>>>>>> master
     base: createjs.Container;
     basePalillos: Array<EPalillos>;
     palillos: Array<EPalillos>;
@@ -12,6 +41,7 @@ class Palillos {
     inicial = 0;
     fila = 0;
     conte = 0;
+<<<<<<< HEAD
 
     constructor(width:number, height:number) {
         this.canvas = document.createElement("canvas");
@@ -21,16 +51,43 @@ class Palillos {
         this.base = new createjs.Container();
         this.base.x = 450;
         this.base.y = 200;
+=======
+    almacen:Actividad;
+
+    constructor(width:number, height:number) {
+        super(width, height);
+        this.base = new createjs.Container();
+        this.base.x = 15;
+        this.base.y = 15;
+>>>>>>> master
         this.stage.addChild(this.base);
         this.basePalillos = new Array();
         this.palillos = new Array();
         this.contenedor = new createjs.Container()
+<<<<<<< HEAD
         this.stage.addChild(this.contenedor);
         let marco = new createjs.Shape();
         this.contenedor.addChild(marco);
         this.contenedor.x = 900;
         this.contenedor.y = 360;
         marco.graphics.beginStroke("#FF9900").setStrokeStyle(5).drawRoundRect(-50,-10, 400, 350, 20);
+=======
+        this.almacen = new Actividad(420, 400);
+    }
+
+    almacenarEn(lugar:string){
+        this.almacen.stage.addChild(this.contenedor);
+        let marco = new createjs.Shape();
+        this.contenedor.addChild(marco);
+        this.contenedor.x = 60;
+        this.contenedor.y = 10;
+        marco.graphics.beginStroke("#FF9900").setStrokeStyle(5).drawRoundRect(-50,-10, 400, 350, 20);
+        this.almacen.stage.addChild(this.contenedor);
+        this.almacen.stage.update();
+
+        let e: HTMLElement = <HTMLElement>document.querySelector(lugar);
+        e.append(this.almacen.getElemento());
+>>>>>>> master
     }
 
     cuadrado() {
@@ -115,11 +172,17 @@ class Palillos {
             p1.cuadrado();
             p1.contiene = true;
             if (ref.Ohorizontal) {
+<<<<<<< HEAD
 
                 p1.horizontal();
             } else {
                 p1.vertical();
 
+=======
+                p1.horizontal();
+            } else {
+                p1.vertical();
+>>>>>>> master
             }
             this.palillos.push(p1);
             this.stage.update();
@@ -132,7 +195,11 @@ class Palillos {
     equals(texto: string, compara: string) {
         let tex = texto.split(",");
         let com = compara.split(",");
+<<<<<<< HEAD
         let total = com.length;
+=======
+        let total = tex.length;
+>>>>>>> master
         let num = 0;
         for (let i = 0; i < tex.length; i++) {
             let t = tex[i];
@@ -145,7 +212,12 @@ class Palillos {
                 }
             }
         }
+<<<<<<< HEAD
         if (num >= total) {
+=======
+        
+        if (num == total && tex.length == com.length) {
+>>>>>>> master
             return true;
         }
         else {
@@ -280,10 +352,18 @@ class EPalillos {
                     this.palillo.seleccion.posy = this.posy;
                     this.palillo.seleccion.movido = true;
                     this.contiene = true;
+<<<<<<< HEAD
 
                 }
             }
             this.palillo.stage.update();
+=======
+                    this.palillo.resultado();
+                }
+            }
+            this.palillo.stage.update();
+          
+>>>>>>> master
         });
     }
 
@@ -299,6 +379,10 @@ class EPalillos {
             this.palillo.contenedor.addChild(this.palo);
             this.palillo.stage.update();
             this.palillo.resultado();
+<<<<<<< HEAD
+=======
+            this.palillo.almacen.stage.update();
+>>>>>>> master
         });
     }
 
@@ -314,6 +398,10 @@ class EPalillos {
             this.palillo.contenedor.addChild(this.palo);
             this.palillo.stage.update();
             this.palillo.resultado();
+<<<<<<< HEAD
+=======
+            this.palillo.almacen.stage.update();
+>>>>>>> master
         });
     }
 
@@ -330,6 +418,10 @@ class EPalillos {
             this.palillo.contenedor.addChild(this.palo);
             this.palillo.stage.update();
             this.palillo.resultado();
+<<<<<<< HEAD
+=======
+            this.palillo.almacen.stage.update();
+>>>>>>> master
         });
     }
 
@@ -345,6 +437,10 @@ class EPalillos {
             this.palillo.contenedor.addChild(this.palo);
             this.palillo.stage.update();
             this.palillo.resultado();
+<<<<<<< HEAD
+=======
+            this.palillo.almacen.stage.update();
+>>>>>>> master
         });
     }
 
@@ -358,6 +454,10 @@ class EPalillos {
             this.palillo.contenedor.addChild(this.palo);
             this.palillo.stage.update();
             this.palillo.resultado();
+<<<<<<< HEAD
+=======
+            this.palillo.almacen.stage.update();
+>>>>>>> master
         });
     }
 
@@ -371,6 +471,10 @@ class EPalillos {
             this.palillo.contenedor.addChild(this.palo);
             this.palillo.stage.update();
             this.palillo.resultado();
+<<<<<<< HEAD
+=======
+            this.palillo.almacen.stage.update();
+>>>>>>> master
         });
     }
 

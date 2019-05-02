@@ -58,6 +58,7 @@ var Reciclaje = /** @class */ (function () {
         this.elementos.push(basura);
         this.contenedor.append(basura.basura);
     };
+<<<<<<< HEAD
     Reciclaje.prototype.reset = function () {
         if (this.seleccion != null) {
             this.seleccion.basura.style.left = "0";
@@ -65,6 +66,21 @@ var Reciclaje = /** @class */ (function () {
             this.seleccion.basura.style.margin = "15px";
         }
         console.log("reset");
+=======
+    Reciclaje.prototype.reset = function (style) {
+        if (style == null) {
+            if (this.seleccion != null) {
+                this.seleccion.basura.style.left = "0";
+                this.seleccion.basura.style.top = "0";
+                this.seleccion.basura.style.margin = "15px";
+            }
+        }
+        else {
+            if (this.seleccion != null) {
+                style(this.seleccion.basura);
+            }
+        }
+>>>>>>> master
     };
     Reciclaje.prototype.validarBasura = function (comparacion) {
         if (this.seleccion != null) {

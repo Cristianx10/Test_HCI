@@ -2,10 +2,6 @@
 $color-decoracion: #17CCD7;
 $color-btn: #FFFA7C;
 
-.principal{
-    border: 0px;
-    justify-content: flex-start;
-}
 
 h3{
     font-size: 18pt;
@@ -33,39 +29,20 @@ input{
 
 
 .titulo{
-    font-size: 30pt;
-    margin: 30px 0px 0px 0px;
     color: white;
 }
 
 .sexo, .mano{
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-content: flex-start;
+    justify-content: space-evenly;
+    align-content: center;
     align-items: center;
     color: white;
-    
     border-radius: 5px;
     border: 2px solid $color-decoracion;
-    width: 500px;
-    height: 35px;
-    padding: 15px 5px 5px 5px;
-    
-}
-
-.mano{
-    width: 330px;
+    height: 60px;
 }
 
 
-.btn_siguiente:enabled {
-    background: $color-btn;
-    border: 1px solid $color-btn;
-    color: black;
-}
 
-.btn_siguiente{
-  margin-top: 40px;
-}

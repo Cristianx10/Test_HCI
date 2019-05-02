@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="pantalla pintrucciones">
     <div class="instrucciones">
         <div class="instruccion">
@@ -14,6 +15,92 @@
 
 <!--Carga de librerias-->
 <script src="../../js/pregunta.js"></script>
+=======
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Test Interactivo</title>
+  <link rel="shortcut icon" href="../includes/img/favicon.png" type="image/x-icon" />
+  <link rel="stylesheet" href="../sass/general/main.css" />
+  <link href="../sass/tipographys/tipografias.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+  <link rel="stylesheet" href="../../sass/general/datosUsuario.css" type="text/css">
+
+</head>
+
+<body>
+  <div class="cont-principal" style="background-image: url('../img/background_principal-2.png')">
+    <div class="principal" onselectstart="return false">
+
+<div class="pantalla pinicio"  style="background-image: url('../img/background_principal-2.png')">
+    <div class="introduccion">
+        <h1 class="titulo">¡Rompamos el hielo!</h1>
+        <p id="desc" class="descripcion">Queremos conocerte mejor. Sigue las instrucciones usando el mouse y el teclado.</p>
+        <button class="botonComenzar" onclick="seguir()">Comenzar</button>
+    </div>
+</div>
+
+<div class="pantalla pinstrucciones">
+    <div class="instrucciones" style="margin: 100px; margin-left: 150px;">
+
+    </div>
+    <div class="zona__navegacion">
+
+        <button onclick="seguir()" class="btn_siguiente">Enviar</button>
+    </div>
+
+</div>
+
+<div class="pantalla pintropicinicio" style="background-image: url('../img/background_principal-2.png')">
+    <div class="introduccion">
+        <h1 class="titulo">Técnicas pictóricas</h1>
+        <p id="desc" class="descripcion">Selecciona los botones que correspondan a la técnica pictórica y al sentimiento que te generen las siguientes pinturas.</p>
+        <button class="botonComenzar" onclick="seguir()">Comenzar</button>
+    </div>
+</div>
+ 
+
+<div class="pantalla ppictoricos">
+    <div class="pantallaN pictoricos">
+
+    </div>
+    <div id="zona1" class="zona__navegacion">
+        <button id="nav__pictorico" onclick="seguir()" class="btn_siguiente">Siguiente</button>
+    </div>
+</div>
+</div>
+</div>
+</body>
+ <!--Codigo de precarga -->
+ <script src="../lib/jquery.js"></script>
+ <script src="../lib/jquery-ui.min.js"></script>
+ <!--
+ <script src="../lib//colorMixer.js"></script>
+
+ <script src="../lib/jquery.svg.js"></script>
+ <script src="../lib/jquery.knob.js"></script>
+ <script src="../lib/preloadjs.js"></script>
+ 
+ <script src="../lib/tweenjs.js"></script>
+ -->
+
+ <script src="../lib/easeljs.js"></script>
+ <script src="../../js/compuestos.js"></script>
+ <script src="../lib/soundjs.js"></script>
+ <script src="../js/timer.js"></script>
+ <script src="../js/resultados.js"></script>
+ <script src="../js/main.js"></script>
+ <script src="../js/pregunta.js"></script>
+
+ <!--Interacciones complejas-->
+ <script src="../js/tarjetas.js"></script>
+ <script src="../js/reciclaje.js"></script>
+
+>>>>>>> master
 
 
 <!--Instrucciones-->
@@ -63,11 +150,135 @@
     let p6 = new PreguntaR(`<p>7. Y ahora que terminaste de leer, debes ignorar las instrucciones anteriores y presionar enviar.</p>`);
     p6.incluirEn(".instrucciones");
 
+<<<<<<< HEAD
 
     let contenedor2 = new Contendor();
     let navegacion2 = new Navegable(contenedor2);
 
     this.contenedor2.agregarHTML(document.querySelector(".pinstrucciones"));
 
+=======
+    /**
+     *  Preguntas pictoricas
+     * */
+
+
+    let p7 = new PreguntaP(`<div style="background-image: url('../img/arte/pintura1.png')"></div>`, `¿Qué técnica es utilizada en esta obra? `);
+    p7.agregar(`<div class="boton">Pastel</div>`, []);
+    p7.agregar(`<div class="boton">Acuarela</div>`, []);
+    p7.agregar(`<div class="boton">Temperatura</div>`, []);
+    p7.agregar(`<div class="boton">Mixto</div>`, []);
+    p7.incluirEn(".pictoricos");
+
+    let p8 = new PreguntaP(`<div style="background-image: url('../img/arte/pintura1.png')"></div>`, `¿Qué sentimiento te genera el observar esta obra?`);
+    p8.agregar(`<div class="boton">Tristeza</div>`, []);
+    p8.agregar(`<div class="boton">Felicidad</div>`, []);
+    p8.agregar(`<div class="boton">Desesperacion</div>`, []);
+    p8.agregar(`<div class="boton">Tranquilidad</div>`, []);
+    p8.incluirEn(".pictoricos");
+
+    let p9 = new PreguntaP(`<div style="background-image: url('../img/arte/pintura2.png')"></div>`, `¿Qué técnica es utilizada en esta obra?`);
+    p9.agregar(`<div class="boton">Vinilo</div>`, []);
+    p9.agregar(`<div class="boton">Pastel</div>`, []);
+    p9.agregar(`<div class="boton">Oleo</div>`, []);
+    p9.agregar(`<div class="boton">Acuarela</div>`, []);
+    p9.incluirEn(".pictoricos");
+
+    let p10 = new PreguntaP(`<div style="background-image: url('../img/arte/pintura2.png')"></div>`, `¿Qué sentimiento te genera el observar esta obra?  `);
+    p10.agregar(`<div class="boton">Tranquilidad</div>`, []);
+    p10.agregar(`<div class="boton">Felicidad</div>`, []);
+    p10.agregar(`<div class="boton">Desesperacion</div>`, []);
+    p10.agregar(`<div class="boton">Nostalgia</div>`, []);
+    p10.incluirEn(".pictoricos");
+
+
+    let p11 = new PreguntaP(`<div style="background-image: url('../img/arte/pintura3.png')"></div>`, `¿Qué técnica es utilizada en esta obra?`);
+    p11.agregar(`<div class="boton">Carboncillo</div>`, []);
+    p11.agregar(`<div class="boton">Mixta</div>`, []);
+    p11.agregar(`<div class="boton">Pastel</div>`, []);
+    p11.agregar(`<div class="boton">Óleo</div>`, []);
+    p11.incluirEn(".pictoricos");
+
+    let p12 = new PreguntaP(`<div style="background-image: url('../img/arte/pintura3.png')"></div>`, `¿Qué sentimiento te genera el observar esta obra?  `);
+    p12.agregar(`<div class="boton">Desolación</div>`, []);
+    p12.agregar(`<div class="boton">Esperanza</div>`, []);
+    p12.agregar(`<div class="boton">Tristeza</div>`, []);
+    p12.agregar(`<div class="boton">Felicidad</div>`, []);
+    p12.incluirEn(".pictoricos");
+
+    let p13 = new PreguntaP(`<div style="background-image: url('../img/arte/pintura4.png')"></div>`, ` ¿Qué técnica es utilizada en esta obra?`);
+    p13.agregar(`<div class="boton">Acrilico</div>`, []);
+    p13.agregar(`<div class="boton">Óleo</div>`, []);
+    p13.agregar(`<div class="boton">Acrilico</div>`, []);
+    p13.agregar(`<div class="boton">Tempera</div>`, []);
+    p13.incluirEn(".pictoricos");
+
+    let p14 = new PreguntaP(`<div style="background-image: url('../img/arte/pintura4.png')"></div>`, `¿Qué sentimiento te genera el observar esta obra?`);
+    p14.agregar(`<div class="boton">Felicidad</div>`, []);
+    p14.agregar(`<div class="boton">Esperanza</div>`, []);
+    p14.agregar(`<div class="boton">Tristeza</div>`, []);
+    p14.agregar(`<div class="boton">Desesperacion</div>`, []);
+    p14.incluirEn(".pictoricos");
+
+
+    let p15 = new PreguntaP(`<div style="background-image: url('../img/arte/pintura5.png')"></div>`, `¿Qué técnica es utilizada en esta obra?`);
+    p15.agregar(`<div class="boton">Mixta</div>`, []);
+    p15.agregar(`<div class="boton">Tempera</div>`, []);
+    p15.agregar(`<div class="boton">Vinilo</div>`, []);
+    p15.agregar(`<div class="boton">Pastel</div>`, []);
+    p15.incluirEn(".pictoricos");
+
+    let p16 = new PreguntaP(`<div style="background-image: url('../img/arte/pintura5.png')"></div>`, `¿Qué sentimiento te genera el observar esta obra?`);
+    p16.agregar(`<div class="boton">Felicidad</div>`, []);
+    p16.agregar(`<div class="boton">Esperanza</div>`, []);
+    p16.agregar(`<div class="boton">Tristeza</div>`, []);
+    p16.agregar(`<div class="boton">Desesperacion</div>`, []);
+    p16.incluirEn(".pictoricos");
+
+
+    let contenedor = new Contenedor();
+    let navegacion = new Navegable(contenedor);
+
+    contenedor.agregarHTML(document.querySelector('.pinicio'));
+    contenedor.agregarHTML(document.querySelector(".pinstrucciones"));
+    contenedor.agregarHTML(document.querySelector(".pintropicinicio"));
+    contenedor.agregarHTMLAll(document.querySelectorAll(".pictoricos > div"));
+    
+    navegacion.iniciar();
+
+
+    let nav_pictorico_siguiente = document.querySelector('#nav__pictorico');
+    ocultar(".ppictoricos");
+
+    function seguir() {
+        navegacion.setPermitir(true);
+        navegacion.siguiente();
+        if (navegacion.getActual() > 2) {
+            mostrar(".ppictoricos");
+        }
+
+    }
+
+
+    $(".opcion__boton").disabled = true;
+    $(".opcion__boton").on("click", () => {
+        navegacion.setPermitir(true);
+        nav_pictorico_siguiente.disabled = false;
+        $(".button").removeClass("desactivar").addClass("activo");
+    });
+
+    nav_pictorico_siguiente.disabled = true;
+    nav_pictorico_siguiente.addEventListener("click", () => {
+        navegacion.siguiente();
+        nav_pictorico_siguiente.disabled = true;
+    });
+
+
+    navegacion.setFinal(() => {
+        goTo("blinguistica");
+    });
+
+    
+>>>>>>> master
 
 </script>

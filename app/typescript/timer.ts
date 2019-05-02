@@ -8,6 +8,8 @@ class Timer {
   termino?:Function;
   progreso?:Function;
   enEjecucion:boolean;
+  accionFinal?:Function;
+  terminado = false;
 
   constructor() {
     this.time = 0;
@@ -68,6 +70,11 @@ class Timer {
       this.termino();
     }else{
       this.enEjecucion = false;
+    }
+
+    if(this.terminado == false && this.accionFinal != null){
+      this.accionFinal();
+      this.terminado = true;
     }
     //console.log("Hora:" + this.horas + " Minutos: " + this.minutos + " Segundos: "+ this.segundos + " Millis: " + this.milisegundos + " Total: " +this.time);
   }
@@ -141,5 +148,9 @@ class Timer {
 
   setTermino(ter:Function){
     this.termino = ter;
+  }
+
+  setAccionFinal(accionFinal:Function){
+    this.accionFinal = accionFinal;
   }
 }

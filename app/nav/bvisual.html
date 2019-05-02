@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Test Interactivo</title>
+  <link rel="shortcut icon" href="../includes/img/favicon.png" type="image/x-icon" />
+  <link rel="stylesheet" href="../sass/general/main.css" />
+  <link href="../sass/tipographys/tipografias.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+
+  <link rel="stylesheet" href="../sass/aplicaciones/targetas.css" />
+
+  <style>
+    .palillos__info {}
+  </style>
+
+</head>
+
+<body>
+  <div class="cont-principal" style="background-image: url('../img/background_principal-2.png')">
+    <div class="principal" onselectstart="return false">
+
+      <div class="pantalla ppreguntas">
+
+        <div class="pantalla pinicio" style="background-image: url('../img/background_principal-2.png')">
+          <div class="introduccion">
+            <h1 class="titulo">Inteligencia Visual Espacial</h1>
+            <p id="desc" class="descripcion">En esta sección de la prueba evaluaremos tus conocimientos en el area
+              Visual Espacial
+            </p>
+            <button class="botonComenzar" onclick="seguir()">Comenzar</button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pantalla ppalillosn1">
+        <div>
+          <div class="palillos__info">
+            <h1>Nivel 1</h1>
+            <h2>Retira 3 de los 13 palillos 7 haz que queden formados solo 3 triángulos</h2>
+          </div>
+        </div>
+        <div>
+          <div id="palillosn1"></div>
+          <div id="palillosn1__almacen"></div>
+        </div>
+      </div>
+
+      <div class="pantalla ppalillos" style="background-image: url('../img/background_principal-2.png')">
+        <div class="introduccion">
+          <h1 class="titulo">Los 3 palillos</h1>
+          <p id="desc" class="descripcion">Retira o mueve 3 de los palillos de lugar para formar las figuras que se indican, en menos de 30 segundos. Entre más movimientos realices, menos puntos obtendrás
+          </p>
+          <button class="botonComenzar" onclick="seguir()">Comenzar</button>
+        </div>
+      </div>
+
+      <div class="pantalla ppalillosn2">
+        <div class="palillos__info">
+            <h1>Nivel 2</h1>
+          <h2>Cambia de lugar 3 de los 12 palillos y haz que queden formados 3 cuadrados iguales</h2>
+        </div>
+        <div>
+          <div id="palillosn2"></div>
+        </div>
+      </div>
+
+
+      <div class="zona__navegacion">
+        <button class="btn_siguiente" style="text-align:center;" onclick="seguir()">Siguiente</button>
+      </div>
+
+
+
+
+
+    </div>
+  </div>
+
+  <!--Codigo de precarga -->
+  <script src="../lib/jquery.js"></script>
+
+  <!--
+      <script src="../lib/jquery-ui.min.js"></script>
+  <script src="../lib//colorMixer.js"></script>
+ 
+  <script src="../lib/jquery.svg.js"></script>
+  <script src="../lib/jquery.knob.js"></script>
+ 
+  <script src="../lib/tweenjs.js"></script>
+  -->
+
+  <script src="../lib/preloadjs.js"></script>
+  <script src="../lib/easeljs.js"></script>
+  <script src="../../js/compuestos.js"></script>
+  <script src="../lib/soundjs.js"></script>
+  <script src="../js/timer.js"></script>
+  <script src="../js/resultados.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/pregunta.js"></script>
+  <script src="../../js/palillos.js"></script>
+
+  <img src="../img/preguntasGenerales/VisualEspacial/octagonoA.png" alt="">
+
+  <script type="text/javascript">
+
+    $(document).ready(function () {
+
+      // irA("./formulario.html");
+    });
+
+
+    $('.cont-principal').css("background-image", "url('../img/background-claro.png')");
+
+
+    let contenedor = new Contenedor();
+    let navegacion = new Navegable(contenedor);
+
+
+    let p1 = new PreguntaP(`<img style="width:100%; height="100%; src="../img/preguntasGenerales/VisualEspacial/secuenciaOctagono.png" alt="">`,
+      `<h3>1. Elige la imagen que continúa la secuencia</h3>`);
+    p1.agregarB(`<h2>a)</h2><img src="../img/preguntasGenerales/VisualEspacial/octagonoA.png" alt="">`, []);
+    p1.agregarB(`<h2>b)</h2><img src="../img/preguntasGenerales/VisualEspacial/octagonoB.png" alt="">`, []);
+    p1.agregarB(`<h2>c)</h2><img src="../img/preguntasGenerales/VisualEspacial/octagonoC.png" alt="">`, []);
+    p1.agregarB(`<h2>d)</h2><img src="../img/preguntasGenerales/VisualEspacial/octagonoD.png" alt="">`, []);
+    p1.agregarClase("pestilo2");
+
+    let p2 = new PreguntaI(`<h1>2. Elige la imagen donde el cuadro azul más claro esté en el centro</h1>`,
+      `<h3>1. Elige la imagen que continúa la secuencia</h3>`);
+    p2.agregar(`<h2>a)</h2><img style="width:260px; margin: 15px;" src="../img/preguntasGenerales/VisualEspacial/centroazulA.png" alt="">`, []);
+    p2.agregar(`<h2>b)</h2><img style="width:260px; margin: 15px;" src="../img/preguntasGenerales/VisualEspacial/centroazulB.png" alt="">`, []);
+    p2.agregar(`<h2>c)</h2><img style="width:260px; margin: 15px;" src="../img/preguntasGenerales/VisualEspacial/centroazulC.png" alt="">`, []);
+    p2.agregar(`<h2>d)</h2><img style="width:260px; margin: 15px;" src="../img/preguntasGenerales/VisualEspacial/centroazulD.png" alt="">`, []);
+
+    let p3 = new PreguntaP(`<h1>3. Elige la imagen que continúa la secuencia (IMG3)</h1>`,
+      `<img src="../img/preguntasGenerales/VisualEspacial/secuenciaRelog.png">`);
+    p3.agregarB(`<h2>a)</h2><img src="../img/preguntasGenerales/VisualEspacial/relogA.png" alt="">`, []);
+    p3.agregarB(`<h2>b)</h2><img src="../img/preguntasGenerales/VisualEspacial/relogB.png" alt="">`, []);
+    p3.agregarB(`<h2>c)</h2><img src="../img/preguntasGenerales/VisualEspacial/relogC.png" alt="">`, []);
+    p3.agregarB(`<h2>d)</h2><img src="../img/preguntasGenerales/VisualEspacial/relogD.png" alt="">`, []);
+    p3.agregarClase("pestilo3");
+
+
+    let p4 = new PreguntaP(`<h1>4. Indica cual/es de los siguientes cubos podrían formarse a partir de la figura desplegada. Puede existir más de una respuesta correcta.</h1>`,
+      `<img src="../img/preguntasGenerales/VisualEspacial/secuenciaFiguras.png">`);
+    p4.agregarB(`<h2>a)</h2><img src="../img/preguntasGenerales/VisualEspacial/figurasA.png" alt="">`, []);
+    p4.agregarB(`<h2>b)</h2><img src="../img/preguntasGenerales/VisualEspacial/figurasB.png" alt="">`, []);
+    p4.agregarB(`<h2>c)</h2><img src="../img/preguntasGenerales/VisualEspacial/figurasC.png" alt="">`, []);
+    p4.agregarB(`<h2>d)</h2><img src="../img/preguntasGenerales/VisualEspacial/figurasD.png" alt="">`, []);
+    p4.agregarClase("pestilo4");
+
+    let p5 = new PreguntaP(`<h1>4. Indica cual/es de los siguientes cubos podrían formarse a partir de la figura desplegada. Puede existir más de una respuesta correcta.</h1>`,
+      `<img src="../img/preguntasGenerales/VisualEspacial/referenciaCuadrilatero.png">`);
+    p5.agregarB(`<h2>a)</h2><img src="../img/preguntasGenerales/VisualEspacial/cuadrilateroA.png" alt="">`, []);
+    p5.agregarB(`<h2>b)</h2><img src="../img/preguntasGenerales/VisualEspacial/cuadrilateroB.png" alt="">`, []);
+    p5.agregarB(`<h2>c)</h2><img src="../img/preguntasGenerales/VisualEspacial/cuadrilateroC.png" alt="">`, []);
+    p5.agregarB(`<h2>d)</h2><img src="../img/preguntasGenerales/VisualEspacial/cuadrilateroD.png" alt="">`, []);
+    p5.agregarClase("pestilo4");
+
+    let palo = new Palillos(300, 350);
+
+    palo.almacenarEn("#palillosn1__almacen");
+
+    palo.crear(0, 0, "vertical");
+    palo.crear(0, 0, "diagonalRightDown");
+    palo.crear(0, 120, "diagonalRightTop");
+
+    palo.crear(260, -10, "diagonalLeftDown");
+    palo.crear(260, 110, "diagonalLeftTop");
+    palo.crear(260, -10, "vertical");
+
+    palo.crear(125, 60, "vertical");
+    palo.crear(0, 130, "diagonalRightDown");
+    palo.crear(260, 120, "diagonalLeftDown");
+
+    palo.crear(120, 190, "vertical");
+    palo.crear(260, 240, "diagonalLeftTop");
+    palo.crear(260, 120, "vertical");
+    palo.crear(130, 320, "diagonalRightTop");
+
+    palo.incluirEn('#palillosn1');
+
+    palo.setResultado((r) => {
+      console.log(r);
+      if (palo.equals(r, "0,1,2,3,5,7,9,10,11,12")) {
+        console.log("gano");
+      }
+    });
+
+
+    let palo2 = new Palillos(400, 400);
+
+    palo2.cuadrado();
+
+    palo2.agregar(4);
+    palo2.agregar(5);
+    palo2.agregar(7);
+    palo2.agregar(8);
+    palo2.agregar(9);
+    palo2.agregar(11);
+    palo2.agregar(12);
+    palo2.agregar(14);
+    palo2.agregar(16);
+    palo2.agregar(15);
+    palo2.agregar(18);
+    palo2.agregar(19);
+
+    palo2.incluirEn('#palillosn2');
+
+
+
+    palo2.setResultado((r) => {
+      console.log(r);
+      if (palo.equals(r, "1,4,5,7,8,9,10,11,12,13,14,16")) {
+        console.log("gano")
+      } else if (palo.equals(r, "5,19,1,8,15,22,4,11,18,7,14,10")) {
+        console.log("gano")
+      }
+      else if (palo.equals(r, "5,12,19,1,8,15,22,4,18,9,16,13")) {
+        console.log("gano")
+      } else if (palo.equals(r, "22,18,19,7,15,9,10,11,12,13,14,16")) {
+        console.log("gano")
+      }
+    });
+
+
+    contenedor.agregarHTML(document.querySelector('.pinicio'));
+    contenedor.agregar(p1.getPregunta()).setAccion(() => {
+      mostrar(".zona__navegacion");
+    });
+
+    contenedor.agregar(p2.getPregunta());
+    contenedor.agregar(p3.getPregunta());
+    contenedor.agregar(p4.getPregunta());
+    contenedor.agregar(p5.getPregunta());
+
+    contenedor.agregarHTML(document.querySelector('.ppalillos'));
+    contenedor.agregarHTML(document.querySelector('.ppalillosn1'));
+    contenedor.agregarHTML(document.querySelector('.ppalillosn2'));
+
+
+
+    contenedor.incluirEn(document.querySelector(".ppreguntas"));
+
+    navegacion.iniciar();
+
+    let siguiente = document.querySelector(".btn_siguiente");
+
+    ocultar(".zona__navegacion");
+
+
+    function seguir() {
+      navegacion.setPermitir(true);
+      navegacion.siguiente();
+    }
+
+    $(".opcion_check").click(() => {
+      siguiente.disabled = false;
+    });
+
+    navegacion.setFinal(() => {
+      goTo("bmatematicas");
+    });
+
+
+  </script>
+
+
+
+
+
+
+
+</body>
+
+</html>

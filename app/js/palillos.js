@@ -1,14 +1,33 @@
 "use strict";
+<<<<<<< HEAD
 var Palillos = /** @class */ (function () {
     function Palillos(width, height) {
         this.largo = 120;
         this.inicial = 0;
         this.fila = 0;
         this.conte = 0;
+=======
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Actividad = /** @class */ (function () {
+    function Actividad(width, height) {
+>>>>>>> master
         this.canvas = document.createElement("canvas");
         this.canvas.width = width;
         this.canvas.height = height;
         this.stage = new createjs.Stage(this.canvas);
+<<<<<<< HEAD
         this.base = new createjs.Container();
         this.base.x = 450;
         this.base.y = 200;
@@ -23,6 +42,50 @@ var Palillos = /** @class */ (function () {
         this.contenedor.y = 360;
         marco.graphics.beginStroke("#FF9900").setStrokeStyle(5).drawRoundRect(-50, -10, 400, 350, 20);
     }
+=======
+        this.elemento = document.createElement('div');
+        this.elemento.append(this.canvas);
+    }
+    Actividad.prototype.incluirEn = function (lugar) {
+        var e = document.querySelector(lugar);
+        e.append(this.elemento);
+    };
+    Actividad.prototype.getElemento = function () {
+        return this.elemento;
+    };
+    return Actividad;
+}());
+var Palillos = /** @class */ (function (_super) {
+    __extends(Palillos, _super);
+    function Palillos(width, height) {
+        var _this = _super.call(this, width, height) || this;
+        _this.largo = 120;
+        _this.inicial = 0;
+        _this.fila = 0;
+        _this.conte = 0;
+        _this.base = new createjs.Container();
+        _this.base.x = 15;
+        _this.base.y = 15;
+        _this.stage.addChild(_this.base);
+        _this.basePalillos = new Array();
+        _this.palillos = new Array();
+        _this.contenedor = new createjs.Container();
+        _this.almacen = new Actividad(420, 400);
+        return _this;
+    }
+    Palillos.prototype.almacenarEn = function (lugar) {
+        this.almacen.stage.addChild(this.contenedor);
+        var marco = new createjs.Shape();
+        this.contenedor.addChild(marco);
+        this.contenedor.x = 60;
+        this.contenedor.y = 10;
+        marco.graphics.beginStroke("#FF9900").setStrokeStyle(5).drawRoundRect(-50, -10, 400, 350, 20);
+        this.almacen.stage.addChild(this.contenedor);
+        this.almacen.stage.update();
+        var e = document.querySelector(lugar);
+        e.append(this.almacen.getElemento());
+    };
+>>>>>>> master
     Palillos.prototype.cuadrado = function () {
         this.baseAgregar(3, "horizontal");
         this.baseAgregar(4, "vertical");
@@ -123,7 +186,11 @@ var Palillos = /** @class */ (function () {
     Palillos.prototype.equals = function (texto, compara) {
         var tex = texto.split(",");
         var com = compara.split(",");
+<<<<<<< HEAD
         var total = com.length;
+=======
+        var total = tex.length;
+>>>>>>> master
         var num = 0;
         for (var i = 0; i < tex.length; i++) {
             var t = tex[i];
@@ -136,7 +203,11 @@ var Palillos = /** @class */ (function () {
                 }
             }
         }
+<<<<<<< HEAD
         if (num >= total) {
+=======
+        if (num == total && tex.length == com.length) {
+>>>>>>> master
             return true;
         }
         else {
@@ -162,7 +233,11 @@ var Palillos = /** @class */ (function () {
         }
     };
     return Palillos;
+<<<<<<< HEAD
 }());
+=======
+}(Actividad));
+>>>>>>> master
 var EPalillos = /** @class */ (function () {
     function EPalillos(palillo, x, y, orden, color) {
         this.largo = 120;
@@ -251,6 +326,10 @@ var EPalillos = /** @class */ (function () {
                     _this.palillo.seleccion.posy = _this.posy;
                     _this.palillo.seleccion.movido = true;
                     _this.contiene = true;
+<<<<<<< HEAD
+=======
+                    _this.palillo.resultado();
+>>>>>>> master
                 }
             }
             _this.palillo.stage.update();
@@ -269,6 +348,10 @@ var EPalillos = /** @class */ (function () {
             _this.palillo.contenedor.addChild(_this.palo);
             _this.palillo.stage.update();
             _this.palillo.resultado();
+<<<<<<< HEAD
+=======
+            _this.palillo.almacen.stage.update();
+>>>>>>> master
         });
     };
     EPalillos.prototype.diagonalRightDown = function () {
@@ -284,6 +367,10 @@ var EPalillos = /** @class */ (function () {
             _this.palillo.contenedor.addChild(_this.palo);
             _this.palillo.stage.update();
             _this.palillo.resultado();
+<<<<<<< HEAD
+=======
+            _this.palillo.almacen.stage.update();
+>>>>>>> master
         });
     };
     EPalillos.prototype.diagonalLeftTop = function () {
@@ -299,6 +386,10 @@ var EPalillos = /** @class */ (function () {
             _this.palillo.contenedor.addChild(_this.palo);
             _this.palillo.stage.update();
             _this.palillo.resultado();
+<<<<<<< HEAD
+=======
+            _this.palillo.almacen.stage.update();
+>>>>>>> master
         });
     };
     EPalillos.prototype.diagonalRightTop = function () {
@@ -314,6 +405,10 @@ var EPalillos = /** @class */ (function () {
             _this.palillo.contenedor.addChild(_this.palo);
             _this.palillo.stage.update();
             _this.palillo.resultado();
+<<<<<<< HEAD
+=======
+            _this.palillo.almacen.stage.update();
+>>>>>>> master
         });
     };
     EPalillos.prototype.verticalDown = function () {
@@ -327,6 +422,10 @@ var EPalillos = /** @class */ (function () {
             _this.palillo.contenedor.addChild(_this.palo);
             _this.palillo.stage.update();
             _this.palillo.resultado();
+<<<<<<< HEAD
+=======
+            _this.palillo.almacen.stage.update();
+>>>>>>> master
         });
     };
     EPalillos.prototype.horizontalLeft = function () {
@@ -340,6 +439,10 @@ var EPalillos = /** @class */ (function () {
             _this.palillo.contenedor.addChild(_this.palo);
             _this.palillo.stage.update();
             _this.palillo.resultado();
+<<<<<<< HEAD
+=======
+            _this.palillo.almacen.stage.update();
+>>>>>>> master
         });
     };
     EPalillos.prototype.horizontal = function () {

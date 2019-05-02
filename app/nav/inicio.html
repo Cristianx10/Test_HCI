@@ -16,6 +16,7 @@
 
 <body>
   <div class="cont-principal" style="background-image: url('../img/background_principal-2.png')">
+<<<<<<< HEAD
     <div class="principal" onselectstart="return false">
       <div class="pantalla">
 
@@ -102,6 +103,146 @@
 
   </div>
   </div>
+=======
+    <div class="principal" onselectstart="return false" style="border: none;">
+
+      <div class="pantalla pinicio">
+        <div class="introduccion">
+          <h1 class="titulo">Orientación Vocacional</h1>
+          <p id="desc" class="descripcion">A continuación, encontrarás un cuestionario que permite conocer tus intereses
+            vocacionales.</p>
+          <button class="botonComenzar" onclick="seguir()">Comenzar</button>
+        </div>
+      </div>
+
+
+      <div class="pantalla pformulario">
+
+        <div class="formulario centrar">
+          <h1 class="titulo" style="text-align: center; width: 100%; position: initial;">Datos del Usuario</h1>
+
+          <div class="formulario__opciones">
+            <div class="datos_input">
+              <h3>Nombre</h3>
+              <input id="form-nombre" autocomplete="off" spellcheck="false" type="text" name="" class="input-nombre" placeholder="Nombre">
+            </div>
+
+            <div class="datos_input">
+              <h3>Edad</h3>
+              <input id="form-edad" autocomplete="off" spellcheck="false" type="text" name="" class="input-edad" placeholder="Edad">
+            </div>
+
+            <div class="datos_input">
+              <h3>Carrera</h3>
+
+              <select id="form-carrera" name="carrera">
+                <option selected value="0"> Elige una opción </option>
+                <optgroup label="Ingenieria">
+                  <option value="1">Ing. de Sistemas</option>
+                  <option value="2">Ing. Telematica</option>
+                  <option value="3">Ing. Industrial</option>
+                  <option value="4">Ing. Bioquímica</option>
+                </optgroup>
+                <optgroup label="Diseño">
+                  <option value="10">Diseño de Medios</option>
+                  <option value="11">Diseño Industrial</option>
+                  <option value="12">Diseño Grafico</option>
+                  <option value="9">Diseño de Modas</option>
+                </optgroup>
+                <optgroup label="Deporte">
+                  <option value="5">Natación</option>
+                  <option value="6">Tenis</option>
+                  <option value="7">Kung Fu</option>
+                  <option value="8">Ciclismo</option>
+                </optgroup>
+                <optgroup label="C. De la Salud">
+                  <option value="10">Odontología</option>
+                  <option value="11">Medicina general</option>
+                  <option value="12">Enfermería</option>
+                  <option value="13">Cirugía</option>
+                </optgroup>
+                <optgroup label="Ciencias">
+                  <option value="14">Farmaceutica</option>
+                  <option value="15">Biología</option>
+                  <option value="16">Química</option>
+                </optgroup>
+                <optgroup label="Artes">
+                  <option value="14">Visuales</option>
+                  <option value="15">Literatura</option>
+                  <option value="16">Música</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <div class="datos_input">
+              <h3>Sexo</h3>
+              <form class="sexo" onsubmit="return false">
+
+                <label class="opcion">
+                  <div class="opcion__check">
+                    <input id="form-sexo-hombre" class="marcador__input" type="radio" name="opcion"></input><span
+                      class="marcador"></span>
+                  </div>
+                  <div class="informacion">Hombre</div>
+                </label>
+
+                <label class="opcion">
+                  <div class="opcion__check">
+                    <input id="form-sexo-mujer" class="marcador__input" type="radio" name="opcion"></input><span
+                      class="marcador"></span>
+                  </div>
+                  <div class="informacion">Mujer</div>
+                </label>
+
+                <label class="opcion">
+                  <div class="opcion__check">
+                    <input id="form-sexo-otro" class="marcador__input" type="radio" name="opcion"></input><span
+                      class="marcador"></span>
+                  </div>
+                  <div class="informacion">Otro</div>
+                </label>
+
+              </form>
+            </div>
+
+            <div class="datos_input">
+              <h3>Mano de Preferencia</h3>
+              <form class="mano">
+
+                <label class="opcion">
+                  <div class="opcion__check">
+                    <input id="form-mano-diestra" class="marcador__input" type="radio" name="opcion"></input><span
+                      class="marcador"></span>
+                  </div>
+                  <div class="informacion">Diestro</div>
+                </label>
+
+                <label class="opcion">
+                  <div class="opcion__check">
+                    <input id="form-mano-zurda" class="marcador__input" type="radio" name="opcion"></input><span
+                      class="marcador"></span>
+                  </div>
+                  <div class="informacion">Zurdo</div>
+                </label>
+
+              </form>
+            </div>
+
+          </div>
+          <div class="zona__navegacion" style="margin-top: 40px;">
+            <button class="btn_siguiente">Continuar</button>
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+>>>>>>> master
 
   <!--Codigo de precarga -->
 
@@ -137,7 +278,12 @@
     let contenedor1 = new Contenedor();
     let navegable1 = new Navegable(contenedor1);
 
+<<<<<<< HEAD
     contenedor1.agregarHTMLAll(document.querySelectorAll(".pantalla"));
+=======
+    contenedor1.agregarHTML(document.querySelector(".pinicio"));
+    contenedor1.agregarHTML(document.querySelector(".pformulario"));
+>>>>>>> master
     navegable1.iniciar();
 
 
@@ -199,10 +345,18 @@
     }
 
     let siguiente = document.querySelector(".btn_siguiente");
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
     siguiente.addEventListener("click", () => {
       if (validarFormulario()) {
         navegable1.setPermitir(true);
         navegable1.siguiente();
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
       } else {
 
       }
@@ -215,7 +369,11 @@
     }
 
     navegable1.setFinal(() => {
+<<<<<<< HEAD
       irA("bintroduccion.html");
+=======
+      goTo("bintroduccion");
+>>>>>>> master
     });
 
 

@@ -11,6 +11,7 @@
 
     let preguntas_total = new Contenedor();
     let navegacion = new Navegable(preguntas_total);
+<<<<<<< HEAD
     //let obt = new PreguntaC("Mira este titulo",new OpcionC("Texto inicial", [{opcion:"value", valor:5}]));
     //let obt = new PreguntaI("/img/ecuacion.png", [new OpcionI("323", [{area:"mate", valor:2}]),new OpcionI("323", [])]);
     /*let con = new Contenido(obt.getElement(), obt, 10);
@@ -23,21 +24,34 @@
     }
     );
 */
+=======
+  
+>>>>>>> master
 
     loadJson("../data/preguntas.1.json", (r) => {
 
         r.preguntas.forEach(p => {
+<<<<<<< HEAD
             let opciones = [];
+=======
+          
+            
+            let obj_pregunta = new PreguntaA(p.pregunta);
+>>>>>>> master
 
             p.opciones.forEach(o => {
-                let opcion = new Opcion(o.opcion, o.valor.categorias);
-                opciones.push(opcion);
+                obj_pregunta.agregar(o.opcion, o.valor.categorias);
             });
 
+<<<<<<< HEAD
             let obj_pregunta = new Pregunta(p.pregunta, opciones);
 
             let con = new Contenido(obj_pregunta.getElement(), obj_pregunta, 45);
             preguntas_total.agregar(con);
+=======
+        
+            preguntas_total.agregar(obj_pregunta.getPregunta());
+>>>>>>> master
 
         });
 
@@ -52,11 +66,19 @@
         navegacion.colocarProgreso();
 
         navegacion.setSiguiente(() => {
+<<<<<<< HEAD
 
             navegacion.actualObjeto().validar();
             $(".btn_siguiente").removeClass("activo").addClass("desactivar");
             siguiente.disabled = true;
 
+=======
+
+          //  navegacion.actualObjeto().validar();
+            $(".btn_siguiente").removeClass("activo").addClass("desactivar");
+            siguiente.disabled = true;
+
+>>>>>>> master
         });
 
 
@@ -68,10 +90,18 @@
 
         siguiente.addEventListener('click', () => {
             navegacion.siguiente();
+<<<<<<< HEAD
 
         });
         $(".btn_siguiente").disabled = true;
         $(".opcion_check").on("input", () => {
+=======
+
+        });
+
+        $(".btn_siguiente").disabled = true;
+        $(".opcion").on("input", () => {
+>>>>>>> master
             navegacion.setPermitir(true);
             console.log("permitio");
             siguiente.disabled = false;

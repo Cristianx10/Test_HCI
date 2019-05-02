@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Test Interactivo</title>
+    <link rel="shortcut icon" href="../includes/img/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../sass/general/main.css" />
+    <link href="../sass/tipographys/tipografias.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+    <link rel="stylesheet" href="../sass//general/porcentaje.css">
+
+    <style>
+        .presultados {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .resultado__cuadro {
+            width: 215px;
+            height: 116px;
+        }
+
+        .mayores {
+            width: 340px;
+            height: 161px;
+        }
+
+        .presultados {
+            width: 770px;
+        }
+
+        .cont__resultados {
+            display: flex;
+
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="cont-principal" style="background-image: url('../img/background_principal-2.png')">
+        <div class="principal" onselectstart="return false" style="border: none;">
+
+            <h1 class="titulo">Resultados</h1>
+            <div class="cont__resultados">
+                <div class="presultados">
+
+                </div>
+                <div class="pmayorresultado">
+
+                </div>
+            </div>
+
+            <div class="zona__navegacion">
+                <button class="btn_siguiente" style="text-align:center;" onclick="seguir()">Siguiente</button>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!--Codigo de precarga -->
+
+
+    <!--
+<script src="../lib//colorMixer.js"></script>
+<script src="../lib/jquery-ui.min.js"></script>
+<script src="../lib/jquery.svg.js"></script>
+
+
+<script src="../lib/easeljs.js"></script>
+<script src="../lib/tweenjs.js"></script>
+-->
+
+    <!--Obligatorio -->
+    <script src="../lib/preloadjs.js"></script>
+    <script src="../lib/jquery.js"></script>
+    <script src="../lib/jquery.knob.js"></script>
+    <script src="../lib/soundjs.js"></script>
+    <script src="../js/timer.js"></script>
+    <script src="../js/resultados.js"></script>
+    <script src="../js/main.js"></script>
+
+    <script type="text/javascript">
+
+        let areas = resultados.getAreas(["Diseño", "Deportes", "Ingenieria", "Salud", "Educacion", "Fuerza publica", "Arte", "Ciencia"]);
+        let maximos = resultados.getAreasMaximo(["Diseño", "Deportes", "Ingenieria", "Salud", "Educacion", "Fuerza publica", "Arte", "Ciencia"]);
+
+        areas.sort((a, b) => {
+            if (a.valor > b.valor) {
+                return -1;
+            }
+            if (a.valor < b.valor) {
+                return 1;
+            }
+            return 0;
+        });
+
+        let colores = {};
+        colores["Ciencias"] = "#63D1B7";
+        colores["Arte"] = "#EF6BAA";
+        colores["Fuerza"] = "#FF7373";
+        colores["Educacion"] = "#5BC5D3";
+        colores["Deportes"] = "#FDF441";
+        colores["Salud"] = "#FFBF74";
+        colores["Diseño"] = "#BA76F0";
+        colores["Ingenieria"] = "#6883E4";
+
+
+
+
+        areas.forEach((e, index) => {
+            let resultadoc = new VerResultado();
+            let max = resultados.getMaximo(e.nombre);
+            let simpli = e.nombre.split(" ");
+            resultadoc.cambiarColor(colores[simpli]);
+
+            resultadoc.generar(e.nombre, Math.round((e.valor * 100) / max.valor), "../../includes/iconos/arte.svg");
+            $(".presultados").append(resultadoc.getElemento());
+
+            if (index == 0) {
+                document.querySelector(".pmayorresultado").append(resultadoc.felicidades());
+            }
+        });
+
+        document.querySelector("#" + areas[0].nombre).classList.add("mayor");
+        document.querySelector("#" + areas[1].nombre).classList.add("mayor");
+
+        let vals = document.querySelectorAll(".resultado__cuadro");
+        vals[0].classList.add("mayores");
+        vals[1].classList.add("mayores");
+
+        vals.forEach((v, index) => {
+            let width = 80;
+            let height = 80
+
+
+
+            if (index < 2) {
+                v.classList.add("mayores");
+                width = 100;
+                height = 100;
+            }
+
+            let simpli = areas[index].nombre.split(" ");
+
+            $("#" + simpli[0]).knob({
+                min: 0,
+                max: 100,
+                width: width,
+                height: height,
+                fgColor: colores[simpli[0]],
+                // angleOffset:0,
+                thickness: ".4",
+                readOnly: true,
+                displayInput: false
+            });
+
+        });
+
+
+
+    </script>
+
+
+
+
+</body>
+
+</html>

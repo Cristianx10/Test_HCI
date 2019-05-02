@@ -14,9 +14,7 @@ function shuffle(array: any) {
 
 
 
-interface Validable {
-    getElementosHTML(): Array<HTMLElement>;
-}
+
 
 class Navegable {
 
@@ -32,7 +30,11 @@ class Navegable {
     av: HTMLElement;
     permitir = false;
     permitirAll = false;
+<<<<<<< HEAD
     fcambioTiempo?:Function;
+=======
+    fcambioTiempo?: Function;
+>>>>>>> master
     iniciado = false;
 
     constructor(elementos: Contenedor) {
@@ -72,7 +74,11 @@ class Navegable {
     }
 
     iniciar() {
+<<<<<<< HEAD
         if(this.iniciado == false){
+=======
+        if (this.iniciado == false) {
+>>>>>>> master
 
             this.elementos.elementos.forEach(e => {
                 e.setTermino(() => {
@@ -80,6 +86,7 @@ class Navegable {
                         this.permitir = true;
                         this.siguiente();
                         this.permitir = false;
+<<<<<<< HEAD
             
                     }
                 });
@@ -88,6 +95,16 @@ class Navegable {
                     if (e == this.actualPantalla()) {
                         if(this.fcambioTiempo != null){
                             this.fcambioTiempo(m ,s);
+=======
+
+                    }
+                });
+
+                e.setProgreso((m: number, s: number) => {
+                    if (e == this.actualPantalla()) {
+                        if (this.fcambioTiempo != null) {
+                            this.fcambioTiempo(m, s);
+>>>>>>> master
                         }
                         if (s < 10 && s < 60 && s > -1 && m < 59) {
                             this.ti.innerText = "0" + m + ":0" + s;
@@ -97,6 +114,7 @@ class Navegable {
                     }
                 });
             });
+<<<<<<< HEAD
           
             this.av.innerText = this.actual + 1 + "/" + this.elementos.elementos.length;
     
@@ -104,19 +122,40 @@ class Navegable {
             this.elementos.getElementosHTML().forEach((s, i) => {
                 if (i == 0) {
                     s.style.display = "block";
+=======
+
+            this.av.innerText = this.actual + 1 + "/" + this.elementos.elementos.length;
+
+            this.progreso.setTotal(this.elementos.elementos.length);
+            this.elementos.getElementosHTML().forEach((s, i) => {
+                if (i == 0) {
+                    s.style.display = "flex";
+                    // s.style.flexDirection = "column";
+>>>>>>> master
                 } else {
                     s.style.display = "none";
                 }
             });
+<<<<<<< HEAD
     
     
             this.actualPantalla().start();
             this.iniciado =true;
+=======
+
+
+            this.actualPantalla().start();
+            this.iniciado = true;
+>>>>>>> master
         }
 
     }
 
+<<<<<<< HEAD
     cambioTiempo(cambio:Function){
+=======
+    cambioTiempo(cambio: Function) {
+>>>>>>> master
         this.fcambioTiempo = cambio;
     }
 
@@ -185,7 +224,9 @@ class Navegable {
     }
 
     mostrar(seccion: HTMLElement) {
-        seccion.style.display = "block";
+        seccion.style.display = "flex";
+
+
     }
 
     ocultar(seccion: HTMLElement) {
@@ -195,12 +236,21 @@ class Navegable {
     setSiguiente(accion?: Function) {
         this.inicio = accion;
     }
+<<<<<<< HEAD
 
     getActual(){
         return this.actual;
     }
 
     ocultarActual(){
+=======
+
+    getActual() {
+        return this.actual;
+    }
+
+    ocultarActual() {
+>>>>>>> master
         this.ocultar(this.actualPantallaHtml())
     }
 
@@ -216,9 +266,15 @@ class Navegable {
     }
 
     siguiente(): void {
+<<<<<<< HEAD
         
         if (this.permitir || this.permitirAll) {
     
+=======
+
+        if (this.permitir || this.permitirAll) {
+
+>>>>>>> master
             this.ocultar(this.actualPantallaHtml());
             if (this.actual < this.elementos.elementos.length - 1) {
                 if (this.inicio != null) {
@@ -246,7 +302,12 @@ class Navegable {
     }
 }
 
+<<<<<<< HEAD
 class PantallaHTML {
+    elemento: HTMLElement;
+=======
+class PantallaHTML implements Validable {
+
     elemento: HTMLElement;
 
     constructor(elemento: HTMLElement) {
@@ -255,6 +316,15 @@ class PantallaHTML {
 
     getElemento() {
         return this.elemento;
+    }
+
+    agregarResultados(): void {
+>>>>>>> master
+
+    }
+
+    registro(){
+
     }
 }
 
@@ -270,20 +340,38 @@ function toPantallas(pantallas: Array<HTMLElement>) {
     return contenido;
 }
 
-class Contenedor implements Validable {
+
+<<<<<<< HEAD
+    elementos: Array<Contenido>;
+
+=======
+
+
+class Contenedor {
 
     elementos: Array<Contenido>;
 
+>>>>>>> master
     constructor() {
         this.elementos = new Array();
     }
 
+<<<<<<< HEAD
     agregarAll(elemetos: Array<Contenido>) {
         elemetos.forEach((e) => {
+=======
+    agregarAll(elemetos: Array<Contenido>, tiempo?: number) {
+
+        elemetos.forEach((e) => {
+            if (tiempo != null) {
+                e.tiempo(tiempo);
+            }
+>>>>>>> master
             this.elementos.push(e)
         });
     }
 
+<<<<<<< HEAD
     agregar(elemeto: Contenido) {
         this.elementos.push(elemeto)
     }
@@ -300,31 +388,72 @@ class Contenedor implements Validable {
     agregarHTMLAll(elemetos: Array<HTMLElement>, tiempo?:number) {
 
         if(tiempo != null){
+=======
+    agregar(elemeto: Contenido, tiempo?: number) {
+        if (tiempo != null) {
+            elemeto.tiempo(tiempo);
+        }
+        this.elementos.push(elemeto)
+        return elemeto;
+    }
+
+    agregarHTML(elemeto: HTMLElement, tiempo?: number) {
+        let e = new PantallaHTML(elemeto);
+        if (tiempo != null) {
+            let c = new Contenido(elemeto, e, tiempo);
+            this.elementos.push(c);
+            return c;
+        } else {
+            let c = new Contenido(elemeto, e);
+            this.elementos.push(c);
+            return c;
+        }
+    }
+
+    agregarHTMLAll(elemetos: Array<HTMLElement>, tiempo?: number) {
+
+        if (tiempo != null) {
+>>>>>>> master
             elemetos.forEach((ele) => {
                 let e = new PantallaHTML(ele);
                 let c = new Contenido(ele, e, tiempo);
                 this.elementos.push(c);
             });
+<<<<<<< HEAD
         }else{
+=======
+        } else {
+>>>>>>> master
             elemetos.forEach((ele) => {
                 let e = new PantallaHTML(ele);
                 let c = new Contenido(ele, e);
                 this.elementos.push(c);
             });
         }
+<<<<<<< HEAD
         
         
+=======
+
+
+>>>>>>> master
     }
 
     foreachElementos(elemento: HTMLElement) {
         this.elementos.forEach(e => {
-            elemento.appendChild(e.elementoHTML);
+
+            elemento.append(e.elementoHTML);
         });
     }
 
     incluirEn(elemento: HTMLElement) {
         this.elementos.forEach(e => {
+<<<<<<< HEAD
             elemento.appendChild(e.elementoHTML);
+=======
+
+            elemento.append(e.elementoHTML);
+>>>>>>> master
         });
     }
 
@@ -349,24 +478,46 @@ class Contenedor implements Validable {
 
 }
 
+<<<<<<< HEAD
+=======
+interface Validable {
+    agregarResultados(): void;
+    registro():void;
+}
+
+>>>>>>> master
 class Contenido {
 
-    objeto: Object;
+    objeto: Validable;
     elementoHTML: HTMLElement;
     timer: Timer;
     segundos?: number;
     tiempoDefinido: boolean;
     accion?: Function;
 
+<<<<<<< HEAD
     constructor(elementoHTML: HTMLElement, objeto: Object, segundos?: number) {
+=======
+    constructor(elementoHTML: HTMLElement, objeto: Validable, segundos?: number) {
+>>>>>>> master
         this.elementoHTML = elementoHTML;
         this.elementoHTML.style.display = "none";
         this.objeto = objeto;
         this.timer = new Timer();
         this.tiempoDefinido = false;
+<<<<<<< HEAD
         if (segundos != null) {         
             this.segundos = segundos;    
         }
+=======
+        if (segundos != null) {
+            this.segundos = segundos;
+        }
+        this.timer.setAccionFinal(()=>{
+            objeto.agregarResultados();
+            objeto.registro();
+        });
+>>>>>>> master
     }
 
     tiempo(segundos?: number) {
@@ -377,6 +528,7 @@ class Contenido {
     start() {
         if (this.accion != null) {
             this.accion(this.objeto);
+<<<<<<< HEAD
         }
         if (this.segundos != null) {
             this.timer.startTempo(this.segundos);
@@ -386,6 +538,17 @@ class Contenido {
     }
 
     setProgreso(progreso:Function){
+=======
+        }
+        if (this.segundos != null) {
+            this.timer.startTempo(this.segundos);
+
+        }
+
+    }
+
+    setProgreso(progreso: Function) {
+>>>>>>> master
         this.timer.setProgreso(progreso);
     }
 
@@ -399,6 +562,10 @@ class Contenido {
 
     getElementoHTML() {
         return this.elementoHTML;
+    }
+
+    agregarResultados() {
+        this.objeto.agregarResultados();
     }
 
     getObjeto() {
@@ -421,7 +588,15 @@ function loadJson(ruta: string, result: Function) {
 
 }
 
+function ocultar(ubicacion: string) {
+    let e: HTMLElement = <HTMLElement>document.querySelector(ubicacion);
+    e.style.display = "none";
+}
 
+function mostrar(ubicacion: string) {
+    let e: HTMLElement = <HTMLElement>document.querySelector(ubicacion);
+    e.style.display = "flex";
+}
 
 function crearMatrix(colum: number, fil: number, wid: number, hei: number) {
     let columnas = colum;
@@ -519,7 +694,11 @@ class Progress {
         this.actualizarPosicion(this.actual);
     }
 
+<<<<<<< HEAD
     setTotal(total:number){
+=======
+    setTotal(total: number) {
+>>>>>>> master
         this.total = total;
         this.progress.max = total;
     }
@@ -544,8 +723,13 @@ function irA(url: string) {
     $(".principal").load(url);
 }
 
+<<<<<<< HEAD
 function goTo(url:string){
     window.location.href=url + ".html"; 
+=======
+function goTo(url: string) {
+    window.location.href = url + ".html";
+>>>>>>> master
 }
 
 function askConfirmation(evt: any) {
@@ -690,22 +874,13 @@ setValidacion(validacion:Function){
 */
 
 
-/*
-  let e = ()=>{
-            console.log("Finalizo");
-    };
-        createjs.Ticker.addEventListener("tick", e);
-        createjs.Ticker.removeEventListener("tick", e);
 
 
-        $( "p" ).addClass( "myClass yourClass" );
-This method is often used with .removeClass() to switch elements' classes from one to another, like so:
 
-1
-$( "p" ).removeClass( "myClass noClass" ).addClass( "yourClass" );
-*/
-
-
+interface ResultadoA {
+    area: string;
+    valor: number;
+}
 
 var resultados = new Resultados("resultados");
 
@@ -733,3 +908,91 @@ resultados.calcularMaximo([
     {id:"pregunta2",valores:[{id:"Diseño",valor:30},{id:"Deportes",valor:5},{id:"Ingenieria",valor:0},{id:"Salud",valor:10},{id:"Educacion",valor:10},{id:"Fuerza publica",valor:0},{id:"Arte",valor:10},{id:"Ciencia",valor:5}]}
 
 ]);*/
+
+
+class Interaccion implements Validable {
+
+    aciertos: number;
+    fallos: number;
+    intentos: number;
+    valido:boolean;
+
+    validacion?: Function;
+    intentoFallo?: Function;
+    intentoAcierto?: Function;
+    elemento: HTMLElement;
+
+    tipoId:string;
+
+    constructor() {
+        this.aciertos = 0;
+        this.fallos = 0;
+        this.intentos = 0;
+        this.valido = true;
+        this.elemento = document.createElement('div');
+        this.tipoId = "pregunta";
+    }
+
+    setValidacion(validacion: Function) {
+        this.validacion = validacion;
+    }
+    setIntentoFallo(intentoFallo: Function) {
+        this.intentoFallo = intentoFallo;
+    }
+
+    setIntentoAcierto(intentoAcierto: Function) {
+        this.intentoAcierto = intentoAcierto;
+    }
+
+    incluirEn(ubicacion: string) {
+        let u: HTMLElement = <HTMLElement>document.querySelector(ubicacion);
+        u.append(this.elemento);
+    }
+
+    agregarResultados(): void {
+
+    }
+
+    registro(){       
+        resultados.agregar(this.tipoId, [
+            {id:"aciertos", valor:this.aciertos+ ""},
+            {id:"fallos", valor:this.fallos+ ""},
+            {id:"intentos", valor:this.intentos+ ""},
+            {id:"validacion", valor:this.valido+ ""},
+        ]);
+    }
+}
+
+/*
+this.pareja.tablero.intentos,this.pareja.tablero.aciertos,this.pareja.tablero.fallos, this.pareja.tablero.valido
+
+<<<<<<< HEAD
+var resultados = new Resultados("resultados");
+
+/*
+resultados.calcularMaximo([
+
+    {id:"pregunta",valores:[{id:"Diseño",valor:10},{id:"Deportes",valor:5},{id:"Ingenieria",valor:0},{id:"Salud",valor:10},{id:"Educacion",valor:50},{id:"Fuerza publica",valor:0},{id:"Arte",valor:10},{id:"Ciencia",valor:5}]},
+
+    {id:"pregunta2",valores:[{id:"Diseño",valor:30},{id:"Deportes",valor:5},{id:"Ingenieria",valor:0},{id:"Salud",valor:10},{id:"Educacion",valor:10},{id:"Fuerza publica",valor:0},{id:"Arte",valor:10},{id:"Ciencia",valor:5}]}
+
+]);
+
+resultados.calcularMaximo([
+
+    {id:"pregunta",valores:[{id:"Diseño",valor:10},{id:"Deportes",valor:55},{id:"Ingenieria",valor:0},{id:"Salud",valor:10},{id:"Educacion",valor:50},{id:"Fuerza publica",valor:0},{id:"Arte",valor:10},{id:"Ciencia",valor:5}]},
+
+    {id:"pregunta2",valores:[{id:"Diseño",valor:30},{id:"Deportes",valor:5},{id:"Ingenieria",valor:0},{id:"Salud",valor:10},{id:"Educacion",valor:10},{id:"Fuerza publica",valor:0},{id:"Arte",valor:10},{id:"Ciencia",valor:5}]}
+
+]);
+
+resultados.calcularMaximo([
+
+    {id:"pregunta",valores:[{id:"Diseño",valor:10},{id:"Deportes",valor:5},{id:"Ingenieria",valor:0},{id:"Salud",valor:10},{id:"Educacion",valor:50},{id:"Fuerza publica",valor:0},{id:"Arte",valor:10},{id:"Ciencia",valor:5}]},
+
+    {id:"pregunta2",valores:[{id:"Diseño",valor:30},{id:"Deportes",valor:5},{id:"Ingenieria",valor:0},{id:"Salud",valor:10},{id:"Educacion",valor:10},{id:"Fuerza publica",valor:0},{id:"Arte",valor:10},{id:"Ciencia",valor:5}]}
+
+]);*/
+=======
+*/
+>>>>>>> master

@@ -4,9 +4,13 @@ class Tablero_Crelacion {
     baseA: Tablero_Cbase;
     baseB: Tablero_Cbase;
     seleccion?: Tablero_Categoria;
-    validacion?:Function;
-    intentoFallo?:Function;
-    intentoAcierto?:Function;
+    validacion?: Function;
+    intentoFallo?: Function;
+    intentoAcierto?: Function;
+    intentos:number;
+    aciertos:number;
+    fallos:number;
+    
 
     constructor() {
         this.canvas = document.createElement('canvas');
@@ -22,52 +26,64 @@ class Tablero_Crelacion {
         this.baseB.setOrientacion(false);
         this.stage.update();
 
+        this.intentos = 0;
+        this.fallos = 0;
+        this.aciertos = 0;
+
 
         this.stage.on("stagemousemove", () => {
-            if(this.seleccion != null){
+            if (this.seleccion != null) {
                 this.seleccion.linea.dibujarInicial(this.stage.mouseX, this.stage.mouseY);
             }
         });
 
     }
 
+<<<<<<< HEAD
     style(){
+=======
+    style() {
+>>>>>>> master
         this.baseA.styleDraw();
         this.baseB.styleDraw();
     }
 
+<<<<<<< HEAD
     size(width:number, height:number){
+=======
+    size(width: number, height: number) {
+>>>>>>> master
         this.canvas.width = width;
         this.canvas.height = height;
     }
 
-    distancia(x:number){
+    distancia(x: number) {
         this.baseB.contenedor.x = x;
     }
 
-    setValidacion(validacion:Function){
+    setValidacion(validacion: Function) {
         this.validacion = validacion;
-      }
-      setIntentoFallo(intentoFallo:Function){
+    }
+    setIntentoFallo(intentoFallo: Function) {
         this.intentoFallo = intentoFallo;
-      }
-  
-      setIntentoAcierto(intentoAcierto:Function){
-        this.intentoAcierto = intentoAcierto;
-      }
+    }
 
-      setStyle(width:number, height:number, style:string, h:number, w:number){
+    setIntentoAcierto(intentoAcierto: Function) {
+        this.intentoAcierto = intentoAcierto;
+    }
+
+    setStyle(width: number, height: number, style: string, h: number, w: number) {
         this.baseA.drawTablero(width, height, style, h, w);
         this.baseB.drawTablero(width, height, style, h, w);
-      }
-      setStyleA(width:number, height:number, style:string, h:number, w:number){
+    }
+    setStyleA(width: number, height: number, style: string, h: number, w: number) {
         this.baseA.drawTablero(width, height, style, h, w);
-    
-      }
-      setStyleB(width:number, height:number, style:string, h:number, w:number){
-      
+
+    }
+    setStyleB(width: number, height: number, style: string, h: number, w: number) {
+
         this.baseB.drawTablero(width, height, style, h, w);
-      }
+    }
 }
 
 class Tablero_Cbase {
@@ -76,15 +92,21 @@ class Tablero_Cbase {
     stage: createjs.Stage;
     contenedor: createjs.Container;
     categorias: Array<Tablero_Categoria>;
-    style?:string;
-    w?:number;
-    h?:number;
+    style?: string;
+    w?: number;
+    h?: number;
     private altura: number;
-    private orientation:boolean;
+    private orientation: boolean;
     private background = new createjs.Shape();
+<<<<<<< HEAD
     width?:number;
     height?:number;
  
+=======
+    width?: number;
+    height?: number;
+
+>>>>>>> master
 
     constructor(tablero: Tablero_Crelacion) {
         this.tablero = tablero;
@@ -94,26 +116,31 @@ class Tablero_Cbase {
         this.contenedor.addChild(this.background);
         this.stage.addChild(this.contenedor);
         this.altura = 0;
-        this.orientation = true;        
+        this.orientation = true;
     }
 
+<<<<<<< HEAD
     drawTablero(width:number, height:number, style?:string, w?:number, h?:number){
+=======
+    drawTablero(width: number, height: number, style?: string, w?: number, h?: number) {
+>>>>>>> master
         this.width = width;
         this.height = height;
         let tam = this.contenedor.getBounds();
-        if(style != null){
+        if (style != null) {
             this.style = style;
         }
-        if(h!=null){
+        if (h != null) {
             this.w = w;
             this.h = h;
         }
-        
-        if(tam != null){
+
+        if (tam != null) {
             this.contenedor.setBounds(tam.x, tam.y, width, height);
-        }else{
+        } else {
             this.contenedor.setBounds(0, 0, width, height);
         }
+<<<<<<< HEAD
         
         
 
@@ -126,54 +153,76 @@ class Tablero_Cbase {
             this.background.graphics.beginStroke("#D9D9D9").beginFill("#FFFFFF").setStrokeStyle(5).drawRoundRect(0,0, this.width, this.height, 50);
         }
         this.stage.update(); 
+=======
+
+
+
+        this.stage.update();
     }
 
-    setOrientacion(orientation:boolean){
+    styleDraw() {
+        if (this.width != null && this.height != null) {
+            this.background.graphics.beginStroke("#D9D9D9").beginFill("#FFFFFF").setStrokeStyle(5).drawRoundRect(0, 0, this.width, this.height, 50);
+        }
+        this.stage.update();
+>>>>>>> master
+    }
+
+    setOrientacion(orientation: boolean) {
         this.orientation = orientation;
     }
 
     agregar(infomacion: string, categoria: string) {
         let tarjeta;
-        if(this.style!= null){
-           tarjeta = new Tablero_Categoria(this, infomacion, categoria, this.style);
-        }else{
+        if (this.style != null) {
+            tarjeta = new Tablero_Categoria(this, infomacion, categoria, this.style);
+        } else {
             tarjeta = new Tablero_Categoria(this, infomacion, categoria, "20px Arial");
         }
-        if(this.h != null && this.w != null){
+        if (this.h != null && this.w != null) {
             tarjeta.setTamano(this.w, this.h);
         }
-        
+
         this.categorias.push(tarjeta);
         let tam = tarjeta.contenedor.getBounds();
-        if(this.altura == 0){
-            this.altura += tam.height + (tam.height/2);
+        if (this.altura == 0) {
+            this.altura += tam.height + (tam.height / 2);
         }
-    
+
         tarjeta.contenedor.y = this.altura;
         this.contenedor.addChild(tarjeta.contenedor);
-        this.altura += tam.height + (tam.height/2);
+        this.altura += tam.height + (tam.height / 2);
         let cor = this.contenedor.getBounds();
 
-        tarjeta.contenedor.x += Math.abs(tam.width - cor.width)/2;
+        tarjeta.contenedor.x += Math.abs(tam.width - cor.width) / 2;
         tarjeta.setConexion(this.orientation);
         //this.actualizarTamano(300, 100);
         this.stage.update();
     }
 
-    actualizarTamano(width:number, height:number){
-        this.categorias.forEach((c)=>{
+    actualizarTamano(width: number, height: number) {
+        this.categorias.forEach((c) => {
             c.setTamano(width, height);
         });
     }
 
-    validar(){
+    actualizarPuntuacion(){
+        this.tablero.aciertos = 0;
+        this.categorias.forEach((c) => {
+            this.tablero.aciertos += c.puntos;
+        });
+        this.tablero.fallos = this.categorias.length - this.tablero.aciertos;
+    }
+
+    validar() {
         let con = 0;
-        this.categorias.forEach((c)=>{
-            if(c.clasificado){
+        this.categorias.forEach((c) => {
+            if (c.clasificado) {
                 con++;
             }
         });
-        if(con >= this.categorias.length){
+    
+        if (con >= this.categorias.length) {
             return true;
         }
         return false;
@@ -188,22 +237,24 @@ class Tablero_Categoria {
     texto: createjs.Text;
     categoria: string;
     clasificado: boolean;
-    linea:LineaCurva;
+    linea: LineaCurva;
     orientacionLeft = true;
-    conexion:Coordenada;
-    private place:createjs.Shape;
-    private pareja?:Tablero_Categoria;
+    conexion: Coordenada;
+    private place: createjs.Shape;
+    private pareja?: Tablero_Categoria;
+    puntos:number;
 
-    constructor(tablero: Tablero_Cbase, texto: string, categoria: string, style?:string) {
+    constructor(tablero: Tablero_Cbase, texto: string, categoria: string, style?: string) {
         this.tablero = tablero;
         this.stage = tablero.stage;
+        this.puntos = 0;
         this.contenedor = new createjs.Container();
-        if(style != null){
+        if (style != null) {
             this.texto = new createjs.Text(texto, style);
-        }else{
+        } else {
             this.texto = new createjs.Text(texto, "50px Heebo");
         }
-        
+
         this.categoria = categoria;
         this.contenedor.addChild(this.texto);
 
@@ -219,13 +270,13 @@ class Tablero_Categoria {
         this.contenedor.on("mousedown", () => {
             this.tablero.tablero.seleccion = this;
             this.linea.iniciar(this.conexion.x, this.conexion.y);
-            if(this.pareja != null){
+            if (this.pareja != null) {
                 this.pareja.linea.limpiar();
                 this.clasificado = false;
                 this.pareja.clasificado = false;
             }
         });
-      
+
 
         this.stage.on("stagemouseup", () => {
 
@@ -234,96 +285,110 @@ class Tablero_Categoria {
                     this.stage.mouseX - this.contenedor.x - tablero.contenedor.x,
                     this.stage.mouseY - this.contenedor.y - tablero.contenedor.y) &&
                     this.tablero.tablero.seleccion.tablero.categorias.indexOf(this) == -1
-                    ) {
-                    let tam = this.contenedor.getBounds();
-                    this.clasificado = true;
+                ) {
+                   
+                    this.tablero.tablero.intentos++;
                     this.pareja = this.tablero.tablero.seleccion;
-                    this.tablero.tablero.seleccion.clasificado = true;
-                    this.tablero.tablero.seleccion.linea.terminar(this.conexion.x, this.conexion.y);
-                    this.tablero.tablero.seleccion.linea.draw();
+                    this.pareja.pareja = this;
+                    this.clasificado = true;
+                    this.pareja.clasificado = true;
 
-                    if(this.categoria == this.pareja.categoria){
-                     
-                        if(this.tablero.tablero.intentoAcierto != null){
+                    this.pareja.linea.terminar(this.conexion.x, this.conexion.y);
+                    this.pareja.linea.draw();
+
+                    if (this.categoria == this.pareja.categoria) {
+
+                        if (this.tablero.tablero.intentoAcierto != null) {
                             this.tablero.tablero.intentoAcierto(this, this.tablero.tablero.seleccion);
-
                         }
 
-                        if(this.tablero.validar() && this.tablero.tablero.validacion != null){
+                        this.puntos = 1;
+                        this.pareja.puntos = 1;
+
+                        if (this.tablero.validar() && this.tablero.tablero.validacion != null) {
                             this.tablero.tablero.validacion();
                         }
-                    }else{
-                        if(this.tablero.tablero.intentoFallo != null){
-                            this.tablero.tablero.intentoFallo(this, this.tablero.tablero.seleccion);
-
-                        }
                        
+                    } else {
+                        if (this.tablero.tablero.intentoFallo != null) {
+                            this.tablero.tablero.intentoFallo(this, this.tablero.tablero.seleccion);
+                        }
+
+                        this.puntos = -1;
+                        this.pareja.puntos = -1;
                     }
 
+                    if (this.tablero.validar() && this.tablero.tablero.validacion != null) {
+                        this.tablero.tablero.validacion();
+                    }
                     this.tablero.tablero.seleccion = undefined;
                 } else {
-                   
                     this.tablero.tablero.seleccion.linea.limpiar();
                 }
             }
-    
+
+            this.tablero.actualizarPuntuacion();
         });
     }
 
-    reset(){
-        if(this.pareja != null){
+    reset() {
+        if (this.pareja != null) {
+            this.linea.limpiar();
             this.pareja.linea.limpiar();
             this.clasificado = false;
             this.pareja.clasificado = false;
         }
+
     }
 
-    ocultar(){
-        
-        if(this.pareja != null){
-            
-            this.stage.removeChild(this.pareja.contenedor);
+    ocultar() {
+
+        if (this.pareja != null) {
+            this.tablero.contenedor.removeChild(this.pareja.contenedor);
             this.pareja.linea.limpiar()
+            this.pareja.clasificado = true;
         }
+        this.clasificado = true;
+      
 
         this.tablero.contenedor.removeChild(this.contenedor);
-            this.tablero.contenedor.removeChild(this.linea.linea);
+        this.tablero.contenedor.removeChild(this.linea.linea);
         this.stage.update();
     }
 
-    setTamano(width: number, height:number){
+    setTamano(width: number, height: number) {
         let tam = this.texto.getBounds();
         let cor = this.contenedor.getBounds();
         this.contenedor.setBounds(cor.x, cor.y, width, height);
-        this.texto.x = Math.abs(tam.width - width)/2; 
-        this.texto.y =  Math.abs(tam.height - height)/2;  
+        this.texto.x = Math.abs(tam.width - width) / 2;
+        this.texto.y = Math.abs(tam.height - height) / 2;
         this.place.graphics.beginFill("rgb(255,255,255,.01)").drawRect(0, 0, width, height);
         this.stage.update();
     }
 
-    actualizarTamano(){
+    actualizarTamano() {
         let tam = this.texto.getBounds();
         let cor = this.contenedor.getBounds();
         this.contenedor.setBounds(cor.x, cor.y, cor.width, cor.height);
-        this.texto.x = Math.abs(tam.width - cor.width)/2;   
-        this.place.graphics.beginFill("rgb(255,255,255, 0.001)").drawRect(0,0, cor.width, cor.height);
+        this.texto.x = Math.abs(tam.width - cor.width) / 2;
+        this.place.graphics.beginFill("rgb(255,255,255, 0.001)").drawRect(0, 0, cor.width, cor.height);
         this.stage.update();
     }
 
-    setConexion(value:boolean){
+    setConexion(value: boolean) {
         let tam = this.contenedor.getBounds();
-        if(value){
-            this.conexion = { 
-                x: this.tablero.contenedor.x + this.contenedor.x + tam.width, 
-                y: this.tablero.contenedor.y + this.contenedor.y + (tam.height / 2 )
+        if (value) {
+            this.conexion = {
+                x: this.tablero.contenedor.x + this.contenedor.x + tam.width,
+                y: this.tablero.contenedor.y + this.contenedor.y + (tam.height / 2)
             };
-        }else{
-            this.conexion = { 
-                x: this.tablero.contenedor.x + this.contenedor.x, 
-                y: this.tablero.contenedor.y + this.contenedor.y + (tam.height / 2 )
+        } else {
+            this.conexion = {
+                x: this.tablero.contenedor.x + this.contenedor.x,
+                y: this.tablero.contenedor.y + this.contenedor.y + (tam.height / 2)
             };
         }
-        
+
     }
 }
 
@@ -339,7 +404,7 @@ class LineaCurva {
     inicial: Coordenada;
     final: Coordenada;
     dibujando: boolean;
-    color:any;
+    color: any;
 
     constructor(stage: createjs.Stage) {
         this.stage = stage;
@@ -348,19 +413,19 @@ class LineaCurva {
         this.inicial = { x: 100, y: 100 };
         this.final = { x: 0, y: 0 };
         this.dibujando = false;
-        this.color = {r:random(50, 200),g:random(50, 200),b:random(50, 200)};
-        
+        this.color = { r: random(50, 200), g: random(50, 200), b: random(50, 200) };
+
     }
 
     iniciar(x: number, y: number) {
-        this.inicial.x =x;
+        this.inicial.x = x;
         this.inicial.y = y;
         this.dibujando = true;
     }
 
     dibujarInicial(x: number, y: number) {
         this.final = { x: x, y: y };
-        
+
         if (this.dibujando) {
             this.linea.graphics.clear();
             let centro = {
@@ -384,13 +449,13 @@ class LineaCurva {
         this.stage.update();
     }
 
-    draw(){
+    draw() {
         this.linea.graphics.clear();
         let centro = {
             x: (this.inicial.x + this.final.x) / 2, y: (this.inicial.y + this.final.y) / 2
         };
         this.linea.graphics
-        .beginStroke(`rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`)
+            .beginStroke(`rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`)
             .setStrokeStyle(5)
             .drawCircle(this.inicial.x, this.inicial.y, 3)
             .bezierCurveTo(this.inicial.x, this.inicial.y, centro.x, this.inicial.y, centro.x, centro.y)
@@ -412,7 +477,7 @@ class LineaCurva {
         };
 
         this.linea.graphics
-        .beginStroke(`rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`)
+            .beginStroke(`rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`)
             .bezierCurveTo(inicial.x, inicial.y, centro.x, inicial.y, centro.x, centro.y)
             .bezierCurveTo(centro.x, centro.y, centro.x, final.y, final.x, final.y);
         this.stage.update();
