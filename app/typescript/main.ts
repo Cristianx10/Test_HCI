@@ -788,6 +788,7 @@ class Interaccion implements Validable {
     elemento: HTMLElement;
 
     tipoId: string;
+    contenido:Contenido;
 
     constructor() {
         this.aciertos = 0;
@@ -796,6 +797,7 @@ class Interaccion implements Validable {
         this.valido = true;
         this.elemento = document.createElement('div');
         this.tipoId = "pregunta";
+        this.contenido = new Contenido(this.elemento, this);
     }
 
     setValidacion(validacion: Function) {
@@ -812,6 +814,10 @@ class Interaccion implements Validable {
     incluirEn(ubicacion: string) {
         let u: HTMLElement = <HTMLElement>document.querySelector(ubicacion);
         u.append(this.elemento);
+    }
+
+    getActividad(){
+        return this.contenido;
     }
 
     agregarResultados(): void {

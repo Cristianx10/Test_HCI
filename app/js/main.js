@@ -556,6 +556,7 @@ var Interaccion = /** @class */ (function () {
         this.valido = true;
         this.elemento = document.createElement('div');
         this.tipoId = "pregunta";
+        this.contenido = new Contenido(this.elemento, this);
     }
     Interaccion.prototype.setValidacion = function (validacion) {
         this.validacion = validacion;
@@ -569,6 +570,9 @@ var Interaccion = /** @class */ (function () {
     Interaccion.prototype.incluirEn = function (ubicacion) {
         var u = document.querySelector(ubicacion);
         u.append(this.elemento);
+    };
+    Interaccion.prototype.getActividad = function () {
+        return this.contenido;
     };
     Interaccion.prototype.agregarResultados = function () {
     };

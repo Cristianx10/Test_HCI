@@ -121,10 +121,6 @@
           </div>
         </div>
 
-        <div class="pantalla ptableros1"></div>
-        <div class="pantalla ptableros2"></div>
-        <div class="pantalla ptableros3"></div>
-
       </div>
 
 
@@ -344,7 +340,7 @@
     tableros[0].agregar("../img/emparejados/card-9.png", 16, "../img/emparejados/card-9.png", 17);
     tableros[0].agregar("../img/emparejados/card-10.png", 18, "../img/emparejados/card-10.png", 19);
 
-    tableros[0].incluirEn(".ptableros1");
+   
     tableros[0].iniciar();
 
     tableros[0].setIntentoAcierto(()=>{
@@ -371,7 +367,6 @@
     tableros[1].agregar("../img/emparejados/card-9.png", 16, "../img/emparejados/card-9.png", 17);
     tableros[1].agregar("../img/emparejados/card-10.png", 18, "../img/emparejados/card-10.png", 19);
 
-    tableros[1].incluirEn(".ptableros2");
     tableros[1].iniciar();
 
     tableros.push(new Tablero_tarjetas());
@@ -387,7 +382,6 @@
     tableros[2].agregar("../img/emparejados/card-9.png", 16, "../img/emparejados/card-9.png", 17);
     tableros[2].agregar("../img/emparejados/card-10.png", 18, "../img/emparejados/card-10.png", 19);
 
-    tableros[2].incluirEn(".ptableros3");
     tableros[2].iniciar();
 
 
@@ -475,38 +469,39 @@
     let siguiente = document.querySelector('.btn_siguiente');
 
 
-    contenedor.agregar(new Contenido(document.querySelector('.ptableros1'), tableros[0]))
-
+    
     contenedor.agregarHTML(document.querySelector(".pinicio"));
     contenedor.agregarHTML(document.querySelector(".prelacionar"), 120)
-      .setAccion(() => {
-        siguiente.disabled = true;
-      });
-
+    .setAccion(() => {
+      siguiente.disabled = true;
+    });
+    
     tablero.setValidacion(() => {
       siguiente.disabled = false;
     });
-
+    
     contenedor.agregar(p2.getPregunta())
-      .setAccion(() => {
-        siguiente.disabled = false;
-      });;
+    .setAccion(() => {
+      siguiente.disabled = false;
+    });;
     contenedor.agregar(p3.getPregunta())
-      .setAccion(() => {
-        siguiente.disabled = true;
-      });
+    .setAccion(() => {
+      siguiente.disabled = true;
+    });
     contenedor.agregar(p5.getPregunta());
     contenedor.agregarHTML(document.querySelector('.pselecciona'));
     contenedor.agregarHTML(document.querySelector('.pemperejado'))
-      .setAccion(() => {
-        ocultar(".zona__navegacion");
-      });;
-
+    .setAccion(() => {
+      ocultar(".zona__navegacion");
+    });;
+    
     //contenedor.agregar(new Contenido(document.querySelector('.ptableros1'), tableros[0]))
-
-
-    contenedor.agregar(new Contenido(document.querySelector('.ptableros2'), tableros[1]));
-    contenedor.agregar(new Contenido(document.querySelector('.ptableros3'), tableros[2]));
+    
+    
+   console.log();
+   contenedor.agregar(tableros[0].getActividad());
+    contenedor.agregar(tableros[1].getActividad());
+    contenedor.agregar(tableros[2].getActividad());
     contenedor.agregarHTML(document.querySelector(".ppintura"));
 
 

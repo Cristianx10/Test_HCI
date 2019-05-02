@@ -15,7 +15,6 @@ class Tablero_tarjetas extends Interaccion {
     this.posiciones = new Array();
     this.tipoId = "Tablero Relacion";
     this.elemento.className = "tablero";
-
     this.bloqueador = false;
   }
 
