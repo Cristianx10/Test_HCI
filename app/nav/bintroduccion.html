@@ -2,65 +2,68 @@
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Test Interactivo</title>
-  <link rel="shortcut icon" href="../includes/img/favicon.png" type="image/x-icon" />
-  <link rel="stylesheet" href="../sass/general/main.css" />
-  <link href="../sass/tipographys/tipografias.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
-  <link rel="stylesheet" href="../../sass/general/datosUsuario.css" type="text/css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Test Interactivo</title>
+    <link rel="shortcut icon" href="../includes/img/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../sass/general/main.css" />
+    <link href="../sass/tipographys/tipografias.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+    <link rel="stylesheet" href="../../sass/general/datosUsuario.css" type="text/css">
+    
 
 </head>
 
 <body>
-  <div class="cont-principal" style="background-image: url('../img/background_principal-2.png')">
-    <div class="principal" onselectstart="return false">
+    <div class="cont-principal" style="background-image: url('../img/background_principal-2.png')">
+        <div class="principal" onselectstart="return false">
 
-<div class="pantalla pinicio"  style="background-image: url('../img/background_principal-2.png')">
-    <div class="introduccion">
-        <h1 class="titulo">¡Rompamos el hielo!</h1>
-        <p id="desc" class="descripcion">Queremos conocerte mejor. Sigue las instrucciones usando el mouse y el teclado.</p>
-        <button class="botonComenzar" onclick="seguir()">Comenzar</button>
+            <div class="pantalla pinicio" style="background-image: url('../img/background_principal-2.png')">
+                <div class="introduccion">
+                    <h1 class="titulo">¡Rompamos el hielo!</h1>
+                    <p id="desc" class="descripcion">Queremos conocerte mejor. Sigue las instrucciones usando el mouse y
+                        el teclado.</p>
+                    <button class="botonComenzar" onclick="seguir()">Comenzar</button>
+                </div>
+            </div>
+
+            <div class="pantalla pinstrucciones">
+                <div class="instrucciones" style="margin: 100px; margin-left: 150px;">
+
+                </div>
+                <div class="zona__navegacion">
+
+                    <button onclick="seguir()" class="btn_siguiente">Enviar</button>
+                </div>
+
+            </div>
+
+            <div class="pantalla pintropicinicio" style="background-image: url('../img/background_principal-2.png')">
+                <div class="introduccion">
+                    <h1 class="titulo">Técnicas pictóricas</h1>
+                    <p id="desc" class="descripcion">Selecciona los botones que correspondan a la técnica pictórica y al
+                        sentimiento que te generen las siguientes pinturas.</p>
+                    <button class="botonComenzar" onclick="seguir()">Comenzar</button>
+                </div>
+            </div>
+
+
+            <div class="pantalla ppictoricos">
+                <div class="pantallaN pictoricos">
+
+                </div>
+                <div id="zona1" class="zona__navegacion">
+                    <button id="nav__pictorico" onclick="seguir()" class="btn_siguiente">Siguiente</button>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-
-<div class="pantalla pinstrucciones">
-    <div class="instrucciones" style="margin: 100px; margin-left: 150px;">
-
-    </div>
-    <div class="zona__navegacion">
-
-        <button onclick="seguir()" class="btn_siguiente">Enviar</button>
-    </div>
-
-</div>
-
-<div class="pantalla pintropicinicio" style="background-image: url('../img/background_principal-2.png')">
-    <div class="introduccion">
-        <h1 class="titulo">Técnicas pictóricas</h1>
-        <p id="desc" class="descripcion">Selecciona los botones que correspondan a la técnica pictórica y al sentimiento que te generen las siguientes pinturas.</p>
-        <button class="botonComenzar" onclick="seguir()">Comenzar</button>
-    </div>
-</div>
- 
-
-<div class="pantalla ppictoricos">
-    <div class="pantallaN pictoricos">
-
-    </div>
-    <div id="zona1" class="zona__navegacion">
-        <button id="nav__pictorico" onclick="seguir()" class="btn_siguiente">Siguiente</button>
-    </div>
-</div>
-</div>
-</div>
 </body>
- <!--Codigo de precarga -->
- <script src="../lib/jquery.js"></script>
- <script src="../lib/jquery-ui.min.js"></script>
- <!--
+<!--Codigo de precarga -->
+<script src="../lib/jquery.js"></script>
+<script src="../lib/jquery-ui.min.js"></script>
+<!--
  <script src="../lib//colorMixer.js"></script>
 
  <script src="../lib/jquery.svg.js"></script>
@@ -70,17 +73,17 @@
  <script src="../lib/tweenjs.js"></script>
  -->
 
- <script src="../lib/easeljs.js"></script>
- <script src="../../js/compuestos.js"></script>
- <script src="../lib/soundjs.js"></script>
- <script src="../js/timer.js"></script>
- <script src="../js/resultados.js"></script>
- <script src="../js/main.js"></script>
- <script src="../js/pregunta.js"></script>
+<script src="../lib/easeljs.js"></script>
+<script src="../../js/compuestos.js"></script>
+<script src="../lib/soundjs.js"></script>
+<script src="../js/timer.js"></script>
+<script src="../js/resultados.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/pregunta.js"></script>
 
- <!--Interacciones complejas-->
- <script src="../js/tarjetas.js"></script>
- <script src="../js/reciclaje.js"></script>
+<!--Interacciones complejas-->
+<script src="../js/tarjetas.js"></script>
+<script src="../js/reciclaje.js"></script>
 
 
 
@@ -89,47 +92,69 @@
 
     $('.cont-principal').css("background-image", "url('../img/background-claro.png')");
 
-    let p0 = new PreguntaR("<p>1. Lee todas las instrucciones antes de realizar algún movimiento.</p>");
-    p0.incluirEn(".instrucciones");
+    let pins = [];
+    pins.push(new PreguntaR("<p>1. Lee todas las instrucciones antes de realizar algún movimiento.</p>"));
+    pins[0].incluirEn(".instrucciones");
 
-    let p1 = new PreguntaR("<p>2. 2 y 2 son 4. 4 y 2 son 6. 6 y 2 son 8 y 8...?</p>");
-    p1.agregar(`<div class="circulo" style="background: #8CDF8B;"><p>8</p></div>`, []);
-    p1.agregar(`<div class="circulo" style="background: #8CDF8B;"><p>2</p></div>`, []);
-    p1.agregar(`<div class="circulo" style="background: #8CDF8B;"><p>16</p></div>`, []);
-    p1.agregar(`<div class="circulo" style="background: #8CDF8B;"><p>4</p></div>`, []);
-    p1.incluirEn(".instrucciones");
+    pins.push(new PreguntaR("<p>2. 2 y 2 son 4. 4 y 2 son 6. 6 y 2 son 8 y 8...?</p>"));
+    pins[1].agregar(`<div class="circulo" style="background: #8CDF8B;"><p>8</p></div>`, [{area:"Salud",  valor:-100},{area:"Educacion",  valor:-100},{area:"Fuerza publica",  valor:-100},
+]);
+    pins[1].agregar(`<div class="circulo" style="background: #8CDF8B;"><p>2</p></div>`, [{area:"Salud",  valor:-100},{area:"Educacion",  valor:-100},{area:"Fuerza publica",  valor:-100},
+]);
+    pins[1].agregar(`<div class="circulo" style="background: #8CDF8B;"><p>16</p></div>`, [{area:"Salud",  valor:-100},{area:"Educacion",  valor:-100},{area:"Fuerza publica",  valor:-100},
+]);
+    pins[1].agregar(`<div class="circulo" style="background: #8CDF8B;"><p>4</p></div>`, [{area:"Salud",  valor:-100},{area:"Educacion",  valor:-100},{area:"Fuerza publica",  valor:-100},
+]);
+    pins[1].incluirEn(".instrucciones");
 
-    let p2 = new PreguntaR("<p>3. ¿Cual de estos es un colo frio?</p>");
-    p2.agregar(`<div class="circulo" style="background-color: #8CDF8B;"><p>0</p></div>`, []);
-    p2.agregar(`<div class="circulo" style="background-color: black;"></div>`, []);
-    p2.agregar(`<div class="circulo" style="background-color: #FF9900;"></div>`, []);
-    p2.agregar(`<div class="circulo" style="background-color: #588DDC;"></div>`, []);
-    p2.incluirEn(".instrucciones");
+    pins.push(new PreguntaR("<p>3. ¿Cual de estos es un colo frio?</p>"));
+    pins[2].agregar(`<div class="circulo" style="background-color: #8CDF8B;"><p>2</p></div>`, [{area:"Salud",  valor:-100},{area:"Educacion",  valor:-100},{area:"Fuerza publica",  valor:-100},
+]);
+    pins[2].agregar(`<div class="circulo" style="background-color: black;"></div>`, [{area:"Salud",  valor:-100},{area:"Educacion",  valor:-100},{area:"Fuerza publica",  valor:-100},
+]);
+    pins[2].agregar(`<div class="circulo" style="background-color: #FF992;"></div>`, [{area:"Salud",  valor:-100},{area:"Educacion",  valor:-100},{area:"Fuerza publica",  valor:-100},
+]);
+    pins[2].agregar(`<div class="circulo" style="background-color: #588DDC;"></div>`, [{area:"Salud",  valor:-100},{area:"Educacion",  valor:-100},{area:"Fuerza publica",  valor:-100},
+]);
+    pins[2].incluirEn(".instrucciones");
 
-    let p3 = new PreguntaR("<p>4. ¿Cuál de los siguientes números no es par?</p>");
-    p3.agregar(`<div class="circulo" style="background-color: #A80000;"></div>`, []);
-    p3.agregar(` <div class="circulo" style="background-color: #FF1313;"></div>`, []);
-    p3.agregar(` <div class="circulo" style="background-color: #30E3D9;"><p>6</p></div>`, []);
-    p3.agregar(`<div class="circulo" style="background-color: #30E3D9;"><p>11</p></div>`, []);
-    p3.incluirEn(".instrucciones");
+    pins.push(new PreguntaR("<p>4. ¿Cuál de los siguientes números no es par?</p>"));
+    pins[3].agregar(`<div class="circulo" style="background-color: #A80000;"></div>`, [{area:"Salud",  valor:-100},{area:"Educacion",  valor:-100},{area:"Fuerza publica",  valor:-100},
+]);
+    pins[3].agregar(` <div class="circulo" style="background-color: #FF1313;"></div>`, [{area:"Salud",  valor:-100},{area:"Educacion",  valor:-100},{area:"Fuerza publica",  valor:-100},
+]);
+    pins[3].agregar(` <div class="circulo" style="background-color: #30E3D9;"><p>6</p></div>`, [{area:"Salud",  valor:-100},{area:"Educacion",  valor:-100},{area:"Fuerza publica",  valor:-100},
+]);
+pins[3].agregar(`<div class="circulo" style="background-color: #30E3D9;"><p>11</p></div>`, [{area:"Salud",  valor:-100},{area:"Educacion",  valor:-100},{area:"Fuerza publica",  valor:-100},
+]);
 
-    let p4 = new PreguntaR("<p>5. ¿Cuál de los siguientes numeros es múltiplo de 5?</p>");
-    p4.agregar(`<div class="circulo" style="background-color: #30E3D9;"><p>54</p></div>`, []);
-    p4.agregar(`<div class="circulo" style="background-color: #30E3D9;"><p>62</p></div>`, []);
-    p4.agregar(`<div class="circulo" style="background-color: #30E3D9;"><p>4</p></div>`, []);
-    p4.agregar(`<div class="circulo" style="background-color: #E64973;"><p>42</p></div>`, []);
-    p4.incluirEn(".instrucciones");
+    pins[3].incluirEn(".instrucciones");
+
+    pins.push(new PreguntaR("<p>5. ¿Cuál de los siguientes numeros es múltiplo de 5?</p>"));
+    pins[4].agregar(`<div class="circulo" style="background-color: #30E3D9;"><p>54</p></div>`, [{area:"Salud",  valor:-100},{area:"Educacion",  valor:-100},{area:"Fuerza publica",  valor:-100},
+]);
+    pins[4].agregar(`<div class="circulo" style="background-color: #30E3D9;"><p>62</p></div>`, [{area:"Salud",  valor:-100},{area:"Educacion",  valor:-100},{area:"Fuerza publica",  valor:-100},
+]);
+    pins[4].agregar(`<div class="circulo" style="background-color: #30E3D9;"><p>4</p></div>`, [{area:"Salud",  valor:-100},{area:"Educacion",  valor:-100},{area:"Fuerza publica",  valor:-100},
+]);
+    pins[4].agregar(`<div class="circulo" style="background-color: #E64973;"><p>42</p></div>`, [{area:"Salud",  valor:-100},{area:"Educacion",  valor:-100},{area:"Fuerza publica",  valor:-100},
+]);
+    pins[4].incluirEn(".instrucciones");
 
 
-    let p5 = new PreguntaR("<p>6. Selecciona el símbolo químico del AGUA</p>");
-    p5.agregar(`<div class="circulo" style="background-color: #FFF97C;"><p>H</p></div>`, []);
-    p5.agregar(`<div class="circulo" style="background-color: #FFF97C;"><p>O</p></div>`, []);
-    p5.agregar(`<div class="circulo" style="background-color: #FFF97C;"><p>N</p></div>`, []);
-    p5.agregar(`<div class="circulo" style="background-color: #FFF97C;"><p>H20</p></div>`, []);
-    p5.incluirEn(".instrucciones");
+    pins.push(new PreguntaR("<p>6. Selecciona el símbolo químico del AGUA</p>"));
+    pins[5].agregar(`<div class="circulo" style="background-color: #FFF97C;"><p>H</p></div>`, [{area:"Salud",  valor:-100},{area:"Educacion",  valor:-100},{area:"Fuerza publica",  valor:-100},
+]);
+    pins[5].agregar(`<div class="circulo" style="background-color: #FFF97C;"><p>O</p></div>`, [{area:"Salud",  valor:-100},{area:"Educacion",  valor:-100},{area:"Fuerza publica",  valor:-100},
+]);
+    pins[5].agregar(`<div class="circulo" style="background-color: #FFF97C;"><p>N</p></div>`, [{area:"Salud",  valor:-100},{area:"Educacion",  valor:-100},{area:"Fuerza publica",  valor:-100},
+]);
+    pins[5].agregar(`<div class="circulo" style="background-color: #FFF97C;"><p>H20</p></div>`, [{area:"Salud",  valor:-100},{area:"Educacion",  valor:-100},{area:"Fuerza publica",  valor:-100},
+]);
+    pins[5].incluirEn(".instrucciones");
 
-    let p6 = new PreguntaR(`<p>7. Y ahora que terminaste de leer, debes ignorar las instrucciones anteriores y presionar enviar.</p>`);
-    p6.incluirEn(".instrucciones");
+    pins.push(new PreguntaR(`<p>7. Y ahora que terminaste de leer, debes ignorar las instrucciones anteriores y presionar enviar.</p>`));
+    pins[6].incluirEn(".instrucciones");
 
     /**
      *  Preguntas pictoricas
@@ -211,46 +236,72 @@
 
     let contenedor = new Contenedor();
     let navegacion = new Navegable(contenedor);
+   
+    contenedor.agregarHTML(document.querySelector('.pinicio'),5);
+    contenedor.agregarHTML(document.querySelector(".pinstrucciones")).setAccionFinal(()=>{
 
-    contenedor.agregarHTML(document.querySelector('.pinicio'));
-    contenedor.agregarHTML(document.querySelector(".pinstrucciones"));
+        for (let i = 0; i < pins.length; i++) {
+            let p = pins[i];
+            p.registro();
+            if(p.seleccion!=null){
+                p.agregarResultados();
+                console.log(p.seleccion)
+                return;
+            }
+            
+        }
+    });
+
     contenedor.agregarHTML(document.querySelector(".pintropicinicio"));
-    contenedor.agregarHTMLAll(document.querySelectorAll(".pictoricos > div"));
-    
+   
+    //contenedor.agregarHTMLAll(document.querySelectorAll(".pictoricos > div"));
+    contenedor.agregar(p7.getPregunta());
+    contenedor.agregar(p8.getPregunta());
+    contenedor.agregar(p9.getPregunta());
+    contenedor.agregar(p10.getPregunta());
+    contenedor.agregar(p11.getPregunta());
+    contenedor.agregar(p12.getPregunta());
+    contenedor.agregar(p13.getPregunta());
+    contenedor.agregar(p14.getPregunta());
+    contenedor.agregar(p15.getPregunta());
+    contenedor.agregar(p16.getPregunta());
+
+
     navegacion.iniciar();
-
-
+    
     let nav_pictorico_siguiente = document.querySelector('#nav__pictorico');
     ocultar(".ppictoricos");
-
+    
     function seguir() {
+      
         navegacion.setPermitir(true);
         navegacion.siguiente();
         if (navegacion.getActual() > 2) {
             mostrar(".ppictoricos");
         }
-
+        
     }
-
-
+    
+    
     $(".opcion__boton").disabled = true;
     $(".opcion__boton").on("click", () => {
         navegacion.setPermitir(true);
         nav_pictorico_siguiente.disabled = false;
         $(".button").removeClass("desactivar").addClass("activo");
     });
-
+    
     nav_pictorico_siguiente.disabled = true;
     nav_pictorico_siguiente.addEventListener("click", () => {
-        navegacion.siguiente();
+       
         nav_pictorico_siguiente.disabled = true;
     });
-
-
+    
+    
     navegacion.setFinal(() => {
         goTo("blinguistica");
     });
-
     
+   
+
 
 </script>

@@ -41,16 +41,15 @@ var Timer = /** @class */ (function () {
         }, 10);
     };
     Timer.prototype.stop = function () {
-        clearInterval(this.intervalo);
-        if (this.termino != null && this.enEjecucion == false) {
-            this.termino();
-        }
-        else {
-            this.enEjecucion = false;
-        }
-        if (this.terminado == false && this.accionFinal != null) {
-            this.accionFinal();
+        if (this.terminado == false) {
             this.terminado = true;
+            clearInterval(this.intervalo);
+            if (this.termino != null) {
+                this.termino();
+            }
+            if (this.accionFinal != null) {
+                this.accionFinal();
+            }
         }
         //console.log("Hora:" + this.horas + " Minutos: " + this.minutos + " Segundos: "+ this.segundos + " Millis: " + this.milisegundos + " Total: " +this.time);
     };

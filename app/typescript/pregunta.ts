@@ -42,6 +42,7 @@ class Pregunta implements Validable{
     agregarResultados(){
         if(this.seleccion != null){
             this.seleccion.validacion();
+          
             resultados.calcularMaximo(this.valores);
         }
     }
@@ -591,7 +592,6 @@ class OpcionS extends Opcion {
 class PreguntaR extends Pregunta {
 
     opciones: Array<OpcionR>;
-    validacion?: Function;
     preguntaHTML: HTMLElement;
     opcionesHTML: HTMLElement;
 
@@ -618,10 +618,6 @@ class PreguntaR extends Pregunta {
         this.opciones.push(opcion);
         this.opcionesHTML.append(opcion.elemento);
         this.valores.push({id:this.tipoId, valores:opcion.valor});
-    }
-
-    setValidacion(validacion: Function) {
-        this.validacion = validacion;
     }
 
 }
@@ -689,12 +685,6 @@ class PreguntaP extends Pregunta {
         this.opciones.push(opcion);
         this.opcionesHTML.append(opcion.elemento);
         this.valores.push({id:this.tipoId, valores:opcion.valor});
-    }
-
-
-
-    setValidacion(validacion: Function) {
-        this.validacion = validacion;
     }
 
 }

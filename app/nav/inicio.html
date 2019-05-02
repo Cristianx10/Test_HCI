@@ -182,16 +182,13 @@
 
   <script type="text/javascript">
 
+    let contenedor = new Contenedor();
+    let navegable = new Navegable(contenedor);
 
+    contenedor.agregarHTML(document.querySelector(".pinicio"));
+    contenedor.agregarHTML(document.querySelector(".pformulario"));
 
-
-
-    let contenedor1 = new Contenedor();
-    let navegable1 = new Navegable(contenedor1);
-
-    contenedor1.agregarHTML(document.querySelector(".pinicio"));
-    contenedor1.agregarHTML(document.querySelector(".pformulario"));
-    navegable1.iniciar();
+    navegable.iniciar();
 
 
     function validarFormulario() {
@@ -255,21 +252,17 @@
 
     siguiente.addEventListener("click", () => {
       if (validarFormulario()) {
-        navegable1.setPermitir(true);
-        navegable1.siguiente();
-
-      } else {
-
+        navegable.setPermitir(true);
+        navegable.siguiente();
       }
-    });
-
+    })
 
     function seguir() {
-      navegable1.setPermitir(true);
-      navegable1.siguiente();
+      navegable.setPermitir(true);
+      navegable.siguiente();
     }
 
-    navegable1.setFinal(() => {
+    navegable.setFinal(() => {
       goTo("bintroduccion");
     });
 

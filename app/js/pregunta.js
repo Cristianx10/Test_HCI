@@ -455,9 +455,6 @@ var PreguntaR = /** @class */ (function (_super) {
         this.opcionesHTML.append(opcion.elemento);
         this.valores.push({ id: this.tipoId, valores: opcion.valor });
     };
-    PreguntaR.prototype.setValidacion = function (validacion) {
-        this.validacion = validacion;
-    };
     return PreguntaR;
 }(Pregunta));
 var OpcionR = /** @class */ (function (_super) {
@@ -505,9 +502,6 @@ var PreguntaP = /** @class */ (function (_super) {
         this.opciones.push(opcion);
         this.opcionesHTML.append(opcion.elemento);
         this.valores.push({ id: this.tipoId, valores: opcion.valor });
-    };
-    PreguntaP.prototype.setValidacion = function (validacion) {
-        this.validacion = validacion;
     };
     return PreguntaP;
 }(Pregunta));

@@ -48,7 +48,7 @@ var Navegable = /** @class */ (function () {
         if (this.iniciado == false) {
             this.elementos.elementos.forEach(function (e) {
                 e.setTermino(function () {
-                    if (e == _this.elementos.elementos[_this.actual]) {
+                    if (e == _this.actualPantalla() && _this.actualPantalla().tiempoDefinido == false) {
                         _this.permitir = true;
                         _this.siguiente();
                         _this.permitir = false;
@@ -169,9 +169,7 @@ var Navegable = /** @class */ (function () {
                     this.inicio(this.actualPantalla(), this.actual);
                 }
                 this.actualPantalla().tiempoDefinido = true;
-                if (this.elementos.elementos[this.actual].timer.enEjecucion) {
-                    this.elementos.elementos[this.actual].timer.stop();
-                }
+                this.actualPantalla().timer.stop();
                 this.actual++;
                 this.av.innerText = this.actual + 1 + "/" + this.elementos.elementos.length;
                 this.progreso.actualizarPosicion(this.actual);
@@ -299,13 +297,12 @@ var Contenido = /** @class */ (function () {
         if (segundos != null) {
             this.segundos = segundos;
         }
-        this.timer.setAccionFinal(function () {
+        this.setAccionFinal(function () {
             objeto.agregarResultados();
             objeto.registro();
         });
     }
     Contenido.prototype.tiempo = function (segundos) {
-        this.tiempoDefinido = true;
         this.segundos = segundos;
     };
     Contenido.prototype.start = function () {
@@ -321,9 +318,14 @@ var Contenido = /** @class */ (function () {
     };
     Contenido.prototype.setAccion = function (accion) {
         this.accion = accion;
+        return this;
     };
     Contenido.prototype.setTermino = function (termino) {
         this.timer.termino = termino;
+        return this;
+    };
+    Contenido.prototype.setAccionFinal = function (accionFinal) {
+        this.timer.accionFinal = accionFinal;
     };
     Contenido.prototype.getElementoHTML = function () {
         return this.elementoHTML;
