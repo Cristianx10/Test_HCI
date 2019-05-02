@@ -22,7 +22,7 @@
     <div class="introduccion">
         <h1 class="titulo">¡Rompamos el hielo!</h1>
         <p id="desc" class="descripcion">Queremos conocerte mejor. Sigue las instrucciones usando el mouse y el teclado.</p>
-        <button class="botonComenzar" onclick="seguir2()">Comenzar</button>
+        <button class="botonComenzar" onclick="seguir()">Comenzar</button>
     </div>
 </div>
 
@@ -32,7 +32,7 @@
     </div>
     <div class="zona__navegacion">
 
-        <button onclick="seguir2()" class="btn_siguiente">Enviar</button>
+        <button onclick="seguir()" class="btn_siguiente">Enviar</button>
     </div>
 
 </div>
@@ -41,7 +41,7 @@
     <div class="introduccion">
         <h1 class="titulo">Técnicas pictóricas</h1>
         <p id="desc" class="descripcion">Selecciona los botones que correspondan a la técnica pictórica y al sentimiento que te generen las siguientes pinturas.</p>
-        <button class="botonComenzar" onclick="seguir2()">Comenzar</button>
+        <button class="botonComenzar" onclick="seguir()">Comenzar</button>
     </div>
 </div>
  
@@ -51,7 +51,7 @@
 
     </div>
     <div id="zona1" class="zona__navegacion">
-        <button id="nav__pictorico" onclick="seguir2()" class="btn_siguiente">Siguiente</button>
+        <button id="nav__pictorico" onclick="seguir()" class="btn_siguiente">Siguiente</button>
     </div>
 </div>
 </div>
@@ -209,24 +209,24 @@
     p16.incluirEn(".pictoricos");
 
 
-    let contenedor2 = new Contenedor();
-    let navegacion2 = new Navegable(contenedor2);
+    let contenedor = new Contenedor();
+    let navegacion = new Navegable(contenedor);
 
-    contenedor2.agregarHTML(document.querySelector('.pinicio'));
-    contenedor2.agregarHTML(document.querySelector(".pinstrucciones"));
-    contenedor2.agregarHTML(document.querySelector(".pintropicinicio"));
-    contenedor2.agregarHTMLAll(document.querySelectorAll(".pictoricos > div"));
+    contenedor.agregarHTML(document.querySelector('.pinicio'));
+    contenedor.agregarHTML(document.querySelector(".pinstrucciones"));
+    contenedor.agregarHTML(document.querySelector(".pintropicinicio"));
+    contenedor.agregarHTMLAll(document.querySelectorAll(".pictoricos > div"));
     
-    navegacion2.iniciar();
+    navegacion.iniciar();
 
 
     let nav_pictorico_siguiente = document.querySelector('#nav__pictorico');
     ocultar(".ppictoricos");
 
-    function seguir2() {
-        navegacion2.setPermitir(true);
-        navegacion2.siguiente();
-        if (navegacion2.getActual() > 2) {
+    function seguir() {
+        navegacion.setPermitir(true);
+        navegacion.siguiente();
+        if (navegacion.getActual() > 2) {
             mostrar(".ppictoricos");
         }
 
@@ -235,19 +235,19 @@
 
     $(".opcion__boton").disabled = true;
     $(".opcion__boton").on("click", () => {
-        navegacion2.setPermitir(true);
+        navegacion.setPermitir(true);
         nav_pictorico_siguiente.disabled = false;
         $(".button").removeClass("desactivar").addClass("activo");
     });
 
     nav_pictorico_siguiente.disabled = true;
     nav_pictorico_siguiente.addEventListener("click", () => {
-        navegacion2.siguiente();
+        navegacion.siguiente();
         nav_pictorico_siguiente.disabled = true;
     });
 
 
-    navegacion2.setFinal(() => {
+    navegacion.setFinal(() => {
         goTo("blinguistica");
     });
 

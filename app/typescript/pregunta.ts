@@ -1,7 +1,4 @@
-
-
-
-class Pregunta {
+class Pregunta implements Validable{
 
     elemento: HTMLElement;
     informacion: string;
@@ -603,7 +600,8 @@ class PreguntaR extends Pregunta {
         super(informacion);
         this.opciones = new Array();
         this.elemento.className = "instruccion";
-
+        this.elemento.style.display = "flex";
+        
         this.preguntaHTML = document.createElement('div');
         this.preguntaHTML.innerHTML = informacion;
         this.opcionesHTML = document.createElement('div');
@@ -621,17 +619,6 @@ class PreguntaR extends Pregunta {
         this.opciones.push(opcion);
         this.opcionesHTML.append(opcion.elemento);
         this.valores.push({id:this.tipoId, valores:opcion.valor});
-    }
-
-    validar() {
-
-        if (this.seleccion != null) {
-            this.seleccion.validacion();
-            resultados.agregar("pregunta",
-                [{ id: "pregunta", valor: this.informacion },
-                { id: "respuesta", valor: this.seleccion.informacion }]);
-        }
-
     }
 
     setValidacion(validacion: Function) {

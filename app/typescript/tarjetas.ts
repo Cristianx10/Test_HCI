@@ -169,7 +169,8 @@
     }
   }
 
-  class tablero_tarjetas{
+  class tablero_tarjetas implements Validable{
+   
 
     fichas: Array<Pareja>;
     tarjetas: Array<HTMLElement>;
@@ -254,6 +255,10 @@
 
     setIntentoFallo(intentoFallo:Function){
       this.intentoFallo = intentoFallo;
+    }
+
+    agregarResultados(): void {
+     
     }
   }
 

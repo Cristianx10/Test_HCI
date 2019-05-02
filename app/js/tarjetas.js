@@ -198,6 +198,8 @@ var tablero_tarjetas = /** @class */ (function () {
     tablero_tarjetas.prototype.setIntentoFallo = function (intentoFallo) {
         this.intentoFallo = intentoFallo;
     };
+    tablero_tarjetas.prototype.agregarResultados = function () {
+    };
     return tablero_tarjetas;
 }());
 /* var bloques = selector(".tableros");

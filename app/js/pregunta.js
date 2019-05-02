@@ -439,6 +439,7 @@ var PreguntaR = /** @class */ (function (_super) {
         var _this = _super.call(this, informacion) || this;
         _this.opciones = new Array();
         _this.elemento.className = "instruccion";
+        _this.elemento.style.display = "flex";
         _this.preguntaHTML = document.createElement('div');
         _this.preguntaHTML.innerHTML = informacion;
         _this.opcionesHTML = document.createElement('div');
@@ -454,13 +455,6 @@ var PreguntaR = /** @class */ (function (_super) {
         this.opciones.push(opcion);
         this.opcionesHTML.append(opcion.elemento);
         this.valores.push({ id: this.tipoId, valores: opcion.valor });
-    };
-    PreguntaR.prototype.validar = function () {
-        if (this.seleccion != null) {
-            this.seleccion.validacion();
-            resultados.agregar("pregunta", [{ id: "pregunta", valor: this.informacion },
-                { id: "respuesta", valor: this.seleccion.informacion }]);
-        }
     };
     PreguntaR.prototype.setValidacion = function (validacion) {
         this.validacion = validacion;
