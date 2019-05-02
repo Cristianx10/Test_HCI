@@ -241,11 +241,17 @@ class VerResultado {
     valor?: number;
     src?: string;
     private init: number;
+    color:string;
 
     constructor() {
         this.elemento = document.createElement("div");
         this.elemento.className = "resultado__cuadro";
         this.init = random(0, 360);
+        this.color = "#007ACC";
+    }
+
+    cambiarColor(color:string){
+        this.color = color;
     }
 
     generar(categoria: string, valor: number, src: string) {
@@ -262,7 +268,7 @@ class VerResultado {
         </div>
         <div class="resultado__informacion">
             <h2 class="rtitulo">${this.categoria}</h2>
-            <h3 class="rvalor">${this.valor}%</h3>
+            <h3 class="rvalor" style="color:${this.color};">${this.valor}%</h3>
         </div>
     `;
     }

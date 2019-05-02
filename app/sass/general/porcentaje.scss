@@ -22,6 +22,31 @@
     align-items: center;
 }
 
+.mayores {
+
+
+    & .resultado__porcentaje {
+        width: 100px;
+        &__circulo {
+            position: absolute;
+            
+        }
+
+        .icono{
+            position: absolute;
+         
+
+        }
+    }
+
+    & .resultado__informacion{
+
+        padding: 20px;
+    }
+
+
+}
+
 .resultado {
 
     //variables de color
@@ -40,9 +65,8 @@
         display: flex;
         border-radius: 17px;
         background: rgba(255, 255, 255, 0.322);
-        padding: 25px;
+        padding: 10px;
         margin: 20px;
-
 
     }
 
@@ -52,29 +76,29 @@
         justify-content: center;
         align-items: center;
         color: $color-ciencias-n;
+        width: 100px;
 
 
         &__circulo {
             position: absolute;
             display: block;
-            margin-left: 20px;
         }
 
-        & .icono {
-            margin-left: 40px;
-        }
+        & .icono {}
     }
+
+
 
     &__informacion {
         display: flex;
         flex-direction: column;
-        margin-left: 60px;
+        margin-left: 20px;
 
 
         h2 {
             color: white;
             font-style: bold;
-            text-align: center;
+           
 
         }
 
@@ -95,6 +119,9 @@
     color: white;
     font-size: 70%;
     text-align: center;
+    background: rgba(255, 255, 255, 0.452);
+    height: 92%;
+
 
     border-radius: 5px;
     border: 1px solid white;

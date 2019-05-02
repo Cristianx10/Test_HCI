@@ -189,13 +189,17 @@ var VerResultado = /** @class */ (function () {
         this.elemento = document.createElement("div");
         this.elemento.className = "resultado__cuadro";
         this.init = random(0, 360);
+        this.color = "#007ACC";
     }
+    VerResultado.prototype.cambiarColor = function (color) {
+        this.color = color;
+    };
     VerResultado.prototype.generar = function (categoria, valor, src) {
         this.categoria = categoria;
         this.valor = valor;
         this.src = src;
         var simpli = categoria.split(" ");
-        this.elemento.innerHTML = "\n        <div class=\"resultado__porcentaje\">\n        <div class=\"resultado__porcentaje__circulo\">\n            <input id=\"" + simpli[0] + "\" class=\"porcentaje\" type=\"text\" value=\"" + this.valor + "\" data-linecap=round data-angleOffset = \"" + this.init + "\">\n        </div>\n        <img class=\"icono\" src=\"" + this.src + "\" alt=\"\">\n        </div>\n        <div class=\"resultado__informacion\">\n            <h2 class=\"rtitulo\">" + this.categoria + "</h2>\n            <h3 class=\"rvalor\">" + this.valor + "%</h3>\n        </div>\n    ";
+        this.elemento.innerHTML = "\n        <div class=\"resultado__porcentaje\">\n        <div class=\"resultado__porcentaje__circulo\">\n            <input id=\"" + simpli[0] + "\" class=\"porcentaje\" type=\"text\" value=\"" + this.valor + "\" data-linecap=round data-angleOffset = \"" + this.init + "\">\n        </div>\n        <img class=\"icono\" src=\"" + this.src + "\" alt=\"\">\n        </div>\n        <div class=\"resultado__informacion\">\n            <h2 class=\"rtitulo\">" + this.categoria + "</h2>\n            <h3 class=\"rvalor\" style=\"color:" + this.color + ";\">" + this.valor + "%</h3>\n        </div>\n    ";
     };
     VerResultado.prototype.getElemento = function () {
         return this.elemento;

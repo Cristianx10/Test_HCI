@@ -17,6 +17,25 @@
             display: flex;
             flex-wrap: wrap;
         }
+
+        .resultado__cuadro {
+            width: 215px;
+            height: 116px;
+        }
+
+        .mayores {
+            width: 340px;
+            height: 161px;
+        }
+
+        .presultados {
+            width: 770px;
+        }
+
+        .cont__resultados {
+            display: flex;
+
+        }
     </style>
 
 </head>
@@ -25,12 +44,19 @@
     <div class="cont-principal" style="background-image: url('../img/background_principal-2.png')">
         <div class="principal" onselectstart="return false" style="border: none;">
 
+            <h1 class="titulo">Resultados</h1>
+            <div class="cont__resultados">
+                <div class="presultados">
 
-            <div class="presultados">
+                </div>
+                <div class="pmayorresultado">
 
+                </div>
             </div>
 
-
+            <div class="zona__navegacion">
+                <button class="btn_siguiente" style="text-align:center;" onclick="seguir()">Siguiente</button>
+            </div>
 
         </div>
 
@@ -83,38 +109,23 @@
         colores["Salud"] = "#FFBF74";
         colores["Diseño"] = "#BA76F0";
         colores["Ingenieria"] = "#6883E4";
-        
 
-        
 
-        areas.forEach(e => {
+
+
+        areas.forEach((e, index) => {
             let resultadoc = new VerResultado();
             let max = resultados.getMaximo(e.nombre);
+            let simpli = e.nombre.split(" ");
+            resultadoc.cambiarColor(colores[simpli]);
 
             resultadoc.generar(e.nombre, Math.round((e.valor * 100) / max.valor), "../../includes/iconos/arte.svg");
             $(".presultados").append(resultadoc.getElemento());
+
+            if (index == 0) {
+                document.querySelector(".pmayorresultado").append(resultadoc.felicidades());
+            }
         });
-
-        /*
- 
-         resultadoc = new VerResultado();
-         resultadoc.generar("Fuerzas Publicas", 10, "../../includes/iconos/arte.svg");
-         $(".principal").append(resultadoc.getElemento());
- */
-
-
-        /*
-                $(".porcentaje").knob({
-                    min: 0,
-                    max: 100,
-                    width: 100,
-                    height: 100,
-                    fgColor: "#FF7373",
-                    // angleOffset:0,
-                    thickness: ".4",
-                    readOnly: true,
-                    displayInput: false
-                });*/
 
         document.querySelector("#" + areas[0].nombre).classList.add("mayor");
         document.querySelector("#" + areas[1].nombre).classList.add("mayor");
@@ -126,6 +137,9 @@
         vals.forEach((v, index) => {
             let width = 80;
             let height = 80
+
+
+
             if (index < 2) {
                 v.classList.add("mayores");
                 width = 100;
