@@ -91,7 +91,8 @@ class Secuencias {
 
 }
 
-class SecuenciaElemento {
+class SecuenciaElemento implements Validable{
+    
     elemento: HTMLElement;
     contenedor:HTMLElement;
     orden: number;
@@ -139,10 +140,12 @@ class SecuenciaElemento {
         });
     }
 
+    agregarResultados(): void {
+        
+    }
+    registro(): void {
+        
+    }
+
 
 }
-
-
-
-
-

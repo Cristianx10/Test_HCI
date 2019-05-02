@@ -46,7 +46,6 @@ var Pregunta = /** @class */ (function () {
     };
     Pregunta.prototype.registro = function () {
         if (this.seleccion != null) {
-            this.seleccion.validacion();
             resultados.agregar(this.tipoId, [{ id: "pregunta", valor: this.informacion },
                 { id: "respuesta", valor: this.seleccion.informacion }]);
         }

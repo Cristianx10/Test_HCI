@@ -331,7 +331,7 @@
 
 
     let tableros = [];
-    tableros.push(new tablero_tarjetas());
+    tableros.push(new Tablero_tarjetas());
 
     tableros[0].agregar("../img/emparejados/card-1.png", 0, "../img/emparejados/card-1.png", 1);
     tableros[0].agregar("../img/emparejados/card-2.png", 2, "../img/emparejados/card-2.png", 3);
@@ -347,8 +347,18 @@
     tableros[0].incluirEn(".ptableros1");
     tableros[0].iniciar();
 
+    tableros[0].setIntentoAcierto(()=>{
+      console.log("acierto");
+    });
 
-    tableros.push(new tablero_tarjetas());
+    tableros[0].setIntentoFallo(()=>{
+      console.log("fallo");
+    });
+
+   
+
+
+    tableros.push(new Tablero_tarjetas());
 
     tableros[1].agregar("../img/emparejados/card-1.png", 0, "../img/emparejados/card-1.png", 1);
     tableros[1].agregar("../img/emparejados/card-2.png", 2, "../img/emparejados/card-2.png", 3);
@@ -364,7 +374,7 @@
     tableros[1].incluirEn(".ptableros2");
     tableros[1].iniciar();
 
-    tableros.push(new tablero_tarjetas());
+    tableros.push(new Tablero_tarjetas());
 
     tableros[2].agregar("../img/emparejados/card-1.png", 0, "../img/emparejados/card-1.png", 1);
     tableros[2].agregar("../img/emparejados/card-2.png", 2, "../img/emparejados/card-2.png", 3);
@@ -383,13 +393,14 @@
 
     tableros.forEach(t => {
       t.setValidacion(() => {
+        console.log("gano");
         seguir();
       });
     });
 
 
     /**
-     * Bloque de arrastre de pintura
+     * Bloque de arrastre de pintura-------------------------------------------------------------------------------
     */
 
 
@@ -463,6 +474,9 @@
 
     let siguiente = document.querySelector('.btn_siguiente');
 
+
+    contenedor.agregar(new Contenido(document.querySelector('.ptableros1'), tableros[0]))
+
     contenedor.agregarHTML(document.querySelector(".pinicio"));
     contenedor.agregarHTML(document.querySelector(".prelacionar"), 120)
       .setAccion(() => {
@@ -488,7 +502,7 @@
         ocultar(".zona__navegacion");
       });;
 
-    contenedor.agregar(new Contenido(document.querySelector('.ptableros1'), tableros[0]))
+    //contenedor.agregar(new Contenido(document.querySelector('.ptableros1'), tableros[0]))
 
 
     contenedor.agregar(new Contenido(document.querySelector('.ptableros2'), tableros[1]));

@@ -48,7 +48,6 @@ class Pregunta implements Validable{
 
     registro() {
         if (this.seleccion != null) {
-            this.seleccion.validacion();
             resultados.agregar(this.tipoId,
                 [{ id: "pregunta", valor: this.informacion },
                 { id: "respuesta", valor: this.seleccion.informacion }]);

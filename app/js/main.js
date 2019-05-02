@@ -50,7 +50,6 @@ var Navegable = /** @class */ (function () {
                 e.setTermino(function () {
                     if (e == _this.elementos.elementos[_this.actual]) {
                         _this.permitir = true;
-                        _this.elementos.elementos[_this.actual].agregarResultados();
                         _this.siguiente();
                         _this.permitir = false;
                     }
@@ -173,7 +172,6 @@ var Navegable = /** @class */ (function () {
                 if (this.elementos.elementos[this.actual].timer.enEjecucion) {
                     this.elementos.elementos[this.actual].timer.stop();
                 }
-                this.elementos.elementos[this.actual].agregarResultados();
                 this.actual++;
                 this.av.innerText = this.actual + 1 + "/" + this.elementos.elementos.length;
                 this.progreso.actualizarPosicion(this.actual);
@@ -199,6 +197,8 @@ var PantallaHTML = /** @class */ (function () {
         return this.elemento;
     };
     PantallaHTML.prototype.agregarResultados = function () {
+    };
+    PantallaHTML.prototype.registro = function () {
     };
     return PantallaHTML;
 }());
@@ -299,6 +299,10 @@ var Contenido = /** @class */ (function () {
         if (segundos != null) {
             this.segundos = segundos;
         }
+        this.timer.setAccionFinal(function () {
+            objeto.agregarResultados();
+            objeto.registro();
+        });
     }
     Contenido.prototype.tiempo = function (segundos) {
         this.tiempoDefinido = true;
@@ -542,3 +546,41 @@ resultados.calcularMaximo([
     {id:"pregunta2",valores:[{id:"Diseño",valor:30},{id:"Deportes",valor:5},{id:"Ingenieria",valor:0},{id:"Salud",valor:10},{id:"Educacion",valor:10},{id:"Fuerza publica",valor:0},{id:"Arte",valor:10},{id:"Ciencia",valor:5}]}
 
 ]);*/
+var Interaccion = /** @class */ (function () {
+    function Interaccion() {
+        this.aciertos = 0;
+        this.fallos = 0;
+        this.intentos = 0;
+        this.valido = true;
+        this.elemento = document.createElement('div');
+        this.tipoId = "pregunta";
+    }
+    Interaccion.prototype.setValidacion = function (validacion) {
+        this.validacion = validacion;
+    };
+    Interaccion.prototype.setIntentoFallo = function (intentoFallo) {
+        this.intentoFallo = intentoFallo;
+    };
+    Interaccion.prototype.setIntentoAcierto = function (intentoAcierto) {
+        this.intentoAcierto = intentoAcierto;
+    };
+    Interaccion.prototype.incluirEn = function (ubicacion) {
+        var u = document.querySelector(ubicacion);
+        u.append(this.elemento);
+    };
+    Interaccion.prototype.agregarResultados = function () {
+    };
+    Interaccion.prototype.registro = function () {
+        resultados.agregar(this.tipoId, [
+            { id: "aciertos", valor: this.aciertos + "" },
+            { id: "fallos", valor: this.fallos + "" },
+            { id: "intentos", valor: this.intentos + "" },
+            { id: "validacion", valor: this.valido + "" },
+        ]);
+    };
+    return Interaccion;
+}());
+/*
+this.pareja.tablero.intentos,this.pareja.tablero.aciertos,this.pareja.tablero.fallos, this.pareja.tablero.valido
+
+*/ 
