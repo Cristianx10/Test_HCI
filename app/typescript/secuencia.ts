@@ -1,21 +1,17 @@
-class Secuencias {
+class Secuencias extends Interaccion {
 
     elementos: Array<SecuenciaElemento>;
     navegable?: Navegable;
     contenedor?: Contenedor;
     agregado: number;
     actual: number;
-    validacion?: Function;
-    intentoFallo?: Function;
-    intentoAcierto?: Function;
-    elemento: HTMLElement;
-    aciertos = 0;
+
 
     constructor() {
+        super();
         this.elementos = new Array();
         this.agregado = 0;
         this.actual = 0;
-        this.elemento = document.createElement('div');
         this.elemento.className = "secuencia";
     }
 
@@ -26,7 +22,7 @@ class Secuencias {
     }
 
     terminar() {
-        if (this.navegable != null){
+        if (this.navegable != null) {
             this.navegable.siguiente();
             this.navegable.ocultarProgreso();
             this.elemento.style.display = "none";
@@ -42,7 +38,7 @@ class Secuencias {
 
         this.elementos.forEach((e: SecuenciaElemento) => {
             let ele: any = e.elemento.cloneNode();
-            if(this.contenedor != null){
+            if (this.contenedor != null) {
                 this.contenedor.agregar(new Contenido(ele, e, e.tiempo));
             }
             elementos.push(e.contenedor);
@@ -56,24 +52,13 @@ class Secuencias {
         tabla.className = "tabla";
         total.className = "tabla__secuencia";
         tabla.append(total);
-        
+
         this.contenedor.agregarHTML(tabla);
 
         this.navegable = new Navegable(this.contenedor);
-      
+
         this.navegable.permitirAll = true;
         this.contenedor.foreachElementos(this.elemento);
-    }
-
-    setValidacion(validacion: Function) {
-        this.validacion = validacion;
-    }
-    setIntentoFallo(intentoFallo: Function) {
-        this.intentoFallo = intentoFallo;
-    }
-
-    setIntentoAcierto(intentoAcierto: Function) {
-        this.intentoAcierto = intentoAcierto;
     }
 
     start() {
@@ -82,25 +67,21 @@ class Secuencias {
             this.navegable.colocarProgreso();
             this.navegable.colocarTiempo();
         }
-
     }
 
-    getElemento() {
-        return this.elemento;
-    }
 
 }
 
-class SecuenciaElemento implements Validable{
-    
-    elemento: HTMLElement;
-    contenedor:HTMLElement;
+class SecuenciaElemento extends Interaccion {
+
+    contenedor: HTMLElement;
     orden: number;
     padre: Secuencias;
     tiempo: number;
     seleccionado = false;
 
     constructor(padre: Secuencias, elemento: HTMLElement, orden: number, tiempo: number) {
+        super();
         this.padre = padre;
         this.tiempo = tiempo;
         this.contenedor = document.createElement("div");
@@ -108,30 +89,43 @@ class SecuenciaElemento implements Validable{
         this.contenedor.append(this.elemento);
         this.contenedor.className = "contenedor__imagen";
         this.orden = orden;
+        this.tipoId = "Secuencia";
 
-        this.elemento.addEventListener("click", (e:any) => {
-            let clasname =this.contenedor.className;
-          
-            if(this.seleccionado == false){
+        this.elemento.addEventListener("click", (e: any) => {
+            let clasname = this.contenedor.className;
+
+            if (this.seleccionado == false) {
 
                 this.contenedor.className = clasname + " selecionado";
                 if (this.padre.actual == this.orden) {
+                    this.padre.aciertos++;
+                    this.padre.intentos++;
+                    this.aciertos++;
                     if (this.padre.intentoAcierto != null) {
                         this.padre.intentoAcierto();
-                        this.padre.aciertos++;
                     }
                 } else {
+                    this.padre.fallos++;
+                    this.fallos++;
+                    this.padre.intentos++;
+                    this.registroOpcional();
                     if (this.padre.intentoFallo != null) {
                         this.padre.intentoFallo();
+                    
                     }
                 }
                 this.padre.actual++;
                 if (this.padre.actual >= this.padre.elementos.length) {
+
+                    let respuesta = false;
+                    if (this.padre.aciertos >= this.padre.elementos.length) {
+                        respuesta = true;
+                        this.padre.valido = true;
+                        this.valido = true;
+                        this.registroOpcional();
+                    }
+
                     if (this.padre.validacion != null) {
-                        let respuesta = false;
-                        if(this.padre.aciertos >= this.padre.elementos.length){
-                            respuesta = true;
-                        }
                         this.padre.validacion(respuesta);
                     }
                 }
@@ -140,12 +134,18 @@ class SecuenciaElemento implements Validable{
         });
     }
 
-    agregarResultados(): void {
-        
-    }
-    registro(): void {
-        
+    registroOpcional(){
+        console.log("Hola");
+        resultados.agregar(this.tipoId, [
+            { id: "aciertos", valor: this.padre.aciertos + "" },
+            { id: "fallos", valor: this.padre.fallos + "" },
+            { id: "intentos", valor: this.padre.intentos + "" },
+            { id: "validacion", valor: this.padre.valido + "" },
+        ]);
     }
 
+    registro(){
+
+    }
 
 }

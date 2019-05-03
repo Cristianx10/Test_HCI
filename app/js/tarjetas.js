@@ -40,7 +40,7 @@ var Tablero_tarjetas = /** @class */ (function (_super) {
         //shuffle(this.tarjetas);
         for (var i = 0; i < this.tarjetas.length; i++) {
             this.tarjetas[this.posiciones[i]].draggable = false;
-            this.elemento.appendChild(this.tarjetas[this.posiciones[i]]);
+            this.elemento.append(this.tarjetas[this.posiciones[i]]);
         }
     };
     Tablero_tarjetas.prototype.verificar = function () {

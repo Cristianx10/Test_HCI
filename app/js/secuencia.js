@@ -1,12 +1,26 @@
 "use strict";
-var Secuencias = /** @class */ (function () {
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Secuencias = /** @class */ (function (_super) {
+    __extends(Secuencias, _super);
     function Secuencias() {
-        this.aciertos = 0;
-        this.elementos = new Array();
-        this.agregado = 0;
-        this.actual = 0;
-        this.elemento = document.createElement('div');
-        this.elemento.className = "secuencia";
+        var _this = _super.call(this) || this;
+        _this.elementos = new Array();
+        _this.agregado = 0;
+        _this.actual = 0;
+        _this.elemento.className = "secuencia";
+        return _this;
     }
     Secuencias.prototype.agregar = function (element, tiempo) {
         var e = new SecuenciaElemento(this, element, this.agregado, tiempo);
@@ -45,15 +59,6 @@ var Secuencias = /** @class */ (function () {
         this.navegable.permitirAll = true;
         this.contenedor.foreachElementos(this.elemento);
     };
-    Secuencias.prototype.setValidacion = function (validacion) {
-        this.validacion = validacion;
-    };
-    Secuencias.prototype.setIntentoFallo = function (intentoFallo) {
-        this.intentoFallo = intentoFallo;
-    };
-    Secuencias.prototype.setIntentoAcierto = function (intentoAcierto) {
-        this.intentoAcierto = intentoAcierto;
-    };
     Secuencias.prototype.start = function () {
         if (this.navegable != null) {
             this.navegable.iniciar();
@@ -61,54 +66,70 @@ var Secuencias = /** @class */ (function () {
             this.navegable.colocarTiempo();
         }
     };
-    Secuencias.prototype.getElemento = function () {
-        return this.elemento;
-    };
     return Secuencias;
-}());
-var SecuenciaElemento = /** @class */ (function () {
+}(Interaccion));
+var SecuenciaElemento = /** @class */ (function (_super) {
+    __extends(SecuenciaElemento, _super);
     function SecuenciaElemento(padre, elemento, orden, tiempo) {
-        var _this = this;
-        this.seleccionado = false;
-        this.padre = padre;
-        this.tiempo = tiempo;
-        this.contenedor = document.createElement("div");
-        this.elemento = elemento;
-        this.contenedor.append(this.elemento);
-        this.contenedor.className = "contenedor__imagen";
-        this.orden = orden;
-        this.elemento.addEventListener("click", function (e) {
+        var _this = _super.call(this) || this;
+        _this.seleccionado = false;
+        _this.padre = padre;
+        _this.tiempo = tiempo;
+        _this.contenedor = document.createElement("div");
+        _this.elemento = elemento;
+        _this.contenedor.append(_this.elemento);
+        _this.contenedor.className = "contenedor__imagen";
+        _this.orden = orden;
+        _this.tipoId = "Secuencia";
+        _this.elemento.addEventListener("click", function (e) {
             var clasname = _this.contenedor.className;
             if (_this.seleccionado == false) {
                 _this.contenedor.className = clasname + " selecionado";
                 if (_this.padre.actual == _this.orden) {
+                    _this.padre.aciertos++;
+                    _this.padre.intentos++;
+                    _this.aciertos++;
                     if (_this.padre.intentoAcierto != null) {
                         _this.padre.intentoAcierto();
-                        _this.padre.aciertos++;
                     }
                 }
                 else {
+                    _this.padre.fallos++;
+                    _this.fallos++;
+                    _this.padre.intentos++;
+                    _this.registroOpcional();
                     if (_this.padre.intentoFallo != null) {
                         _this.padre.intentoFallo();
                     }
                 }
                 _this.padre.actual++;
                 if (_this.padre.actual >= _this.padre.elementos.length) {
+                    var respuesta = false;
+                    if (_this.padre.aciertos >= _this.padre.elementos.length) {
+                        respuesta = true;
+                        _this.padre.valido = true;
+                        _this.valido = true;
+                        _this.registroOpcional();
+                    }
                     if (_this.padre.validacion != null) {
-                        var respuesta = false;
-                        if (_this.padre.aciertos >= _this.padre.elementos.length) {
-                            respuesta = true;
-                        }
                         _this.padre.validacion(respuesta);
                     }
                 }
             }
             _this.seleccionado = true;
         });
+        return _this;
     }
-    SecuenciaElemento.prototype.agregarResultados = function () {
+    SecuenciaElemento.prototype.registroOpcional = function () {
+        console.log("Hola");
+        resultados.agregar(this.tipoId, [
+            { id: "aciertos", valor: this.padre.aciertos + "" },
+            { id: "fallos", valor: this.padre.fallos + "" },
+            { id: "intentos", valor: this.padre.intentos + "" },
+            { id: "validacion", valor: this.padre.valido + "" },
+        ]);
     };
     SecuenciaElemento.prototype.registro = function () {
     };
     return SecuenciaElemento;
-}());
+}(Interaccion));

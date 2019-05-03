@@ -290,6 +290,7 @@ class Contenedor {
         elemetos.forEach((e) => {
             if (tiempo != null) {
                 e.tiempo(tiempo);
+                e.ocultar();
             }
             this.elementos.push(e)
         });
@@ -299,6 +300,7 @@ class Contenedor {
         if (tiempo != null) {
             elemeto.tiempo(tiempo);
         }
+        elemeto.ocultar();
         this.elementos.push(elemeto)
         return elemeto;
     }
@@ -307,10 +309,12 @@ class Contenedor {
         let e = new PantallaHTML(elemeto);
         if (tiempo != null) {
             let c = new Contenido(elemeto, e, tiempo);
+            c.ocultar();
             this.elementos.push(c);
             return c;
         } else {
             let c = new Contenido(elemeto, e);
+            c.ocultar();
             this.elementos.push(c);
             return c;
         }
@@ -322,12 +326,14 @@ class Contenedor {
             elemetos.forEach((ele) => {
                 let e = new PantallaHTML(ele);
                 let c = new Contenido(ele, e, tiempo);
+                c.ocultar();
                 this.elementos.push(c);
             });
         } else {
             elemetos.forEach((ele) => {
                 let e = new PantallaHTML(ele);
                 let c = new Contenido(ele, e);
+                c.ocultar();
                 this.elementos.push(c);
             });
         }
@@ -387,7 +393,7 @@ class Contenido {
     constructor(elementoHTML: HTMLElement, objeto: Validable, segundos?: number) {
         this.elementoHTML = elementoHTML;
       
-        this.elementoHTML.style.display = "none";
+     
         this.objeto = objeto;
         this.timer = new Timer();
         this.tiempoDefinido = false;
@@ -399,6 +405,14 @@ class Contenido {
             objeto.agregarResultados();
             objeto.registro();
         });
+    }
+
+    mostrar(){
+        this.elementoHTML.style.display = "flex";
+    }
+
+    ocultar(){
+        this.elementoHTML.style.display = "none";
     }
 
     tiempo(segundos?: number) {
@@ -532,7 +546,7 @@ function cargarImagen(url: string, width: number, height: number, columnas: numb
             f -= height;
         }
 
-        contenedor.appendChild(fragmentoImg);
+        contenedor.append(fragmentoImg);
         imagenes.push(contenedor);
     }
 
@@ -776,17 +790,18 @@ resultados.calcularMaximo([
 
 
 class Interaccion implements Validable {
-
+    
+    elemento: HTMLElement;
+    
     aciertos: number;
     fallos: number;
     intentos: number;
     valido: boolean;
-
+    
     validacion?: Function;
     intentoFallo?: Function;
     intentoAcierto?: Function;
-    elemento: HTMLElement;
-
+    
     tipoId: string;
     contenido:Contenido;
 
@@ -798,6 +813,7 @@ class Interaccion implements Validable {
         this.elemento = document.createElement('div');
         this.tipoId = "pregunta";
         this.contenido = new Contenido(this.elemento, this);
+   
     }
 
     setValidacion(validacion: Function) {
@@ -816,6 +832,10 @@ class Interaccion implements Validable {
         u.append(this.elemento);
     }
 
+    getElemento(){
+        return this.elemento;
+    }
+
     getActividad(){
         return this.contenido;
     }
@@ -825,6 +845,7 @@ class Interaccion implements Validable {
     }
 
     registro() {
+        console.log("Hola");
         resultados.agregar(this.tipoId, [
             { id: "aciertos", valor: this.aciertos + "" },
             { id: "fallos", valor: this.fallos + "" },

@@ -218,6 +218,7 @@ var Contenedor = /** @class */ (function () {
         elemetos.forEach(function (e) {
             if (tiempo != null) {
                 e.tiempo(tiempo);
+                e.ocultar();
             }
             _this.elementos.push(e);
         });
@@ -226,6 +227,7 @@ var Contenedor = /** @class */ (function () {
         if (tiempo != null) {
             elemeto.tiempo(tiempo);
         }
+        elemeto.ocultar();
         this.elementos.push(elemeto);
         return elemeto;
     };
@@ -233,11 +235,13 @@ var Contenedor = /** @class */ (function () {
         var e = new PantallaHTML(elemeto);
         if (tiempo != null) {
             var c = new Contenido(elemeto, e, tiempo);
+            c.ocultar();
             this.elementos.push(c);
             return c;
         }
         else {
             var c = new Contenido(elemeto, e);
+            c.ocultar();
             this.elementos.push(c);
             return c;
         }
@@ -248,6 +252,7 @@ var Contenedor = /** @class */ (function () {
             elemetos.forEach(function (ele) {
                 var e = new PantallaHTML(ele);
                 var c = new Contenido(ele, e, tiempo);
+                c.ocultar();
                 _this.elementos.push(c);
             });
         }
@@ -255,6 +260,7 @@ var Contenedor = /** @class */ (function () {
             elemetos.forEach(function (ele) {
                 var e = new PantallaHTML(ele);
                 var c = new Contenido(ele, e);
+                c.ocultar();
                 _this.elementos.push(c);
             });
         }
@@ -290,7 +296,6 @@ var Contenedor = /** @class */ (function () {
 var Contenido = /** @class */ (function () {
     function Contenido(elementoHTML, objeto, segundos) {
         this.elementoHTML = elementoHTML;
-        this.elementoHTML.style.display = "none";
         this.objeto = objeto;
         this.timer = new Timer();
         this.tiempoDefinido = false;
@@ -302,6 +307,12 @@ var Contenido = /** @class */ (function () {
             objeto.registro();
         });
     }
+    Contenido.prototype.mostrar = function () {
+        this.elementoHTML.style.display = "flex";
+    };
+    Contenido.prototype.ocultar = function () {
+        this.elementoHTML.style.display = "none";
+    };
     Contenido.prototype.tiempo = function (segundos) {
         this.segundos = segundos;
     };
@@ -402,7 +413,7 @@ function cargarImagen(url, width, height, columnas, filas) {
             c = -1;
             f -= height;
         }
-        contenedor.appendChild(fragmentoImg);
+        contenedor.append(fragmentoImg);
         imagenes.push(contenedor);
     }
     return imagenes;
@@ -571,12 +582,16 @@ var Interaccion = /** @class */ (function () {
         var u = document.querySelector(ubicacion);
         u.append(this.elemento);
     };
+    Interaccion.prototype.getElemento = function () {
+        return this.elemento;
+    };
     Interaccion.prototype.getActividad = function () {
         return this.contenido;
     };
     Interaccion.prototype.agregarResultados = function () {
     };
     Interaccion.prototype.registro = function () {
+        console.log("Hola");
         resultados.agregar(this.tipoId, [
             { id: "aciertos", valor: this.aciertos + "" },
             { id: "fallos", valor: this.fallos + "" },
