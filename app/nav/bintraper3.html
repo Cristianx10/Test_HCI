@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Test Interactivo</title>
+  <link rel="shortcut icon" href="../includes/img/favicon.png" type="image/x-icon" />
+  <link rel="stylesheet" href="../sass/general/main.css" />
+  <link href="../sass/tipographys/tipografias.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+
+  <link rel="stylesheet" href="../sass/aplicaciones/targetas.css" />
+
+</head>
+
+<body>
+  <div class="cont-principal" style="background-image: url('../img/background_principal-2.png')">
+    <div class="principal" onselectstart="return false">
+
+      <div class="pantalla ppreguntas">
+
+        <div class="pantalla pinicio" style="background-image: url('../img/background_principal-2.png')">
+          <div class="introduccion">
+            <h1 class="titulo">Inteligencia Intrapersonal 3</h1>
+            <p id="desc" class="descripcion">En esta sección de la prueba evaluaremos tus conocimientos en el area
+              Intrapersonal</p>
+            <button class="botonComenzar" onclick="seguir()">Comenzar</button>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="zona__navegacion" style="display:none;">
+        <button class="btn_siguiente" style="text-align:center;" disabled onclick="seguir()">Siguiente</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!--Codigo de precarga -->
+  <script src="../lib/jquery.js"></script>
+  <script src="../lib/jquery-ui.min.js"></script>
+  <!--
+  <script src="../lib//colorMixer.js"></script>
+ 
+  <script src="../lib/jquery.svg.js"></script>
+  <script src="../lib/jquery.knob.js"></script>
+  <script src="../lib/preloadjs.js"></script>
+  
+  <script src="../lib/tweenjs.js"></script>
+  -->
+
+  <script src="../lib/easeljs.js"></script>
+  <script src="../../js/compuestos.js"></script>
+  <script src="../lib/soundjs.js"></script>
+  <script src="../js/timer.js"></script>
+  <script src="../js/resultados.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/pregunta.js"></script>
+
+  <!--Interacciones complejas-->
+  <script src="../js/tarjetas.js"></script>
+  <script src="../js/reciclaje.js"></script>
+
+  <script type="text/javascript">
+
+    $(document).ready(function () {
+
+      // irA("./formulario.html");
+
+
+    });
+
+
+    $('.cont-principal').css("background-image", "url('../img/background-claro.png')");
+
+
+    let contenedor = new Contenedor();
+    let navegacion = new Navegable(contenedor);
+
+    var preguntas = [];
+
+    let temp__pregunta = new PreguntaD("¿Cuántas veces he peleado físicamente con algún compañero del colegio?", "Ninguna", "3 veces o más")
+    temp__pregunta.agregar("1", []);
+    temp__pregunta.agregar("2", []);
+    temp__pregunta.agregar("3", []);
+    preguntas.push(temp__pregunta);
+
+    temp__pregunta = new PreguntaD("¿En el último año cuántas veces has evaluado tu progreso en el hobby que más te gusta?", "Ninguna vez", "Más de 2 veces");
+    temp__pregunta.agregar("1", []);
+    temp__pregunta.agregar("2", []);
+    temp__pregunta.agregar("3", []);
+    preguntas.push(temp__pregunta);
+
+    temp__pregunta = new PreguntaD("Me considero una persona amigable ", "Totalmente de acuerdo", "En desacuerdo")
+    temp__pregunta.agregar("1", []);
+    temp__pregunta.agregar("2", []);
+    temp__pregunta.agregar("3", []);
+    preguntas.push(temp__pregunta);
+
+    temp__pregunta = new PreguntaD("Me considero una persona empatica", "Totalmente de acuerdo", "En desacuerdo")
+    temp__pregunta.agregar("1", []);
+    temp__pregunta.agregar("2", []);
+    temp__pregunta.agregar("3", []);
+    preguntas.push(temp__pregunta);
+
+
+    contenedor.agregarHTML(document.querySelector('.pinicio'));
+
+    shuffle(preguntas);
+
+    preguntas.forEach(p => {
+      contenedor.agregar(p.getPregunta(), 40);
+    });
+
+    var siguiente = document.querySelector('.btn_siguiente');
+
+    contenedor.incluirEn(document.querySelector(".ppreguntas"));
+    navegacion.iniciar();
+
+    ocultar(".zona__navegacion");
+
+    function seguir() {
+      navegacion.setPermitir(true);
+      navegacion.siguiente();
+      mostrar(".zona__navegacion");
+      siguiente.disabled = false;
+
+    }
+
+
+    $(".opcion_check").click(() => {
+      siguiente.disabled = false;
+    });
+
+
+  </script>
+
+
+</body>
+
+</html>
