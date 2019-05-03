@@ -106,5 +106,9 @@ var SecuenciaElemento = /** @class */ (function () {
             _this.seleccionado = true;
         });
     }
+    SecuenciaElemento.prototype.agregarResultados = function () {
+    };
+    SecuenciaElemento.prototype.registro = function () {
+    };
     return SecuenciaElemento;
 }());

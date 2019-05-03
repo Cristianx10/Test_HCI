@@ -12,10 +12,6 @@ function shuffle(array: any) {
     array.sort(function () { return Math.random() - 0.5; });
 }
 
-
-
-
-
 class Navegable {
 
     elementos: Contenedor;
@@ -74,9 +70,9 @@ class Navegable {
 
             this.elementos.elementos.forEach(e => {
                 e.setTermino(() => {
-                    if (e == this.elementos.elementos[this.actual]) {
+                    if (e == this.actualPantalla() && this.actualPantalla().tiempoDefinido == false) {
                         this.permitir = true;
-                        this.elementos.elementos[this.actual].agregarResultados();
+                     
                         this.siguiente();
                         this.permitir = false;
 
@@ -218,7 +214,7 @@ class Navegable {
     }
 
     siguiente(): void {
-
+    
         if (this.permitir || this.permitirAll) {
 
             this.ocultar(this.actualPantallaHtml());
@@ -227,17 +223,14 @@ class Navegable {
                     this.inicio(this.actualPantalla(), this.actual);
                 }
                 this.actualPantalla().tiempoDefinido = true;
-
-                if (this.elementos.elementos[this.actual].timer.enEjecucion) {
-                    this.elementos.elementos[this.actual].timer.stop();
-                }
-
-                this.elementos.elementos[this.actual].agregarResultados();
+                this.actualPantalla().timer.stop();
 
                 this.actual++;
                 this.av.innerText = this.actual + 1 + "/" + this.elementos.elementos.length;
                 this.progreso.actualizarPosicion(this.actual);
                 this.mostrar(this.actualPantallaHtml());
+        
+               
                 this.actualPantalla().start();
             } else {
                 this.progreso.actualizarPosicion(this.actual + 1);
@@ -250,8 +243,8 @@ class Navegable {
     }
 }
 
-class PantallaHTML implements Validable{
-    
+class PantallaHTML implements Validable {
+
     elemento: HTMLElement;
 
     constructor(elemento: HTMLElement) {
@@ -263,6 +256,10 @@ class PantallaHTML implements Validable{
     }
 
     agregarResultados(): void {
+
+    }
+
+    registro() {
 
     }
 }
@@ -280,8 +277,6 @@ function toPantallas(pantallas: Array<HTMLElement>) {
 }
 
 
-
-
 class Contenedor {
 
     elementos: Array<Contenido>;
@@ -291,7 +286,7 @@ class Contenedor {
     }
 
     agregarAll(elemetos: Array<Contenido>, tiempo?: number) {
-        
+
         elemetos.forEach((e) => {
             if (tiempo != null) {
                 e.tiempo(tiempo);
@@ -349,7 +344,7 @@ class Contenedor {
 
     incluirEn(elemento: HTMLElement) {
         this.elementos.forEach(e => {
-            
+
             elemento.append(e.elementoHTML);
         });
     }
@@ -376,10 +371,11 @@ class Contenedor {
 }
 
 interface Validable {
-    agregarResultados():void;
+    agregarResultados(): void;
+    registro(): void;
 }
 
-class Contenido{
+class Contenido {
 
     objeto: Validable;
     elementoHTML: HTMLElement;
@@ -390,6 +386,7 @@ class Contenido{
 
     constructor(elementoHTML: HTMLElement, objeto: Validable, segundos?: number) {
         this.elementoHTML = elementoHTML;
+      
         this.elementoHTML.style.display = "none";
         this.objeto = objeto;
         this.timer = new Timer();
@@ -397,10 +394,14 @@ class Contenido{
         if (segundos != null) {
             this.segundos = segundos;
         }
+
+        this.setAccionFinal(() => {
+            objeto.agregarResultados();
+            objeto.registro();
+        });
     }
 
     tiempo(segundos?: number) {
-        this.tiempoDefinido = true;
         this.segundos = segundos;
     }
 
@@ -421,21 +422,27 @@ class Contenido{
 
     setAccion(accion: Function) {
         this.accion = accion;
+        return this;
     }
 
     setTermino(termino: Function) {
         this.timer.termino = termino;
+        return this;
+    }
+
+    setAccionFinal(accionFinal: Function) {
+        this.timer.accionFinal = accionFinal;
     }
 
     getElementoHTML() {
         return this.elementoHTML;
     }
 
-    agregarResultados(){
+    agregarResultados() {
         this.objeto.agregarResultados();
     }
 
-    getObjeto(){
+    getObjeto() {
         return this.objeto;
     }
 
@@ -732,20 +739,8 @@ setValidacion(validacion:Function){
 */
 
 
-/*
-  let e = ()=>{
-            console.log("Finalizo");
-    };
-        createjs.Ticker.addEventListener("tick", e);
-        createjs.Ticker.removeEventListener("tick", e);
 
 
-        $( "p" ).addClass( "myClass yourClass" );
-This method is often used with .removeClass() to switch elements' classes from one to another, like so:
-
-1
-$( "p" ).removeClass( "myClass noClass" ).addClass( "yourClass" );
-*/
 
 interface ResultadoA {
     area: string;
@@ -780,3 +775,66 @@ resultados.calcularMaximo([
 ]);*/
 
 
+class Interaccion implements Validable {
+
+    aciertos: number;
+    fallos: number;
+    intentos: number;
+    valido: boolean;
+
+    validacion?: Function;
+    intentoFallo?: Function;
+    intentoAcierto?: Function;
+    elemento: HTMLElement;
+
+    tipoId: string;
+    contenido:Contenido;
+
+    constructor() {
+        this.aciertos = 0;
+        this.fallos = 0;
+        this.intentos = 0;
+        this.valido = true;
+        this.elemento = document.createElement('div');
+        this.tipoId = "pregunta";
+        this.contenido = new Contenido(this.elemento, this);
+    }
+
+    setValidacion(validacion: Function) {
+        this.validacion = validacion;
+    }
+    setIntentoFallo(intentoFallo: Function) {
+        this.intentoFallo = intentoFallo;
+    }
+
+    setIntentoAcierto(intentoAcierto: Function) {
+        this.intentoAcierto = intentoAcierto;
+    }
+
+    incluirEn(ubicacion: string) {
+        let u: HTMLElement = <HTMLElement>document.querySelector(ubicacion);
+        u.append(this.elemento);
+    }
+
+    getActividad(){
+        return this.contenido;
+    }
+
+    agregarResultados(): void {
+
+    }
+
+    registro() {
+        resultados.agregar(this.tipoId, [
+            { id: "aciertos", valor: this.aciertos + "" },
+            { id: "fallos", valor: this.fallos + "" },
+            { id: "intentos", valor: this.intentos + "" },
+            { id: "validacion", valor: this.valido + "" },
+        ]);
+    }
+}
+
+/*
+this.pareja.tablero.intentos,this.pareja.tablero.aciertos,this.pareja.tablero.fallos, this.pareja.tablero.valido
+
+*/

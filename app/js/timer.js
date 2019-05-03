@@ -1,6 +1,7 @@
 "use strict";
 var Timer = /** @class */ (function () {
     function Timer() {
+        this.terminado = false;
         this.time = 0;
         this.horas = 0;
         this.minutos = 0;
@@ -40,12 +41,15 @@ var Timer = /** @class */ (function () {
         }, 10);
     };
     Timer.prototype.stop = function () {
-        clearInterval(this.intervalo);
-        if (this.termino != null && this.enEjecucion == false) {
-            this.termino();
-        }
-        else {
-            this.enEjecucion = false;
+        if (this.terminado == false) {
+            this.terminado = true;
+            clearInterval(this.intervalo);
+            if (this.termino != null) {
+                this.termino();
+            }
+            if (this.accionFinal != null) {
+                this.accionFinal();
+            }
         }
         //console.log("Hora:" + this.horas + " Minutos: " + this.minutos + " Segundos: "+ this.segundos + " Millis: " + this.milisegundos + " Total: " +this.time);
     };
@@ -102,6 +106,9 @@ var Timer = /** @class */ (function () {
     };
     Timer.prototype.setTermino = function (ter) {
         this.termino = ter;
+    };
+    Timer.prototype.setAccionFinal = function (accionFinal) {
+        this.accionFinal = accionFinal;
     };
     return Timer;
 }());

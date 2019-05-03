@@ -90,18 +90,9 @@
         let areas = resultados.getAreas(["Diseño", "Deportes", "Ingenieria", "Salud", "Educacion", "Fuerza publica", "Arte", "Ciencia"]);
         let maximos = resultados.getAreasMaximo(["Diseño", "Deportes", "Ingenieria", "Salud", "Educacion", "Fuerza publica", "Arte", "Ciencia"]);
 
-        areas.sort((a, b) => {
-            if (a.valor > b.valor) {
-                return -1;
-            }
-            if (a.valor < b.valor) {
-                return 1;
-            }
-            return 0;
-        });
 
         let colores = {};
-        colores["Ciencias"] = "#63D1B7";
+        colores["Ciencia"] = "#63D1B7";
         colores["Arte"] = "#EF6BAA";
         colores["Fuerza"] = "#FF7373";
         colores["Educacion"] = "#5BC5D3";
@@ -111,24 +102,55 @@
         colores["Ingenieria"] = "#6883E4";
 
 
+        let iconos = {};
+        iconos["Ciencia"] = "../includes/iconos/ciencias.svg";
+        iconos["Arte"] = "../includes/iconos/arte.svg";
+        iconos["Fuerza"] = "../includes/iconos/fuerzaspublicas.svg";
+        iconos["Educacion"] = "../includes/iconos/educacion.svg";
+        iconos["Deportes"] = "../includes/iconos/deporte.svg";
+        iconos["Salud"] = "../includes/iconos/salud.svg";
+        iconos["Diseño"] = "../includes/iconos/diseno.svg";
+        iconos["Ingenieria"] = "../includes/iconos/ingenieria.svg";
+
+
+        areas.forEach((a)=>{
+            let max = resultados.getMaximo(a.nombre);
+            let simpli = a.nombre.split(" ");
+            a.porcentaje = Math.round((a.valor * 100) / max.valor);
+            a.color = colores[simpli[0]];
+            a.icono = iconos[simpli[0]];
+        });
+
+
+
+        areas.sort((a, b) => {
+            if (a.porcentaje > b.porcentaje) {
+                return -1;
+            }
+            if (a.porcentaje < b.porcentaje) {
+                return 1;
+            }
+            return 0;
+        });
+
 
 
         areas.forEach((e, index) => {
-            let resultadoc = new VerResultado();
-            let max = resultados.getMaximo(e.nombre);
-            let simpli = e.nombre.split(" ");
-            resultadoc.cambiarColor(colores[simpli]);
 
-            resultadoc.generar(e.nombre, Math.round((e.valor * 100) / max.valor), "../../includes/iconos/arte.svg");
+            let resultadoc = new VerResultado();
+           
+            resultadoc.cambiarColor(e.color);
+
+            resultadoc.generar(e.nombre, e.porcentaje, e.icono);
+
             $(".presultados").append(resultadoc.getElemento());
 
             if (index == 0) {
                 document.querySelector(".pmayorresultado").append(resultadoc.felicidades());
             }
         });
+   
 
-        document.querySelector("#" + areas[0].nombre).classList.add("mayor");
-        document.querySelector("#" + areas[1].nombre).classList.add("mayor");
 
         let vals = document.querySelectorAll(".resultado__cuadro");
         vals[0].classList.add("mayores");
@@ -155,13 +177,13 @@
                 height: height,
                 fgColor: colores[simpli[0]],
                 // angleOffset:0,
-                thickness: ".4",
+                thickness: ".25",
                 readOnly: true,
                 displayInput: false
             });
 
         });
-
+  
 
 
     </script>
