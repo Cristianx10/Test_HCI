@@ -72,7 +72,7 @@ class Navegable {
                 e.setTermino(() => {
                     if (e == this.actualPantalla() && this.actualPantalla().tiempoDefinido == false) {
                         this.permitir = true;
-                     
+
                         this.siguiente();
                         this.permitir = false;
 
@@ -214,7 +214,7 @@ class Navegable {
     }
 
     siguiente(): void {
-    
+
         if (this.permitir || this.permitirAll) {
 
             this.ocultar(this.actualPantallaHtml());
@@ -229,8 +229,8 @@ class Navegable {
                 this.av.innerText = this.actual + 1 + "/" + this.elementos.elementos.length;
                 this.progreso.actualizarPosicion(this.actual);
                 this.mostrar(this.actualPantallaHtml());
-        
-               
+
+
                 this.actualPantalla().start();
             } else {
                 this.progreso.actualizarPosicion(this.actual + 1);
@@ -251,16 +251,16 @@ class PantallaHTML implements Validable {
         this.elemento = elemento;
     }
 
-    getElemento() {
-        return this.elemento;
-    }
-
     agregarResultados(): void {
 
     }
 
     registro() {
 
+    }
+
+    getElemento() {
+        return this.elemento;
     }
 }
 
@@ -302,6 +302,7 @@ class Contenedor {
         }
         elemeto.ocultar();
         this.elementos.push(elemeto)
+    
         return elemeto;
     }
 
@@ -350,7 +351,6 @@ class Contenedor {
 
     incluirEn(elemento: HTMLElement) {
         this.elementos.forEach(e => {
-
             elemento.append(e.elementoHTML);
         });
     }
@@ -392,8 +392,6 @@ class Contenido {
 
     constructor(elementoHTML: HTMLElement, objeto: Validable, segundos?: number) {
         this.elementoHTML = elementoHTML;
-      
-     
         this.objeto = objeto;
         this.timer = new Timer();
         this.tiempoDefinido = false;
@@ -407,11 +405,11 @@ class Contenido {
         });
     }
 
-    mostrar(){
+    mostrar() {
         this.elementoHTML.style.display = "flex";
     }
 
-    ocultar(){
+    ocultar() {
         this.elementoHTML.style.display = "none";
     }
 
@@ -423,9 +421,9 @@ class Contenido {
         if (this.accion != null) {
             this.accion(this.objeto);
         }
+
         if (this.segundos != null) {
             this.timer.startTempo(this.segundos);
-
         }
 
     }
@@ -458,6 +456,10 @@ class Contenido {
 
     getObjeto() {
         return this.objeto;
+    }
+
+    getSegundos(){
+        return this.timer.getTiempo();
     }
 
 }
@@ -752,10 +754,6 @@ setValidacion(validacion:Function){
 
 */
 
-
-
-
-
 interface ResultadoA {
     area: string;
     valor: number;
@@ -790,20 +788,20 @@ resultados.calcularMaximo([
 
 
 class Interaccion implements Validable {
-    
+
     elemento: HTMLElement;
-    
+
     aciertos: number;
     fallos: number;
     intentos: number;
     valido: boolean;
-    
+
     validacion?: Function;
     intentoFallo?: Function;
     intentoAcierto?: Function;
-    
+
     tipoId: string;
-    contenido:Contenido;
+    contenido: Contenido;
 
     constructor() {
         this.aciertos = 0;
@@ -813,7 +811,7 @@ class Interaccion implements Validable {
         this.elemento = document.createElement('div');
         this.tipoId = "pregunta";
         this.contenido = new Contenido(this.elemento, this);
-   
+
     }
 
     setValidacion(validacion: Function) {
@@ -832,12 +830,99 @@ class Interaccion implements Validable {
         u.append(this.elemento);
     }
 
-    getElemento(){
+    getElemento() {
         return this.elemento;
     }
 
-    getActividad(){
+    getActividad() {
         return this.contenido;
+    }
+
+    agregarResultados(): void {
+
+    }
+
+    registro() {
+        console.log("Hola");
+        resultados.agregar(this.tipoId, [
+            { id: "aciertos", valor: this.aciertos + "" },
+            { id: "fallos", valor: this.fallos + "" },
+            { id: "intentos", valor: this.intentos + "" },
+            { id: "validacion", valor: this.valido + "" },
+            { id: "Tiempo usado (segundos)", valor: this.contenido.getSegundos() + "" }
+        ]);
+    }
+}
+
+class Actividad implements Validable {
+
+    stage: createjs.Stage;
+    contenedor:createjs.Container;
+    canvas: HTMLCanvasElement;
+    elemento: HTMLElement;
+
+    aciertos: number;
+    fallos: number;
+    intentos: number;
+    valido: boolean;
+
+    validacion?: Function;
+    intentoFallo?: Function;
+    intentoAcierto?: Function;
+
+    tipoId: string;
+    contenido: Contenido;
+   
+
+    constructor() {
+        this.canvas = document.createElement("canvas");
+        this.stage = new createjs.Stage(this.canvas);
+        this.contenedor = new createjs.Container();
+        this.stage.addChild(this.contenedor);
+        this.elemento = document.createElement('div');
+        this.elemento.append(this.canvas);
+        this.aciertos = 0;
+        this.fallos = 0;
+        this.intentos = 0;
+        this.valido = true;
+        this.tipoId = "Interaccion";
+        this.contenido = new Contenido(this.elemento, this);
+    }
+
+    update() {
+
+        this.stage.update();
+
+    }
+
+    size(width: number, height: number) {
+        this.canvas.width = width;
+        this.canvas.height = height;
+    }
+
+    incluirEn(lugar: string) {
+        let e: HTMLElement = <HTMLElement>document.querySelector(lugar);
+        e.append(this.elemento);
+
+    }
+
+    setValidacion(validacion: Function) {
+        this.validacion = validacion;
+    }
+
+    setIntentoFallo(intentoFallo: Function) {
+        this.intentoFallo = intentoFallo;
+    }
+
+    setIntentoAcierto(intentoAcierto: Function) {
+        this.intentoAcierto = intentoAcierto;
+    }
+
+    getElemento(id?: string) {
+        if (id != null) {
+            this.elemento.id = id;
+        }
+        return this.elemento;
     }
 
     agregarResultados(): void {
@@ -854,6 +939,7 @@ class Interaccion implements Validable {
         ]);
     }
 }
+
 
 /*
 this.pareja.tablero.intentos,this.pareja.tablero.aciertos,this.pareja.tablero.fallos, this.pareja.tablero.valido

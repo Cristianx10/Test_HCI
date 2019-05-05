@@ -191,12 +191,12 @@ var PantallaHTML = /** @class */ (function () {
     function PantallaHTML(elemento) {
         this.elemento = elemento;
     }
-    PantallaHTML.prototype.getElemento = function () {
-        return this.elemento;
-    };
     PantallaHTML.prototype.agregarResultados = function () {
     };
     PantallaHTML.prototype.registro = function () {
+    };
+    PantallaHTML.prototype.getElemento = function () {
+        return this.elemento;
     };
     return PantallaHTML;
 }());
@@ -346,6 +346,9 @@ var Contenido = /** @class */ (function () {
     };
     Contenido.prototype.getObjeto = function () {
         return this.objeto;
+    };
+    Contenido.prototype.getSegundos = function () {
+        return this.timer.getTiempo();
     };
     return Contenido;
 }());
@@ -597,9 +600,64 @@ var Interaccion = /** @class */ (function () {
             { id: "fallos", valor: this.fallos + "" },
             { id: "intentos", valor: this.intentos + "" },
             { id: "validacion", valor: this.valido + "" },
+            { id: "Tiempo usado (segundos)", valor: this.contenido.getSegundos() + "" }
         ]);
     };
     return Interaccion;
+}());
+var Actividad = /** @class */ (function () {
+    function Actividad() {
+        this.canvas = document.createElement("canvas");
+        this.stage = new createjs.Stage(this.canvas);
+        this.contenedor = new createjs.Container();
+        this.stage.addChild(this.contenedor);
+        this.elemento = document.createElement('div');
+        this.elemento.append(this.canvas);
+        this.aciertos = 0;
+        this.fallos = 0;
+        this.intentos = 0;
+        this.valido = true;
+        this.tipoId = "Interaccion";
+        this.contenido = new Contenido(this.elemento, this);
+    }
+    Actividad.prototype.update = function () {
+        this.stage.update();
+    };
+    Actividad.prototype.size = function (width, height) {
+        this.canvas.width = width;
+        this.canvas.height = height;
+    };
+    Actividad.prototype.incluirEn = function (lugar) {
+        var e = document.querySelector(lugar);
+        e.append(this.elemento);
+    };
+    Actividad.prototype.setValidacion = function (validacion) {
+        this.validacion = validacion;
+    };
+    Actividad.prototype.setIntentoFallo = function (intentoFallo) {
+        this.intentoFallo = intentoFallo;
+    };
+    Actividad.prototype.setIntentoAcierto = function (intentoAcierto) {
+        this.intentoAcierto = intentoAcierto;
+    };
+    Actividad.prototype.getElemento = function (id) {
+        if (id != null) {
+            this.elemento.id = id;
+        }
+        return this.elemento;
+    };
+    Actividad.prototype.agregarResultados = function () {
+    };
+    Actividad.prototype.registro = function () {
+        console.log("Hola");
+        resultados.agregar(this.tipoId, [
+            { id: "aciertos", valor: this.aciertos + "" },
+            { id: "fallos", valor: this.fallos + "" },
+            { id: "intentos", valor: this.intentos + "" },
+            { id: "validacion", valor: this.valido + "" },
+        ]);
+    };
+    return Actividad;
 }());
 /*
 this.pareja.tablero.intentos,this.pareja.tablero.aciertos,this.pareja.tablero.fallos, this.pareja.tablero.valido

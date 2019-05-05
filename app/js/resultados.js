@@ -31,6 +31,7 @@ var Resultados = /** @class */ (function () {
             this.pruebas.push({ id: id, pruebas: prueba });
         }
         this.save();
+        //console.log({ id: id, pruebas: prueba });
     };
     Resultados.prototype.getAreas = function (areas) {
         var areasArray = [];
@@ -93,6 +94,7 @@ var Resultados = /** @class */ (function () {
             }
         }
         this.save();
+        //console.log({ nombre: nombre, valor: valor });
     };
     Resultados.prototype.calcularMaximo = function (valores) {
         var valorTotal = [];
@@ -132,6 +134,7 @@ var Resultados = /** @class */ (function () {
                 }
                 else {
                     this_1.maximos.push({ area: v.area, valor: v.valor });
+                    // console.log({ area: v.area, valor: v.valor });
                 }
             }
         };

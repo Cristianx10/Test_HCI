@@ -1,27 +1,52 @@
 "use strict";
-var Tablero_Crelacion = /** @class */ (function () {
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Tablero_Crelacion = /** @class */ (function (_super) {
+    __extends(Tablero_Crelacion, _super);
     function Tablero_Crelacion() {
-        var _this = this;
-        this.canvas = document.createElement('canvas');
-        this.stage = new createjs.Stage(this.canvas);
-        this.baseA = new Tablero_Cbase(this);
-        this.baseA.contenedor.x = 5;
-        this.baseA.contenedor.y = 5;
-        this.baseB = new Tablero_Cbase(this);
-        this.baseB.contenedor.x = 5;
-        this.baseB.contenedor.y = 5;
-        this.baseA.setOrientacion(true);
-        this.baseB.setOrientacion(false);
-        this.stage.update();
-        this.intentos = 0;
-        this.fallos = 0;
-        this.aciertos = 0;
-        this.stage.on("stagemousemove", function () {
+        var _this = _super.call(this) || this;
+        _this.encontrado = false;
+        _this.baseA = new Tablero_Cbase(_this);
+        _this.baseA.contenedor.x = 5;
+        _this.baseA.contenedor.y = 5;
+        _this.baseB = new Tablero_Cbase(_this);
+        _this.baseB.contenedor.x = 5;
+        _this.baseB.contenedor.y = 5;
+        _this.baseA.setOrientacion(true);
+        _this.baseB.setOrientacion(false);
+        _this.update();
+        _this.stage.on("stagemousemove", function () {
             if (_this.seleccion != null) {
                 _this.seleccion.linea.dibujarInicial(_this.stage.mouseX, _this.stage.mouseY);
             }
         });
+        return _this;
     }
+    Tablero_Crelacion.prototype.ocultar = function () {
+        console.log("Oculto");
+        if (this.seleccion != null) {
+            this.seleccion.ocultar();
+        }
+        this.seleccion = undefined;
+    };
+    Tablero_Crelacion.prototype.reset = function () {
+        console.log("reseteo");
+        if (this.seleccion != null) {
+            this.seleccion.reset();
+        }
+        this.seleccion = undefined;
+    };
     Tablero_Crelacion.prototype.style = function () {
         this.baseA.styleDraw();
         this.baseB.styleDraw();
@@ -32,15 +57,6 @@ var Tablero_Crelacion = /** @class */ (function () {
     };
     Tablero_Crelacion.prototype.distancia = function (x) {
         this.baseB.contenedor.x = x;
-    };
-    Tablero_Crelacion.prototype.setValidacion = function (validacion) {
-        this.validacion = validacion;
-    };
-    Tablero_Crelacion.prototype.setIntentoFallo = function (intentoFallo) {
-        this.intentoFallo = intentoFallo;
-    };
-    Tablero_Crelacion.prototype.setIntentoAcierto = function (intentoAcierto) {
-        this.intentoAcierto = intentoAcierto;
     };
     Tablero_Crelacion.prototype.setStyle = function (width, height, style, h, w) {
         this.baseA.drawTablero(width, height, style, h, w);
@@ -53,7 +69,7 @@ var Tablero_Crelacion = /** @class */ (function () {
         this.baseB.drawTablero(width, height, style, h, w);
     };
     return Tablero_Crelacion;
-}());
+}(Actividad));
 var Tablero_Cbase = /** @class */ (function () {
     function Tablero_Cbase(tablero) {
         this.background = new createjs.Shape();
@@ -116,7 +132,6 @@ var Tablero_Cbase = /** @class */ (function () {
         var cor = this.contenedor.getBounds();
         tarjeta.contenedor.x += Math.abs(tam.width - cor.width) / 2;
         tarjeta.setConexion(this.orientation);
-        //this.actualizarTamano(300, 100);
         this.stage.update();
     };
     Tablero_Cbase.prototype.actualizarTamano = function (width, height) {
@@ -168,18 +183,22 @@ var Tablero_Categoria = /** @class */ (function () {
         this.contenedor.addChildAt(this.place, 0);
         this.conexion = { x: 0, y: 0 };
         this.contenedor.on("mousedown", function () {
-            _this.tablero.tablero.seleccion = _this;
-            _this.linea.iniciar(_this.conexion.x, _this.conexion.y);
+            _this.tablero.tablero.encontrado = false;
+            _this.tablero.tablero.seleccion = undefined;
             if (_this.pareja != null) {
                 _this.pareja.linea.limpiar();
-                _this.clasificado = false;
                 _this.pareja.clasificado = false;
             }
+            _this.linea.iniciar(_this.conexion.x, _this.conexion.y);
+            _this.clasificado = false;
+            _this.tablero.tablero.seleccion = _this;
         });
         this.stage.on("stagemouseup", function () {
-            if (_this.tablero.tablero.seleccion != null) {
-                if (_this.clasificado == false && _this.contenedor.hitTest(_this.stage.mouseX - _this.contenedor.x - tablero.contenedor.x, _this.stage.mouseY - _this.contenedor.y - tablero.contenedor.y) &&
+            if (_this.tablero.tablero.encontrado == false && _this.tablero.tablero.seleccion != null) {
+                var sobre_1 = _this.contenedor.hitTest(_this.stage.mouseX - _this.contenedor.x - tablero.contenedor.x, _this.stage.mouseY - _this.contenedor.y - tablero.contenedor.y);
+                if (_this.clasificado == false && sobre_1 &&
                     _this.tablero.tablero.seleccion.tablero.categorias.indexOf(_this) == -1) {
+                    _this.tablero.tablero.encontrado = true;
                     _this.tablero.tablero.intentos++;
                     _this.pareja = _this.tablero.tablero.seleccion;
                     _this.pareja.pareja = _this;
@@ -189,50 +208,55 @@ var Tablero_Categoria = /** @class */ (function () {
                     _this.pareja.linea.draw();
                     if (_this.categoria == _this.pareja.categoria) {
                         if (_this.tablero.tablero.intentoAcierto != null) {
-                            _this.tablero.tablero.intentoAcierto(_this, _this.tablero.tablero.seleccion);
+                            _this.tablero.tablero.intentoAcierto();
                         }
                         _this.puntos = 1;
                         _this.pareja.puntos = 1;
-                        if (_this.tablero.validar() && _this.tablero.tablero.validacion != null) {
-                            _this.tablero.tablero.validacion();
+                        if (_this.pareja.tablero.validar()) {
+                            if (_this.tablero.tablero.validacion != null) {
+                                _this.tablero.tablero.validacion();
+                            }
                         }
                     }
                     else {
-                        if (_this.tablero.tablero.intentoFallo != null) {
-                            _this.tablero.tablero.intentoFallo(_this, _this.tablero.tablero.seleccion);
-                        }
                         _this.puntos = -1;
                         _this.pareja.puntos = -1;
+                        if (_this.tablero.tablero.intentoFallo != null) {
+                            _this.tablero.tablero.intentoFallo();
+                        }
                     }
-                    if (_this.tablero.validar() && _this.tablero.tablero.validacion != null) {
-                        _this.tablero.tablero.validacion();
+                    if (_this.tablero.validar()) {
+                        if (_this.tablero.tablero.validacion != null) {
+                            _this.tablero.tablero.validacion();
+                        }
                     }
-                    _this.tablero.tablero.seleccion = undefined;
+                    _this.tablero.actualizarPuntuacion();
                 }
                 else {
                     _this.tablero.tablero.seleccion.linea.limpiar();
                 }
             }
-            _this.tablero.actualizarPuntuacion();
         });
     }
     Tablero_Categoria.prototype.reset = function () {
         if (this.pareja != null) {
-            this.linea.limpiar();
             this.pareja.linea.limpiar();
-            this.clasificado = false;
             this.pareja.clasificado = false;
         }
+        this.linea.limpiar();
+        this.clasificado = false;
     };
     Tablero_Categoria.prototype.ocultar = function () {
         if (this.pareja != null) {
-            this.tablero.contenedor.removeChild(this.pareja.contenedor);
+            this.pareja.tablero.contenedor.removeChild(this.pareja.contenedor);
+            this.pareja.tablero.contenedor.removeChild(this.pareja.linea.linea);
             this.pareja.linea.limpiar();
             this.pareja.clasificado = true;
         }
         this.clasificado = true;
         this.tablero.contenedor.removeChild(this.contenedor);
         this.tablero.contenedor.removeChild(this.linea.linea);
+        this.linea.limpiar();
         this.stage.update();
     };
     Tablero_Categoria.prototype.setTamano = function (width, height) {
@@ -280,8 +304,7 @@ var LineaCurva = /** @class */ (function () {
         this.color = { r: random(50, 200), g: random(50, 200), b: random(50, 200) };
     }
     LineaCurva.prototype.iniciar = function (x, y) {
-        this.inicial.x = x;
-        this.inicial.y = y;
+        this.inicial = { x: x, y: y };
         this.dibujando = true;
     };
     LineaCurva.prototype.dibujarInicial = function (x, y) {
@@ -309,7 +332,8 @@ var LineaCurva = /** @class */ (function () {
     LineaCurva.prototype.draw = function () {
         this.linea.graphics.clear();
         var centro = {
-            x: (this.inicial.x + this.final.x) / 2, y: (this.inicial.y + this.final.y) / 2
+            x: (this.inicial.x + this.final.x) / 2,
+            y: (this.inicial.y + this.final.y) / 2
         };
         this.linea.graphics
             .beginStroke("rgb(" + this.color.r + ", " + this.color.g + ", " + this.color.b + ")")

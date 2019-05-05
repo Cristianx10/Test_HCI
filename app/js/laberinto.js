@@ -1,218 +1,195 @@
 "use strict";
-function inicializar() {
-    var Meta = /** @class */ (function () {
-        function Meta(stage, x, y) {
-            this.stage = stage;
-            this.x = x;
-            this.y = y;
-            this.meta = new createjs.Shape();
-            this.meta.x = x;
-            this.meta.y = y;
-            this.activado = false;
-            this.meta.graphics.beginFill("red").drawRect(0, 0, 30, 49);
-            this.meta.graphics.beginFill("blue").drawCircle(0, 0, 25);
-            this.meta.setBounds(x, y, 30, 49);
-            this.stage.addChild(this.meta);
-        }
-        Meta.prototype.sobre = function (forma) {
-            var sobre = false;
-            if (this.meta != null) {
-                var tamForm = forma.getBounds();
-                var tam = this.meta.getBounds();
-                if (forma.x + (tamForm.width / 2) > this.meta.x && forma.x - (tamForm.width / 2) < this.meta.x + tam.width &&
-                    forma.y + (tamForm.height / 2) > this.meta.y && forma.y - (tamForm.height / 2) < this.meta.y + tam.height) {
-                    sobre = true;
-                }
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Laberinto_Meta = /** @class */ (function () {
+    function Laberinto_Meta(laberinto, x, y, width, height) {
+        this.laberinto = laberinto;
+        this.meta = new createjs.Shape();
+        this.meta.x = x;
+        this.meta.y = y;
+        this.activado = false;
+        this.meta.graphics.beginFill("red").drawRect(0, 0, width, height);
+        this.meta.setBounds(x, y, 30, 49);
+        this.laberinto.l_interfaz.addChild(this.meta);
+    }
+    Laberinto_Meta.prototype.sobre = function (forma) {
+        var sobre = false;
+        if (this.meta != null) {
+            var tamForm = forma.getBounds();
+            var tam = this.meta.getBounds();
+            if (forma.x + (tamForm.width / 2) > this.meta.x && forma.x - (tamForm.width / 2) < this.meta.x + tam.width &&
+                forma.y + (tamForm.height / 2) > this.meta.y && forma.y - (tamForm.height / 2) < this.meta.y + tam.height) {
+                sobre = true;
             }
-            return sobre;
-        };
-        return Meta;
-    }());
-    var Cursor = /** @class */ (function () {
-        function Cursor(stage, x, y) {
-            var _this = this;
-            this.stage = stage;
-            this.x = x;
-            this.y = y;
-            this.ellipse = new createjs.Shape();
-            this.ellipse.x = x;
-            this.ellipse.y = y;
-            this.activado = false;
-            this.ellipse.graphics.beginFill("#1E1E1E").drawCircle(0, 0, 5);
-            this.ellipse.setBounds(this.x, this.y, 10, 10);
-            this.ellipse.on("click", function (e) {
-                _this.activado = true;
-                e.remove();
-            });
-            /*
-                  this.ellipse.on("mousedown", ()=>{
-                    inicio = true;
-                  });
-                  */
-            this.stage.addChild(this.ellipse);
         }
-        Cursor.prototype.mover = function (x, y) {
-            this.ellipse.x = x;
-            this.ellipse.y = y;
-        };
-        Cursor.prototype.getX = function () {
-            return this.ellipse.x;
-        };
-        Cursor.prototype.getY = function () {
-            return this.ellipse.y;
-        };
-        return Cursor;
-    }());
-    var Laberinto = /** @class */ (function () {
-        function Laberinto(stage, url) {
-            var _this = this;
-            this.stage = stage;
-            var cor = this.stage.canvas;
-            var img = document.createElement('img');
-            img.src = url;
-            img.addEventListener("load", function () {
-                var piezas = new createjs.SpriteSheet({
-                    images: [url],
-                    frames: { width: 802, height: 455 },
-                    animations: {
-                        normal: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
-                    }
-                });
-                _this.laberinto = new createjs.Sprite(piezas, "normal");
-                _this.laberinto.gotoAndPlay("normal");
-                var cordenadas = _this.laberinto.getBounds();
-                _this.laberinto.x = (cor.width - cordenadas.width) / 2;
-                _this.laberinto.y = (cor.height - cordenadas.height) / 2;
-                /*
-                this.laberinto = new createjs.Bitmap(img);
-                let cordenadas = this.laberinto.getBounds();
-                this.laberinto.x = (cor.width - cordenadas.width)/2;
-                this.laberinto.y = (cor.height - cordenadas.height)/2;
-                */
-                stage.addChildAt(_this.laberinto, 0);
-            });
-        }
-        Laberinto.prototype.sobre = function (forma) {
-            var sobre = false;
-            if (this.laberinto != null) {
-                var tamForm = forma.getBounds();
-                if (this.laberinto.hitTest(forma.x - this.laberinto.x + (tamForm.width / 2), forma.y - this.laberinto.y)) {
-                    sobre = true;
-                }
-                else {
-                    return false;
-                }
-                if (this.laberinto.hitTest(forma.x - this.laberinto.x - (tamForm.width / 2), forma.y - this.laberinto.y)) {
-                    sobre = true;
-                }
-                else {
-                    return false;
-                }
-                if (this.laberinto.hitTest(forma.x - this.laberinto.x, forma.y + (tamForm.height / 2) - this.laberinto.y)) {
-                    sobre = true;
-                }
-                else {
-                    return false;
-                }
-                if (this.laberinto.hitTest(forma.x - this.laberinto.x, forma.y - (tamForm.height / 2) - this.laberinto.y)) {
-                    sobre = true;
-                }
-                else {
-                    return false;
-                }
+        return sobre;
+    };
+    return Laberinto_Meta;
+}());
+var Laberinto_cursor = /** @class */ (function () {
+    function Laberinto_cursor(laberinto, x, y) {
+        var _this = this;
+        this.laberinto = laberinto;
+        this.ellipse = new createjs.Shape();
+        this.ellipse.x = x;
+        this.ellipse.y = y;
+        this.inicio = false;
+        this.activado = false;
+        this.ellipse.graphics.beginFill("#1E1E1E").drawCircle(0, 0, 5);
+        this.ellipse.setBounds(x, y, 10, 10);
+        this.ellipse.on("click", function (e) {
+            _this.activado = true;
+            _this.inicio = true;
+            e.remove();
+        });
+        this.laberinto.stage.on("stagemousemove", function () {
+            if (_this.activado) {
+                _this.mover(_this.laberinto.stage.mouseX, _this.laberinto.stage.mouseY);
             }
-            return sobre;
-        };
-        return Laberinto;
-    }());
-    var canvas = document.getElementById("juego-laberinto");
-    var stage = new createjs.Stage(canvas);
-    stage.enableMouseOver();
-    var laberinto = new Laberinto(stage, "./img/laberinto/laberinto-2.png");
-    var cursor = new Cursor(stage, 1027, 364);
-    var meta = new Meta(stage, 240, 317);
-    createjs.Ticker.addEventListener("tick", function () {
-        if (cursor.activado) {
-            cursor.mover(stage.mouseX, stage.mouseY);
-            if (laberinto.sobre(cursor.ellipse)) {
-                console.log("va bien");
+            if (_this.inicio && _this.activado == false) {
+                _this.mover(_this.laberinto.stage.mouseX, _this.laberinto.stage.mouseY);
+                _this.laberinto.update();
+            }
+        });
+        this.laberinto.l_interfaz.addChild(this.ellipse);
+    }
+    Laberinto_cursor.prototype.mover = function (x, y) {
+        this.ellipse.x = x;
+        this.ellipse.y = y;
+    };
+    Laberinto_cursor.prototype.getX = function () {
+        return this.ellipse.x;
+    };
+    Laberinto_cursor.prototype.getY = function () {
+        return this.ellipse.y;
+    };
+    return Laberinto_cursor;
+}());
+var Laberinto = /** @class */ (function (_super) {
+    __extends(Laberinto, _super);
+    function Laberinto() {
+        var _this = _super.call(this) || this;
+        _this.stage.enableMouseOver();
+        _this.l_mapa = new createjs.Container();
+        _this.l_interfaz = new createjs.Container();
+        _this.contenedor.addChild(_this.l_mapa, _this.l_interfaz);
+        _this.carga = new createjs.LoadQueue();
+        return _this;
+    }
+    Laberinto.prototype.crearLaberinto = function (url, width, height, cont, speed) {
+        var _this = this;
+        var var_speed = 1;
+        if (speed != null) {
+            var_speed = speed;
+        }
+        this.carga.loadFile(url);
+        this.carga.on("fileload", function (r) {
+            var piezas = new createjs.SpriteSheet({
+                images: [r.result],
+                frames: { width: width, height: height },
+                animations: {
+                    normal: [0, cont - 1, "normal", var_speed],
+                },
+            });
+            _this.laberinto = new createjs.Sprite(piezas, "normal");
+            _this.contenedor.setBounds(0, 0, width, height);
+            _this.contenedor.x = (_this.canvas.width - width) / 2;
+            _this.contenedor.y = (_this.canvas.height - height) / 2;
+            _this.l_mapa.addChildAt(_this.laberinto, 0);
+        });
+        this.stage.update();
+    };
+    Laberinto.prototype.crearCursor = function (x, y) {
+        this.cursor = new Laberinto_cursor(this, x, y);
+        this.iniciar(false);
+    };
+    Laberinto.prototype.iniciar = function (inicio) {
+        var _this = this;
+        if (this.cursor != null) {
+            if (inicio == null) {
+                this.cursor.activado = true;
             }
             else {
-                console.log("Pedio");
-            }
-            if (meta.sobre(cursor.ellipse)) {
-                console.log("ganaste");
+                this.cursor.activado = inicio;
             }
         }
-        stage.update();
-    });
-}
-$(document).ready(function () {
-    inicializar();
-});
-/*
-var carga = new createjs.LoadQueue();
-carga.loadFile({ id: "lab-1", src: "./img/laberinto/laberinto.png" });
-carga.addEventListener("fileload", (evento: any) => {
-
-  let img = evento.result;
-
-  let imagen = new createjs.Bitmap(img);
-  
-  let corStage:any = stage.canvas;
-  let coor = imagen.getBounds();
-  imagen.x = (corStage.width - coor.width)/2;
-  imagen.y = (corStage.height - coor.height)/2;
-
-  
-
-  stage.addChildAt(imagen, 0);
-  stage.update();
-  
-  let inicio = false;
-
-  imagen.on("mouseout",()=>{
-    if(inicio){
-      console.log("Perdiste");
-    }
-  });
-
-
-  stage.on("stagemousemove", (e)=>{
-
-    console.log(this.laberinto.hitTest(stage.mouseX, stage.mouseY));
-      if(inicio){
-       // cursor.x = stage.mouseX;
-       // cursor.y = stage.mouseY;
-      }
-    });
-
-
-  
- /* stage.on("stagemousemove", (e)=>{
-
-    console.log(imagen.hitTest(stage.mouseX, stage.mouseY));
-    if(inicio){
-     // cursor.x = stage.mouseX;
-     // cursor.y = stage.mouseY;
-    }
-  });
-
-});
-
-carga.addEventListener("progress", evento => {
-  console.log(evento);
-});
-carga.addEventListener("complete", (evento: any) => {
-  console.log(evento);
-  
-});
-carga.addEventListener("error", evento => {
-  console.log(evento);
-});
-
-
-
-
-*/
-//iniciarCursor();
+        createjs.Ticker.addEventListener("tick", function () {
+            if (_this.cursor != null && _this.cursor.activado) {
+                if (_this.cursor.activado && _this.sobre(_this.cursor.ellipse)) {
+                    if (_this.intentoAcierto != null) {
+                        _this.intentoAcierto();
+                    }
+                }
+                else {
+                    _this.detener();
+                    if (_this.intentoFallo != null) {
+                        _this.intentoFallo();
+                    }
+                }
+                if (_this.meta != null && _this.meta.sobre(_this.cursor.ellipse)) {
+                    _this.detener();
+                    if (_this.laberinto != null) {
+                        _this.laberinto.stop();
+                    }
+                    if (_this.validacion != null) {
+                        _this.validacion();
+                    }
+                }
+            }
+            _this.update();
+        });
+    };
+    Laberinto.prototype.detener = function () {
+        createjs.Ticker.removeAllEventListeners("tick");
+        if (this.cursor != null) {
+            this.cursor.activado = false;
+        }
+    };
+    Laberinto.prototype.crearMeta = function (x, y, width, height) {
+        this.meta = new Laberinto_Meta(this, x, y, width, height);
+        this.stage.update();
+    };
+    Laberinto.prototype.sobre = function (forma) {
+        var sobre = false;
+        if (this.laberinto != null) {
+            var tamForm = forma.getBounds();
+            if (this.laberinto.hitTest(forma.x - this.laberinto.x + (tamForm.width / 2), forma.y - this.laberinto.y)) {
+                sobre = true;
+            }
+            else {
+                return false;
+            }
+            if (this.laberinto.hitTest(forma.x - this.laberinto.x - (tamForm.width / 2), forma.y - this.laberinto.y)) {
+                sobre = true;
+            }
+            else {
+                return false;
+            }
+            if (this.laberinto.hitTest(forma.x - this.laberinto.x, forma.y + (tamForm.height / 2) - this.laberinto.y)) {
+                sobre = true;
+            }
+            else {
+                return false;
+            }
+            if (this.laberinto.hitTest(forma.x - this.laberinto.x, forma.y - (tamForm.height / 2) - this.laberinto.y)) {
+                sobre = true;
+            }
+            else {
+                return false;
+            }
+        }
+        return sobre;
+    };
+    return Laberinto;
+}(Actividad));

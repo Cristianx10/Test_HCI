@@ -11,7 +11,12 @@ class Timer {
   accionFinal?: Function;
   terminado = false;
 
+  inicial__segundos:number;
+  cont__segundos:number;
+
   constructor() {
+    this.inicial__segundos = 0;
+    this.cont__segundos = 0;
     this.time = 0;
     this.horas = 0;
     this.minutos = 0;
@@ -43,20 +48,19 @@ class Timer {
 
   startTempo(segundos: number) {
 
-
     this.time = 0;
     this.horas = 0;
     this.minutos = parseInt((segundos / 60) + "", 10);
     this.segundos = segundos % 60;
     this.milisegundos = 0;
     this.enEjecucion = true;
+    this.inicial__segundos = segundos;
 
     this.intervalo = setInterval(() => {
 
       this.comenzarTempo();
       if (this.progreso != null) {
         this.progreso(this.minutos, this.segundos);
-
       }
       //console.log("Hora:" + this.horas + " Minutos: " + this.minutos + " Segundos: "+ this.segundos + " Millis: " + this.milisegundos + " Total: " +this.time);
     }, 10);
@@ -64,6 +68,7 @@ class Timer {
 
   stop() {
     if (this.terminado == false) {
+
       this.terminado = true;
   
       clearInterval(this.intervalo);
@@ -126,6 +131,7 @@ class Timer {
       if (this.milisegundos < 0) {
         this.milisegundos = 99;
         this.segundos--;
+        this.cont__segundos++;
       }
 
       if (this.segundos < 0) {
@@ -152,4 +158,11 @@ class Timer {
   setAccionFinal(accionFinal: Function) {
     this.accionFinal = accionFinal;
   }
+
+  getTiempo(){
+  
+    return this.cont__segundos;
+  }
+
+
 }

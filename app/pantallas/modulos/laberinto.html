@@ -1,3 +1,25 @@
-<canvas id="juego-laberinto" width="1280" height="720"></canvas>
-
 <script src="../../js/laberinto.js"></script>
+
+<script>
+    let laberinto = new Laberinto();
+    laberinto.size(801.63, 455, 16, .5);
+    laberinto.crearLaberinto("./img/laberinto/laberinto-2.png", 801.63, 455, 16, .5);
+    laberinto.crearMeta(0, 405, 50, 30);
+    laberinto.crearCursor(790, 232);
+    
+    laberinto.setIntentoAcierto(()=>{
+        console.log("Va bien");
+    });
+
+    laberinto.setIntentoFallo(()=>{
+        console.log("Perdio");
+        laberinto.iniciar();
+    });
+
+    laberinto.setValidacion(()=>{
+        console.log("Gano");
+    });
+
+    laberinto.incluirEn(".principal");
+
+</script>

@@ -1,6 +1,3 @@
-
-
-let e = random(0, 0);
 class Tablero_moleculas {
     stage: createjs.Stage;
     canvas: HTMLCanvasElement;

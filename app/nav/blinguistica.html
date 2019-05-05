@@ -151,16 +151,16 @@
   -->
 
   <script src="../lib/easeljs.js"></script>
-  <script src="../../js/compuestos.js"></script>
   <script src="../lib/soundjs.js"></script>
   <script src="../js/timer.js"></script>
   <script src="../js/resultados.js"></script>
   <script src="../js/main.js"></script>
   <script src="../js/pregunta.js"></script>
-
+  
   <!--Interacciones complejas-->
   <script src="../js/tarjetas.js"></script>
   <script src="../js/reciclaje.js"></script>
+  <script src="../../js/compuestos.js"></script>
 
   <script type="text/javascript">
 
@@ -178,9 +178,6 @@
     let contenedor = new Contenedor();
     let navegable = new Navegable(contenedor);
 
-
-
-
     let tablero = new Tablero_Crelacion();
     tablero.size(650, 450);
     tablero.setStyleA(250, 440, "20px Heebo", 230, 25);
@@ -188,21 +185,20 @@
 
     tablero.distancia(300);
 
-    tablero.setIntentoAcierto((a, b) => {
+    tablero.setIntentoAcierto(() => {
       console.log("bien");
-      a.ocultar();
-      b.ocultar();
+      tablero.ocultar();
     });
 
-    tablero.setIntentoFallo((a, b) => {
-      a.reset();
-      b.reset();
+    tablero.setIntentoFallo(() => {
+      tablero.reset();
+   
       console.log("mal");
     });
 
-    tablero.setValidacion((a, b) => {
+    tablero.setValidacion(() => {
       console.log("Gano");
-      seguir();
+      siguiente.disabled = false;
     });
 
     let tipos = [
@@ -235,8 +231,8 @@
       tablero.baseB.agregar(e, e);
     }
 
+    tablero.incluirEn("#relacionAzar");
 
-    $('#relacionAzar').append(tablero.canvas);
 
     let p2 = new PreguntaC("En el fragmento hay unos cuantos errores de ortografía, encuentralos y corrigelos. Cuando sientas que no hay más errores, haz click sobre el botón siguiente.");
     
@@ -398,7 +394,7 @@
     */
 
 
-    let reciclaje = new Reciclaje();
+    let reciclaje = new Clasificar();
     $(".pregunta__opciones").append(reciclaje.getElemento());
     let sonidos = document.querySelectorAll(".ima__opcion");
     let categoria = ["pintura__casilla1", "mal", "mal", "mal"]
@@ -476,9 +472,7 @@
       siguiente.disabled = true;
     });
     
-    tablero.setValidacion(() => {
-      siguiente.disabled = false;
-    });
+   
     
     contenedor.agregar(p2.getPregunta())
     .setAccion(() => {
@@ -494,11 +488,7 @@
     .setAccion(() => {
       ocultar(".zona__navegacion");
     });;
-    
-    //contenedor.agregar(new Contenido(document.querySelector('.ptableros1'), tableros[0]))
-    
-    
-   console.log();
+
    contenedor.agregar(tableros[0].getActividad());
     contenedor.agregar(tableros[1].getActividad());
     contenedor.agregar(tableros[2].getActividad());

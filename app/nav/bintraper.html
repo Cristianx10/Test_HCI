@@ -150,6 +150,7 @@
                 </div>
 
             </div>
+            <div id="laberinto" class="centrar"></div>
             <div class="zona__navegacion" style="display:none;">
                 <button class="btn_siguiente" style="text-align:center;" disabled onclick="seguir()">Siguiente</button>
             </div>
@@ -159,19 +160,19 @@
 
     <!--Codigo de precarga -->
     <script src="../lib/jquery.js"></script>
-    <script src="../lib/jquery-ui.min.js"></script>
+
     <!--
   <script src="../lib//colorMixer.js"></script>
- 
+    <script src="../lib/jquery-ui.min.js"></script>
   <script src="../lib/jquery.svg.js"></script>
   <script src="../lib/jquery.knob.js"></script>
-  <script src="../lib/preloadjs.js"></script>
+ 
   
   <script src="../lib/tweenjs.js"></script>
-  -->
+-->
 
+    <script src="../lib/preloadjs.js"></script>
     <script src="../lib/easeljs.js"></script>
-    <script src="../../js/compuestos.js"></script>
     <script src="../lib/soundjs.js"></script>
     <script src="../js/timer.js"></script>
     <script src="../js/resultados.js"></script>
@@ -179,8 +180,7 @@
     <script src="../js/pregunta.js"></script>
 
     <!--Interacciones complejas-->
-    <script src="../js/tarjetas.js"></script>
-    <script src="../js/reciclaje.js"></script>
+    <script src="../js/laberinto.js"></script>
 
     <script type="text/javascript">
 
@@ -189,14 +189,6 @@
         var puntuacion;
         var minutosDeseados = 0;
         var segundosDeseados = 60 * minutosDeseados;
-
-        $(document).ready(function () {
-
-            // irA("./formulario.html");
-
-
-        });
-
 
         $('.cont-principal').css("background-image", "url('../img/background-claro.png')");
 
@@ -301,6 +293,27 @@
         temp__pregunta.agregar("3", []);
         preguntas.push(temp__pregunta);
 
+
+        let laberinto = new Laberinto();
+        laberinto.size(801.63, 455, 16, .5);
+        laberinto.crearLaberinto("/img/laberinto/laberinto-2.png", 801.63, 455, 16, .5);
+        laberinto.crearMeta(0, 405, 50, 30);
+        laberinto.crearCursor(790, 232);
+
+        laberinto.setIntentoAcierto(() => {
+            console.log("Va bien");
+        });
+
+        laberinto.setIntentoFallo(() => {
+            console.log("Perdio");
+            laberinto.iniciar();
+        });
+
+        laberinto.setValidacion(() => {
+            console.log("Gano");
+        });
+
+        laberinto.incluirEn("#laberinto");
 
 
         contenedor.agregarHTML(document.querySelector('.pinicio'));
@@ -410,6 +423,10 @@
             });
 
         });
+
+        contenedor.agregarHTML(document.querySelector('#laberinto'));
+
+
         /*/*//**/
         var siguiente = document.querySelector('.btn_siguiente');
 
@@ -432,7 +449,7 @@
             siguiente.disabled = false;
         });
 
-        navegacion.setFinal(()=>{
+        navegacion.setFinal(() => {
             goTo("bintraper2");
         });
 

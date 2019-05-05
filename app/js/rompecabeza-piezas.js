@@ -143,11 +143,11 @@ var Tablero = /** @class */ (function () {
             o.style.left = this.posiciones[i].x + "px";
             o.style.top = this.posiciones[i].y + "px";
             this.tablero__zonas.appendChild(o);
-            var e_1 = this.fichas[i].elemento;
-            e_1.style.left = this.posiciones[this.fichas[i].orden].x + "px";
-            e_1.style.top = this.posiciones[this.fichas[i].orden].y + "px";
+            var e = this.fichas[i].elemento;
+            e.style.left = this.posiciones[this.fichas[i].orden].x + "px";
+            e.style.top = this.posiciones[this.fichas[i].orden].y + "px";
             //console.log(this.posiciones[i].x, this.posiciones[this.fichas[i].orden].x);
-            this.tablero__fichas.appendChild(e_1);
+            this.tablero__fichas.appendChild(e);
         }
     };
     Tablero.prototype.setPlaceholder = function (url) {

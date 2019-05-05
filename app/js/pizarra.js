@@ -1,4 +1,17 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var margin = 0;
 var width = 110;
 var height = 110;
@@ -33,7 +46,7 @@ var Casilla = /** @class */ (function () {
         var _this = this;
         this.padre = padre;
         this.contenido.addEventListener("click", function (e) {
-            if (_this.padre != null && _this.tipo != 1 && _this.padre.lider != _this) {
+            if (_this.padre != null && _this.padre.lider != null && padre.lider != null && _this.tipo != 1 && _this.padre.lider != _this) {
                 if (_this.padre.up(_this.padre.lider.posicion) == _this.posicion
                     || _this.padre.down(_this.padre.lider.posicion) == _this.posicion
                     || _this.padre.left(_this.padre.lider.posicion) == _this.posicion
@@ -69,7 +82,7 @@ var Casilla = /** @class */ (function () {
     Casilla.prototype.secuencia = function () {
         if (this.padre != null && this.validado == false) {
             this.validado = true;
-            if (this.padre.final.validado) {
+            if (this.padre.final != null && this.padre.final.validado) {
                 if (this.padre.validacion != null) {
                     this.padre.validacion();
                 }
@@ -112,38 +125,46 @@ var Casilla = /** @class */ (function () {
         this.left = left;
         this.right = right;
     };
-    Casilla.prototype.validar = function () {
-    };
     return Casilla;
 }());
-var Pizarra = /** @class */ (function () {
-    function Pizarra(casillas, inicial, final, lider) {
-        this.columnas = 5;
-        this.filas = 3;
-        this.width = 103;
-        this.height = 103;
-        this.pizarra_html = document.createElement('div');
-        this.pizarra_html.className = "pizarra";
-        this.casillas = casillas;
-        this.inicial = casillas[inicial];
-        this.final = casillas[final];
-        this.lider = casillas[lider];
-        // this.inicial.setSalidas(true, true, true, true);
-        // this.final.setSalidas(true, true, true, true);
-        this.lider.setSalidas(false, false, false, false);
-        this.fichas = document.createElement('section');
-        this.fichas.className = "pizarra__fichas";
-        this.guias = document.createElement('section');
-        this.guias.className = "pizarra__clicks";
-        this.pizarra_html.appendChild(this.guias);
-        this.pizarra_html.appendChild(this.fichas);
+var Pizarra = /** @class */ (function (_super) {
+    __extends(Pizarra, _super);
+    function Pizarra(inicial, final, lider) {
+        var _this = _super.call(this) || this;
+        _this.columnas = 5;
+        _this.filas = 3;
+        _this.width = 103;
+        _this.height = 103;
+        _this.tipoId = "Tuberias";
+        _this.elemento.className = "pizarra";
+        _this.casillas = new Array();
+        _this.nInicial = inicial;
+        _this.nFinal = final;
+        _this.nLider = lider;
+        _this.fichas = document.createElement('section');
+        _this.fichas.className = "pizarra__fichas";
+        _this.guias = document.createElement('section');
+        _this.guias.className = "pizarra__clicks";
+        _this.elemento.appendChild(_this.guias);
+        _this.elemento.appendChild(_this.fichas);
+        return _this;
     }
+    Pizarra.prototype.agregar = function (img, up, down, left, right, posicion, tipo) {
+        var a = new Casilla(img, up, down, left, right, posicion, tipo);
+        this.casillas.push(a);
+    };
     Pizarra.prototype.cargarTablero = function (columnas, filas, width, height) {
         var _this = this;
         this.columnas = columnas;
         this.filas = filas;
         this.width = width;
         this.height = height;
+        this.inicial = this.casillas[this.nInicial];
+        this.final = this.casillas[this.nFinal];
+        this.lider = this.casillas[this.nLider];
+        // this.inicial.setSalidas(true, true, true, true);
+        // this.final.setSalidas(true, true, true, true);
+        this.lider.setSalidas(false, false, false, false);
         this.matrix = crearMatrix(this.columnas, this.filas, this.width, this.height);
         this.fichas.style.width = (this.width - margin) + "px";
         this.fichas.style.height = (this.height - margin) + "px";
@@ -220,7 +241,9 @@ var Pizarra = /** @class */ (function () {
                 c.contenido.style.background = "red";
             }
         });
-        this.inicial.secuencia();
+        if (this.inicial != null) {
+            this.inicial.secuencia();
+        }
     };
     Pizarra.prototype.setValidacion = function (validacion) {
         this.validacion = validacion;
@@ -228,28 +251,5 @@ var Pizarra = /** @class */ (function () {
     Pizarra.prototype.setIntentoFallo = function (intentoFallo) {
         this.intentoFallo = intentoFallo;
     };
-    Pizarra.prototype.getElemento = function () {
-        return this.pizarra_html;
-    };
     return Pizarra;
-}());
-/*
-var pizarra_fichas: Array<Casilla> = new Array();
-
-for (let i = 0; i < 12; i++) {
-    let a = new Casilla(document.createElement('div'), false, false, false, false, i);
-    pizarra_fichas.push(a);
-}
-
-
-pizarra_fichas[5].up = true;
-pizarra_fichas[5].right = true;
-pizarra_fichas[6].left = true;
-pizarra_fichas[6].right = true;
-/*
-let p = new Pizarra(pizarra_fichas, 1, 7, 3);
-p.cargarTablero( 4, 3,100, 100);
-$(".pizarras").append(p.getElemento());
-
-p.validarSecuencia();
-*/ 
+}(Interaccion));

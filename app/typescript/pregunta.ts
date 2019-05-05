@@ -49,9 +49,11 @@ class Pregunta implements Validable{
 
     registro() {
         if (this.seleccion != null) {
-            resultados.agregar(this.tipoId,
-                [{ id: "pregunta", valor: this.informacion },
-                { id: "respuesta", valor: this.seleccion.informacion }]);
+            resultados.agregar(this.tipoId, [
+                { id: "pregunta", valor: this.informacion },
+                { id: "respuesta", valor: this.seleccion.informacion },
+                { id: "Tiempo usado (segundos)", valor: this.contenido.getSegundos() + "" }
+            ]);
         }
     }
 
@@ -230,8 +232,8 @@ class PreguntaC extends Pregunta {
 
     constructor(informacion: string) {
         super(informacion);
-
-        this.elemento.className = "pantalla pregunta";
+        this.tipoId = "P AreaTexto";
+        this.elemento.className = "pregunta";
         this.opciones = new Array();
 
         let div_seccionA = document.createElement('section');
@@ -301,6 +303,7 @@ class PreguntaD extends Pregunta {
 
     constructor(informacion: string, p?: string, m?: string) {
         super(informacion);
+        this.tipoId = "Likert";
         this.opciones = new Array();
         this.elemento.className = "pregunta";
 
@@ -451,6 +454,7 @@ class PreguntaI extends Pregunta {
 
     constructor(informacion: string) {
         super(informacion);
+        this.tipoId = "P Imagen"
         this.opciones = new Array();
         this.elemento.className = "pregunta pimagen";
 
@@ -521,6 +525,7 @@ class PreguntaS extends Pregunta {
 
     constructor() {
         super();
+        this.tipoId = "P Seleccion";
         this.opciones = new Array();
         this.texto = document.createElement("p");
         this.texto.innerText = "___";
@@ -597,6 +602,7 @@ class PreguntaR extends Pregunta {
 
     constructor(informacion: string) {
         super(informacion);
+        this.tipoId = "P Instruccion";
         this.opciones = new Array();
         this.elemento.className = "instruccion";
         this.elemento.style.display = "flex";
@@ -645,6 +651,7 @@ class PreguntaP extends Pregunta {
     constructor(imagen: string, informacion: string) {
         super(informacion);
         this.opciones = new Array();
+        this.tipoId = "P Imagen";
 
         this.elemento.className = "preguntaImagen";
 

@@ -126,7 +126,6 @@ form {
     flex-direction: column;
 }
 
-label {}
 
 .opcion {
 
@@ -1170,4 +1169,10 @@ Estilos de seleccionador
         }
     }
 
+}
+
+.centrar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

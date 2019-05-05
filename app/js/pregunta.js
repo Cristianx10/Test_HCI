@@ -46,8 +46,11 @@ var Pregunta = /** @class */ (function () {
     };
     Pregunta.prototype.registro = function () {
         if (this.seleccion != null) {
-            resultados.agregar(this.tipoId, [{ id: "pregunta", valor: this.informacion },
-                { id: "respuesta", valor: this.seleccion.informacion }]);
+            resultados.agregar(this.tipoId, [
+                { id: "pregunta", valor: this.informacion },
+                { id: "respuesta", valor: this.seleccion.informacion },
+                { id: "Tiempo usado (segundos)", valor: this.contenido.getSegundos() + "" }
+            ]);
         }
     };
     Pregunta.prototype.getPregunta = function () {
@@ -175,7 +178,8 @@ var PreguntaC = /** @class */ (function (_super) {
     __extends(PreguntaC, _super);
     function PreguntaC(informacion) {
         var _this = _super.call(this, informacion) || this;
-        _this.elemento.className = "pantalla pregunta";
+        _this.tipoId = "P AreaTexto";
+        _this.elemento.className = "pregunta";
         _this.opciones = new Array();
         var div_seccionA = document.createElement('section');
         var div_seccionA_h1 = document.createElement('h2');
@@ -226,6 +230,7 @@ var PreguntaD = /** @class */ (function (_super) {
     __extends(PreguntaD, _super);
     function PreguntaD(informacion, p, m) {
         var _this = _super.call(this, informacion) || this;
+        _this.tipoId = "Likert";
         _this.opciones = new Array();
         _this.elemento.className = "pregunta";
         var div_seccionA = document.createElement('section');
@@ -333,6 +338,7 @@ var PreguntaI = /** @class */ (function (_super) {
     __extends(PreguntaI, _super);
     function PreguntaI(informacion) {
         var _this = _super.call(this, informacion) || this;
+        _this.tipoId = "P Imagen";
         _this.opciones = new Array();
         _this.elemento.className = "pregunta pimagen";
         var contenedor = document.createElement("div");
@@ -378,6 +384,7 @@ var PreguntaS = /** @class */ (function (_super) {
     __extends(PreguntaS, _super);
     function PreguntaS() {
         var _this = _super.call(this) || this;
+        _this.tipoId = "P Seleccion";
         _this.opciones = new Array();
         _this.texto = document.createElement("p");
         _this.texto.innerText = "___";
@@ -436,6 +443,7 @@ var PreguntaR = /** @class */ (function (_super) {
     __extends(PreguntaR, _super);
     function PreguntaR(informacion) {
         var _this = _super.call(this, informacion) || this;
+        _this.tipoId = "P Instruccion";
         _this.opciones = new Array();
         _this.elemento.className = "instruccion";
         _this.elemento.style.display = "flex";
@@ -472,6 +480,7 @@ var PreguntaP = /** @class */ (function (_super) {
     function PreguntaP(imagen, informacion) {
         var _this = _super.call(this, informacion) || this;
         _this.opciones = new Array();
+        _this.tipoId = "P Imagen";
         _this.elemento.className = "preguntaImagen";
         _this.preguntaHTML = document.createElement('div');
         _this.preguntaHTML.className = "preguntaImagen__imagen";

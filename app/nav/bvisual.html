@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="../sass/aplicaciones/targetas.css" />
 
   <style>
-    .palillos__info {}
+ 
   </style>
 
 </head>
@@ -112,7 +112,7 @@
 
     $(document).ready(function () {
 
-      // irA("./formulario.html");
+      
     });
 
 
@@ -163,7 +163,8 @@
     p5.agregarB(`<h2>d)</h2><img src="../img/preguntasGenerales/VisualEspacial/cuadrilateroD.png" alt="">`, []);
     p5.agregarClase("pestilo4");
 
-    let palo = new Palillos(300, 350);
+    let palo = new Palillos();
+    palo.size(300, 350);
 
     palo.almacenarEn("#palillosn1__almacen");
 
@@ -194,8 +195,8 @@
     });
 
 
-    let palo2 = new Palillos(400, 400);
-
+    let palo2 = new Palillos();
+    palo2.size(400, 400);
     palo2.cuadrado();
 
     palo2.agregar(4);

@@ -1,5 +1,4 @@
 "use strict";
-var e = random(0, 0);
 var Tablero_moleculas = /** @class */ (function () {
     function Tablero_moleculas() {
         this.canvas = document.createElement('canvas');
@@ -90,8 +89,8 @@ var Molecula = /** @class */ (function () {
                 if (_this.moleculas.length < _this.nEnlaces && _this.tablero.seleccion.moleculas.length < _this.tablero.seleccion.nEnlaces && _this.contenedor.hitTest(_this.stage.mouseX - _this.contenedor.x, _this.stage.mouseY - _this.contenedor.y)) {
                     var enlazar = false;
                     for (var i = 0; i < _this.enlaces.length; i++) {
-                        var e_1 = _this.enlaces[i];
-                        if (_this.tablero.seleccion.tipo == e_1) {
+                        var e = _this.enlaces[i];
+                        if (_this.tablero.seleccion.tipo == e) {
                             enlazar = true;
                         }
                     }
@@ -126,9 +125,9 @@ var Molecula = /** @class */ (function () {
                         linea_1.seguir(_this.tablero.seleccion.contenedor, _this.contenedor);
                         var resultado = _this.tipo;
                         for (var i = 0; i < _this.moleculas.length; i++) {
-                            var e_2 = _this.moleculas[i];
+                            var e = _this.moleculas[i];
                             var tem = resultado;
-                            resultado = tem + "," + e_2.tipo;
+                            resultado = tem + "," + e.tipo;
                         }
                         _this.tablero.enlace(resultado);
                     }

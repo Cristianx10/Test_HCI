@@ -2,6 +2,8 @@
 var Timer = /** @class */ (function () {
     function Timer() {
         this.terminado = false;
+        this.inicial__segundos = 0;
+        this.cont__segundos = 0;
         this.time = 0;
         this.horas = 0;
         this.minutos = 0;
@@ -32,6 +34,7 @@ var Timer = /** @class */ (function () {
         this.segundos = segundos % 60;
         this.milisegundos = 0;
         this.enEjecucion = true;
+        this.inicial__segundos = segundos;
         this.intervalo = setInterval(function () {
             _this.comenzarTempo();
             if (_this.progreso != null) {
@@ -89,6 +92,7 @@ var Timer = /** @class */ (function () {
             if (this.milisegundos < 0) {
                 this.milisegundos = 99;
                 this.segundos--;
+                this.cont__segundos++;
             }
             if (this.segundos < 0) {
                 this.segundos = 59;
@@ -109,6 +113,9 @@ var Timer = /** @class */ (function () {
     };
     Timer.prototype.setAccionFinal = function (accionFinal) {
         this.accionFinal = accionFinal;
+    };
+    Timer.prototype.getTiempo = function () {
+        return this.cont__segundos;
     };
     return Timer;
 }());

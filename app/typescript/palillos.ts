@@ -1,26 +1,4 @@
-class Actividad{
-    stage:createjs.Stage;
-    canvas: HTMLCanvasElement;
-    elemento:HTMLElement;
 
-    constructor(width:number, height:number) {
-        this.canvas = document.createElement("canvas");
-        this.canvas.width = width;
-        this.canvas.height = height;
-        this.stage = new createjs.Stage(this.canvas);
-        this.elemento = document.createElement('div');
-        this.elemento.append(this.canvas)
-    }
-
-    incluirEn(lugar: string) {
-        let e: HTMLElement = <HTMLElement>document.querySelector(lugar);
-        e.append(this.elemento);
-    }
-
-    getElemento(){
-        return this.elemento;
-    }
-}
 
 class Palillos extends Actividad{
     
@@ -37,8 +15,8 @@ class Palillos extends Actividad{
     conte = 0;
     almacen:Actividad;
 
-    constructor(width:number, height:number) {
-        super(width, height);
+    constructor() {
+        super();
         this.base = new createjs.Container();
         this.base.x = 15;
         this.base.y = 15;
@@ -46,7 +24,8 @@ class Palillos extends Actividad{
         this.basePalillos = new Array();
         this.palillos = new Array();
         this.contenedor = new createjs.Container()
-        this.almacen = new Actividad(420, 400);
+        this.almacen = new Actividad();
+        this.almacen.size(420, 400);
     }
 
     almacenarEn(lugar:string){

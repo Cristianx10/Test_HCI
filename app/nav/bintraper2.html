@@ -11,7 +11,7 @@
   <link href="../sass/tipographys/tipografias.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
 
-  <link rel="stylesheet" href="../sass/aplicaciones/targetas.css" />
+  <link rel="stylesheet" href="../../sass/aplicaciones/pizarras.css" />
 
 </head>
 
@@ -30,6 +30,8 @@
           </div>
         </div>
 
+        <div id="tuberias__a"></div>
+
 
       </div>
       <div class="zona__navegacion" style="display:none;">
@@ -47,13 +49,12 @@
  
   <script src="../lib/jquery.svg.js"></script>
   <script src="../lib/jquery.knob.js"></script>
-  <script src="../lib/preloadjs.js"></script>
   
-  <script src="../lib/tweenjs.js"></script>
-  -->
-
   <script src="../lib/easeljs.js"></script>
-  <script src="../../js/compuestos.js"></script>
+  <script src="../lib/tweenjs.js"></script>
+-->
+
+  <script src="../lib/preloadjs.js"></script>
   <script src="../lib/soundjs.js"></script>
   <script src="../js/timer.js"></script>
   <script src="../js/resultados.js"></script>
@@ -61,17 +62,12 @@
   <script src="../js/pregunta.js"></script>
 
   <!--Interacciones complejas-->
-  <script src="../js/tarjetas.js"></script>
-  <script src="../js/reciclaje.js"></script>
+
+
+
+  <script src="../../js/pizarra.js"></script>
 
   <script type="text/javascript">
-
-    $(document).ready(function () {
-
-      // irA("./formulario.html");
-
-
-    });
 
 
     $('.cont-principal').css("background-image", "url('../img/background-claro.png')");
@@ -178,15 +174,54 @@
     temp__pregunta.agregar("3", []);
     preguntas.push(temp__pregunta);
 
+    let img = cargarImagen("/img/pizarra/tabla.png", 103, 103, 5, 4);
+    let tab = new Pizarra(3, 15, 19);
 
+    tab.agregar(img[0], false, false, false, false, 0, 1);
+    tab.agregar(img[1], false, false, false, false, 1, 1);
+    tab.agregar(img[2], false, false, false, false, 2, 1);
+    tab.agregar(img[3], false, true, false, false, 3, 1);
+    tab.agregar(img[4], false, false, false, false, 4, 1);
+    tab.agregar(img[5], false, false, false, false, 5, 1);
+    tab.agregar(img[6], false, true, false, true, 6, 0);
+    tab.agregar(img[7], false, false, true, true, 7, 0);
+    tab.agregar(img[8], true, true, false, false, 8, 0);
+    tab.agregar(img[9], false, true, true, false, 9, 0);
+    tab.agregar(img[10], false, false, false, false, 10, 1);
+    tab.agregar(img[11], false, true, false, true, 11, 0);
+    tab.agregar(img[12], false, false, true, true, 12, 0);
+    tab.agregar(img[13], true, true, false, false, 13, 0);
+    tab.agregar(img[14], true, false, true, false, 14, 0);
+    tab.agregar(img[15], false, false, false, true, 15, 1);
+    tab.agregar(img[16], true, false, true, false, 16, 0);
+    tab.agregar(img[17], false, false, true, true, 17, 0);
+    tab.agregar(img[18], true, false, true, false, 18, 0);
+    tab.agregar(img[19], false, false, false, false, 19, 0);
+
+    tab.cargarTablero(5, 4, 103, 103);
+
+    tab.setValidacion(() => {
+        console.log("Validado");
+        seguir()
+    });
+
+    tab.setIntentoFallo(() => {
+        console.log("Intento");
+    });
+
+    tab.incluirEn("#tuberias__a");
+    
+
+    
     contenedor.agregarHTML(document.querySelector('.pinicio'));
-
+    
     shuffle(preguntas);
-
+    
     preguntas.forEach(p => {
       contenedor.agregar(p.getPregunta(), 40);
     });
-
+    contenedor.agregarHTML(document.querySelector("#tuberias__a"), tab);
+    
     var siguiente = document.querySelector('.btn_siguiente');
 
     contenedor.incluirEn(document.querySelector(".ppreguntas"));
@@ -206,6 +241,12 @@
     $(".opcion_check").click(() => {
       siguiente.disabled = false;
     });
+
+    navegacion.setFinal(()=>{
+      goTo("bintraper3")
+    });
+
+
 
 
   </script>

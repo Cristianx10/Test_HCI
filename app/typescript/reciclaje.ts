@@ -1,13 +1,9 @@
-interface Arrastrable_b {
-
-}
-
-class Basura implements Arrastrable_b {
+class Clasificar_elemento {
 
   basura: HTMLElement;
   validado: boolean;
   clasificado = false;
-  padre?: Reciclaje;
+  padre?: Clasificar;
   categoria: string;
 
 
@@ -40,12 +36,12 @@ class Basura implements Arrastrable_b {
   }
 }
 
-class Basura_elemento implements Arrastrable_b {
+class Basura_elemento  {
 
   basura: HTMLElement;
   validado: boolean;
   clasificado = false;
-  padre?: Reciclaje;
+  padre?: Clasificar;
   categoria: string;
 
 
@@ -71,23 +67,21 @@ class Basura_elemento implements Arrastrable_b {
   }
 }
 
-class Reciclaje {
-  elementos: Array<Basura>;
-  seleccion?: Basura;
-  aciertos = 0;
-  fallas = 0;
-  contenedor: HTMLElement;
+class Clasificar extends Interaccion{
+  
+  elementos: Array<Clasificar_elemento>;
+  seleccion?: Clasificar_elemento;
 
   constructor() {
+    super();
     this.elementos = new Array();
-    this.contenedor = document.createElement('div');
 
   }
 
-  agregar(basura: Basura) {
+  agregar(basura: Clasificar_elemento) {
     basura.padre = this;
     this.elementos.push(basura);
-    this.contenedor.append(basura.basura);
+    this.elemento.append(basura.basura);
   }
 
   reset(style: Function) {
@@ -113,15 +107,11 @@ class Reciclaje {
         this.aciertos++;
         return true;
       } else {
-        this.fallas;
+        this.fallos++;
         return false;
       }
     }
 
-  }
-
-  getElemento() {
-    return this.contenedor;
   }
 
 

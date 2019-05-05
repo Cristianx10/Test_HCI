@@ -5,60 +5,94 @@
 
 <script>
 
+    let contenedor = new Contenedor();
+    let nav = new Navegable(contenedor);
+
+
+    let img = cargarImagen("../../img/pizarra/tabla.png", 103, 103, 5, 4);
+    let tab = new Pizarra(3, 15, 19);
+
+    tab.agregar(img[0], false, false, false, false, 0, 1);
+    tab.agregar(img[1], false, false, false, false, 1, 1);
+    tab.agregar(img[2], false, false, false, false, 2, 1);
+    tab.agregar(img[3], false, true, false, false, 3, 1);
+    tab.agregar(img[4], false, false, false, false, 4, 1);
+    tab.agregar(img[5], false, false, false, false, 5, 1);
+    tab.agregar(img[6], false, true, false, true, 6, 0);
+    tab.agregar(img[7], false, false, true, true, 7, 0);
+    tab.agregar(img[8], true, true, false, false, 8, 0);
+    tab.agregar(img[9], false, true, true, false, 9, 0);
+    tab.agregar(img[10], false, false, false, false, 10, 1);
+    tab.agregar(img[11], false, true, false, true, 11, 0);
+    tab.agregar(img[12], false, false, true, true, 12, 0);
+    tab.agregar(img[13], true, true, false, false, 13, 0);
+    tab.agregar(img[14], true, false, true, false, 14, 0);
+    tab.agregar(img[15], false, false, false, true, 15, 1);
+    tab.agregar(img[16], true, false, true, false, 16, 0);
+    tab.agregar(img[17], false, false, true, true, 17, 0);
+    tab.agregar(img[18], true, false, true, false, 18, 0);
+    tab.agregar(img[19], false, false, false, false, 19, 0);
+
+    tab.cargarTablero(5, 4, 103, 103);
+
+    tab.setValidacion(() => {
+        console.log("Validado");
+        nav.setPermitir(true)
+        nav.siguiente();
+    });
+
+    tab.setIntentoFallo(() => {
+        console.log("Intento");
+    });
+
+    contenedor.agregar(tab.getActividad());
+
+    contenedor.incluirEn(document.querySelector(".principal"));
+    nav.iniciar();
+
+/*
     loadJson("../../data/pizarra.json", (r) => {
 
-        let con_tablero = new Contenedor();;
         for (let i = 0; i < r.secciones.length; i++) {
             let s = r.secciones[i];
-            var pizarra_fichas = [];
 
             let img = cargarImagen(s.tablero, 103, 103, 5, 4);
+
+            let tab = new Pizarra(s.inicio, s.final, s.lider);
 
             for (let j = 0; j < s.fichas.length; j++) {
                 let f = s.fichas[j];
                 let e = f.entradas;
 
-                let a = new Casilla(img[j], e.up, e.down, e.left, e.right, f.posicion, f.tipo);
-                pizarra_fichas.push(a);
+                tab.agregar(img[j], e.up, e.down, e.left, e.right, f.posicion, f.tipo);
+                console.log(`${e.up}, ${e.down}, ${e.left}, ${e.right}, ${f.posicion}, ${f.tipo}`)
             }
 
-            let tab = new Pizarra(pizarra_fichas, s.inicio, s.final, s.lider);
             tab.cargarTablero(5, 4, 103, 103);
+            contenedor.agregar(tab.getActividad());
 
-            con_tablero.agregar(new Contenido(tab.getElemento(), tab));
-            
-        }
-
-        let html_contenedor = document.createElement('div');
-        html_contenedor.className = "pizarras";
-
-        
-        con_tablero.foreachElementos(html_contenedor);
-
-        nav = new Navegable(con_tablero);
-        nav.iniciar();
-
-        nav.asignarCondiciones((o) => {
-
-            o.setValidacion(() => {
+            tab.setValidacion(() => {
                 console.log("Validado");
-                nav.siguiente(()=>{}, ()=>{
-                    
+                nav.setPermitir(true)
+                nav.siguiente(() => { }, () => {
+
                 });
             });
 
-            o.setIntentoFallo(() => {
+            tab.setIntentoFallo(() => {
                 console.log("Intento");
             });
-
-
-        });
-
-
-
-        $(".principal").append(html_contenedor);
-
-
+        }
+        
+        contenedor.incluirEn(document.querySelector(".principal"));
+        nav.iniciar();
     });
+
+ */
+
+    
+
+
+
 
 </script>

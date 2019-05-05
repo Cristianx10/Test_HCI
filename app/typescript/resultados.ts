@@ -65,6 +65,7 @@ class Resultados {
             this.pruebas.push({ id: id, pruebas: prueba });
         }
         this.save();
+        //console.log({ id: id, pruebas: prueba });
     }
 
     getAreas(areas: Array<string>) {
@@ -134,6 +135,7 @@ class Resultados {
         }
 
         this.save();
+        //console.log({ nombre: nombre, valor: valor });
     }
 
     calcularMaximo(valores: Array<Respuesta>) {
@@ -181,11 +183,13 @@ class Resultados {
                     this.maximos[categoria].valor += v.valor;
                 } else {
                     this.maximos.push({ area: v.area, valor: v.valor });
+                   // console.log({ area: v.area, valor: v.valor });
                 }
             }
         }
 
         this.save();
+     
     }
     /*
     [

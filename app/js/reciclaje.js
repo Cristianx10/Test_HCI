@@ -1,6 +1,19 @@
 "use strict";
-var Basura = /** @class */ (function () {
-    function Basura(url, categoria, padre) {
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Clasificar_elemento = /** @class */ (function () {
+    function Clasificar_elemento(url, categoria, padre) {
         var _this = this;
         this.clasificado = false;
         this.basura = document.createElement('div');
@@ -20,10 +33,10 @@ var Basura = /** @class */ (function () {
             }
         });
     }
-    Basura.prototype.validar = function () {
+    Clasificar_elemento.prototype.validar = function () {
         this.clasificado = true;
     };
-    return Basura;
+    return Clasificar_elemento;
 }());
 var Basura_elemento = /** @class */ (function () {
     function Basura_elemento(elemento, categoria, padre) {
@@ -46,19 +59,19 @@ var Basura_elemento = /** @class */ (function () {
     };
     return Basura_elemento;
 }());
-var Reciclaje = /** @class */ (function () {
-    function Reciclaje() {
-        this.aciertos = 0;
-        this.fallas = 0;
-        this.elementos = new Array();
-        this.contenedor = document.createElement('div');
+var Clasificar = /** @class */ (function (_super) {
+    __extends(Clasificar, _super);
+    function Clasificar() {
+        var _this = _super.call(this) || this;
+        _this.elementos = new Array();
+        return _this;
     }
-    Reciclaje.prototype.agregar = function (basura) {
+    Clasificar.prototype.agregar = function (basura) {
         basura.padre = this;
         this.elementos.push(basura);
-        this.contenedor.append(basura.basura);
+        this.elemento.append(basura.basura);
     };
-    Reciclaje.prototype.reset = function (style) {
+    Clasificar.prototype.reset = function (style) {
         if (style == null) {
             if (this.seleccion != null) {
                 this.seleccion.basura.style.left = "0";
@@ -72,7 +85,7 @@ var Reciclaje = /** @class */ (function () {
             }
         }
     };
-    Reciclaje.prototype.validarBasura = function (comparacion) {
+    Clasificar.prototype.validarBasura = function (comparacion) {
         if (this.seleccion != null) {
             this.seleccion.clasificado = true;
             this.validar();
@@ -81,15 +94,12 @@ var Reciclaje = /** @class */ (function () {
                 return true;
             }
             else {
-                this.fallas;
+                this.fallos++;
                 return false;
             }
         }
     };
-    Reciclaje.prototype.getElemento = function () {
-        return this.contenedor;
-    };
-    Reciclaje.prototype.validar = function () {
+    Clasificar.prototype.validar = function () {
         var num = 0;
         this.elementos.forEach(function (b) {
             if (b.clasificado) {
@@ -103,5 +113,5 @@ var Reciclaje = /** @class */ (function () {
             return false;
         }
     };
-    return Reciclaje;
-}());
+    return Clasificar;
+}(Interaccion));

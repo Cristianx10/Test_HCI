@@ -12,28 +12,10 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var Actividad = /** @class */ (function () {
-    function Actividad(width, height) {
-        this.canvas = document.createElement("canvas");
-        this.canvas.width = width;
-        this.canvas.height = height;
-        this.stage = new createjs.Stage(this.canvas);
-        this.elemento = document.createElement('div');
-        this.elemento.append(this.canvas);
-    }
-    Actividad.prototype.incluirEn = function (lugar) {
-        var e = document.querySelector(lugar);
-        e.append(this.elemento);
-    };
-    Actividad.prototype.getElemento = function () {
-        return this.elemento;
-    };
-    return Actividad;
-}());
 var Palillos = /** @class */ (function (_super) {
     __extends(Palillos, _super);
-    function Palillos(width, height) {
-        var _this = _super.call(this, width, height) || this;
+    function Palillos() {
+        var _this = _super.call(this) || this;
         _this.largo = 120;
         _this.inicial = 0;
         _this.fila = 0;
@@ -45,7 +27,8 @@ var Palillos = /** @class */ (function (_super) {
         _this.basePalillos = new Array();
         _this.palillos = new Array();
         _this.contenedor = new createjs.Container();
-        _this.almacen = new Actividad(420, 400);
+        _this.almacen = new Actividad();
+        _this.almacen.size(420, 400);
         return _this;
     }
     Palillos.prototype.almacenarEn = function (lugar) {

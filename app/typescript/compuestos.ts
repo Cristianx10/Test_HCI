@@ -1,20 +1,12 @@
-class Tablero_Crelacion {
-    stage: createjs.Stage;
-    canvas: HTMLCanvasElement;
+class Tablero_Crelacion extends Actividad {
     baseA: Tablero_Cbase;
     baseB: Tablero_Cbase;
     seleccion?: Tablero_Categoria;
-    validacion?: Function;
-    intentoFallo?: Function;
-    intentoAcierto?: Function;
-    intentos:number;
-    aciertos:number;
-    fallos:number;
-    
+    encontrado: boolean;
 
     constructor() {
-        this.canvas = document.createElement('canvas');
-        this.stage = new createjs.Stage(this.canvas);
+        super();
+        this.encontrado = false;
         this.baseA = new Tablero_Cbase(this);
         this.baseA.contenedor.x = 5;
         this.baseA.contenedor.y = 5;
@@ -24,19 +16,31 @@ class Tablero_Crelacion {
 
         this.baseA.setOrientacion(true);
         this.baseB.setOrientacion(false);
-        this.stage.update();
 
-        this.intentos = 0;
-        this.fallos = 0;
-        this.aciertos = 0;
-
+        this.update();
 
         this.stage.on("stagemousemove", () => {
             if (this.seleccion != null) {
                 this.seleccion.linea.dibujarInicial(this.stage.mouseX, this.stage.mouseY);
             }
         });
+    }
 
+    ocultar() {
+        console.log("Oculto")
+        if (this.seleccion != null) {
+            this.seleccion.ocultar();
+        }
+        this.seleccion = undefined;
+    }
+
+    reset() {
+        console.log("reseteo")
+        if (this.seleccion != null) {
+            this.seleccion.reset();
+        }
+
+        this.seleccion = undefined;
     }
 
     style() {
@@ -53,17 +57,6 @@ class Tablero_Crelacion {
         this.baseB.contenedor.x = x;
     }
 
-    setValidacion(validacion: Function) {
-        this.validacion = validacion;
-    }
-    setIntentoFallo(intentoFallo: Function) {
-        this.intentoFallo = intentoFallo;
-    }
-
-    setIntentoAcierto(intentoAcierto: Function) {
-        this.intentoAcierto = intentoAcierto;
-    }
-
     setStyle(width: number, height: number, style: string, h: number, w: number) {
         this.baseA.drawTablero(width, height, style, h, w);
         this.baseB.drawTablero(width, height, style, h, w);
@@ -73,7 +66,6 @@ class Tablero_Crelacion {
 
     }
     setStyleB(width: number, height: number, style: string, h: number, w: number) {
-
         this.baseB.drawTablero(width, height, style, h, w);
     }
 }
@@ -163,7 +155,7 @@ class Tablero_Cbase {
 
         tarjeta.contenedor.x += Math.abs(tam.width - cor.width) / 2;
         tarjeta.setConexion(this.orientation);
-        //this.actualizarTamano(300, 100);
+
         this.stage.update();
     }
 
@@ -173,7 +165,7 @@ class Tablero_Cbase {
         });
     }
 
-    actualizarPuntuacion(){
+    actualizarPuntuacion() {
         this.tablero.aciertos = 0;
         this.categorias.forEach((c) => {
             this.tablero.aciertos += c.puntos;
@@ -184,11 +176,12 @@ class Tablero_Cbase {
     validar() {
         let con = 0;
         this.categorias.forEach((c) => {
+
             if (c.clasificado) {
                 con++;
             }
         });
-    
+
         if (con >= this.categorias.length) {
             return true;
         }
@@ -209,7 +202,7 @@ class Tablero_Categoria {
     conexion: Coordenada;
     private place: createjs.Shape;
     private pareja?: Tablero_Categoria;
-    puntos:number;
+    puntos: number;
 
     constructor(tablero: Tablero_Cbase, texto: string, categoria: string, style?: string) {
         this.tablero = tablero;
@@ -235,30 +228,37 @@ class Tablero_Categoria {
 
 
         this.contenedor.on("mousedown", () => {
-            this.tablero.tablero.seleccion = this;
-            this.linea.iniciar(this.conexion.x, this.conexion.y);
+            this.tablero.tablero.encontrado = false;
+            this.tablero.tablero.seleccion = undefined;
             if (this.pareja != null) {
                 this.pareja.linea.limpiar();
-                this.clasificado = false;
                 this.pareja.clasificado = false;
             }
+            this.linea.iniciar(this.conexion.x, this.conexion.y);
+            this.clasificado = false;
+            this.tablero.tablero.seleccion = this;
         });
 
 
         this.stage.on("stagemouseup", () => {
+            if (this.tablero.tablero.encontrado == false && this.tablero.tablero.seleccion != null) {
 
-            if (this.tablero.tablero.seleccion != null) {
-                if (this.clasificado == false && this.contenedor.hitTest(
+                let sobre = this.contenedor.hitTest(
                     this.stage.mouseX - this.contenedor.x - tablero.contenedor.x,
-                    this.stage.mouseY - this.contenedor.y - tablero.contenedor.y) &&
+                    this.stage.mouseY - this.contenedor.y - tablero.contenedor.y);
+
+                if (this.clasificado == false && sobre &&
                     this.tablero.tablero.seleccion.tablero.categorias.indexOf(this) == -1
                 ) {
-                   
+                    this.tablero.tablero.encontrado = true;
+
                     this.tablero.tablero.intentos++;
                     this.pareja = this.tablero.tablero.seleccion;
                     this.pareja.pareja = this;
+
                     this.clasificado = true;
                     this.pareja.clasificado = true;
+
 
                     this.pareja.linea.terminar(this.conexion.x, this.conexion.y);
                     this.pareja.linea.draw();
@@ -266,60 +266,65 @@ class Tablero_Categoria {
                     if (this.categoria == this.pareja.categoria) {
 
                         if (this.tablero.tablero.intentoAcierto != null) {
-                            this.tablero.tablero.intentoAcierto(this, this.tablero.tablero.seleccion);
+                            this.tablero.tablero.intentoAcierto();
                         }
 
                         this.puntos = 1;
                         this.pareja.puntos = 1;
 
-                        if (this.tablero.validar() && this.tablero.tablero.validacion != null) {
-                            this.tablero.tablero.validacion();
-                        }
-                       
-                    } else {
-                        if (this.tablero.tablero.intentoFallo != null) {
-                            this.tablero.tablero.intentoFallo(this, this.tablero.tablero.seleccion);
+                        if (this.pareja.tablero.validar()) {
+                            if (this.tablero.tablero.validacion != null) {
+                                this.tablero.tablero.validacion();
+                            }
+
                         }
 
+                    } else {
                         this.puntos = -1;
                         this.pareja.puntos = -1;
+
+                        if (this.tablero.tablero.intentoFallo != null) {
+                            this.tablero.tablero.intentoFallo();
+                        }
                     }
 
-                    if (this.tablero.validar() && this.tablero.tablero.validacion != null) {
-                        this.tablero.tablero.validacion();
+                    if (this.tablero.validar()) {
+                        if (this.tablero.tablero.validacion != null) {
+                            this.tablero.tablero.validacion();
+                        }
                     }
-                    this.tablero.tablero.seleccion = undefined;
+                    this.tablero.actualizarPuntuacion();
                 } else {
                     this.tablero.tablero.seleccion.linea.limpiar();
                 }
             }
-
-            this.tablero.actualizarPuntuacion();
+          
         });
     }
 
     reset() {
         if (this.pareja != null) {
-            this.linea.limpiar();
             this.pareja.linea.limpiar();
-            this.clasificado = false;
             this.pareja.clasificado = false;
         }
-
+        this.linea.limpiar();
+        this.clasificado = false;
     }
 
     ocultar() {
-
+    
         if (this.pareja != null) {
-            this.tablero.contenedor.removeChild(this.pareja.contenedor);
+            this.pareja.tablero.contenedor.removeChild(this.pareja.contenedor);
+            this.pareja.tablero.contenedor.removeChild(this.pareja.linea.linea);
             this.pareja.linea.limpiar()
             this.pareja.clasificado = true;
         }
-        this.clasificado = true;
-      
 
+        this.clasificado = true;
         this.tablero.contenedor.removeChild(this.contenedor);
         this.tablero.contenedor.removeChild(this.linea.linea);
+        this.linea.limpiar()
+
         this.stage.update();
     }
 
@@ -381,12 +386,10 @@ class LineaCurva {
         this.final = { x: 0, y: 0 };
         this.dibujando = false;
         this.color = { r: random(50, 200), g: random(50, 200), b: random(50, 200) };
-
     }
 
     iniciar(x: number, y: number) {
-        this.inicial.x = x;
-        this.inicial.y = y;
+        this.inicial = { x: x, y: y };
         this.dibujando = true;
     }
 
@@ -418,9 +421,12 @@ class LineaCurva {
 
     draw() {
         this.linea.graphics.clear();
+
         let centro = {
-            x: (this.inicial.x + this.final.x) / 2, y: (this.inicial.y + this.final.y) / 2
+            x: (this.inicial.x + this.final.x) / 2,
+            y: (this.inicial.y + this.final.y) / 2
         };
+
         this.linea.graphics
             .beginStroke(`rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`)
             .setStrokeStyle(5)
@@ -435,6 +441,7 @@ class LineaCurva {
         this.linea.graphics.clear();
         this.stage.update();
         this.dibujando = false;
+
     }
 
     dibujar(inicial: Coordenada, final: Coordenada) {
