@@ -28,8 +28,8 @@ var Tablero_moleculas = /** @class */ (function () {
         for (var i = 0; i < tex.length; i++) {
             var t = tex[i];
             for (var j = 0; j < com.length; j++) {
-                var c = com[j];
-                if (t == c) {
+                var c_1 = com[j];
+                if (t == c_1) {
                     num++;
                     com[j] = "";
                     j = com.length;

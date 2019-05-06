@@ -234,16 +234,16 @@ var Contenedor = /** @class */ (function () {
     Contenedor.prototype.agregarHTML = function (elemeto, tiempo) {
         var e = new PantallaHTML(elemeto);
         if (tiempo != null) {
-            var c = new Contenido(elemeto, e, tiempo);
-            c.ocultar();
-            this.elementos.push(c);
-            return c;
+            var c_1 = new Contenido(elemeto, e, tiempo);
+            c_1.ocultar();
+            this.elementos.push(c_1);
+            return c_1;
         }
         else {
-            var c = new Contenido(elemeto, e);
-            c.ocultar();
-            this.elementos.push(c);
-            return c;
+            var c_2 = new Contenido(elemeto, e);
+            c_2.ocultar();
+            this.elementos.push(c_2);
+            return c_2;
         }
     };
     Contenedor.prototype.agregarHTMLAll = function (elemetos, tiempo) {
@@ -416,6 +416,43 @@ function cargarImagen(url, width, height, columnas, filas) {
             c = -1;
             f -= height;
         }
+        contenedor.append(fragmentoImg);
+        imagenes.push(contenedor);
+    }
+    return imagenes;
+}
+function matrixFija(url, width, height, columnas, filas) {
+    var matrix = crearMatrix(columnas, filas, width, height);
+    console.log(matrix);
+    var imagenes = new Array();
+    var c = -1;
+    var f = 0;
+    var image = document.createElement("div");
+    image.style.backgroundImage = "url(" + url + ")"; // load the image
+    image.style.width = width * columnas + "px";
+    image.style.height = height * filas + "px";
+    image.style.position = "absolute";
+    // console.log("ejecutando");
+    var total = filas * columnas;
+    for (var i = 0; i < total; i++) {
+        var contenedor = document.createElement('div');
+        contenedor.style.position = "relative";
+        contenedor.style.width = width + "px";
+        contenedor.style.height = height + "px";
+        contenedor.style.overflow = "hidden";
+        var fragmentoImg = image.cloneNode();
+        c++;
+        fragmentoImg.style.left = -(c * width) + "px";
+        fragmentoImg.style.top = f + "px";
+        if ((c + 1) == columnas) {
+            c = -1;
+            f -= height;
+        }
+        contenedor.style.position = "absolute";
+        contenedor.style.left = matrix[i].x + "px";
+        contenedor.style.top = matrix[i].y + "px";
+        contenedor.style.width = matrix[i].width;
+        contenedor.style.height = matrix[i].height;
         contenedor.append(fragmentoImg);
         imagenes.push(contenedor);
     }

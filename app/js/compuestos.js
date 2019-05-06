@@ -225,7 +225,7 @@ var Tablero_Categoria = /** @class */ (function () {
                             _this.tablero.tablero.intentoFallo();
                         }
                     }
-                    if (_this.tablero.validar()) {
+                    if (_this.tablero.validar() || _this.pareja.tablero.validar()) {
                         if (_this.tablero.tablero.validacion != null) {
                             _this.tablero.tablero.validacion();
                         }

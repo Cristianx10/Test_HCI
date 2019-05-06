@@ -302,7 +302,7 @@ class Contenedor {
         }
         elemeto.ocultar();
         this.elementos.push(elemeto)
-    
+
         return elemeto;
     }
 
@@ -458,7 +458,7 @@ class Contenido {
         return this.objeto;
     }
 
-    getSegundos(){
+    getSegundos() {
         return this.timer.getTiempo();
     }
 
@@ -547,6 +547,56 @@ function cargarImagen(url: string, width: number, height: number, columnas: numb
             c = -1;
             f -= height;
         }
+
+        contenedor.append(fragmentoImg);
+        imagenes.push(contenedor);
+    }
+
+    return imagenes;
+}
+
+function matrixFija(url: string, width: number, height: number, columnas: number, filas: number) {
+    let matrix = crearMatrix(columnas, filas, width, height);
+    console.log(matrix)
+    let imagenes = new Array<HTMLElement>();
+    let c = -1;
+    let f = 0;
+
+    let image = document.createElement("div");
+    image.style.backgroundImage = `url(${url})`; // load the image
+    image.style.width = width * columnas + "px";
+    image.style.height = height * filas + "px";
+
+    image.style.position = "absolute";
+
+    // console.log("ejecutando");
+    let total = filas * columnas;
+    for (let i = 0; i < total; i++) {
+
+        let contenedor = document.createElement('div');
+        contenedor.style.position = "relative";
+        contenedor.style.width = width + "px";
+        contenedor.style.height = height + "px";
+        contenedor.style.overflow = "hidden";
+
+        let fragmentoImg: HTMLElement = <any>image.cloneNode();
+
+        c++;
+        fragmentoImg.style.left = -(c * width) + "px";
+        fragmentoImg.style.top = f + "px";
+
+        if ((c + 1) == columnas) {
+            c = -1;
+            f -= height;
+        }
+
+      
+
+        contenedor.style.position = "absolute";
+        contenedor.style.left = matrix[i].x + "px";
+        contenedor.style.top = matrix[i].y+ "px";
+        contenedor.style.width = matrix[i].width;
+        contenedor.style.height = matrix[i].height;
 
         contenedor.append(fragmentoImg);
         imagenes.push(contenedor);
@@ -857,7 +907,7 @@ class Interaccion implements Validable {
 class Actividad implements Validable {
 
     stage: createjs.Stage;
-    contenedor:createjs.Container;
+    contenedor: createjs.Container;
     canvas: HTMLCanvasElement;
     elemento: HTMLElement;
 
@@ -872,7 +922,7 @@ class Actividad implements Validable {
 
     tipoId: string;
     contenido: Contenido;
-   
+
 
     constructor() {
         this.canvas = document.createElement("canvas");

@@ -288,7 +288,7 @@ class Tablero_Categoria {
                         }
                     }
 
-                    if (this.tablero.validar()) {
+                    if (this.tablero.validar() || this.pareja.tablero.validar()) {
                         if (this.tablero.tablero.validacion != null) {
                             this.tablero.tablero.validacion();
                         }

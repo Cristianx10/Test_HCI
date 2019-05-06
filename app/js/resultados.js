@@ -39,9 +39,9 @@ var Resultados = /** @class */ (function () {
             var a = areas[i];
             if (this.categorias != null) {
                 for (var j = 0; j < this.categorias.length; j++) {
-                    var c = this.categorias[j];
-                    if (a == c.nombre) {
-                        areasArray.push(c);
+                    var c_1 = this.categorias[j];
+                    if (a == c_1.nombre) {
+                        areasArray.push(c_1);
                         j = this.categorias.length;
                     }
                 }
@@ -55,9 +55,9 @@ var Resultados = /** @class */ (function () {
             var a = areas[i];
             if (this.maximos != null) {
                 for (var j = 0; j < this.maximos.length; j++) {
-                    var c = this.maximos[j];
-                    if (a == c.area) {
-                        areasArray.push(c);
+                    var c_2 = this.maximos[j];
+                    if (a == c_2.area) {
+                        areasArray.push(c_2);
                         j = this.maximos.length;
                     }
                 }
