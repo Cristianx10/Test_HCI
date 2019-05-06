@@ -94,13 +94,14 @@ var Bloque = /** @class */ (function () {
     function Bloque(url, pareja) {
         var _this = this;
         this.pareja = pareja;
+        this.valido = false;
         this.elemento = document.createElement('div');
         this.elemento.className = "tablero__bloque";
         this.bloque = document.createElement('div');
         this.bloque.className = "bloque";
         this.bloque.innerHTML = "\n        <div class=\"bloque__cara\">\n          </div><div class=\"bloque__sello\">\n            <div style=\"background-image:url('" + url + "'); width:100%; height:100%;background-size: contain;background-repeat: no-repeat;\">\n            </div>\n        </div>";
         this.elemento.addEventListener("click", function () {
-            {
+            if (_this.valido == false) {
                 if (_this.pareja.tablero.bloqueador == false && _this.pareja.tablero.bloqueActual !== _this) {
                     if (_this.bloque.style.transform === "rotateY(180deg)") {
                         _this.ocultar();
@@ -112,6 +113,8 @@ var Bloque = /** @class */ (function () {
                             if (_this.pareja.validar(_this.pareja.tablero.bloqueActual)) {
                                 _this.pareja.validado = true;
                                 _this.pareja.tablero.aciertos++;
+                                _this.valido = true;
+                                _this.pareja.tablero.bloqueActual.valido = true;
                                 if (_this.pareja.tablero.intentoAcierto != null) {
                                     _this.pareja.tablero.intentoAcierto(_this.pareja.tablero.intentos, _this.pareja.tablero.aciertos, _this.pareja.tablero.fallos, _this.pareja.tablero.valido);
                                 }

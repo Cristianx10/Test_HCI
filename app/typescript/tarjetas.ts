@@ -19,7 +19,7 @@ class Tablero_tarjetas extends Interaccion {
   }
 
   agregar(url: string, orden: number, url2: string, orden2: number) {
-   
+
     this.posiciones.push(orden);
 
 
@@ -105,16 +105,18 @@ class Bloque {
 
   public elemento: HTMLElement;
   public pareja: Pareja;
-  public bloque:HTMLElement;
+  public bloque: HTMLElement;
+  public valido: boolean;
 
   constructor(url: string, pareja: Pareja) {
     this.pareja = pareja;
+    this.valido = false;
 
     this.elemento = document.createElement('div');
     this.elemento.className = "tablero__bloque";
     this.bloque = document.createElement('div');
     this.bloque.className = "bloque";
-    this.bloque.innerHTML =  `
+    this.bloque.innerHTML = `
         <div class="bloque__cara">
           </div><div class="bloque__sello">
             <div style="background-image:url('${url}'); width:100%; height:100%;background-size: contain;background-repeat: no-repeat;">
@@ -122,10 +124,11 @@ class Bloque {
         </div>`;
 
     this.elemento.addEventListener("click", () => {
-      {
-        
+
+      if (this.valido == false) {
+
         if (this.pareja.tablero.bloqueador == false && this.pareja.tablero.bloqueActual !== this) {
-          
+
           if (this.bloque.style.transform === "rotateY(180deg)") {
             this.ocultar();
           } else {
@@ -137,10 +140,15 @@ class Bloque {
               if (this.pareja.validar(this.pareja.tablero.bloqueActual)) {
 
                 this.pareja.validado = true;
+                
 
                 this.pareja.tablero.aciertos++;
+                this.valido = true;
+                this.pareja.tablero.bloqueActual.valido = true;
+                
+                
                 if (this.pareja.tablero.intentoAcierto != null) {
-                  this.pareja.tablero.intentoAcierto(this.pareja.tablero.intentos,this.pareja.tablero.aciertos,this.pareja.tablero.fallos, this.pareja.tablero.valido);
+                  this.pareja.tablero.intentoAcierto(this.pareja.tablero.intentos, this.pareja.tablero.aciertos, this.pareja.tablero.fallos, this.pareja.tablero.valido);
                 }
 
                 this.pareja.tablero.bloqueActual = undefined;
@@ -150,7 +158,7 @@ class Bloque {
                 this.pareja.tablero.bloqueador = true;
                 this.pareja.tablero.fallos++;
                 if (this.pareja.tablero.intentoFallo != null) {
-                  this.pareja.tablero.intentoFallo(this.pareja.tablero.intentos,this.pareja.tablero.aciertos,this.pareja.tablero.fallos, this.pareja.tablero.valido);
+                  this.pareja.tablero.intentoFallo(this.pareja.tablero.intentos, this.pareja.tablero.aciertos, this.pareja.tablero.fallos, this.pareja.tablero.valido);
                 }
 
                 setTimeout(() => {
@@ -171,10 +179,12 @@ class Bloque {
         if (this.pareja.tablero.verificar()) {
           this.pareja.tablero.valido = true;
           if (this.pareja.tablero.validacion != null) {
-            this.pareja.tablero.validacion(this.pareja.tablero.intentos,this.pareja.tablero.aciertos,this.pareja.tablero.fallos, this.pareja.tablero.valido);
+            this.pareja.tablero.validacion(this.pareja.tablero.intentos, this.pareja.tablero.aciertos, this.pareja.tablero.fallos, this.pareja.tablero.valido);
           }
         }
       }
+
+
     });
     this.elemento.append(this.bloque);
   }
