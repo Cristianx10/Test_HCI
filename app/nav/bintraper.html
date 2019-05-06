@@ -21,7 +21,7 @@
 
             <div class="pantalla ppreguntas">
 
-                <div class="pantalla pinicio" style="background-image: url('../img/background_principal-2.png')">
+                <div class="pantalla pinicio" style="background-image: url('../img/Principal Intra personal.png')">
                     <div class="introduccion">
                         <h1 class="titulo">Inteligencia Intrapersonal</h1>
                         <p id="desc" class="descripcion">En esta sección de la prueba evaluaremos tus conocimientos en
@@ -316,13 +316,20 @@
         laberinto.incluirEn("#laberinto");
 
 
-        contenedor.agregarHTML(document.querySelector('.pinicio'));
+        contenedor.agregarHTML(document.querySelector('.pinicio')).setAccion(() => {
+            navegacion.ocultarProgreso();
+            navegacion.ocultarTiempo();
 
+        });
         shuffle(preguntas);
 
         preguntas.forEach(p => {
             contenedor.agregar(p.getPregunta(), 40);
+                navegacion.colocarTiempo();
+                navegacion.colocarProgreso();
+            
         });
+
         contenedor.agregarHTML(document.querySelector('.pintroequilibrio')).setAccion(() => {
             ocultar(".zona__navegacion");
             navegacion.ocultarProgreso();
