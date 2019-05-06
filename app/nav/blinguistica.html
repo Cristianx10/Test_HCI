@@ -79,7 +79,7 @@
 
         </div>
 
-        <div class="pantalla pinicio"  style="background-image: url('../img/background_principal-2.png')">
+        <div class="pantalla pinicio"  style="background-image: url('../img/Principal Linguistica.png')">
           <div class="introduccion">
             <h1 class="titulo">Inteligencia Lingüística</h1>
             <p id="desc" class="descripcion">En esta sección de la prueba se evaluará tus conocimientos en el área
@@ -471,6 +471,8 @@
     contenedor.agregarHTML(document.querySelector(".prelacionar"), 120)
     .setAccion(() => {
       siguiente.disabled = true;
+      navegable.colocarTiempo();
+      navegable.colocarProgreso();
     });
     
    
@@ -488,6 +490,8 @@
     contenedor.agregarHTML(document.querySelector('.pemperejado'))
     .setAccion(() => {
       ocultar(".zona__navegacion");
+      navegable.colocarTiempo();
+      navegable.colocarProgreso();
     });;
 
    contenedor.agregar(tableros[0].getActividad());
@@ -499,12 +503,10 @@
     contenedor.incluirEn(document.querySelector(".ppreguntas"));
     navegable.iniciar();
 
-    navegable.colocarTiempo();
-    navegable.colocarProgreso();
-
-    ocultar(".zona__navegacion");
+            ocultar(".zona__navegacion");
 
     function seguir() {
+      console.log(navegable.getActual());
       navegable.setPermitir(true);
       navegable.siguiente();
       if (navegable.getActual() == 1) {

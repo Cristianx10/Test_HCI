@@ -25,7 +25,7 @@
 
       <div class="pantalla ppreguntas">
 
-        <div class="pantalla pinicio" style="background-image: url('../img/background_principal-2.png')">
+        <div class="pantalla pinicio" style="background-image: url('../img/Principal Visual Espacial.png')">
           <div class="introduccion">
             <h1 class="titulo">Inteligencia Visual Espacial</h1>
             <p id="desc" class="descripcion">En esta sección de la prueba evaluaremos tus conocimientos en el area
@@ -160,7 +160,7 @@
 ]);
     p4.agregarClase("pestilo4");
 
-    let p5 = new PreguntaP(`<h1>4. Encuentra la opción correcta.</h1>`,
+    let p5 = new PreguntaP(`<h1>5. Encuentra la opción correcta.</h1>`,
       `<img src="../img/preguntasGenerales/VisualEspacial/referenciaCuadrilatero.png">`);
     p5.agregarB(`<h2>a)</h2><img src="../img/preguntasGenerales/VisualEspacial/cuadrilateroA.png" alt="">`, []);
     p5.agregarB(`<h2>b)</h2><img src="../img/preguntasGenerales/VisualEspacial/cuadrilateroB.png" alt="">`, []);
@@ -239,15 +239,26 @@
 
     contenedor.agregarHTML(document.querySelector('.pinicio'));
     contenedor.agregar(p1.getPregunta()).setAccion(() => {
+      siguiente.disabled = true;
       mostrar(".zona__navegacion");
     });
 
-    contenedor.agregar(p2.getPregunta());
-    contenedor.agregar(p3.getPregunta());
-    contenedor.agregar(p4.getPregunta());
-    contenedor.agregar(p5.getPregunta());
+    contenedor.agregar(p2.getPregunta()).setAccion(() => {
+      siguiente.disabled = true;
+    });
+    contenedor.agregar(p3.getPregunta()).setAccion(() => {
+      siguiente.disabled = true;
+    });
+    contenedor.agregar(p4.getPregunta()).setAccion(() => {
+      siguiente.disabled = true;
+    });
+    contenedor.agregar(p5.getPregunta()).setAccion(() => {
+      siguiente.disabled = true;
+    });
 
-    contenedor.agregarHTML(document.querySelector('.ppalillos'));
+    contenedor.agregarHTML(document.querySelector('.ppalillos')).setAccion(() => {
+      ocultar(".zona__navegacion");
+    });
     contenedor.agregarHTML(document.querySelector('.ppalillosn1'));
     contenedor.agregarHTML(document.querySelector('.ppalillosn2'));
 
@@ -266,6 +277,10 @@
       navegacion.setPermitir(true);
       navegacion.siguiente();
     }
+
+    $(".opcion").click(() => {
+      siguiente.disabled = false;
+    });
 
     $(".opcion_check").click(() => {
       siguiente.disabled = false;
