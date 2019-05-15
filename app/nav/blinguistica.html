@@ -145,13 +145,14 @@
  
   <script src="../lib/jquery.svg.js"></script>
   <script src="../lib/jquery.knob.js"></script>
-  <script src="../lib/preloadjs.js"></script>
+  
   
   <script src="../lib/tweenjs.js"></script>
   -->
 
   <script src="../lib/easeljs.js"></script>
   <script src="../lib/soundjs.js"></script>
+  <script src="../lib/preloadjs.js"></script>
   <script src="../js/timer.js"></script>
   <script src="../js/resultados.js"></script>
   <script src="../js/main.js"></script>
@@ -163,13 +164,6 @@
   <script src="../../js/compuestos.js"></script>
 
   <script type="text/javascript">
-
-    $(document).ready(function () {
-
-      // irA("./formulario.html");
-
-
-    });
 
 
     $('.cont-principal').css("background-image", "url('../img/background-claro.png')");
@@ -326,7 +320,7 @@
     let tableros = [];
     tableros.push(new Tablero_tarjetas());
 
-    tableros[0].agregar("../img/emparejados/card-1.png", 0, "../img/emparejados/card-1.png", 1);
+    tableros[0].agregar("../img/emparejados/card-1.png", 19, "../img/emparejados/card-1.png", 1);
     tableros[0].agregar("../img/emparejados/card-2.png", 2, "../img/emparejados/card-2.png", 3);
     tableros[0].agregar("../img/emparejados/card-3.png", 4, "../img/emparejados/card-3.png", 5);
     tableros[0].agregar("../img/emparejados/card-4.png", 6, "../img/emparejados/card-4.png", 7);
@@ -335,7 +329,7 @@
     tableros[0].agregar("../img/emparejados/card-7.png", 12, "../img/emparejados/card-7.png", 13);
     tableros[0].agregar("../img/emparejados/card-8.png", 14, "../img/emparejados/card-8.png", 15);
     tableros[0].agregar("../img/emparejados/card-9.png", 16, "../img/emparejados/card-9.png", 17);
-    tableros[0].agregar("../img/emparejados/card-10.png", 18, "../img/emparejados/card-10.png", 19);
+    tableros[0].agregar("../img/emparejados/card-10.png", 18, "../img/emparejados/card-10.png", 0);
 
    
     tableros[0].iniciar();
@@ -506,7 +500,7 @@
             ocultar(".zona__navegacion");
 
     function seguir() {
-      console.log(navegable.getActual());
+
       navegable.setPermitir(true);
       navegable.siguiente();
       if (navegable.getActual() == 1) {
@@ -526,12 +520,6 @@
 
 
   </script>
-
-
-
-
-
-
 
 </body>
 

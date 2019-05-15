@@ -34,14 +34,12 @@ var Tablero_Crelacion = /** @class */ (function (_super) {
         return _this;
     }
     Tablero_Crelacion.prototype.ocultar = function () {
-        console.log("Oculto");
         if (this.seleccion != null) {
             this.seleccion.ocultar();
         }
         this.seleccion = undefined;
     };
     Tablero_Crelacion.prototype.reset = function () {
-        console.log("reseteo");
         if (this.seleccion != null) {
             this.seleccion.reset();
         }
@@ -162,12 +160,13 @@ var Tablero_Cbase = /** @class */ (function () {
     return Tablero_Cbase;
 }());
 var Tablero_Categoria = /** @class */ (function () {
-    function Tablero_Categoria(tablero, texto, categoria, style) {
+    function Tablero_Categoria(base, texto, categoria, style) {
         var _this = this;
         this.orientacionLeft = true;
-        this.tablero = tablero;
-        this.stage = tablero.stage;
+        this.base = base;
+        this.stage = base.stage;
         this.puntos = 0;
+        this.visible = true;
         this.contenedor = new createjs.Container();
         if (style != null) {
             this.texto = new createjs.Text(texto, style);
@@ -183,57 +182,59 @@ var Tablero_Categoria = /** @class */ (function () {
         this.contenedor.addChildAt(this.place, 0);
         this.conexion = { x: 0, y: 0 };
         this.contenedor.on("mousedown", function () {
-            _this.tablero.tablero.encontrado = false;
-            _this.tablero.tablero.seleccion = undefined;
-            if (_this.pareja != null) {
-                _this.pareja.linea.limpiar();
-                _this.pareja.clasificado = false;
+            if (_this.visible) {
+                _this.base.tablero.encontrado = false;
+                _this.base.tablero.seleccion = undefined;
+                _this.base.tablero.seleccion = _this;
+                if (_this.pareja != null) {
+                    _this.pareja.linea.limpiar();
+                    _this.pareja.clasificado = false;
+                    _this.pareja.pareja = undefined;
+                    _this.pareja = undefined;
+                }
+                _this.clasificado = false;
+                _this.linea.iniciar(_this.conexion.x, _this.conexion.y);
             }
-            _this.linea.iniciar(_this.conexion.x, _this.conexion.y);
-            _this.clasificado = false;
-            _this.tablero.tablero.seleccion = _this;
         });
         this.stage.on("stagemouseup", function () {
-            if (_this.tablero.tablero.encontrado == false && _this.tablero.tablero.seleccion != null) {
-                var sobre_1 = _this.contenedor.hitTest(_this.stage.mouseX - _this.contenedor.x - tablero.contenedor.x, _this.stage.mouseY - _this.contenedor.y - tablero.contenedor.y);
-                if (_this.clasificado == false && sobre_1 &&
-                    _this.tablero.tablero.seleccion.tablero.categorias.indexOf(_this) == -1) {
-                    _this.tablero.tablero.encontrado = true;
-                    _this.tablero.tablero.intentos++;
-                    _this.pareja = _this.tablero.tablero.seleccion;
-                    _this.pareja.pareja = _this;
-                    _this.clasificado = true;
-                    _this.pareja.clasificado = true;
-                    _this.pareja.linea.terminar(_this.conexion.x, _this.conexion.y);
-                    _this.pareja.linea.draw();
-                    if (_this.categoria == _this.pareja.categoria) {
-                        if (_this.tablero.tablero.intentoAcierto != null) {
-                            _this.tablero.tablero.intentoAcierto();
+            if (_this.visible) {
+                if (_this.base.tablero.encontrado == false && _this.base.tablero.seleccion != null) {
+                    var sobre_1 = _this.contenedor.hitTest(_this.stage.mouseX - _this.contenedor.x - base.contenedor.x, _this.stage.mouseY - _this.contenedor.y - base.contenedor.y);
+                    if (_this.clasificado == false && sobre_1 &&
+                        _this.base.tablero.seleccion.base.categorias.indexOf(_this) == -1) {
+                        _this.base.tablero.encontrado = true;
+                        _this.base.tablero.intentos++;
+                        _this.pareja = _this.base.tablero.seleccion;
+                        _this.pareja.pareja = _this;
+                        _this.clasificado = true;
+                        _this.pareja.clasificado = true;
+                        _this.pareja.linea.terminar(_this.conexion.x, _this.conexion.y);
+                        _this.pareja.linea.draw();
+                        if (_this.categoria == _this.pareja.categoria) {
+                            //console.log(this.pareja, this)
+                            if (_this.base.tablero.intentoAcierto != null) {
+                                _this.base.tablero.intentoAcierto();
+                            }
+                            _this.puntos = 1;
+                            _this.pareja.puntos = 1;
                         }
-                        _this.puntos = 1;
-                        _this.pareja.puntos = 1;
-                        if (_this.pareja.tablero.validar()) {
-                            if (_this.tablero.tablero.validacion != null) {
-                                _this.tablero.tablero.validacion();
+                        else {
+                            _this.puntos = -1;
+                            _this.pareja.puntos = -1;
+                            if (_this.base.tablero.intentoFallo != null) {
+                                _this.base.tablero.intentoFallo();
                             }
                         }
+                        if (_this.base.validar() || _this.pareja.base.validar()) {
+                            if (_this.base.tablero.validacion != null) {
+                                _this.base.tablero.validacion();
+                            }
+                        }
+                        _this.base.actualizarPuntuacion();
                     }
                     else {
-                        _this.puntos = -1;
-                        _this.pareja.puntos = -1;
-                        if (_this.tablero.tablero.intentoFallo != null) {
-                            _this.tablero.tablero.intentoFallo();
-                        }
+                        _this.base.tablero.seleccion.linea.limpiar();
                     }
-                    if (_this.tablero.validar() || _this.pareja.tablero.validar()) {
-                        if (_this.tablero.tablero.validacion != null) {
-                            _this.tablero.tablero.validacion();
-                        }
-                    }
-                    _this.tablero.actualizarPuntuacion();
-                }
-                else {
-                    _this.tablero.tablero.seleccion.linea.limpiar();
                 }
             }
         });
@@ -248,14 +249,16 @@ var Tablero_Categoria = /** @class */ (function () {
     };
     Tablero_Categoria.prototype.ocultar = function () {
         if (this.pareja != null) {
-            this.pareja.tablero.contenedor.removeChild(this.pareja.contenedor);
-            this.pareja.tablero.contenedor.removeChild(this.pareja.linea.linea);
+            this.pareja.base.contenedor.removeChild(this.pareja.contenedor);
+            this.pareja.base.contenedor.removeChild(this.pareja.linea.linea);
             this.pareja.linea.limpiar();
             this.pareja.clasificado = true;
+            this.pareja.visible = false;
         }
+        this.visible = false;
         this.clasificado = true;
-        this.tablero.contenedor.removeChild(this.contenedor);
-        this.tablero.contenedor.removeChild(this.linea.linea);
+        this.base.contenedor.removeChild(this.contenedor);
+        this.base.contenedor.removeChild(this.linea.linea);
         this.linea.limpiar();
         this.stage.update();
     };
@@ -280,14 +283,14 @@ var Tablero_Categoria = /** @class */ (function () {
         var tam = this.contenedor.getBounds();
         if (value) {
             this.conexion = {
-                x: this.tablero.contenedor.x + this.contenedor.x + tam.width,
-                y: this.tablero.contenedor.y + this.contenedor.y + (tam.height / 2)
+                x: this.base.contenedor.x + this.contenedor.x + tam.width,
+                y: this.base.contenedor.y + this.contenedor.y + (tam.height / 2)
             };
         }
         else {
             this.conexion = {
-                x: this.tablero.contenedor.x + this.contenedor.x,
-                y: this.tablero.contenedor.y + this.contenedor.y + (tam.height / 2)
+                x: this.base.contenedor.x + this.contenedor.x,
+                y: this.base.contenedor.y + this.contenedor.y + (tam.height / 2)
             };
         }
     };

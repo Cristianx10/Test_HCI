@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Test Interactivo</title>
+    <link rel="shortcut icon" href="../includes/img/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../sass/general/main.css" />
+    <link href="../sass/tipographys/tipografias.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+    <link rel="stylesheet" href="../../sass/general/datosUsuario.css" type="text/css">
+
+
+</head>
+
+<body>
+    <div class="cont-principal" style="background-image: url('../img/background_principal-2.png')">
+        <div class="principal" onselectstart="return false">
+
+
+            <div class="preguntas">
+
+                <div class="pantalla pinicio" style="background-image: url('../img/background_principal-2.png')">
+                    <div class="introduccion">
+                        <h1 class="titulo">Diseño</h1>
+                        <p id="desc" class="descripcion">Queremos conocerte mejor. Sigue las instrucciones usando el
+                            mouse y
+                            el teclado.</p>
+                        <button class="botonComenzar" onclick="seguir()">Comenzar</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="zona__navegacion">
+                <button class="btn_siguiente" onclick="seguir()">Siguiente</button>
+            </div>
+
+<style>
+a{
+    justify-content: center;
+}
+</style>
+
+
+        </div>
+    </div>
+</body>
+<!--Codigo de precarga -->
+<script src="../lib/jquery.js"></script>
+<script src="../lib/jquery-ui.min.js"></script>
+<!--
+     <script src="../lib//colorMixer.js"></script>
+    
+     <script src="../lib/jquery.svg.js"></script>
+     <script src="../lib/jquery.knob.js"></script>
+     
+     <script src="../lib/tweenjs.js"></script>
+    -->
+
+<script src="../lib/preloadjs.js"></script>
+<script src="../lib/easeljs.js"></script>
+<script src="../lib/soundjs.js"></script>
+<script src="../js/timer.js"></script>
+<script src="../js/resultados.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/pregunta.js"></script>
+
+<!--Interacciones complejas-->
+
+
+
+
+<!--Instrucciones-->
+<script>
+
+    let contenedor = new Contenedor();
+    let navegacion = new Navegable(contenedor);
+
+
+    let p1 = new PreguntaP(`<img src="../img/arte/piano.png" style="height:200px;" alt="">`, "<h2>¿A qué familia de instrumentos perenece el piano?</h2><br><hr>");
+    p1.agregarClase("pestilo3");
+    p1.agregarB("Cuerda", []);
+    p1.agregarB("Percusión", []);
+    p1.agregarB("Viento", []);
+    p1.agregarB("Cuerda percutida", []);
+
+    let p2 = new PreguntaI("<h1>¿Cuantas cuerdas tiene un tiple colombiano?</h1>");
+    p2.agregar("Cuatro", []);
+    p2.agregar("Seis", []);
+    p2.agregar("Doce", []);
+    p2.agregar("Cinco", []);
+
+    let p3 = new PreguntaP(`<img src="../img/arte/contrabajo.jpg" height="400px" alt="">`, "<h2>El instumento presente a la imagen es conocido como:</h2><br><hr>");
+    p3.agregarClase("pestilo2");
+    p3.agregarB("Violonchelo", []);
+    p3.agregarB("Bajo", []);
+    p3.agregarB("Percusión", []);
+    p3.agregarB("Violín", []);
+
+
+    let p4 = new PreguntaP(`<img src="../img/arte/acorde.png" class="acorde">
+<audio controls=""><source src="../audios/especificos/linguistica/triste.mp3" type="audio/mp3">Your browser does not support the audio element.</audio>`, "<h2>El acorde que has escuchado puede clasificarse como:</h2><br><hr>");
+    p4.agregarClase("pestilo2");
+    p4.agregarB("Mayor/Feliz", []);
+    p4.agregarB("Menor/Triste", []);
+  
+
+
+
+
+
+
+
+    fondo("../img/background-claro.png");
+
+    contenedor.agregar(p4.getPregunta());
+    contenedor.agregar(p3.getPregunta());
+    contenedor.agregar(p2.getPregunta());
+    contenedor.agregar(p1.getPregunta());
+    contenedor.agregarHTML(document.querySelector(".pinicio"));
+
+
+    contenedor.incluirEn(document.querySelector(".preguntas"));
+    navegacion.iniciar();
+
+    function seguir() {
+
+        navegacion.setPermitir(true);
+        navegacion.siguiente();
+        if (navegacion.getActual() > 2) {
+            mostrar(".ppictoricos");
+        }
+
+    }
+
+
+
+    navegacion.setFinal(() => {
+        //  goTo("blinguistica");
+    });
+
+
+
+
+</script>

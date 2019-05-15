@@ -80,7 +80,7 @@ button {
 }
 
 
-.btn_siguiente:disabled {
+.btn_siguiente:disabled, .boton__seleccion:disabled {
 
     background: #ffffff00;
     color: #d43e66;
@@ -90,7 +90,7 @@ button {
     }
 }
 
-.btn_siguiente:enabled {
+.btn_siguiente:enabled, .boton__seleccion:enabled {
     background: #e4537a;
     color: white;
 
@@ -449,7 +449,7 @@ form {
     &__titulo {
         display: flex;
         flex-direction: column;
-        height: 40%;
+        height: 20%;
         align-items: center;
         margin: 30px 100px;
         justify-content: center;
@@ -486,7 +486,9 @@ form {
     &__imagen {
         display: flex;
         flex-direction: row;
-        padding: 0px 150px;
+        padding: 0px 10px;
+        width: 100%;
+        justify-content: space-evenly;
 
         .seleccion {
 
@@ -990,9 +992,13 @@ Estilos de seleccionador
     display: flex;
 
     &__imagen {
+        display: flex;
         width: 50%;
         height: 100%;
         padding: 50px;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
 
         &>div {
             width: 100%;
@@ -1009,6 +1015,7 @@ Estilos de seleccionador
     &__pregunta {
         display: flex;
         justify-content: center;
+        flex-direction: column;
         align-items: center;
         padding: 50px;
         height: 50%;
@@ -1088,15 +1095,20 @@ Estilos de seleccionador
     display: flex;
     flex-direction: column;
     text-align: center;
+ 
 
     .preguntaImagen__imagen {
+       
         width: 100%;
-        height: 100px;
+        height: auto;
         justify-content: center;
+        padding: 10px;
     }
 
     & .preguntaImagen__pregunta {
         height: auto;
+        padding: 10px;
+     
     }
 
     & .preguntaImagen__info {
@@ -1105,9 +1117,10 @@ Estilos de seleccionador
 
         & .preguntaImagen__opciones {
             height: auto;
+            justify-content: space-evenly;
 
             .opcion {
-                margin: 20px 150px;
+                margin: 20px 10px;
 
                 img {
                     width: 100px;
@@ -1127,6 +1140,7 @@ Estilos de seleccionador
     text-align: center;
 
     .preguntaImagen__imagen {
+        
         width: 100%;
         height: 100px;
         justify-content: center;

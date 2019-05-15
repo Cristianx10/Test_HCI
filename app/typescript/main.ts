@@ -28,11 +28,15 @@ class Navegable {
     permitirAll = false;
     fcambioTiempo?: Function;
     iniciado = false;
+    
+
 
     constructor(elementos: Contenedor) {
         this.elementos = elementos;
         this.progreso = new Progress(elementos.elementos.length, 0);
         this.actual = 0;
+       
+        createjs.Sound.registerSound("../audios/siguiente.mp3", "seguir");
 
         this.tiempo = document.createElement('div');
         this.tiempo.className = "nav_tiempo"
@@ -216,6 +220,8 @@ class Navegable {
     siguiente(): void {
 
         if (this.permitir || this.permitirAll) {
+
+            createjs.Sound.play("seguir");
 
             this.ocultar(this.actualPantallaHtml());
             if (this.actual < this.elementos.elementos.length - 1) {
@@ -653,6 +659,9 @@ class Progress {
     }
 }
 
+function fondo(fondo:string){
+    $('.cont-principal').css("background-image", "url('" + fondo +  "')");
+}
 
 
 function irA(url: string) {

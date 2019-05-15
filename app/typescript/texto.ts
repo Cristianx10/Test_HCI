@@ -1,7 +1,7 @@
 /*
     Comentarios abajo del archivo
 */
-
+/*
 class Texto_palabra {
 
     palabra: string;
@@ -259,7 +259,7 @@ class Texto_validar {
         return this.palabras_original.length - this.palabras_texto.length;
     }
 }
-
+*/
 
 //Aqui hay un ejemplo------------------------------------------------------------------------------------------------
 

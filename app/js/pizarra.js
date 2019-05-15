@@ -238,7 +238,7 @@ var Pizarra = /** @class */ (function (_super) {
         this.casillas.forEach(function (c) {
             c.validado = false;
             if (c != _this.lider && c != _this.inicial) {
-                c.contenido.style.background = "red";
+                c.contenido.style.background = "#E4537A";
             }
         });
         if (this.inicial != null) {

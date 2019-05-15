@@ -1,11 +1,12 @@
-class Pregunta implements Validable{
+class Pregunta implements Validable {
 
     elemento: HTMLElement;
     informacion: string;
     seleccion?: Opcion;
     tipoId: string;
-    contenido:Contenido;
-    valores:Array<Respuesta>;
+    contenido: Contenido;
+    valores: Array<Respuesta>;
+    validacion?:Function;
 
     constructor(informacion?: string) {
 
@@ -24,6 +25,9 @@ class Pregunta implements Validable{
 
     incluirEn(lugar: string) {
         let e: HTMLElement = <HTMLElement>document.querySelector(lugar);
+        if (e == null) {
+            alert("tu refenencia de " + lugar + " es nula");
+        }
         e.append(this.elemento);
     }
 
@@ -39,12 +43,21 @@ class Pregunta implements Validable{
         this.elemento.classList.remove(clase);
     }
 
-    agregarResultados(){
-        if(this.seleccion != null){
-            this.seleccion.validacion();
-          
-            resultados.calcularMaximo(this.valores);
+    agregarResultados() {
+        if(this.validacion != null){
+            this.validacion();
+        }else{
+            if (this.seleccion != null) {
+                this.seleccion.validacion();
+    
+                resultados.calcularMaximo(this.valores);
+            }
         }
+       
+    }
+
+    setValidacion(validar:Function){
+        this.validacion = validar;
     }
 
     registro() {
@@ -95,7 +108,7 @@ class Opcion {
         return this.elemento;
     }
 
-    
+
 
 }
 
@@ -136,10 +149,10 @@ class PreguntaA extends Pregunta {
         let opcion = new OpcionA(this, info, valor);
         this.opciones.push(opcion);
         this.formulario.append(opcion.getElemento());
-        this.valores.push({id:this.tipoId, valores:opcion.valor});
+        this.valores.push({ id: this.tipoId, valores: opcion.valor });
     }
 
-    
+
 
 }
 
@@ -164,7 +177,6 @@ class OpcionA extends Opcion {
 class PreguntaB extends Pregunta {
 
     opciones: Array<OpcionB>;
-    validacion?: Function;
     formulario: HTMLElement;
 
     constructor(informacion: string) {
@@ -195,11 +207,7 @@ class PreguntaB extends Pregunta {
         let opcion = new OpcionB(this, info, valor);
         this.opciones.push(opcion);
         this.formulario.append(opcion.getElemento());
-        this.valores.push({id:this.tipoId, valores:opcion.valor});
-    }
-
-    setValidacion(validacion: Function) {
-        this.validacion = validacion;
+        this.valores.push({ id: this.tipoId, valores: opcion.valor });
     }
 
 }
@@ -227,7 +235,6 @@ class OpcionB extends Opcion {
 class PreguntaC extends Pregunta {
 
     opciones: Array<OpcionC>;
-    validacion?: Function;
     private div_seccionB: HTMLElement;
 
     constructor(informacion: string) {
@@ -251,23 +258,72 @@ class PreguntaC extends Pregunta {
 
         div_seccionA.appendChild(div_seccionA_h1);
         div_seccionA.appendChild(document.createElement('hr'));
-
     }
 
     agregar(info: string, valor: Array<ResultadoA>) {
         let opcion = new OpcionC(this, info, valor);
         this.div_seccionB.appendChild(opcion.areaTexto);
         this.opciones.push(opcion);
-        this.valores.push({id:this.tipoId, valores:opcion.valor});
+        this.valores.push({ id: this.tipoId, valores: opcion.valor });
     }
+
+    validarCon(original: string) {
+        let usuario = this.getTexto();
+        let texto = new Texto_validar(original, usuario);
+
+        if(this.validacion !=null){
+            this.validacion(texto);
+        }
+        console.log(texto.getErrores());
+
+        //Da los errores de coincidencia exacta
+        console.log(texto.getErroresStrict());
+
+        //Da los errores de Mayusculas
+        console.log(texto.getErroresMayusculas());
+
+        //Da los errores de Puntuacion, solo "," y "."
+        console.log(texto.getErroresPuntuacion());
+
+        //Da los errores de palabras que faltaron
+        console.log(texto.getErroresFalto());
+    }
+
+  
+
+    placeholder(info: string) {
+        this.opciones.forEach((o) => {
+            o.areaTexto.placeholder = info;
+        });
+    }
+
+    focus() {
+        this.opciones.forEach((o) => {
+            o.areaTexto.focus();
+        });
+    }
+
+    getTexto() {
+        let texto: string = "";
+        this.opciones.forEach((o) => {
+            texto = o.areaTexto.value;
+
+        });
+
+        return texto;
+    }
+
+    isEscritura(escritura: Function) {
+        this.opciones.forEach((o) => {
+            o.escribiendo(escritura);
+        });
+    }
+
 
     getPregunta() {
         return this.contenido;
     }
 
-    setValidacion(validacion: Function) {
-        this.validacion = validacion;
-    }
 
 }
 
@@ -277,6 +333,7 @@ class OpcionC extends Opcion {
 
     constructor(pregunta: Pregunta, info: string, valor: Array<ResultadoA>) {
         super(pregunta, valor);
+
         this.elemento.className = "opcionC";
         this.areaTexto = document.createElement("textarea");
         this.areaTexto.className = "pregunta__parrafo";
@@ -286,6 +343,31 @@ class OpcionC extends Opcion {
 
         this.areaTexto.innerText = info;
         this.elemento.append(this.areaTexto);
+
+        this.areaTexto.addEventListener("click", () => {
+            console.log("Dfsdfsdfdfsdfsdf")
+            this.areaTexto.focus();
+        });
+
+    }
+
+    placeholder(info: string) {
+        this.areaTexto.placeholder = info;
+    }
+
+    validar(accion:string, valor: Array<ResultadoA>){
+        if(accion == "ortografia"){
+            
+        }
+    }
+
+    escribiendo(escritura: Function) {
+
+        this.areaTexto.addEventListener("keydown", () => {
+            if (escritura != null) {
+                escritura();
+            }
+        });
     }
 
 }
@@ -358,7 +440,7 @@ class PreguntaD extends Pregunta {
             if (this.seleccion != null) {
                 this.seleccion.elemento.classList.remove("seleccion");
             }
-            this.seleccion = this.opciones[v-1];
+            this.seleccion = this.opciones[v - 1];
             this.seleccion.elemento.classList.add("seleccion");
         });
 
@@ -372,21 +454,21 @@ class PreguntaD extends Pregunta {
         } else {
             mucho.innerText = "Mucho";
         }
-        
-        
-        
+
+
+
         let linker__barra = document.createElement('div');
         linker__barra.className = "likert__barra";
         linker__barra.append(this.progreso, this.input);
-        
+
         let linker__lateral = document.createElement('div');
         linker__lateral.className = "likert__lateral";
         linker__lateral.append(poco, linker__barra, mucho);
-        
-        
-        
+
+
+
         linker.append(linker__lateral, this.formulario);
-        
+
 
 
         div_seccionB.appendChild(linker);
@@ -411,14 +493,14 @@ class PreguntaD extends Pregunta {
 
         let v = parseInt(this.input.value)
         this.progreso.value = v - 1;
-      
-        
+
+
         if (this.seleccion != null) {
             this.seleccion.elemento.classList.remove("seleccion");
         }
-        this.seleccion = this.opciones[v-1];
+        this.seleccion = this.opciones[v - 1];
         this.seleccion.elemento.classList.add("seleccion");
-        this.valores.push({id:this.tipoId, valores:opcion.valor});
+        this.valores.push({ id: this.tipoId, valores: opcion.valor });
     }
 
     setValidacion(validacion: Function) {
@@ -488,8 +570,8 @@ class PreguntaI extends Pregunta {
         let opcion = new OpcionI(this, info, valor);
         this.formulario.append(opcion.getElemento());
         this.opciones.push(opcion);
-       
-        this.valores.push({id:this.tipoId, valores:opcion.valor});
+
+        this.valores.push({ id: this.tipoId, valores: opcion.valor });
     }
 
 }
@@ -561,7 +643,7 @@ class PreguntaS extends Pregunta {
         let opcion = new OpcionS(this, info, valor);
         this.opciones.push(opcion);
         this.lista.append(opcion.elemento);
-        this.valores.push({id:this.tipoId, valores:opcion.valor});
+        this.valores.push({ id: this.tipoId, valores: opcion.valor });
     }
 
 }
@@ -606,7 +688,7 @@ class PreguntaR extends Pregunta {
         this.opciones = new Array();
         this.elemento.className = "instruccion";
         this.elemento.style.display = "flex";
-        
+
         this.preguntaHTML = document.createElement('div');
         this.preguntaHTML.innerHTML = informacion;
         this.opcionesHTML = document.createElement('div');
@@ -623,7 +705,7 @@ class PreguntaR extends Pregunta {
         opcion.pregunta = this;
         this.opciones.push(opcion);
         this.opcionesHTML.append(opcion.elemento);
-        this.valores.push({id:this.tipoId, valores:opcion.valor});
+        this.valores.push({ id: this.tipoId, valores: opcion.valor });
     }
 
 }
@@ -683,7 +765,7 @@ class PreguntaP extends Pregunta {
         opcion.pregunta = this;
         this.opciones.push(opcion);
         this.opcionesHTML.append(opcion.elemento);
-        this.valores.push({id:this.tipoId, valores:opcion.valor});
+        this.valores.push({ id: this.tipoId, valores: opcion.valor });
     }
 
     agregarB(info: string, valor: Array<ResultadoA>) {
@@ -691,7 +773,7 @@ class PreguntaP extends Pregunta {
         opcion.pregunta = this;
         this.opciones.push(opcion);
         this.opcionesHTML.append(opcion.elemento);
-        this.valores.push({id:this.tipoId, valores:opcion.valor});
+        this.valores.push({ id: this.tipoId, valores: opcion.valor });
     }
 
 }
@@ -721,3 +803,299 @@ class OpcionPB extends Opcion {
     }
 
 }
+
+
+
+
+/*-------------------------------------------------------------------------------------------*/
+
+/*
+    Comentarios abajo del archivo
+*/
+
+class Texto_palabra {
+
+    palabra: string;
+    validado: boolean;
+    coincidencia: boolean;
+    coincidencia_strict: boolean;
+    coincidencia_mayus: boolean;
+    puntuacion: boolean;
+    tildes: boolean;
+
+    constructor(palabra: string) {
+        this.palabra = palabra;
+        this.validado = false;
+        this.coincidencia = false;
+        this.coincidencia_strict = false;
+        this.coincidencia_mayus = true;
+        this.puntuacion = true;
+        this.tildes = true;
+    }
+}
+
+class Texto_validar {
+
+    original: string;
+    texto: string;
+    palabras_texto: Array<Texto_palabra>;
+    palabras_original: Array<Texto_palabra>;
+    coincidencias: number;
+    coincidencias_strict: number;
+    coincidencias_mayusculas: number;
+    erroresPuntuacion: number;
+    erroresTildes: number;
+
+    constructor(original: string, texto: string) {
+        this.original = original.replace("  ", " ").replace("  ", " ");
+        this.texto = texto.replace("  ", " ").replace("  ", " ");
+        this.coincidencias = 0;
+        this.coincidencias_strict = 0;
+        this.coincidencias_mayusculas = 0;
+        this.erroresPuntuacion = 0;
+        this.erroresTildes = 0;
+
+        this.palabras_original = new Array();
+        this.palabras_texto = new Array();
+
+        let palabras_o = this.original.split(" ");
+        let palabras_t = this.texto.split(" ");
+
+        palabras_o.forEach((p) => {
+            this.palabras_original.push(new Texto_palabra(p));
+        });
+
+        palabras_t.forEach((p) => {
+            this.palabras_texto.push(new Texto_palabra(p));
+        });
+
+        this.getCoincidencias();
+        this.getCoincidenciasStrict();
+        this.getErroresMayus();
+    }
+
+    private getCoincidencias() {
+
+        for (let i = 0; i < this.palabras_texto.length; i++) {
+            let p = this.palabras_texto[i];
+
+            for (let j = 0; j < this.palabras_original.length; j++) {
+                let o = this.palabras_original[j];
+
+                if (o.coincidencia == false) {
+                    let temp_p = p.palabra.replace(",", "").replace("Á", "A")
+                        .replace("É", "E")
+                        .replace("Í", "I")
+                        .replace("Ó", "O")
+                        .replace("Ú", "U")
+                        .replace("á", "a")
+                        .replace("é", "e")
+                        .replace("í", "i")
+                        .replace("ó", "o")
+                        .replace("ú", "u");
+                    let temp_o = o.palabra.replace(",", "").replace("Á", "A")
+                        .replace("É", "E")
+                        .replace("Í", "I")
+                        .replace("Ó", "O")
+                        .replace("Ú", "U")
+                        .replace("á", "a")
+                        .replace("é", "e")
+                        .replace("í", "i")
+                        .replace("ó", "o")
+                        .replace("ú", "u");
+
+                    temp_p = temp_p.replace(".", "");
+                    temp_o = temp_o.replace(".", "");
+
+                    if (temp_p.toLowerCase() == temp_o.toLowerCase()) {
+
+                        o.coincidencia = true;
+                        p.coincidencia = true;
+
+                        if ((o.puntuacion && o.palabra.indexOf(",") != -1 && p.palabra.indexOf(",") == -1) ||
+                            (o.puntuacion && o.palabra.indexOf(".") != -1 && p.palabra.indexOf(".") == -1)) {
+                            p.puntuacion = false;
+                            o.puntuacion = false;
+                        }
+
+                        j = this.palabras_original.length;
+                    }
+                }
+            }
+        }
+
+        let puntos = 0;
+        let coincidencia = 0;
+        this.palabras_texto.forEach(p => {
+
+            if (p.coincidencia) {
+                coincidencia++;
+            }
+
+            if (p.puntuacion == false) {
+                puntos++;
+            }
+        });
+
+        this.erroresPuntuacion = puntos;
+        this.coincidencias = coincidencia;
+
+    }
+
+
+    private getCoincidenciasStrict() {
+
+        for (let i = 0; i < this.palabras_texto.length; i++) {
+            let p = this.palabras_texto[i];
+
+            for (let j = 0; j < this.palabras_original.length; j++) {
+                let o = this.palabras_original[j];
+
+                if (o.coincidencia_strict == false && p.palabra == o.palabra) {
+                    o.coincidencia_strict = true;
+                    p.coincidencia_strict = true;
+                    j = this.palabras_original.length;
+
+                }
+            }
+        }
+
+        let coincidencia = 0;
+        this.palabras_texto.forEach(p => {
+
+            if (p.coincidencia_strict) {
+                coincidencia++;
+            }
+        });
+
+        this.coincidencias_strict = coincidencia;
+
+    }
+
+    private getErroresMayus() {
+        for (let i = 0; i < this.palabras_texto.length; i++) {
+            let p = this.palabras_texto[i];
+
+            for (let j = 0; j < this.palabras_original.length; j++) {
+                let o = this.palabras_original[j];
+
+                let pa = p.palabra.replace("Á", "A")
+                    .replace("É", "E")
+                    .replace("Í", "I")
+                    .replace("Ó", "O")
+                    .replace("Ú", "U")
+                    .replace("á", "a")
+                    .replace("é", "e")
+                    .replace("í", "i")
+                    .replace("ó", "o")
+                    .replace("ú", "u");
+
+                let oa = o.palabra.replace("Á", "A")
+                    .replace("É", "E")
+                    .replace("Í", "I")
+                    .replace("Ó", "O")
+                    .replace("Ú", "U")
+                    .replace("á", "a")
+                    .replace("é", "e")
+                    .replace("í", "i")
+                    .replace("ó", "o")
+                    .replace("ú", "u");
+
+                if (o.coincidencia_mayus && pa.toLowerCase() == oa.toLowerCase()) {
+
+                    if (pa == oa) {
+                        o.coincidencia_mayus = false;
+                        p.coincidencia_mayus = false;
+                        j = this.palabras_original.length;
+                    }
+                }
+                if (o.tildes && pa.toLowerCase() == oa.toLowerCase()) {
+                    if ((o.palabra.indexOf("Á") != -1 && p.palabra.indexOf("Á") == -1)
+                        || (o.palabra.indexOf("É") != -1 && p.palabra.indexOf("É") == -1)
+                        || (o.palabra.indexOf("Í") != -1 && p.palabra.indexOf("Í") == -1)
+                        || (o.palabra.indexOf("Ó") != -1 && p.palabra.indexOf("Ó") == -1)
+                        || (o.palabra.indexOf("Ú") != -1 && p.palabra.indexOf("Ú") == -1)
+                        || (o.palabra.indexOf("á") != -1 && p.palabra.indexOf("á") == -1)
+                        || (o.palabra.indexOf("é") != -1 && p.palabra.indexOf("é") == -1)
+                        || (o.palabra.indexOf("í") != -1 && p.palabra.indexOf("í") == -1)
+                        || (o.palabra.indexOf("ó") != -1 && p.palabra.indexOf("ó") == -1)
+                        || (o.palabra.indexOf("ú") != -1 && p.palabra.indexOf("ú") == -1)
+                    ) {
+                        o.tildes = false;
+                        p.tildes = false;
+                    }
+                }
+            }
+        }
+
+
+        let erroresMayus = 0;
+        let erroresTilde = 0;
+
+        this.palabras_texto.forEach(p => {
+
+            if (p.coincidencia_mayus) {
+                console.log("Error: " + p.palabra);
+                erroresMayus++;
+            }
+
+            if (p.tildes == false) {
+                erroresTilde++;
+            }
+        });
+        this.erroresTildes = erroresTilde;
+        this.coincidencias_mayusculas = erroresMayus;
+
+    }
+
+    getErrores() {
+        return this.palabras_original.length - this.coincidencias;
+    }
+
+    getErroresStrict() {
+        return this.palabras_original.length - this.coincidencias_strict;
+    }
+
+    getErroresTilde() {
+        return this.erroresTildes;
+    }
+
+    getErroresMayusculas() {
+        return this.coincidencias_mayusculas;
+    }
+    getErroresPuntuacion() {
+        return this.erroresPuntuacion;
+    }
+    getErroresFalto() {
+        return this.palabras_original.length - this.palabras_texto.length;
+    }
+}
+
+
+//Aqui hay un ejemplo------------------------------------------------------------------------------------------------
+
+
+/*
+let original = "Mi cara es cuadrada.";
+let usuario = "Mi Cara Es";
+
+
+
+let texto = new Texto_validar(original, usuario);
+
+//Da los errores sin tener encuenta mayusculas o puntuacion y las que faltaron
+console.log(texto.getErrores());
+
+//Da los errores de coincidencia exacta
+console.log(texto.getErroresStrict());
+
+//Da los errores de Mayusculas
+console.log(texto.getErroresMayusculas());
+
+//Da los errores de Puntuacion, solo "," y "."
+console.log(texto.getErroresPuntuacion());
+
+//Da los errores de palabras que faltaron
+console.log(texto.getErroresFalto());
+
+*/

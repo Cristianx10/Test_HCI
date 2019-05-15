@@ -293,7 +293,7 @@ class Pizarra extends Interaccion{
         this.casillas.forEach(c => {
             c.validado = false;
             if (c != this.lider && c != this.inicial) {
-                c.contenido.style.background = "red";
+                c.contenido.style.background = "#E4537A";
             }
         });
         if(this.inicial != null){

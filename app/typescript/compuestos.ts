@@ -27,7 +27,7 @@ class Tablero_Crelacion extends Actividad {
     }
 
     ocultar() {
-        console.log("Oculto")
+     
         if (this.seleccion != null) {
             this.seleccion.ocultar();
         }
@@ -35,7 +35,7 @@ class Tablero_Crelacion extends Actividad {
     }
 
     reset() {
-        console.log("reseteo")
+    
         if (this.seleccion != null) {
             this.seleccion.reset();
         }
@@ -181,7 +181,7 @@ class Tablero_Cbase {
                 con++;
             }
         });
-
+   
         if (con >= this.categorias.length) {
             return true;
         }
@@ -192,7 +192,7 @@ class Tablero_Cbase {
 class Tablero_Categoria {
 
     stage: createjs.Stage;
-    tablero: Tablero_Cbase;
+    base: Tablero_Cbase;
     contenedor: createjs.Container;
     texto: createjs.Text;
     categoria: string;
@@ -203,11 +203,13 @@ class Tablero_Categoria {
     private place: createjs.Shape;
     private pareja?: Tablero_Categoria;
     puntos: number;
+    visible: boolean;
 
-    constructor(tablero: Tablero_Cbase, texto: string, categoria: string, style?: string) {
-        this.tablero = tablero;
-        this.stage = tablero.stage;
+    constructor(base: Tablero_Cbase, texto: string, categoria: string, style?: string) {
+        this.base = base;
+        this.stage = base.stage;
         this.puntos = 0;
+        this.visible = true;
         this.contenedor = new createjs.Container();
         if (style != null) {
             this.texto = new createjs.Text(texto, style);
@@ -228,101 +230,110 @@ class Tablero_Categoria {
 
 
         this.contenedor.on("mousedown", () => {
-            this.tablero.tablero.encontrado = false;
-            this.tablero.tablero.seleccion = undefined;
-            if (this.pareja != null) {
-                this.pareja.linea.limpiar();
-                this.pareja.clasificado = false;
+            if (this.visible) {
+                this.base.tablero.encontrado = false;
+                this.base.tablero.seleccion = undefined;
+                this.base.tablero.seleccion = this;
+
+                if (this.pareja != null) {
+                    this.pareja.linea.limpiar();
+                    this.pareja.clasificado = false;
+                    this.pareja.pareja = undefined;
+                    this.pareja = undefined;
+                }
+                this.clasificado = false;
+                this.linea.iniciar(this.conexion.x, this.conexion.y);
             }
-            this.linea.iniciar(this.conexion.x, this.conexion.y);
-            this.clasificado = false;
-            this.tablero.tablero.seleccion = this;
         });
 
 
         this.stage.on("stagemouseup", () => {
-            if (this.tablero.tablero.encontrado == false && this.tablero.tablero.seleccion != null) {
+            if (this.visible) {
 
-                let sobre = this.contenedor.hitTest(
-                    this.stage.mouseX - this.contenedor.x - tablero.contenedor.x,
-                    this.stage.mouseY - this.contenedor.y - tablero.contenedor.y);
+                if (this.base.tablero.encontrado == false && this.base.tablero.seleccion != null) {
 
-                if (this.clasificado == false && sobre &&
-                    this.tablero.tablero.seleccion.tablero.categorias.indexOf(this) == -1
-                ) {
-                    this.tablero.tablero.encontrado = true;
+                    let sobre = this.contenedor.hitTest(
+                        this.stage.mouseX - this.contenedor.x - base.contenedor.x,
+                        this.stage.mouseY - this.contenedor.y - base.contenedor.y);
 
-                    this.tablero.tablero.intentos++;
-                    this.pareja = this.tablero.tablero.seleccion;
-                    this.pareja.pareja = this;
+                    if (this.clasificado == false && sobre &&
+                        this.base.tablero.seleccion.base.categorias.indexOf(this) == -1
+                    ) {
+                        this.base.tablero.encontrado = true;
+                        this.base.tablero.intentos++;
 
-                    this.clasificado = true;
-                    this.pareja.clasificado = true;
+                        this.pareja = this.base.tablero.seleccion;
+                        this.pareja.pareja = this;
+
+                        this.clasificado = true;
+                        this.pareja.clasificado = true;
 
 
-                    this.pareja.linea.terminar(this.conexion.x, this.conexion.y);
-                    this.pareja.linea.draw();
+                        this.pareja.linea.terminar(this.conexion.x, this.conexion.y);
+                        this.pareja.linea.draw();
 
-                    if (this.categoria == this.pareja.categoria) {
+                        if (this.categoria == this.pareja.categoria) {
 
-                        if (this.tablero.tablero.intentoAcierto != null) {
-                            this.tablero.tablero.intentoAcierto();
-                        }
-
-                        this.puntos = 1;
-                        this.pareja.puntos = 1;
-
-                        if (this.pareja.tablero.validar()) {
-                            if (this.tablero.tablero.validacion != null) {
-                                this.tablero.tablero.validacion();
+                            //console.log(this.pareja, this)
+                            if (this.base.tablero.intentoAcierto != null) {
+                                this.base.tablero.intentoAcierto();
                             }
 
+                            this.puntos = 1;
+                            this.pareja.puntos = 1;
+
+                        } else {
+                            this.puntos = -1;
+                            this.pareja.puntos = -1;
+
+                            if (this.base.tablero.intentoFallo != null) {
+                                this.base.tablero.intentoFallo();
+                            }
                         }
+
+                        if (this.base.validar() || this.pareja.base.validar()) {
+                            if (this.base.tablero.validacion != null) {
+                                this.base.tablero.validacion();
+                            }
+                        }
+
+                        this.base.actualizarPuntuacion();
 
                     } else {
-                        this.puntos = -1;
-                        this.pareja.puntos = -1;
+                        this.base.tablero.seleccion.linea.limpiar();
 
-                        if (this.tablero.tablero.intentoFallo != null) {
-                            this.tablero.tablero.intentoFallo();
-                        }
                     }
-
-                    if (this.tablero.validar() || this.pareja.tablero.validar()) {
-                        if (this.tablero.tablero.validacion != null) {
-                            this.tablero.tablero.validacion();
-                        }
-                    }
-                    this.tablero.actualizarPuntuacion();
-                } else {
-                    this.tablero.tablero.seleccion.linea.limpiar();
                 }
             }
-          
+
         });
     }
 
     reset() {
+
         if (this.pareja != null) {
+
             this.pareja.linea.limpiar();
             this.pareja.clasificado = false;
+
         }
         this.linea.limpiar();
         this.clasificado = false;
     }
 
     ocultar() {
-    
+
         if (this.pareja != null) {
-            this.pareja.tablero.contenedor.removeChild(this.pareja.contenedor);
-            this.pareja.tablero.contenedor.removeChild(this.pareja.linea.linea);
+            this.pareja.base.contenedor.removeChild(this.pareja.contenedor);
+            this.pareja.base.contenedor.removeChild(this.pareja.linea.linea);
             this.pareja.linea.limpiar()
             this.pareja.clasificado = true;
+            this.pareja.visible = false;
         }
-
+        this.visible = false;
         this.clasificado = true;
-        this.tablero.contenedor.removeChild(this.contenedor);
-        this.tablero.contenedor.removeChild(this.linea.linea);
+        this.base.contenedor.removeChild(this.contenedor);
+        this.base.contenedor.removeChild(this.linea.linea);
         this.linea.limpiar()
 
         this.stage.update();
@@ -351,13 +362,13 @@ class Tablero_Categoria {
         let tam = this.contenedor.getBounds();
         if (value) {
             this.conexion = {
-                x: this.tablero.contenedor.x + this.contenedor.x + tam.width,
-                y: this.tablero.contenedor.y + this.contenedor.y + (tam.height / 2)
+                x: this.base.contenedor.x + this.contenedor.x + tam.width,
+                y: this.base.contenedor.y + this.contenedor.y + (tam.height / 2)
             };
         } else {
             this.conexion = {
-                x: this.tablero.contenedor.x + this.contenedor.x,
-                y: this.tablero.contenedor.y + this.contenedor.y + (tam.height / 2)
+                x: this.base.contenedor.x + this.contenedor.x,
+                y: this.base.contenedor.y + this.contenedor.y + (tam.height / 2)
             };
         }
 

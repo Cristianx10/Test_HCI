@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Test Interactivo</title>
+    <link rel="shortcut icon" href="../includes/img/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../sass/general/main.css" />
+    <link href="../sass/tipographys/tipografias.css" rel="stylesheet" />
+   
+    <link rel="stylesheet" href="../../sass/general/datosUsuario.css" type="text/css">
+
+    <style>
+        .elementos {
+            display: flex;
+            justify-content: center;
+            padding-bottom: 100px;
+            width: 60%;
+            height: 20%;
+            margin: auto;
+        }
+
+        .elementos>div {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .contenedor__elementos {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 50%;
+            height: 300px;
+        }
+
+        .clasificacion__elementos {
+            display: flex;
+            margin: auto;
+            justify-content: center;
+            width: 80%;
+
+        }
+
+        .clasificacion__titulos {
+            display: flex;
+            width: 80%;
+            margin: auto;
+            justify-content: space-around;
+            color: #E64973;
+            font-size: 1.5em;
+        }
+
+        .clasificacion__elementos>div {
+            margin: 20px;
+            border-radius: 50px;
+            border: 5px solid #00DED3;
+        }
+
+
+        .zona__place {
+            width: 85%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="cont-principal" style="background-image: url('../img/background_principal-2.png')">
+        <div class="principal" onselectstart="return false">
+
+
+            <div class="pantalla contendio">
+
+                <div class="pantalla pinicio" style="background-image: url('../img/background_principal-2.png')">
+                    <div class="introduccion">
+                        <h1 class="titulo">Diseño</h1>
+                        <p id="desc" class="descripcion">Queremos conocerte mejor. Sigue las instrucciones usando el
+                            mouse y
+                            el teclado.</p>
+                        <button class="botonComenzar" onclick="seguir()">Comenzar</button>
+                    </div>
+                </div>
+
+
+                <div class="pantalla paudios">
+
+                    <h2 style="text-align: center;">Arrastre y clasifique los acordes si son producidos por tensión o
+                        por reposo</h2>
+                    <br>
+                    <br><br>
+                    <div class="elementos">
+
+                        <div class="zona" draggable="true" width="336" height="69">
+                            <audio controls>
+                                <source src="../audios/especificos/linguistica/1.mp3" type="audio/mp3">
+                                Your browser does not support the audio element.
+                            </audio>
+                            <div class="zona__place"></div>
+                        </div>
+
+                        <div class="zona" draggable="true" width="336" height="69">
+                            <audio controls>
+                                <source src="../audios/especificos/linguistica/2.mp3" type="audio/mp3">
+                                Your browser does not support the audio element.
+                            </audio>
+                            <div class="zona__place"></div>
+                        </div>
+
+                        <div class="zona" draggable="true" width="336" height="69">
+                            <audio controls>
+                                <source src="../audios/especificos/linguistica/3.mp3" type="audio/mp3">
+                                Your browser does not support the audio element.
+                            </audio>
+                            <div class="zona__place"></div>
+                        </div>
+
+                        <div class="zona" draggable="true" width="336" height="69">
+                            <audio controls>
+                                <source src="../audios/especificos/linguistica/4.mp3" type="audio/mp3">
+                                Your browser does not support the audio element.
+                            </audio>
+                            <div class="zona__place"></div>
+                        </div>
+
+                    </div>
+
+                    <div class="clasificacion__titulos">
+                        <h2>Tensión</h2>
+                        <h2>Reposo</h2>
+                    </div>
+                    <div class="clasificacion__elementos">
+
+                        <div id="agudo" class="contenedor__elementos"></div>
+                        <div id="grave" class="contenedor__elementos"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pantalla pdictado">
+
+                <div class="pantalla pdictado__escribir">
+                    <div class="pantalla pdictado__pregunta"></div>
+                    <div style="display:none"><audio id="audio__dictado" controls>
+                            <source src="../audios/especificos/linguistica/audiodictado.mp3">
+                    </div>
+
+                    <div class="btn__dictado" style="display: flex; justify-content: space-evenly;">
+                        <button class="boton__seleccion" onclick="playsound(this)">Reproducir el audio</button>
+                        <button class="boton__seleccion btn__dictado__siguiente" disabled
+                            onclick="enviarDictado()">Enviar</button>
+                    </div>
+                </div>
+                <div class="pantalla pdictado__revisar">
+
+                    <div class="pregunta">
+                        <section class="pregunta__titulo">
+                            <h2>¿Estas seguro de que quieres enviarlo?</h2>
+                            <hr>
+                        </section>
+                        <section class="pregunta__opciones">
+                            <p id="revisar__parrafo" class="pregunta__parrafo"></p>
+                        </section>
+                    </div>
+
+                    <div class="btn__dictado" style="display: flex; justify-content: space-evenly;">
+                        <button class="boton__seleccion" onclick="noaceptoDictado()">No</button>
+                        <button class="boton__seleccion" onclick="seguir()">Si</button>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="zona__navegacion">
+                <button class="btn_siguiente" onclick="seguir()">Siguiente</button>
+
+            </div>
+
+
+
+
+        </div>
+    </div>
+</body>
+<!--Codigo de precarga -->
+<script src="../lib/jquery.js"></script>
+<script src="../lib/jquery-ui.min.js"></script>
+
+<!--
+     <script src="../lib//colorMixer.js"></script>
+    
+     <script src="../lib/jquery.svg.js"></script>
+     <script src="../lib/jquery.knob.js"></script>
+     
+     <script src="../lib/tweenjs.js"></script>
+    -->
+
+<script src="../lib/preloadjs.js"></script>
+<script src="../lib/easeljs.js"></script>
+<script src="../lib/soundjs.js"></script>
+<script src="../js/timer.js"></script>
+<script src="../js/resultados.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/pregunta.js"></script>
+
+<!--Interacciones complejas-->
+<script src="../js/reciclaje.js"></script>
+
+
+
+<!--Instrucciones-->
+<script>
+
+    let contenedor = new Contenedor();
+    let navegacion = new Navegable(contenedor);
+
+
+    let p1 = new PreguntaP(`<img src="../img/arte/piano.png" style="height:200px;" alt="">`, "<h2>¿A qué familia de instrumentos perenece el piano?</h2><br><hr>");
+    p1.agregarClase("pestilo3");
+    p1.agregarB("Cuerda", []);
+    p1.agregarB("Percusión", []);
+    p1.agregarB("Viento", []);
+    p1.agregarB("Cuerda percutida", []);
+
+    let p2 = new PreguntaI("<h1>¿Cuantas cuerdas tiene un tiple colombiano?</h1>");
+    p2.agregar("Cuatro", []);
+    p2.agregar("Seis", []);
+    p2.agregar("Doce", []);
+    p2.agregar("Cinco", []);
+
+    let p3 = new PreguntaP(`<img src="../img/arte/contrabajo.jpg" height="400px" alt="">`, "<h2>El instumento presente a la imagen es conocido como:</h2><br><hr>");
+    p3.agregarClase("pestilo2");
+    p3.agregarB("Violonchelo", []);
+    p3.agregarB("Bajo", []);
+    p3.agregarB("Percusión", []);
+    p3.agregarB("Violín", []);
+
+
+    let p4 = new PreguntaP(`<img src="../img/arte/acorde.png" class="acorde">
+<audio controls=""><source src="../audios/especificos/linguistica/triste.mp3" type="audio/mp3">Your browser does not support the audio element.</audio>`, "<h2>El acorde que has escuchado puede clasificarse como:</h2><br><hr>");
+    p4.agregarClase("pestilo2");
+    p4.agregarB("Mayor/Feliz", []);
+    p4.agregarB("Menor/Triste", []);
+
+
+
+    let p5 = new PreguntaC(`Escriba el texto que dictan`);
+    p5.agregar("");
+    p5.placeholder("Escriba aqui");
+    p5.incluirEn(".pdictado__pregunta");
+
+    let audio = document.querySelector("#audio__dictado");
+
+    function playsound(element) {
+        audio.play();
+
+        element.style.display = "none";
+        p5.focus();
+        p5.isEscritura(() => {
+            let bton = document.querySelector(".btn__dictado__siguiente");
+            bton.disabled = false;
+        });
+    }
+
+    let acepto__variable__dictado = false;
+    function noaceptoDictado() {
+        mostrar(".pdictado__escribir");
+        ocultar(".pdictado__revisar");
+        acepto__variable__dictado = true;
+    }
+
+    function enviarDictado() {
+        if (acepto__variable__dictado == false) {
+            audio.pause();
+            ocultar(".pdictado__escribir");
+            mostrar(".pdictado__revisar");
+            let re = document.querySelector("#revisar__parrafo");
+            re.innerHTML = p5.getTexto();
+        }else{
+            seguir();
+        }
+
+    }
+
+
+
+    /*-------------------------------------------------------------------------------------------------------------*/
+
+    let reciclaje = new Clasificar();
+    $(".elementos").append(reciclaje.getElemento());
+    let sonidos = document.querySelectorAll(".zona");
+    let categoria = ["agudo", "grave", "agudo", "grave"]
+    sonidos.forEach((ele, index) => {
+        reciclaje.agregar(new Basura_elemento(ele, categoria[index]));
+    });
+
+    // There's the gallery and the trash
+    let elementos = $(".elementos");
+    let vidrio = $("#agudo");
+    let plastico = $("#grave");
+
+
+    // Let the gallery items be draggable
+    $(".zona", elementos).draggable({
+        cancel: "a.ui-icon", // clicking an icon won't initiate dragging
+        revert: "invalid", // when not dropped, the item will revert back to its initial position
+        containment: "document",
+        // helper: "clone",
+        cursor: "move"
+    });
+
+    // Let the trash be droppable, accepting the gallery items
+
+    function almacenaje(contenedores) {
+        contenedores.forEach(c => {
+            c.droppable({
+                accept: ".elementos div",
+                drop: function (event, ui) {
+                    deleteImage(ui.draggable, c);
+                }
+            });
+        });
+    }
+
+    almacenaje([vidrio, plastico]);
+
+
+    // Image deletion function
+
+    function deleteImage($item, t) {
+        $item.fadeIn(function () {
+            $item.appendTo(t);
+            $item.find(".zona").css("left", "0px");
+            if (reciclaje.seleccion != null) {
+                if (reciclaje.validarBasura(t[0].id)) {
+
+                    console.log("bien");
+                } else {
+                    console.log("Mal");
+                }
+                reciclaje.reset();
+            }
+        });
+    }
+
+
+    /*------------------------------------------------------------------------------------------------------------*/
+
+
+
+
+    fondo("../img/background-claro.png");
+    //ocultar(".zona__navegacion");
+
+    
+
+    contenedor.agregarHTML(document.querySelector(".pinicio")).setAccionFinal(() => {
+        mostrar(".zona__navegacion");
+    });
+    contenedor.agregarHTML(document.querySelector(".pdictado"), p5).setAccion(() => {
+        ocultar(".zona__navegacion");
+        ocultar(".pdictado__revisar");
+    });
+    contenedor.agregarHTML(document.querySelector(".paudios"));
+    contenedor.agregar(p1.getPregunta());
+    contenedor.agregar(p2.getPregunta());
+    contenedor.agregar(p3.getPregunta());
+    contenedor.agregar(p4.getPregunta());
+
+
+    contenedor.incluirEn(document.querySelector(".contendio"));
+    navegacion.iniciar();
+
+    function seguir() {
+
+        navegacion.setPermitir(true);
+        navegacion.siguiente();
+        if (navegacion.getActual() > 2) {
+
+        }
+
+    }
+
+
+
+    navegacion.setFinal(() => {
+        //  goTo("blinguistica");
+    });
+
+
+
+
+</script>

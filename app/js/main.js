@@ -20,6 +20,7 @@ var Navegable = /** @class */ (function () {
         this.elementos = elementos;
         this.progreso = new Progress(elementos.elementos.length, 0);
         this.actual = 0;
+        createjs.Sound.registerSound("../audios/siguiente.mp3", "seguir");
         this.tiempo = document.createElement('div');
         this.tiempo.className = "nav_tiempo";
         var c = document.createElement('div');
@@ -163,6 +164,7 @@ var Navegable = /** @class */ (function () {
     };
     Navegable.prototype.siguiente = function () {
         if (this.permitir || this.permitirAll) {
+            createjs.Sound.play("seguir");
             this.ocultar(this.actualPantallaHtml());
             if (this.actual < this.elementos.elementos.length - 1) {
                 if (this.inicio != null) {
@@ -494,6 +496,9 @@ var Progress = /** @class */ (function () {
     };
     return Progress;
 }());
+function fondo(fondo) {
+    $('.cont-principal').css("background-image", "url('" + fondo + "')");
+}
 function irA(url) {
     $(".principal").load(url);
 }
