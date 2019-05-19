@@ -347,7 +347,6 @@
     tableros[0].agregar("../img/emparejados/card-9.png", 16, "../img/emparejados/card-9.png", 17);
     tableros[0].agregar("../img/emparejados/card-10.png", 18, "../img/emparejados/card-10.png", 0);
 
-
     tableros[0].iniciar();
 
     tableros[0].setIntentoAcierto(() => {
@@ -426,6 +425,8 @@
     });
     pinturac.setIntentoAcierto(()=>{
         console.log("bien")
+        siguiente.disabled = false;
+
     });
 
     pinturac.setIntentoFallo(()=>{
@@ -477,7 +478,11 @@
     contenedor.agregar(tableros[0].getActividad());
     contenedor.agregar(tableros[1].getActividad());
     contenedor.agregar(tableros[2].getActividad());
-    contenedor.agregarHTML(document.querySelector(".ppintura"));
+    contenedor.agregarHTML(document.querySelector(".ppintura")).setAccion(() => {
+        mostrar(".zona__navegacion");
+        navegable.colocarTiempo();
+        navegable.colocarProgreso();
+      });;
 
 
     contenedor.incluirEn(document.querySelector(".ppreguntas"));
