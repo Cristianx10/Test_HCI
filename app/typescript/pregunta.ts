@@ -53,7 +53,8 @@ class Pregunta implements Validable {
                 resultados.calcularMaximo(this.valores);
             }
         }
-       
+
+        console.log("Validadndo")
     }
 
     setValidacion(validar:Function){
@@ -267,26 +268,25 @@ class PreguntaC extends Pregunta {
         this.valores.push({ id: this.tipoId, valores: opcion.valor });
     }
 
-    validarCon(original: string) {
+    validarCon(original: string, acciones:Function) {
         let usuario = this.getTexto();
         let texto = new Texto_validar(original, usuario);
 
-        if(this.validacion !=null){
-            this.validacion(texto);
-        }
-        console.log(texto.getErrores());
+        let error_general = (texto.getErrores());
 
         //Da los errores de coincidencia exacta
-        console.log(texto.getErroresStrict());
+        let error_coincidencia = (texto.getErroresStrict());
 
         //Da los errores de Mayusculas
-        console.log(texto.getErroresMayusculas());
+        let error_mayuscula = (texto.getErroresMayusculas());
 
         //Da los errores de Puntuacion, solo "," y "."
-        console.log(texto.getErroresPuntuacion());
+        let error_puntuacion = (texto.getErroresPuntuacion());
 
         //Da los errores de palabras que faltaron
-        console.log(texto.getErroresFalto());
+        let error_falto = (texto.getErroresFalto());
+
+        acciones(error_general, error_coincidencia, error_mayuscula, error_puntuacion, error_falto);
     }
 
   
@@ -320,10 +320,6 @@ class PreguntaC extends Pregunta {
     }
 
 
-    getPregunta() {
-        return this.contenido;
-    }
-
 
 }
 
@@ -345,7 +341,6 @@ class OpcionC extends Opcion {
         this.elemento.append(this.areaTexto);
 
         this.areaTexto.addEventListener("click", () => {
-            console.log("Dfsdfsdfdfsdfsdf")
             this.areaTexto.focus();
         });
 
@@ -355,14 +350,7 @@ class OpcionC extends Opcion {
         this.areaTexto.placeholder = info;
     }
 
-    validar(accion:string, valor: Array<ResultadoA>){
-        if(accion == "ortografia"){
-            
-        }
-    }
-
     escribiendo(escritura: Function) {
-
         this.areaTexto.addEventListener("keydown", () => {
             if (escritura != null) {
                 escritura();
@@ -503,9 +491,7 @@ class PreguntaD extends Pregunta {
         this.valores.push({ id: this.tipoId, valores: opcion.valor });
     }
 
-    setValidacion(validacion: Function) {
-        this.validacion = validacion;
-    }
+  
 
 }
 
@@ -1035,7 +1021,7 @@ class Texto_validar {
         this.palabras_texto.forEach(p => {
 
             if (p.coincidencia_mayus) {
-                console.log("Error: " + p.palabra);
+               
                 erroresMayus++;
             }
 

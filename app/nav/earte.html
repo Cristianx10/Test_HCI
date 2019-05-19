@@ -9,7 +9,7 @@
     <link rel="shortcut icon" href="../includes/img/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="../sass/general/main.css" />
     <link href="../sass/tipographys/tipografias.css" rel="stylesheet" />
-   
+
     <link rel="stylesheet" href="../../sass/general/datosUsuario.css" type="text/css">
 
     <style>
@@ -181,7 +181,6 @@
 
             <div class="zona__navegacion">
                 <button class="btn_siguiente" onclick="seguir()">Siguiente</button>
-
             </div>
 
 
@@ -255,7 +254,13 @@
     let p5 = new PreguntaC(`Escriba el texto que dictan`);
     p5.agregar("");
     p5.placeholder("Escriba aqui");
+    p5.setValidacion(() => {
+        p5.validarCon("Nuevo texto", (error_general, error_coincidencia, error_mayuscula, error_puntuacion, error_falto) => {
+            console.log(error_general)
+        });
+    });
     p5.incluirEn(".pdictado__pregunta");
+
 
     let audio = document.querySelector("#audio__dictado");
 
@@ -284,7 +289,7 @@
             mostrar(".pdictado__revisar");
             let re = document.querySelector("#revisar__parrafo");
             re.innerHTML = p5.getTexto();
-        }else{
+        } else {
             seguir();
         }
 
@@ -294,62 +299,21 @@
 
     /*-------------------------------------------------------------------------------------------------------------*/
 
-    let reciclaje = new Clasificar();
-    $(".elementos").append(reciclaje.getElemento());
+    let audiosc = new Clasificar();
+    audiosc.incluirEn(".elementos");
+
     let sonidos = document.querySelectorAll(".zona");
     let categoria = ["agudo", "grave", "agudo", "grave"]
     sonidos.forEach((ele, index) => {
-        reciclaje.agregar(new Basura_elemento(ele, categoria[index]));
+        audiosc.agregar(ele, categoria[index]);
     });
-
-    // There's the gallery and the trash
-    let elementos = $(".elementos");
-    let vidrio = $("#agudo");
-    let plastico = $("#grave");
-
-
-    // Let the gallery items be draggable
-    $(".zona", elementos).draggable({
-        cancel: "a.ui-icon", // clicking an icon won't initiate dragging
-        revert: "invalid", // when not dropped, the item will revert back to its initial position
-        containment: "document",
-        // helper: "clone",
-        cursor: "move"
-    });
-
-    // Let the trash be droppable, accepting the gallery items
-
-    function almacenaje(contenedores) {
-        contenedores.forEach(c => {
-            c.droppable({
-                accept: ".elementos div",
-                drop: function (event, ui) {
-                    deleteImage(ui.draggable, c);
-                }
-            });
-        });
-    }
-
-    almacenaje([vidrio, plastico]);
-
+    
+    audiosc.almacenaje(["#agudo", "#grave"], ".elementos div");
+    audiosc.arrastrables(".zona", ".elementos");
 
     // Image deletion function
 
-    function deleteImage($item, t) {
-        $item.fadeIn(function () {
-            $item.appendTo(t);
-            $item.find(".zona").css("left", "0px");
-            if (reciclaje.seleccion != null) {
-                if (reciclaje.validarBasura(t[0].id)) {
-
-                    console.log("bien");
-                } else {
-                    console.log("Mal");
-                }
-                reciclaje.reset();
-            }
-        });
-    }
+   
 
 
     /*------------------------------------------------------------------------------------------------------------*/
@@ -358,14 +322,15 @@
 
 
     fondo("../img/background-claro.png");
+    ocultar(".zona__navegacion");
     //ocultar(".zona__navegacion");
 
-    
+
 
     contenedor.agregarHTML(document.querySelector(".pinicio")).setAccionFinal(() => {
         mostrar(".zona__navegacion");
     });
-    contenedor.agregarHTML(document.querySelector(".pdictado"), p5).setAccion(() => {
+    contenedor.agregar(new Contenido(document.querySelector(".pdictado"), p5)).setAccion(() => {
         ocultar(".zona__navegacion");
         ocultar(".pdictado__revisar");
     });

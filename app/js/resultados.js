@@ -40,7 +40,7 @@ var Resultados = /** @class */ (function () {
             if (this.categorias != null) {
                 for (var j = 0; j < this.categorias.length; j++) {
                     var c_1 = this.categorias[j];
-                    if (a == c_1.nombre) {
+                    if (a == c_1.area) {
                         areasArray.push(c_1);
                         j = this.categorias.length;
                     }
@@ -77,11 +77,12 @@ var Resultados = /** @class */ (function () {
         return max;
     };
     Resultados.prototype.sumar = function (nombre, valor) {
+        nombre = nombre.toLowerCase();
         var categoria = 0;
         var encontrado = false;
         if (this.categorias != null) {
             this.categorias.forEach(function (c, index) {
-                if (c.nombre == nombre) {
+                if (c.area == nombre) {
                     categoria = index;
                     encontrado = true;
                 }
@@ -90,11 +91,35 @@ var Resultados = /** @class */ (function () {
                 this.categorias[categoria].valor += valor;
             }
             else {
-                this.categorias.push({ nombre: nombre, valor: valor });
+                this.categorias.push({ area: nombre, valor: valor });
             }
         }
         this.save();
         //console.log({ nombre: nombre, valor: valor });
+    };
+    Resultados.prototype.agregarMaximo = function (maximos) {
+        var _this = this;
+        maximos.forEach(function (m) {
+            var nombre = m.area.toLowerCase();
+            var valor = m.valor;
+            var categoria = 0;
+            var encontrado = false;
+            if (_this.maximos != null) {
+                _this.maximos.forEach(function (c, index) {
+                    if (c.area == nombre) {
+                        categoria = index;
+                        encontrado = true;
+                    }
+                });
+                if (encontrado) {
+                    _this.maximos[categoria].valor += valor;
+                }
+                else {
+                    _this.maximos.push({ area: nombre, valor: valor });
+                }
+            }
+        });
+        this.save();
     };
     Resultados.prototype.calcularMaximo = function (valores) {
         var valorTotal = [];
@@ -105,7 +130,8 @@ var Resultados = /** @class */ (function () {
                     var encontro = false;
                     for (var j = 0; j < valorTotal.length; j++) {
                         var t = valorTotal[j];
-                        if (val.area == t.area) {
+                        var nombre = t.area.toLowerCase();
+                        if (val.area == nombre) {
                             encontro = true;
                             if (val.valor > t.valor) {
                                 t.valor = val.valor;
@@ -113,7 +139,7 @@ var Resultados = /** @class */ (function () {
                         }
                     }
                     if (encontro == false) {
-                        valorTotal.push({ area: val.area, valor: val.valor });
+                        valorTotal.push({ area: val.area.toLowerCase(), valor: val.valor });
                     }
                 }
             }
@@ -189,6 +215,7 @@ var Resultados = /** @class */ (function () {
 }());
 var VerResultado = /** @class */ (function () {
     function VerResultado() {
+        this.name = "";
         this.elemento = document.createElement("div");
         this.elemento.className = "resultado__cuadro";
         this.init = random(0, 360);
@@ -202,7 +229,16 @@ var VerResultado = /** @class */ (function () {
         this.valor = valor;
         this.src = src;
         var simpli = categoria.split(" ");
-        this.elemento.innerHTML = "\n        <div class=\"resultado__porcentaje\">\n        <div class=\"resultado__porcentaje__circulo\">\n            <input id=\"" + simpli[0] + "\" class=\"porcentaje\" type=\"text\" value=\"" + this.valor + "\" data-linecap=round data-angleOffset = \"" + this.init + "\">\n        </div>\n        <img class=\"icono\" src=\"" + this.src + "\" alt=\"\">\n        </div>\n        <div class=\"resultado__informacion\">\n            <h2 class=\"rtitulo\">" + this.categoria + "</h2>\n            <h3 class=\"rvalor\" style=\"color:" + this.color + ";\">" + this.valor + "%</h3>\n        </div>\n    ";
+        var nombre = MayusPrimera(this.categoria);
+        this.name = simpli[0];
+        this.elemento.innerHTML = "\n        <div class=\"resultado__porcentaje\">\n        <div class=\"resultado__porcentaje__circulo\">\n            <input id=\"" + simpli[0] + "\" class=\"porcentaje\" type=\"text\" value=\"" + this.valor + "\" data-linecap=round data-angleOffset = \"" + this.init + "\">\n        </div>\n        <img class=\"icono\" src=\"" + this.src + "\" alt=\"\">\n        </div>\n        <div class=\"resultado__informacion\">\n            <h2 class=\"rtitulo\">" + nombre + "</h2>\n            <h3 class=\"rvalor\" style=\"color:" + this.color + ";\">" + this.valor + "%</h3>\n        </div>\n    ";
+    };
+    VerResultado.prototype.activar = function () {
+        var _this = this;
+        this.elemento.classList.add("clickeable");
+        this.elemento.addEventListener("click", function () {
+            window.location.href = "e" + _this.name + ".html";
+        });
     };
     VerResultado.prototype.getElemento = function () {
         return this.elemento;
@@ -215,3 +251,6 @@ var VerResultado = /** @class */ (function () {
     };
     return VerResultado;
 }());
+function MayusPrimera(palabra) {
+    return palabra.charAt(0).toUpperCase() + palabra.slice(1);
+}

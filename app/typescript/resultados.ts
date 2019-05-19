@@ -1,7 +1,4 @@
-interface RCategoria {
-    nombre: string;
-    valor: number;
-}
+
 
 interface RRegistro {
     id: string;
@@ -30,7 +27,7 @@ interface RespuestaV {
 */
 class Resultados {
 
-    categorias?: Array<RCategoria>;
+    categorias?: Array<ResultadoA>;
     pruebas?: Array<RRegistro>;
     maximos?: Array<ResultadoA>;
     id: string;
@@ -76,7 +73,7 @@ class Resultados {
             if (this.categorias != null) {
                 for (let j = 0; j < this.categorias.length; j++) {
                     let c = this.categorias[j];
-                    if (a == c.nombre) {
+                    if (a == c.area) {
                         areasArray.push(c);
                         j = this.categorias.length;
                     }
@@ -108,7 +105,7 @@ class Resultados {
         let max;
         if (this.maximos != null) {
             this.maximos.forEach(e => {
-                if(area == e.area){
+                if (area == e.area) {
                     max = e;
                 }
             });
@@ -117,11 +114,12 @@ class Resultados {
     }
 
     sumar(nombre: string, valor: number) {
+        nombre = nombre.toLowerCase();
         let categoria: number = 0;
         let encontrado = false;
         if (this.categorias != null) {
             this.categorias.forEach((c, index) => {
-                if (c.nombre == nombre) {
+                if (c.area == nombre) {
                     categoria = index;
                     encontrado = true
                 }
@@ -130,12 +128,43 @@ class Resultados {
             if (encontrado) {
                 this.categorias[categoria].valor += valor;
             } else {
-                this.categorias.push({ nombre: nombre, valor: valor });
+                this.categorias.push({ area: nombre, valor: valor });
             }
         }
 
         this.save();
         //console.log({ nombre: nombre, valor: valor });
+    }
+
+    agregarMaximo(maximos: Array<ResultadoA>) {
+
+        maximos.forEach((m) => {
+
+            let nombre = m.area.toLowerCase();
+            let valor = m.valor;
+
+            let categoria: number = 0;
+            let encontrado = false;
+
+            if (this.maximos != null) {
+                this.maximos.forEach((c, index) => {
+                    if (c.area == nombre) {
+                        categoria = index;
+                        encontrado = true
+                    }
+                });
+
+                if (encontrado) {
+                    this.maximos[categoria].valor += valor;
+                } else {
+                    this.maximos.push({ area: nombre, valor: valor });
+                }
+            }
+
+        });
+
+
+        this.save();
     }
 
     calcularMaximo(valores: Array<Respuesta>) {
@@ -151,7 +180,8 @@ class Resultados {
 
                     for (let j = 0; j < valorTotal.length; j++) {
                         let t = valorTotal[j];
-                        if (val.area == t.area) {
+                        let nombre = t.area.toLowerCase();
+                        if (val.area == nombre) {
                             encontro = true;
                             if (val.valor > t.valor) {
                                 t.valor = val.valor;
@@ -159,7 +189,7 @@ class Resultados {
                         }
                     }
                     if (encontro == false) {
-                        valorTotal.push({ area: val.area, valor: val.valor });
+                        valorTotal.push({ area: val.area.toLowerCase(), valor: val.valor });
                     }
                 }
             }
@@ -183,13 +213,13 @@ class Resultados {
                     this.maximos[categoria].valor += v.valor;
                 } else {
                     this.maximos.push({ area: v.area, valor: v.valor });
-                   // console.log({ area: v.area, valor: v.valor });
+                    // console.log({ area: v.area, valor: v.valor });
                 }
             }
         }
 
         this.save();
-     
+
     }
     /*
     [
@@ -245,7 +275,8 @@ class VerResultado {
     valor?: number;
     src?: string;
     private init: number;
-    color:string;
+    color: string;
+    name = "";
 
     constructor() {
         this.elemento = document.createElement("div");
@@ -254,7 +285,7 @@ class VerResultado {
         this.color = "#007ACC";
     }
 
-    cambiarColor(color:string){
+    cambiarColor(color: string) {
         this.color = color;
     }
 
@@ -263,6 +294,8 @@ class VerResultado {
         this.valor = valor;
         this.src = src;
         let simpli = categoria.split(" ");
+        let nombre = MayusPrimera(this.categoria);
+        this.name = simpli[0];
         this.elemento.innerHTML = `
         <div class="resultado__porcentaje">
         <div class="resultado__porcentaje__circulo">
@@ -271,10 +304,17 @@ class VerResultado {
         <img class="icono" src="${this.src}" alt="">
         </div>
         <div class="resultado__informacion">
-            <h2 class="rtitulo">${this.categoria}</h2>
+            <h2 class="rtitulo">${nombre}</h2>
             <h3 class="rvalor" style="color:${this.color};">${this.valor}%</h3>
         </div>
     `;
+    }
+
+    activar(){
+        this.elemento.classList.add("clickeable");
+        this.elemento.addEventListener("click", ()=>{
+            window.location.href = "e" + this.name + ".html";
+        });
     }
 
     getElemento() {
@@ -298,5 +338,8 @@ class VerResultado {
     }
 }
 
+function MayusPrimera(palabra: string) {
+    return palabra.charAt(0).toUpperCase() + palabra.slice(1);
+}
 
 

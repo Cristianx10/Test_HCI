@@ -51,6 +51,7 @@ var Pregunta = /** @class */ (function () {
                 resultados.calcularMaximo(this.valores);
             }
         }
+        console.log("Validadndo");
     };
     Pregunta.prototype.setValidacion = function (validar) {
         this.validacion = validar;
@@ -208,21 +209,19 @@ var PreguntaC = /** @class */ (function (_super) {
         this.opciones.push(opcion);
         this.valores.push({ id: this.tipoId, valores: opcion.valor });
     };
-    PreguntaC.prototype.validarCon = function (original) {
+    PreguntaC.prototype.validarCon = function (original, acciones) {
         var usuario = this.getTexto();
         var texto = new Texto_validar(original, usuario);
-        if (this.validacion != null) {
-            this.validacion(texto);
-        }
-        console.log(texto.getErrores());
+        var error_general = (texto.getErrores());
         //Da los errores de coincidencia exacta
-        console.log(texto.getErroresStrict());
+        var error_coincidencia = (texto.getErroresStrict());
         //Da los errores de Mayusculas
-        console.log(texto.getErroresMayusculas());
+        var error_mayuscula = (texto.getErroresMayusculas());
         //Da los errores de Puntuacion, solo "," y "."
-        console.log(texto.getErroresPuntuacion());
+        var error_puntuacion = (texto.getErroresPuntuacion());
         //Da los errores de palabras que faltaron
-        console.log(texto.getErroresFalto());
+        var error_falto = (texto.getErroresFalto());
+        acciones(error_general, error_coincidencia, error_mayuscula, error_puntuacion, error_falto);
     };
     PreguntaC.prototype.placeholder = function (info) {
         this.opciones.forEach(function (o) {
@@ -246,9 +245,6 @@ var PreguntaC = /** @class */ (function (_super) {
             o.escribiendo(escritura);
         });
     };
-    PreguntaC.prototype.getPregunta = function () {
-        return this.contenido;
-    };
     return PreguntaC;
 }(Pregunta));
 var OpcionC = /** @class */ (function (_super) {
@@ -264,17 +260,12 @@ var OpcionC = /** @class */ (function (_super) {
         _this.areaTexto.innerText = info;
         _this.elemento.append(_this.areaTexto);
         _this.areaTexto.addEventListener("click", function () {
-            console.log("Dfsdfsdfdfsdfsdf");
             _this.areaTexto.focus();
         });
         return _this;
     }
     OpcionC.prototype.placeholder = function (info) {
         this.areaTexto.placeholder = info;
-    };
-    OpcionC.prototype.validar = function (accion, valor) {
-        if (accion == "ortografia") {
-        }
     };
     OpcionC.prototype.escribiendo = function (escritura) {
         this.areaTexto.addEventListener("keydown", function () {
@@ -376,9 +367,6 @@ var PreguntaD = /** @class */ (function (_super) {
         this.seleccion = this.opciones[v - 1];
         this.seleccion.elemento.classList.add("seleccion");
         this.valores.push({ id: this.tipoId, valores: opcion.valor });
-    };
-    PreguntaD.prototype.setValidacion = function (validacion) {
-        this.validacion = validacion;
     };
     return PreguntaD;
 }(Pregunta));
@@ -764,7 +752,6 @@ var Texto_validar = /** @class */ (function () {
         var erroresTilde = 0;
         this.palabras_texto.forEach(function (p) {
             if (p.coincidencia_mayus) {
-                console.log("Error: " + p.palabra);
                 erroresMayus++;
             }
             if (p.tildes == false) {

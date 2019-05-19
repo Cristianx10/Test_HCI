@@ -4,20 +4,29 @@
         height: 183px;
     }
 
-    .basura__elementos {
+    .basura__elementos > div {
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
         height: 70%;
+    }
+
+    .elemento_basura{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20%;
+        margin-bottom: 20px;
     }
 
     .basura {
         display: flex;
         justify-content: center;
+        align-items: flex-end;
         height: 30%;
     }
 
-    .basura__elementos div {
-        display: inline-block;
-
-    }
 </style>
 
 <div class="pantalla">
@@ -33,75 +42,42 @@
     </div>
 </div>
 
+
 <script src="../../js/reciclaje.js"></script>
 <script>
 
-    let reciclaje = new Reciclaje();
-    $(".basura__elementos").append(reciclaje.getElemento());
+    let reciclaje = new Clasificar();
 
     loadJson("../../data/ciencias/reciclaje.json", (r) => {
 
         let recursos = r.recursos;
-
-
+        reciclaje.incluirEn(".basura__elementos");
         for (let i = 0; i < recursos.length; i++) {
             let rec = recursos[i];
-            reciclaje.agregar(new Clasificar_elemento(rec.url, rec.categoria));
+            let e = document.createElement("div");
+            e.className = "elemento_basura";
+            e.innerHTML = `<img src="${rec.url}" alt="" class="recurso">`;
+
+            reciclaje.agregar(e, rec.categoria);
         }
 
 
-        // There's the gallery and the trash
-        let elementos = $(".basura__elementos");
-        let vidrio = $("#vidrio");
-        let plastico = $("#plastico");
-        let organico = $("#organico");
-        let papel = $("#papel");
+        reciclaje.almacenaje(["#vidrio", "#plastico", "#organico", "#papel"], ".basura__elementos div");
+        reciclaje.arrastrables("div", ".basura__elementos");
 
-        // Let the gallery items be draggable
-        $("div", elementos).draggable({
-            cancel: "a.ui-icon", // clicking an icon won't initiate dragging
-            revert: "invalid", // when not dropped, the item will revert back to its initial position
-            containment: "document",
-            // helper: "clone",
-            cursor: "move"
+
+        reciclaje.setIntentoAcierto(()=>{
+            console.log("bien")
         });
 
-        // Let the trash be droppable, accepting the gallery items
-
-        function almacenaje(contenedores) {
-            contenedores.forEach(c => {
-                c.droppable({
-                    accept: ".basura__elementos div",
-                    drop: function (event, ui) {
-                        deleteImage(ui.draggable, c);
-                    }
-                });
-            });
-        }
-
-        almacenaje([vidrio, plastico, organico, papel]);
+        reciclaje.setIntentoFallo(()=>{
+            console.log("mal")
+        });
 
 
-        // Image deletion function
-
-        function deleteImage($item, t) {
-            $item.fadeOut(function () {
-                var $list = $("ul", t).length ?
-                    $("ul", t) :
-                    $("<ul class='gallery ui-helper-reset'/>").appendTo(t);
-
-                if (reciclaje.seleccion != null) {
-                    if (reciclaje.validarBasura(t[0].id)) {
-                        console.log("bien");
-                    } else {
-                        console.log("mal");
-                    }
-                }
-                $item.find(".basura").remove();
-               
-            });
-        }
-
+        reciclaje.setResetear((s) => {
+            s.style.display = "none";
+        });
     });
 
 </script>
