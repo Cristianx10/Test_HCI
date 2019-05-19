@@ -1,4 +1,4 @@
-var temp_seleccion: any;
+/*var temp_seleccion: any;
 var sobre: boolean;
 
 function getDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
@@ -13,7 +13,7 @@ function getDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   var d = R * c;
   return d;
-}
+}*/
 
 class Ficha {
   elemento: HTMLElement;
@@ -21,13 +21,14 @@ class Ficha {
   orden: number;
   posicion: number;
   tem_pos: any;
-  tablero: any;
+  tablero: Tablero;
   angulo: number;
   rotar: boolean;
   cotenido: HTMLElement;
   placeholder: HTMLElement;
 
-  constructor(elemento: HTMLElement, orden: number, posicion: number, rotacion: number) {
+  constructor(elemento: HTMLElement, orden: number, posicion: number, rotacion: number, tablero: Tablero) {
+    this.tablero = tablero;
     this.elemento = document.createElement('div');
     this.elemento.className = "ficha";
     this.cotenido = document.createElement("div");
@@ -49,7 +50,7 @@ class Ficha {
     this.cotenido.style.transform = `rotate(${this.angulo * 90}deg)`;
 
     this.elemento.addEventListener("click", () => {
-     
+
       if (this.rotar) {
         this.angulo += 1;
         this.cotenido.style.transition = "all .5s ease";
@@ -90,36 +91,42 @@ class Ficha {
       this.elemento.style.left = this.tem_pos.left;
       this.elemento.style.top = this.tem_pos.top;
       this.elemento.style.zIndex = "0";
-      sobre = true;
+      this.tablero.sobre = true;
       setTimeout(() => {
-        sobre = false;
+        this.tablero.sobre = false;
       }, 30);
     });
 
     this.elemento.addEventListener("mousedown", () => {
       this.tem_pos.left = this.elemento.style.left;
       this.tem_pos.top = this.elemento.style.top;
-      temp_seleccion = { elemento: this.elemento, x: this.tem_pos.left, y: this.tem_pos.top, angulo: this.angulo };
+      this.tablero.seleccion = this;//{ elemento: this.elemento, x: this.tem_pos.left, y: this.tem_pos.top, angulo: this.angulo };
       this.elemento.style.zIndex = "1000000";
     });
 
 
     this.elemento.addEventListener("mouseover", (e: any) => {
 
-      if (sobre) {
+      if (this.tablero.sobre) {
         this.elemento.style.transition = "all .5s ease";
         //temp_seleccion.elemento.style.transition = "all .5s ease";
 
-        temp_seleccion.elemento.style.left = this.elemento.style.left;
-        temp_seleccion.elemento.style.top = this.elemento.style.top;
-        this.elemento.style.left = temp_seleccion.x;
-        this.elemento.style.top = temp_seleccion.y;
+        if (this.tablero.seleccion != null) {
+          let x = this.tablero.seleccion.elemento.style.left;
+          let y = this.tablero.seleccion.elemento.style.top;
 
-        let a = temp_seleccion.angulo - 1;
+          this.tablero.seleccion.elemento.style.left = this.elemento.style.left; //.elemento.style.left = this.elemento.style.left;
+          this.tablero.seleccion.elemento.style.top = this.elemento.style.top;
+          this.elemento.style.left = x;
+          this.elemento.style.top = y;
 
-        temp_seleccion.elemento.style.zIndex = "0";
-        temp_seleccion = null;
-        sobre = false;
+          let a = this.tablero.seleccion.angulo - 1;
+
+          this.tablero.seleccion.elemento.style.zIndex = "0";
+          this.tablero.seleccion = undefined;
+          this.tablero.sobre = false;
+        }
+
 
         setTimeout(() => {
           this.elemento.style.transition = "none";
@@ -130,64 +137,71 @@ class Ficha {
         }, 500);
 
       }
-      sobre = false;
+      this.tablero.sobre = false;
     });
 
 
   }
 }
 
-class Tablero {
+class Tablero extends Interaccion {
   fichas: Array<Ficha>;
   width: number;
   height: number;
   columnas: number;
   filas: number;
   margin = 10;
-  tablero: HTMLElement;
   tablero__zonas: HTMLElement;
   tablero__fichas: HTMLElement;
   posiciones: any;
-  validacion?: Function;
-  intentoFallo?: Function;
-  intentos: number;
+  sobre = false;
+  seleccion?: Ficha;
 
-  constructor(fichas: Array<Ficha>, columnas: number, filas: number, tamano: number) {
-    this.fichas = fichas;
+
+  constructor(columnas: number, filas: number, tamano: number) {
+    super();
+    this.fichas = [];
     this.columnas = columnas;
     this.width = tamano;
     this.height = tamano;
     this.filas = filas;
     this.intentos = 0;
-    this.tablero = document.createElement("div");
+    this.elemento = document.createElement("div");
     this.tablero__zonas = document.createElement("div");
     this.tablero__fichas = document.createElement("div");
-    fichas.forEach(e => {
-      e.tablero = this;
-    });
+    this.elemento.style.width = columnas*tamano + "px";
+    this.elemento.style.height = filas*tamano + "px";
+    
     this.crearTablero();
-    this.repartir();
+    
 
+  }
+
+  agregar(elemento: HTMLElement, orden: number, posicion: number, rotacion: number){
+    let elem = new Ficha(elemento, orden, posicion,rotacion, this);
+    this.fichas.push(elem);
+    console.log(elemento.style.left, elemento.style.width)
   }
 
   crearTablero() {
-    this.tablero.className = "rompecabeza";
+    this.elemento.className = "rompecabeza";
     this.tablero__zonas.className = "rompecabeza__zona";
     this.tablero__fichas.className = "rompecabeza__ficha";
 
-
-    this.tablero.appendChild(this.tablero__zonas);
-    this.tablero.appendChild(this.tablero__fichas);
+    this.elemento.appendChild(this.tablero__zonas);
+    this.elemento.appendChild(this.tablero__fichas);
   }
 
-  setTamano(width:number, height:number){
-    this.tablero.style.width = width + "px";
-    this.tablero.style.height = height + "px";
+  setTamano(width: number, height: number) {
+    this.elemento.style.width = width + "px";
+    this.elemento.style.height = height + "px";
   }
 
-  getMatrix(posicion: number) {
-
+  iniciar(){
+    this.repartir();
   }
+
+
 
   repartir() {
     this.posiciones = crearMatrix(this.columnas, this.filas, this.width, this.height);
@@ -257,16 +271,6 @@ class Tablero {
 
   }
 
-  getTablero() {
-    return this.tablero;
-  }
-
-  setValidacion(validacion: Function) {
-    this.validacion = validacion;
-  }
-  setIntentoFallo(intentoFallo: Function) {
-    this.intentoFallo = intentoFallo;
-  }
 
 }
 

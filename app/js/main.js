@@ -407,8 +407,8 @@ function cargarImagen(url, width, height, columnas, filas) {
     for (var i = 0; i < total; i++) {
         var contenedor = document.createElement('div');
         contenedor.style.position = "relative";
-        contenedor.style.width = width + "px";
-        contenedor.style.height = height + "px";
+        contenedor.style.width = (width + 1) + "px";
+        contenedor.style.height = (height + 1) + "px";
         contenedor.style.overflow = "hidden";
         var fragmentoImg = image.cloneNode();
         c++;

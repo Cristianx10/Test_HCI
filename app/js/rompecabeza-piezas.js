@@ -1,20 +1,37 @@
 "use strict";
-var temp_seleccion;
-var sobre;
-function getDistance(lat1, lon1, lat2, lon2) {
-    var R = 6371;
-    var dLat = (lat2 - lat1) * (Math.PI / 180);
-    var dLon = (lon2 - lon1) * (Math.PI / 180);
-    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) *
-            Math.sin(dLon / 2) * Math.sin(dLon / 2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    var d = R * c;
-    return d;
-}
+/*var temp_seleccion: any;
+var sobre: boolean;
+
+function getDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
+  var R = 6371;
+  var dLat = (lat2 - lat1) * (Math.PI / 180);
+  var dLon = (lon2 - lon1) * (Math.PI / 180);
+  var a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) *
+    Math.sin(dLon / 2) * Math.sin(dLon / 2)
+    ;
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  var d = R * c;
+  return d;
+}*/
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var Ficha = /** @class */ (function () {
-    function Ficha(elemento, orden, posicion, rotacion) {
+    function Ficha(elemento, orden, posicion, rotacion, tablero) {
         var _this = this;
+        this.tablero = tablero;
         this.elemento = document.createElement('div');
         this.elemento.className = "ficha";
         this.cotenido = document.createElement("div");
@@ -70,71 +87,82 @@ var Ficha = /** @class */ (function () {
             _this.elemento.style.left = _this.tem_pos.left;
             _this.elemento.style.top = _this.tem_pos.top;
             _this.elemento.style.zIndex = "0";
-            sobre = true;
+            _this.tablero.sobre = true;
             setTimeout(function () {
-                sobre = false;
+                _this.tablero.sobre = false;
             }, 30);
         });
         this.elemento.addEventListener("mousedown", function () {
             _this.tem_pos.left = _this.elemento.style.left;
             _this.tem_pos.top = _this.elemento.style.top;
-            temp_seleccion = { elemento: _this.elemento, x: _this.tem_pos.left, y: _this.tem_pos.top, angulo: _this.angulo };
+            _this.tablero.seleccion = _this; //{ elemento: this.elemento, x: this.tem_pos.left, y: this.tem_pos.top, angulo: this.angulo };
             _this.elemento.style.zIndex = "1000000";
         });
         this.elemento.addEventListener("mouseover", function (e) {
-            if (sobre) {
+            if (_this.tablero.sobre) {
                 _this.elemento.style.transition = "all .5s ease";
                 //temp_seleccion.elemento.style.transition = "all .5s ease";
-                temp_seleccion.elemento.style.left = _this.elemento.style.left;
-                temp_seleccion.elemento.style.top = _this.elemento.style.top;
-                _this.elemento.style.left = temp_seleccion.x;
-                _this.elemento.style.top = temp_seleccion.y;
-                var a = temp_seleccion.angulo - 1;
-                temp_seleccion.elemento.style.zIndex = "0";
-                temp_seleccion = null;
-                sobre = false;
+                if (_this.tablero.seleccion != null) {
+                    var x = _this.tablero.seleccion.elemento.style.left;
+                    var y = _this.tablero.seleccion.elemento.style.top;
+                    _this.tablero.seleccion.elemento.style.left = _this.elemento.style.left; //.elemento.style.left = this.elemento.style.left;
+                    _this.tablero.seleccion.elemento.style.top = _this.elemento.style.top;
+                    _this.elemento.style.left = x;
+                    _this.elemento.style.top = y;
+                    var a = _this.tablero.seleccion.angulo - 1;
+                    _this.tablero.seleccion.elemento.style.zIndex = "0";
+                    _this.tablero.seleccion = undefined;
+                    _this.tablero.sobre = false;
+                }
                 setTimeout(function () {
                     _this.elemento.style.transition = "none";
                     //temp_seleccion.elemento.style.transition = "none";
                     _this.tablero.validar();
                 }, 500);
             }
-            sobre = false;
+            _this.tablero.sobre = false;
         });
     };
     return Ficha;
 }());
-var Tablero = /** @class */ (function () {
-    function Tablero(fichas, columnas, filas, tamano) {
-        var _this = this;
-        this.margin = 10;
-        this.fichas = fichas;
-        this.columnas = columnas;
-        this.width = tamano;
-        this.height = tamano;
-        this.filas = filas;
-        this.intentos = 0;
-        this.tablero = document.createElement("div");
-        this.tablero__zonas = document.createElement("div");
-        this.tablero__fichas = document.createElement("div");
-        fichas.forEach(function (e) {
-            e.tablero = _this;
-        });
-        this.crearTablero();
-        this.repartir();
+var Tablero = /** @class */ (function (_super) {
+    __extends(Tablero, _super);
+    function Tablero(columnas, filas, tamano) {
+        var _this = _super.call(this) || this;
+        _this.margin = 10;
+        _this.sobre = false;
+        _this.fichas = [];
+        _this.columnas = columnas;
+        _this.width = tamano;
+        _this.height = tamano;
+        _this.filas = filas;
+        _this.intentos = 0;
+        _this.elemento = document.createElement("div");
+        _this.tablero__zonas = document.createElement("div");
+        _this.tablero__fichas = document.createElement("div");
+        _this.elemento.style.width = columnas * tamano + "px";
+        _this.elemento.style.height = filas * tamano + "px";
+        _this.crearTablero();
+        return _this;
     }
+    Tablero.prototype.agregar = function (elemento, orden, posicion, rotacion) {
+        var elem = new Ficha(elemento, orden, posicion, rotacion, this);
+        this.fichas.push(elem);
+        console.log(elemento.style.left, elemento.style.width);
+    };
     Tablero.prototype.crearTablero = function () {
-        this.tablero.className = "rompecabeza";
+        this.elemento.className = "rompecabeza";
         this.tablero__zonas.className = "rompecabeza__zona";
         this.tablero__fichas.className = "rompecabeza__ficha";
-        this.tablero.appendChild(this.tablero__zonas);
-        this.tablero.appendChild(this.tablero__fichas);
+        this.elemento.appendChild(this.tablero__zonas);
+        this.elemento.appendChild(this.tablero__fichas);
     };
     Tablero.prototype.setTamano = function (width, height) {
-        this.tablero.style.width = width + "px";
-        this.tablero.style.height = height + "px";
+        this.elemento.style.width = width + "px";
+        this.elemento.style.height = height + "px";
     };
-    Tablero.prototype.getMatrix = function (posicion) {
+    Tablero.prototype.iniciar = function () {
+        this.repartir();
     };
     Tablero.prototype.repartir = function () {
         this.posiciones = crearMatrix(this.columnas, this.filas, this.width, this.height);
@@ -188,14 +216,5 @@ var Tablero = /** @class */ (function () {
             return false;
         }
     };
-    Tablero.prototype.getTablero = function () {
-        return this.tablero;
-    };
-    Tablero.prototype.setValidacion = function (validacion) {
-        this.validacion = validacion;
-    };
-    Tablero.prototype.setIntentoFallo = function (intentoFallo) {
-        this.intentoFallo = intentoFallo;
-    };
     return Tablero;
-}());
+}(Interaccion));

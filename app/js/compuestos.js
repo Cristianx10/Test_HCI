@@ -199,8 +199,8 @@ var Tablero_Categoria = /** @class */ (function () {
         this.stage.on("stagemouseup", function () {
             if (_this.visible) {
                 if (_this.base.tablero.encontrado == false && _this.base.tablero.seleccion != null) {
-                    var sobre_1 = _this.contenedor.hitTest(_this.stage.mouseX - _this.contenedor.x - base.contenedor.x, _this.stage.mouseY - _this.contenedor.y - base.contenedor.y);
-                    if (_this.clasificado == false && sobre_1 &&
+                    var sobre = _this.contenedor.hitTest(_this.stage.mouseX - _this.contenedor.x - base.contenedor.x, _this.stage.mouseY - _this.contenedor.y - base.contenedor.y);
+                    if (_this.clasificado == false && sobre &&
                         _this.base.tablero.seleccion.base.categorias.indexOf(_this) == -1) {
                         _this.base.tablero.encontrado = true;
                         _this.base.tablero.intentos++;

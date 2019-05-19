@@ -6,15 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>Test Interactivo</title>
-  <link rel="shortcut icon" href="../includes/img/favicon.png" type="image/x-icon" />
-  <link rel="stylesheet" href="../sass/general/main.css" />
-  <link href="../sass/tipographys/tipografias.css" rel="stylesheet" />
+  <link rel="shortcut icon" href="/includes/img/favicon.png" type="image/x-icon" />
+  <link rel="stylesheet" href="/sass/general/main.css" />
+  <link href="/sass/tipographys/tipografias.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
-
-  <link rel="stylesheet" href="../sass/aplicaciones/targetas.css" />
+  <link rel="stylesheet" href="/sass/aplicaciones/rompecabeza-piezas.css" />
 
   <style>
- 
+
   </style>
 
 </head>
@@ -35,35 +34,40 @@
           </div>
         </div>
 
+        <div class="pantalla table__rompecabezas">
+
+        </div>
+
       </div>
 
-     
+
 
       <div class="pantalla ppalillos" style="background-image: url('../img/background_principal-2.png')">
         <div class="introduccion">
           <h1 class="titulo">Los 3 palillos</h1>
-          <p id="desc" class="descripcion">Retira o mueve 3 de los palillos de lugar para formar las figuras que se indican, en menos de 30 segundos. Entre más movimientos realices, menos puntos obtendrás
+          <p id="desc" class="descripcion">Retira o mueve 3 de los palillos de lugar para formar las figuras que se
+            indican, en menos de 30 segundos. Entre más movimientos realices, menos puntos obtendrás
           </p>
           <button class="botonComenzar" onclick="seguir()">Comenzar</button>
         </div>
       </div>
 
       <div class="pantalla ppalillosn1">
-          <div>
-            <div class="palillos__info">
-              <h1>Nivel 1</h1>
-              <h2>Retira 3 de los 13 palillos 7 haz que queden formados solo 3 triángulos</h2>
-            </div>
-          </div>
-          <div>
-            <div id="palillosn1"></div>
-            <div id="palillosn1__almacen"></div>
+        <div>
+          <div class="palillos__info">
+            <h1>Nivel 1</h1>
+            <h2>Retira 3 de los 13 palillos 7 haz que queden formados solo 3 triángulos</h2>
           </div>
         </div>
+        <div>
+          <div id="palillosn1"></div>
+          <div id="palillosn1__almacen"></div>
+        </div>
+      </div>
 
       <div class="pantalla ppalillosn2">
         <div class="palillos__info">
-            <h1>Nivel 2</h1>
+          <h1>Nivel 2</h1>
           <h2>Cambia de lugar 3 de los 12 palillos y haz que queden formados 3 cuadrados iguales</h2>
         </div>
         <div>
@@ -85,9 +89,10 @@
 
   <!--Codigo de precarga -->
   <script src="../lib/jquery.js"></script>
+  <script src="../lib/jquery-ui.min.js"></script>
 
   <!--
-      <script src="../lib/jquery-ui.min.js"></script>
+      
   <script src="../lib//colorMixer.js"></script>
  
   <script src="../lib/jquery.svg.js"></script>
@@ -96,23 +101,24 @@
   <script src="../lib/tweenjs.js"></script>
   -->
 
-  <script src="../lib/preloadjs.js"></script>
-  <script src="../lib/easeljs.js"></script>
-  <script src="../lib/soundjs.js"></script>
-  <script src="../js/timer.js"></script>
-  <script src="../js/resultados.js"></script>
-  <script src="../js/main.js"></script>
-  <script src="../js/pregunta.js"></script>
+  <script src="/lib/preloadjs.js"></script>
+  <script src="/lib/easeljs.js"></script>
+  <script src="/lib/soundjs.js"></script>
+  <script src="/js/timer.js"></script>
+  <script src="/js/resultados.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/pregunta.js"></script>
 
   <script src="../../js/palillos.js"></script>
-  <script src="../../js/compuestos.js"></script>
+
+  <script src="/js/rompecabeza-piezas.js"></script>
 
 
   <script type="text/javascript">
 
     $(document).ready(function () {
 
-      
+
     });
 
 
@@ -128,14 +134,14 @@
     p1.agregarB(`<h2>a)</h2><img src="../img/preguntasGenerales/VisualEspacial/octagonoA.png" alt="">`, []);
     p1.agregarB(`<h2>b)</h2><img src="../img/preguntasGenerales/VisualEspacial/octagonoB.png" alt="">`, []);
     p1.agregarB(`<h2>c)</h2><img src="../img/preguntasGenerales/VisualEspacial/octagonoC.png" alt="">`, []);
-    p1.agregarB(`<h2>d)</h2><img src="../img/preguntasGenerales/VisualEspacial/octagonoD.png" alt="">`, [{area:"Diseño",  valor:70},{area:"Deportes",  valor:90},{area:"Ingenieria",  valor:50},{area:"Salud",  valor:50},{area:"Educacion",  valor:30},{area:"Fuerza publica",  valor:50},{area:"Arte",  valor:70},{area:"Ciencia",  valor:10}
-]);
+    p1.agregarB(`<h2>d)</h2><img src="../img/preguntasGenerales/VisualEspacial/octagonoD.png" alt="">`, [{ area: "Diseño", valor: 70 }, { area: "Deportes", valor: 90 }, { area: "Ingenieria", valor: 50 }, { area: "Salud", valor: 50 }, { area: "Educacion", valor: 30 }, { area: "Fuerza publica", valor: 50 }, { area: "Arte", valor: 70 }, { area: "Ciencia", valor: 10 }
+    ]);
     p1.agregarClase("pestilo2");
 
     let p2 = new PreguntaI(`<h1>2. Elige la imagen donde el cuadro azul más claro esté en el centro</h1>`,
       `<h3>1. Elige la imagen que continúa la secuencia</h3>`);
-    p2.agregar(`<h2>a)</h2><img style="width:260px; margin: 15px;" src="../img/preguntasGenerales/VisualEspacial/centroazulA.png" alt="">`, [{area:"Diseño",  valor:70},{area:"Deportes",  valor:90},{area:"Ingenieria",  valor:50},{area:"Salud",  valor:50},{area:"Educacion",  valor:30},{area:"Fuerza publica",  valor:50},{area:"Arte",  valor:70},{area:"Ciencia",  valor:10}
-]);
+    p2.agregar(`<h2>a)</h2><img style="width:260px; margin: 15px;" src="../img/preguntasGenerales/VisualEspacial/centroazulA.png" alt="">`, [{ area: "Diseño", valor: 70 }, { area: "Deportes", valor: 90 }, { area: "Ingenieria", valor: 50 }, { area: "Salud", valor: 50 }, { area: "Educacion", valor: 30 }, { area: "Fuerza publica", valor: 50 }, { area: "Arte", valor: 70 }, { area: "Ciencia", valor: 10 }
+    ]);
     p2.agregar(`<h2>b)</h2><img style="width:260px; margin: 15px;" src="../img/preguntasGenerales/VisualEspacial/centroazulB.png" alt="">`, []);
     p2.agregar(`<h2>c)</h2><img style="width:260px; margin: 15px;" src="../img/preguntasGenerales/VisualEspacial/centroazulC.png" alt="">`, []);
     p2.agregar(`<h2>d)</h2><img style="width:260px; margin: 15px;" src="../img/preguntasGenerales/VisualEspacial/centroazulD.png" alt="">`, []);
@@ -143,8 +149,8 @@
     let p3 = new PreguntaP(`<h1>3. Elige la imagen que continúa la secuencia (IMG3)</h1>`,
       `<img src="../img/preguntasGenerales/VisualEspacial/secuenciaRelog.png">`);
     p3.agregarB(`<h2>a)</h2><img src="../img/preguntasGenerales/VisualEspacial/relogA.png" alt="">`, []);
-    p3.agregarB(`<h2>b)</h2><img src="../img/preguntasGenerales/VisualEspacial/relogB.png" alt="">`, [{area:"Diseño",  valor:70},{area:"Deportes",  valor:90},{area:"Ingenieria",  valor:50},{area:"Salud",  valor:50},{area:"Educacion",  valor:30},{area:"Fuerza publica",  valor:50},{area:"Arte",  valor:70},{area:"Ciencia",  valor:10}
-]);
+    p3.agregarB(`<h2>b)</h2><img src="../img/preguntasGenerales/VisualEspacial/relogB.png" alt="">`, [{ area: "Diseño", valor: 70 }, { area: "Deportes", valor: 90 }, { area: "Ingenieria", valor: 50 }, { area: "Salud", valor: 50 }, { area: "Educacion", valor: 30 }, { area: "Fuerza publica", valor: 50 }, { area: "Arte", valor: 70 }, { area: "Ciencia", valor: 10 }
+    ]);
     p3.agregarB(`<h2>c)</h2><img src="../img/preguntasGenerales/VisualEspacial/relogC.png" alt="">`, []);
     p3.agregarB(`<h2>d)</h2><img src="../img/preguntasGenerales/VisualEspacial/relogD.png" alt="">`, []);
     p3.agregarClase("pestilo3");
@@ -154,18 +160,18 @@
       `<img src="../img/preguntasGenerales/VisualEspacial/secuenciaFiguras.png">`);
     p4.agregarB(`<h2>a)</h2><img src="../img/preguntasGenerales/VisualEspacial/figurasA.png" alt="">`, []);
     p4.agregarB(`<h2>b)</h2><img src="../img/preguntasGenerales/VisualEspacial/figurasB.png" alt="">`, []);
-    p4.agregarB(`<h2>c)</h2><img src="../img/preguntasGenerales/VisualEspacial/figurasC.png" alt="">`, [{area:"Diseño",  valor:70},{area:"Deportes",  valor:90},{area:"Ingenieria",  valor:50},{area:"Salud",  valor:50},{area:"Educacion",  valor:30},{area:"Fuerza publica",  valor:50},{area:"Arte",  valor:70},{area:"Ciencia",  valor:10}
-]);
-    p4.agregarB(`<h2>d)</h2><img src="../img/preguntasGenerales/VisualEspacial/figurasD.png" alt="">`, [{area:"Diseño",  valor:70},{area:"Deportes",  valor:90},{area:"Ingenieria",  valor:50},{area:"Salud",  valor:50},{area:"Educacion",  valor:30},{area:"Fuerza publica",  valor:50},{area:"Arte",  valor:70},{area:"Ciencia",  valor:10}
-]);
+    p4.agregarB(`<h2>c)</h2><img src="../img/preguntasGenerales/VisualEspacial/figurasC.png" alt="">`, [{ area: "Diseño", valor: 70 }, { area: "Deportes", valor: 90 }, { area: "Ingenieria", valor: 50 }, { area: "Salud", valor: 50 }, { area: "Educacion", valor: 30 }, { area: "Fuerza publica", valor: 50 }, { area: "Arte", valor: 70 }, { area: "Ciencia", valor: 10 }
+    ]);
+    p4.agregarB(`<h2>d)</h2><img src="../img/preguntasGenerales/VisualEspacial/figurasD.png" alt="">`, [{ area: "Diseño", valor: 70 }, { area: "Deportes", valor: 90 }, { area: "Ingenieria", valor: 50 }, { area: "Salud", valor: 50 }, { area: "Educacion", valor: 30 }, { area: "Fuerza publica", valor: 50 }, { area: "Arte", valor: 70 }, { area: "Ciencia", valor: 10 }
+    ]);
     p4.agregarClase("pestilo4");
 
     let p5 = new PreguntaP(`<h1>5. Encuentra la opción correcta.</h1>`,
       `<img src="../img/preguntasGenerales/VisualEspacial/referenciaCuadrilatero.png">`);
     p5.agregarB(`<h2>a)</h2><img src="../img/preguntasGenerales/VisualEspacial/cuadrilateroA.png" alt="">`, []);
     p5.agregarB(`<h2>b)</h2><img src="../img/preguntasGenerales/VisualEspacial/cuadrilateroB.png" alt="">`, []);
-    p5.agregarB(`<h2>c)</h2><img src="../img/preguntasGenerales/VisualEspacial/cuadrilateroC.png" alt="">`, [{area:"Diseño",  valor:70},{area:"Deportes",  valor:90},{area:"Ingenieria",  valor:50},{area:"Salud",  valor:50},{area:"Educacion",  valor:30},{area:"Fuerza publica",  valor:50},{area:"Arte",  valor:70},{area:"Ciencia",  valor:10}
-]);
+    p5.agregarB(`<h2>c)</h2><img src="../img/preguntasGenerales/VisualEspacial/cuadrilateroC.png" alt="">`, [{ area: "Diseño", valor: 70 }, { area: "Deportes", valor: 90 }, { area: "Ingenieria", valor: 50 }, { area: "Salud", valor: 50 }, { area: "Educacion", valor: 30 }, { area: "Fuerza publica", valor: 50 }, { area: "Arte", valor: 70 }, { area: "Ciencia", valor: 10 }
+    ]);
     p5.agregarB(`<h2>d)</h2><img src="../img/preguntasGenerales/VisualEspacial/cuadrilateroD.png" alt="">`, []);
     p5.agregarClase("pestilo4");
 
@@ -199,7 +205,6 @@
         console.log("gano");
       }
     });
-
 
     let palo2 = new Palillos();
     palo2.size(400, 400);
@@ -236,6 +241,51 @@
       }
     });
 
+    // rompecabezaCabeza 1
+
+
+    let width = 113;
+    let columnas = 4;
+    let filas = 4;
+    var tab = new Tablero(columnas, filas, width);
+
+    let imagenes = cargarImagen("../img/diseno/rompecabeza2.png", width, width, columnas, filas);
+
+    let orden = [];
+  
+    for (let i = 0; i < imagenes.length; i++) {
+      orden.push(i);
+     
+    }
+
+    for (let i = 0; i < imagenes.length; i++) {
+      let e = imagenes[i];
+      tab.agregar(e, orden[i], i, 0);
+    }
+
+    tab.iniciar();
+    tab.incluirEn(".table__rompecabezas");
+    tab.activarArrastre();
+    //tab.activarRotacion();
+    //tab.setPlaceholder();
+
+
+    tab.setValidacion(() => {
+      alert("Felicitaciones Ganaste");
+      resultados.sumar("ingenieria", 5);
+    });
+
+    tab.setIntentoFallo((i) => {
+      console.log("Sigue intentando: " + i);
+      if (i > 5) {
+        resultados.sumar("ingenieria", -1);
+        resultados.sumar("diseño", 2);
+      }
+    });
+
+
+
+    contenedor.agregar(new Contenido(document.querySelector(".table__rompecabezas"), tab));
 
     contenedor.agregarHTML(document.querySelector('.pinicio'));
     contenedor.agregar(p1.getPregunta()).setAccion(() => {

@@ -539,8 +539,8 @@ function cargarImagen(url: string, width: number, height: number, columnas: numb
 
         let contenedor = document.createElement('div');
         contenedor.style.position = "relative";
-        contenedor.style.width = width + "px";
-        contenedor.style.height = height + "px";
+        contenedor.style.width = (width+1) + "px";
+        contenedor.style.height = (height+1) + "px";
         contenedor.style.overflow = "hidden";
 
         let fragmentoImg: HTMLElement = <any>image.cloneNode();

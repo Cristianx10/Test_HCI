@@ -9,50 +9,49 @@
 
 <script>
 
-
-loadJson("../data/rompecabezas.json", (r) => {
   let width = 200;
   let columnas = 3;
   let filas = 3;
-  let url = r.secciones.rompecabeza;
+  var tab = new Tablero(columnas, filas, width);
 
-  let fichas = [];
-  let imagenes = cargarImagen(url, width, width, columnas, filas);
+  loadJson("../data/rompecabezas.json", (r) => {
 
-  let orden = [];
-  let rota = [];
-  for (let i = 0; i < imagenes.length; i++) {
-    orden.push(i);
-    rota.push(90 * i);
-  }
+    let url = r.secciones.rompecabeza;
 
-  for (let i = 0; i < imagenes.length; i++) {
-    let e = imagenes[i];
-    fichas.push(new Ficha(e, orden[i], i, rota[i]));
-  }
+    let fichas = [];
+    let imagenes = cargarImagen(url, width, width, columnas, filas);
 
-  var tab = new Tablero(fichas, columnas, filas, width);
-  $(".table__rompecabezas").append(tab.getTablero());
-  tab.activarArrastre();
-  //tab.activarRotacion();
-  //tab.setPlaceholder();
-
-  tab.setValidacion(() => {
-    alert("Felicitaciones Ganaste");
-    RESULTADO.sumar("ingenieria", 5);
-  });
-
-  tab.setIntentoFallo((i) => {
-    console.log("Sigue intentando: " + i);
-    if (i > 5) {
-      RESULTADO.sumar("ingenieria", -1);
-      RESULTADO.sumar("diseño", 2);
+    let orden = [];
+    let rota = [];
+    for (let i = 0; i < imagenes.length; i++) {
+      orden.push(i);
+      rota.push(90 * i);
     }
-  });
 
-});
+    for (let i = 0; i < imagenes.length; i++) {
+      let e = imagenes[i];
+      tab.agregar(e, orden[i], i, rota[i]);
+    }
+
+    tab.iniciar();
+    tab.incluirEn(".table__rompecabezas");
+    tab.activarArrastre();
+    //tab.activarRotacion();
+    //tab.setPlaceholder();
+
+    tab.setValidacion(() => {
+      alert("Felicitaciones Ganaste");
+      resultados.sumar("ingenieria", 5);
+    });
+
+    tab.setIntentoFallo((i) => {
+      console.log("Sigue intentando: " + i);
+      if (i > 5) {
+        resultados.sumar("ingenieria", -1);
+        resultados.sumar("diseño", 2);
+      }
+    });
+
+  });
 
 </script>
-
-
-
