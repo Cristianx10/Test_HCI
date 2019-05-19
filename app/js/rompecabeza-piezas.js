@@ -148,7 +148,6 @@ var Tablero = /** @class */ (function (_super) {
     Tablero.prototype.agregar = function (elemento, orden, posicion, rotacion) {
         var elem = new Ficha(elemento, orden, posicion, rotacion, this);
         this.fichas.push(elem);
-        console.log(elemento.style.left, elemento.style.width);
     };
     Tablero.prototype.crearTablero = function () {
         this.elemento.className = "rompecabeza";

@@ -113,6 +113,38 @@ class Resultados {
         return max;
     }
 
+    agregarResultados(resultados: Array<ResultadoA>){
+
+        resultados.forEach((m) => {
+
+            let nombre = m.area.toLowerCase();
+            let valor = m.valor;
+
+            let categoria: number = 0;
+            let encontrado = false;
+
+            if (this.categorias != null) {
+                this.categorias.forEach((c, index) => {
+                    if (c.area == nombre) {
+                        categoria = index;
+                        encontrado = true
+                    }
+                });
+
+                if (encontrado) {
+                    this.categorias[categoria].valor += valor;
+                } else {
+                    this.categorias.push({ area: nombre, valor: valor });
+                }
+            }
+
+        });
+
+
+        this.save();
+
+    }
+
     sumar(nombre: string, valor: number) {
         nombre = nombre.toLowerCase();
         let categoria: number = 0;

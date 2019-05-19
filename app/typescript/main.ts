@@ -563,7 +563,7 @@ function cargarImagen(url: string, width: number, height: number, columnas: numb
 
 function matrixFija(url: string, width: number, height: number, columnas: number, filas: number) {
     let matrix = crearMatrix(columnas, filas, width, height);
-    console.log(matrix)
+   
     let imagenes = new Array<HTMLElement>();
     let c = -1;
     let f = 0;

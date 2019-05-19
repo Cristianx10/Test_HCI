@@ -76,6 +76,30 @@ var Resultados = /** @class */ (function () {
         }
         return max;
     };
+    Resultados.prototype.agregarResultados = function (resultados) {
+        var _this = this;
+        resultados.forEach(function (m) {
+            var nombre = m.area.toLowerCase();
+            var valor = m.valor;
+            var categoria = 0;
+            var encontrado = false;
+            if (_this.categorias != null) {
+                _this.categorias.forEach(function (c, index) {
+                    if (c.area == nombre) {
+                        categoria = index;
+                        encontrado = true;
+                    }
+                });
+                if (encontrado) {
+                    _this.categorias[categoria].valor += valor;
+                }
+                else {
+                    _this.categorias.push({ area: nombre, valor: valor });
+                }
+            }
+        });
+        this.save();
+    };
     Resultados.prototype.sumar = function (nombre, valor) {
         nombre = nombre.toLowerCase();
         var categoria = 0;

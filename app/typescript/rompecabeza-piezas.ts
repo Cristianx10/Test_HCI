@@ -180,7 +180,6 @@ class Tablero extends Interaccion {
   agregar(elemento: HTMLElement, orden: number, posicion: number, rotacion: number){
     let elem = new Ficha(elemento, orden, posicion,rotacion, this);
     this.fichas.push(elem);
-    console.log(elemento.style.left, elemento.style.width)
   }
 
   crearTablero() {
