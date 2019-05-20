@@ -320,11 +320,7 @@
 
 
 
-    contenedor.agregar(new Contenido(document.querySelector(".table__rompecabezas"), tab)).setAccion(()=>{
-      mostrar(".zona__navegacion");
-      siguiente.disabled = true;
-    });
-    contenedor.agregar(new Contenido(document.querySelector(".table__rompecabezas2"), tab2));
+  
 
     contenedor.agregarHTML(document.querySelector('.pinicio'));
     contenedor.agregar(p1.getPregunta()).setAccion(() => {
@@ -351,6 +347,11 @@
     contenedor.agregarHTML(document.querySelector('.ppalillosn1'));
     contenedor.agregarHTML(document.querySelector('.ppalillosn2'));
 
+    contenedor.agregar(new Contenido(document.querySelector(".table__rompecabezas"), tab)).setAccion(()=>{
+      mostrar(".zona__navegacion");
+      siguiente.disabled = true;
+    });
+    contenedor.agregar(new Contenido(document.querySelector(".table__rompecabezas2"), tab2));
 
 
     contenedor.incluirEn(document.querySelector(".ppreguntas"));

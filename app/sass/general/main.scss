@@ -80,7 +80,8 @@ button {
 }
 
 
-.btn_siguiente:disabled, .boton__seleccion:disabled {
+.btn_siguiente:disabled,
+.boton__seleccion:disabled {
 
     background: #ffffff00;
     color: #d43e66;
@@ -90,7 +91,8 @@ button {
     }
 }
 
-.btn_siguiente:enabled, .boton__seleccion:enabled {
+.btn_siguiente:enabled,
+.boton__seleccion:enabled {
     background: #e4537a;
     color: white;
 
@@ -435,7 +437,7 @@ form {
     margin-top: -5.95px;
 }
 
-.clickeable{
+.clickeable {
     cursor: pointer;
 }
 
@@ -538,7 +540,7 @@ hr {
 
 }
 
-.zona__navegacion{
+.zona__navegacion {
     z-index: 1000;
 }
 
@@ -827,15 +829,26 @@ hr {
 
 .titulo {
     /*margin-left: 320px;*/
-  
+
     font-family: 'Heebo', sans-serif;
     font-style: normal;
     font-weight: bold;
     color: #E64973;
     font-size: 2em;
     text-align: center;
-    
- 
+}
+
+.introduccion {
+    .titulo {
+        font-family: 'Heebo', sans-serif;
+        font-style: normal;
+        font-weight: bold;
+        color: white;
+        font-size: 3em;
+        text-align: left;
+        line-height: 70px;
+    }
+
 }
 
 .descripcion {
@@ -1096,10 +1109,10 @@ Estilos de seleccionador
     display: flex;
     flex-direction: column;
     text-align: center;
- 
+
 
     .preguntaImagen__imagen {
-       
+
         width: 100%;
         height: auto;
         justify-content: center;
@@ -1109,7 +1122,7 @@ Estilos de seleccionador
     & .preguntaImagen__pregunta {
         height: auto;
         padding: 10px;
-     
+
     }
 
     & .preguntaImagen__info {
@@ -1141,7 +1154,7 @@ Estilos de seleccionador
     text-align: center;
 
     .preguntaImagen__imagen {
-        
+
         width: 100%;
         height: 100px;
         justify-content: center;
@@ -1158,9 +1171,10 @@ Estilos de seleccionador
         & .preguntaImagen__pregunta {
             width: 50%;
             height: auto;
+
             img {
                 width: 100%;
-           
+
             }
         }
 
@@ -1174,7 +1188,7 @@ Estilos de seleccionador
             padding-top: 150px;
 
             .opcion {
-               margin-bottom: 40px;
+                margin-bottom: 40px;
 
                 img {
                     width: 100px;
@@ -1186,7 +1200,7 @@ Estilos de seleccionador
 
 }
 
-.centrar{
+.centrar {
     display: flex;
     justify-content: center;
     align-items: center;

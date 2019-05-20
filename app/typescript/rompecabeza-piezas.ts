@@ -91,6 +91,7 @@ class Ficha {
       if (this.elemento.style.left == this.tem_pos.left && this.elemento.style.top == this.tem_pos.top) {
         this.rotar = true;
       }
+      
       this.elemento.style.left = this.tem_pos.left;
       this.elemento.style.top = this.tem_pos.top;
       this.elemento.style.zIndex = "0";
