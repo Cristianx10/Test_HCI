@@ -112,8 +112,11 @@
     shuffle(preguntas);
 
     preguntas.forEach(p => {
-      contenedor.agregar(p.getPregunta(), 40);
-    });
+            contenedor.agregar(p.getPregunta(), 40);
+                navegacion.colocarTiempo();
+                navegacion.colocarProgreso();
+            
+        });
 
     var siguiente = document.querySelector('.btn_siguiente');
 
