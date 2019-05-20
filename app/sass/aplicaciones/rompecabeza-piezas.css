@@ -1,26 +1,19 @@
-.table__rompecabezas {
-  width: 100%;
-  height: 100%;
-}
-
-.table__rompecabezas .rompecabeza {
+.rompecabeza {
   position: relative;
-  width: 80%;
-  height: 80%;
 }
 
-.table__rompecabezas .rompecabeza__zona, .table__rompecabezas .rompecabeza__ficha {
+.rompecabeza__zona, .rompecabeza__ficha {
   position: absolute;
   margin: 0;
   width: 100%;
   height: 100%;
 }
 
-.table__rompecabezas .rompecabeza__zona .zona {
+.rompecabeza__zona .zona {
   background: blue;
 }
 
-.table__rompecabezas .rompecabeza .zona, .table__rompecabezas .rompecabeza .ficha {
+.rompecabeza .zona, .rompecabeza .ficha {
   position: absolute;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -28,7 +21,7 @@
           user-select: none;
 }
 
-.table__rompecabezas .rompecabeza .zona img, .table__rompecabezas .rompecabeza .ficha img {
+.rompecabeza .zona img, .rompecabeza .ficha img {
   -webkit-user-select: contain;
      -moz-user-select: contain;
       -ms-user-select: contain;

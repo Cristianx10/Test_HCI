@@ -1,5 +1,3 @@
-
-
 interface RRegistro {
     id: string;
     pruebas: Array<RPruebaS>;
@@ -165,7 +163,7 @@ class Resultados {
         }
 
         this.save();
-        //console.log({ nombre: nombre, valor: valor });
+     
     }
 
     agregarMaximo(maximos: Array<ResultadoA>) {

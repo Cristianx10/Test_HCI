@@ -28,14 +28,12 @@ class Navegable {
     permitirAll = false;
     fcambioTiempo?: Function;
     iniciado = false;
-    
-
 
     constructor(elementos: Contenedor) {
         this.elementos = elementos;
         this.progreso = new Progress(elementos.elementos.length, 0);
         this.actual = 0;
-       
+
         createjs.Sound.registerSound("../audios/siguiente.mp3", "seguir");
 
         this.tiempo = document.createElement('div');
@@ -140,6 +138,9 @@ class Navegable {
         this.avance.style.display = "none";
     }
 
+
+
+
     colocarProgreso() {
         $(".principal").append(this.progress);
         this.progress.style.position = "absolute";
@@ -186,8 +187,6 @@ class Navegable {
 
     mostrar(seccion: HTMLElement) {
         seccion.style.display = "flex";
-
-
     }
 
     ocultar(seccion: HTMLElement) {
@@ -539,8 +538,8 @@ function cargarImagen(url: string, width: number, height: number, columnas: numb
 
         let contenedor = document.createElement('div');
         contenedor.style.position = "relative";
-        contenedor.style.width = (width+1) + "px";
-        contenedor.style.height = (height+1) + "px";
+        contenedor.style.width = (width + 1) + "px";
+        contenedor.style.height = (height + 1) + "px";
         contenedor.style.overflow = "hidden";
 
         let fragmentoImg: HTMLElement = <any>image.cloneNode();
@@ -563,7 +562,7 @@ function cargarImagen(url: string, width: number, height: number, columnas: numb
 
 function matrixFija(url: string, width: number, height: number, columnas: number, filas: number) {
     let matrix = crearMatrix(columnas, filas, width, height);
-   
+
     let imagenes = new Array<HTMLElement>();
     let c = -1;
     let f = 0;
@@ -596,11 +595,11 @@ function matrixFija(url: string, width: number, height: number, columnas: number
             f -= height;
         }
 
-      
+
 
         contenedor.style.position = "absolute";
         contenedor.style.left = matrix[i].x + "px";
-        contenedor.style.top = matrix[i].y+ "px";
+        contenedor.style.top = matrix[i].y + "px";
         contenedor.style.width = matrix[i].width;
         contenedor.style.height = matrix[i].height;
 
@@ -659,8 +658,8 @@ class Progress {
     }
 }
 
-function fondo(fondo:string){
-    $('.cont-principal').css("background-image", "url('" + fondo +  "')");
+function fondo(fondo: string) {
+    $('.cont-principal').css("background-image", "url('" + fondo + "')");
 }
 
 

@@ -15,6 +15,8 @@ function getDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
   return d;
 }*/
 
+let init_arrastrables = 0;
+
 class Ficha {
   elemento: HTMLElement;
   original: HTMLElement;
@@ -49,19 +51,7 @@ class Ficha {
     this.rotar = false;
     this.cotenido.style.transform = `rotate(${this.angulo * 90}deg)`;
 
-    this.elemento.addEventListener("click", () => {
-
-      if (this.rotar) {
-        this.angulo += 1;
-        this.cotenido.style.transition = "all .5s ease";
-        this.cotenido.style.transform = `rotate(${this.angulo * 90}deg)`;
-        setTimeout(() => {
-          this.cotenido.style.transition = "none";
-          this.tablero.validar();
-        }, 500);
-        this.rotar = false;
-      }
-    });
+    
 
 
     this.original = document.createElement("div");
@@ -79,6 +69,19 @@ class Ficha {
     this.elemento.addEventListener("click", () => {
       this.rotar = true;
     });
+
+    this.elemento.addEventListener("click", () => {
+      if (this.rotar) {
+        this.angulo += 1;
+        this.cotenido.style.transition = "all .5s ease";
+        this.cotenido.style.transform = `rotate(${this.angulo * 90}deg)`;
+        setTimeout(() => {
+          this.cotenido.style.transition = "none";
+          this.tablero.validar();
+        }, 500);
+        this.rotar = false;
+      }
+    });
   }
 
   activarArrastre() {
@@ -88,6 +91,7 @@ class Ficha {
       if (this.elemento.style.left == this.tem_pos.left && this.elemento.style.top == this.tem_pos.top) {
         this.rotar = true;
       }
+      
       this.elemento.style.left = this.tem_pos.left;
       this.elemento.style.top = this.tem_pos.top;
       this.elemento.style.zIndex = "0";
@@ -156,6 +160,7 @@ class Tablero extends Interaccion {
   posiciones: any;
   sobre = false;
   seleccion?: Ficha;
+  nameF:string;
 
 
   constructor(columnas: number, filas: number, tamano: number) {
@@ -171,14 +176,15 @@ class Tablero extends Interaccion {
     this.tablero__fichas = document.createElement("div");
     this.elemento.style.width = columnas*tamano + "px";
     this.elemento.style.height = filas*tamano + "px";
-    
     this.crearTablero();
-    
+    init_arrastrables += 1;
+    this.nameF = "fichan" + init_arrastrables;
 
   }
 
   agregar(elemento: HTMLElement, orden: number, posicion: number, rotacion: number){
     let elem = new Ficha(elemento, orden, posicion,rotacion, this);
+    elem.elemento.classList.add(this.nameF);
     this.fichas.push(elem);
   }
 
@@ -229,11 +235,11 @@ class Tablero extends Interaccion {
   }
 
   activarArrastre() {
-
+    
     this.fichas.forEach((f) => {
       f.activarArrastre();
     });
-    $(".ficha").draggable();
+    $("." + this.nameF).draggable();
 
   }
 

@@ -119,7 +119,6 @@ var Resultados = /** @class */ (function () {
             }
         }
         this.save();
-        //console.log({ nombre: nombre, valor: valor });
     };
     Resultados.prototype.agregarMaximo = function (maximos) {
         var _this = this;

@@ -28,9 +28,9 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var init_arrastrables = 0;
 var Ficha = /** @class */ (function () {
     function Ficha(elemento, orden, posicion, rotacion, tablero) {
-        var _this = this;
         this.tablero = tablero;
         this.elemento = document.createElement('div');
         this.elemento.className = "ficha";
@@ -51,18 +51,6 @@ var Ficha = /** @class */ (function () {
         this.angulo = rotacion;
         this.rotar = false;
         this.cotenido.style.transform = "rotate(" + this.angulo * 90 + "deg)";
-        this.elemento.addEventListener("click", function () {
-            if (_this.rotar) {
-                _this.angulo += 1;
-                _this.cotenido.style.transition = "all .5s ease";
-                _this.cotenido.style.transform = "rotate(" + _this.angulo * 90 + "deg)";
-                setTimeout(function () {
-                    _this.cotenido.style.transition = "none";
-                    _this.tablero.validar();
-                }, 500);
-                _this.rotar = false;
-            }
-        });
         this.original = document.createElement("div");
         this.original.className = "zona";
         this.orden = orden;
@@ -76,6 +64,18 @@ var Ficha = /** @class */ (function () {
         this.rotar = true;
         this.elemento.addEventListener("click", function () {
             _this.rotar = true;
+        });
+        this.elemento.addEventListener("click", function () {
+            if (_this.rotar) {
+                _this.angulo += 1;
+                _this.cotenido.style.transition = "all .5s ease";
+                _this.cotenido.style.transform = "rotate(" + _this.angulo * 90 + "deg)";
+                setTimeout(function () {
+                    _this.cotenido.style.transition = "none";
+                    _this.tablero.validar();
+                }, 500);
+                _this.rotar = false;
+            }
         });
     };
     Ficha.prototype.activarArrastre = function () {
@@ -143,10 +143,13 @@ var Tablero = /** @class */ (function (_super) {
         _this.elemento.style.width = columnas * tamano + "px";
         _this.elemento.style.height = filas * tamano + "px";
         _this.crearTablero();
+        init_arrastrables += 1;
+        _this.nameF = "fichan" + init_arrastrables;
         return _this;
     }
     Tablero.prototype.agregar = function (elemento, orden, posicion, rotacion) {
         var elem = new Ficha(elemento, orden, posicion, rotacion, this);
+        elem.elemento.classList.add(this.nameF);
         this.fichas.push(elem);
     };
     Tablero.prototype.crearTablero = function () {
@@ -186,7 +189,7 @@ var Tablero = /** @class */ (function (_super) {
         this.fichas.forEach(function (f) {
             f.activarArrastre();
         });
-        $(".ficha").draggable();
+        $("." + this.nameF).draggable();
     };
     Tablero.prototype.activarRotacion = function () {
         this.fichas.forEach(function (f) {
