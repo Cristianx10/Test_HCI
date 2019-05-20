@@ -118,6 +118,9 @@ var Resultados = /** @class */ (function () {
                 this.categorias.push({ area: nombre, valor: valor });
             }
         }
+        if (nombre == "ciencia") {
+            console.log("ciencia: " + valor, "Con un maximo de: " + this.getMaximo(nombre));
+        }
         this.save();
     };
     Resultados.prototype.agregarMaximo = function (maximos) {
