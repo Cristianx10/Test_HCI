@@ -2,59 +2,324 @@
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Test Interactivo</title>
-  <link rel="shortcut icon" href="../includes/img/favicon.png" type="image/x-icon" />
-  <link rel="stylesheet" href="../sass/general/main.css" />
-  <link href="../sass/tipographys/tipografias.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Test Interactivo</title>
+    <link rel="shortcut icon" href="../includes/img/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../sass/general/main.css" />
+    <link href="../sass/tipographys/tipografias.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+
+    <style>
+        #id_cajaComando {
+            position: absolute;
+            width: 319px;
+            height: 66px;
+            left: 856px;
+            top: 196px;
+
+        }
+
+        #id_leftcontenido {
+            position: absolute;
+            width: 396.38px;
+            height: 289px;
+            left: 272px;
+            top: 200px;
+        }
+
+        #id_leftcontenido_img {
+            position: absolute;
+            width: 307px;
+            height: 309px;
+            left: 857px;
+            top: 266px;
+        }
+
+        .pantalla {
+            width: 100%;
+            height: 100%;
+            color: white;
+        }
+
+        h1 {
+            font-size: 50px;
+        }
+
+        .enfasisCode {
+            color: #FF9900;
+            font-weight: bold;
+        }
+
+        #id_conlistado {
+            position: absolute;
+            width: 661px;
+            height: 571px;
+            left: 176px;
+            top: 51px;
+        }
+
+        #id_listado {}
+
+        #id_listado>li,
+        #id_conlistado>h1 {
+            margin-bottom: 60px;
+        }
+
+        #id_listado2>li,
+        #id_conlistado2>h1 {
+            margin-bottom: 70px;
+        }
+
+        #id_siguiente {
+            position: absolute;
+            width: 170px;
+            height: 53px;
+            left: 1033px;
+            top: 622px;
+        }
+
+        #id_sintaxis {
+            position: absolute;
+            width: 232px;
+            height: 155.5px;
+            left: 910px;
+            top: 301px;
+        }
+
+        #id_img_a {
+            position: absolute;
+            width: 175px;
+            height: 100px;
+            left: 745px;
+            top: 175px;
+        }
+
+        #id_img_b {
+            position: absolute;
+            width: 63px;
+            height: 63px;
+            left: 863px;
+            top: 334px;
+        }
+
+        #id_img_c {
+            position: absolute;
+            width: 77px;
+            height: 70px;
+            left: 855px;
+            top: 438px;
+        }
+
+        #id_img_d {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            left: 1094px;
+            top: 53px;
+        }
+
+        #cuadroComandos {
+            position: absolute;
+            display: flex;
+            width: 319px;
+            height: 66px;
+            left: 47px;
+            top: 59px;
+        }
+
+        #cuadroComandos input {
+            position: absolute;
+            width: 335px;
+            height: 54px;
+            font-size: 3em;
+        }
+
+        #cuadroComandos button {
+            position: absolute;
+            width: 64px;
+            height: 54px;
+            right: -73px;
+            background-image: url('../../img/programacion/ejecutar.png');
+            background-size: contain;
+
+        }
+
+        #btnAyuda {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            left: 1184px;
+            top: 32px;
+            width: 60px;
+            height: 60px;
+        }
+
+        #btnAyuda div {
+            display: none;
+            position: absolute;
+            background: #FF9900;
+            left: -330px;
+            font-size: 15px;
+            width: 400px;
+            text-align: left;
+        }
+
+        #btnAyuda:hover div {
+            display: block;
+
+        }
+
+        #btnAyuda span {
+            color: #F26469;
+        }
+    </style>
 
 </head>
 
 <body>
-    
-  <div class="cont-principal" style="background-image: url('../img/background_principal-2.png')">
-    <div class="principal" onselectstart="return false">
 
-      <div class="pantalla ppreguntas">
+    <div class="cont-principal" style="background-image: url('../img/background_principal-2.png')">
+        <div class="principal" onselectstart="return false">
 
-        <div class="pantalla pinicio" style="background-image: url('../img/Principal Intra personal.png')">
-          <div class="introduccion">
-            <h1 class="titulo">Inteligencia Intrapersonal 4</h1>
-            <p id="desc" class="descripcion">En esta sección de la prueba evaluaremos tus conocimientos en el area
-              Intrapersonal</p>
-            <button class="botonComenzar" onclick="seguir()">Comenzar</button>
-          </div>
+            <div class="pantalla ppreguntas">
+
+                <div class="pantalla pinicio" style=" background-image: url('/img/background-oscuro.png')">
+                    <div class="introduccion">
+                        <h1 class="titulo">Encuentra las gafas de Pingui</h1>
+                        <p id="desc" class="descripcion">Ayuda a Pingui a encontrar sus gafas escribiendo codigo. No
+                            caigas en las trampas de los arcos</p>
+                        <button class="botonComenzar" onclick="seguir()">Comenzar</button>
+                    </div>
+                    <img id="id_leftcontenido_img" src="/img/programacion/pingui.png">
+                </div>
+
+                <div class="pantalla" style=" background-image: url('/img/background-oscuro.png')">
+                    <div id="id_conlistado">
+                        <h1 id="id_titulo">Instrucciones</h1>
+                        <ul id="id_listado">
+                            <li>
+                                <p>
+                                    1. Escribe código en la línea de comandos para mover a Pingui de lugar. El objetivo
+                                    es desplazarlo
+                                    hacia donde se encuentran sus gafas antes de que se agote el tiempo. No caigas en
+                                    los agujeros con
+                                    orcas.
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    2 . El comando que escribas debe estar compuesto de dos partes separadas por un
+                                    punto: la dirección
+                                    del movimiento y el número de pasos.
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    3. Estas son las direcciones de movimiento disponibles:
+                                </p>
+                                <br>
+                                <ul>
+                                    <li>
+                                        <p><span class="enfasisCode">PinUp =</span> movimiento hacia arriba.</p>
+                                    </li>
+                                    <li>
+                                        <p><span class="enfasisCode">PinDown =</span> movimiento hacia abajo.</p>
+                                    </li>
+                                    <li>
+                                        <p><span class="enfasisCode">PinLeft =</span> movimiento hacia izquierda.</p>
+                                    </li>
+                                    <li>
+                                        <p><span class="enfasisCode">PinRight =</span> movimiento hacia derecha.</p>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <div>
+                        <button id="id_siguiente" onclick="seguir()" class="boton">Siguiente</button>
+                    </div>
+                    <img id="id_cajaComando" src="../../img/programacion/caja_comando.png">
+                    <img id="id_sintaxis" src="../../img/programacion/sintaxis.png" alt="">
+                </div>
+
+
+                <div class="pantalla" style=" background-image: url('/img/background-oscuro.png')">
+                    <div id="id_conlistado">
+                        <h1 id="id_titulo">Instrucciones</h1>
+                        <div style="height: 40px"></div>
+                        <ul id="id_listado2">
+                            <li>
+                                <p>
+                                    4. Puedes realizar de 1 a 5 pasos por comando.
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    5. Haz click en el botón de ayuda para recordar las direcciones de movimiento
+                                    disponibles
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    6. Cuando estés seguro de tu comando, haz click en la flecha para ejecutar el código
+                                    y prepárate
+                                    para escribir el siguiente comando
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    7. Se te indicará si tu comando está incorrecto para que lo escribas de nuevo
+                                </p>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <div>
+                        <button id="id_siguiente" class="boton" onclick="seguir()">Siguiente</button>
+                    </div>
+                    <img id="id_img_a" src="../../img/programacion/sintaxis2.png">
+                    <img id="id_img_b" src="../../img/programacion/ayuda.png">
+                    <img id="id_img_c" src="../../img/programacion/ejecutar.png">
+                    <img id="id_img_d" src="../../img/programacion/peligro.png">
+                </div>
+
+
+                <div id="juegopinguino" class="pantalla">
+
+                    <form id="cuadroComandos" method="dialog">
+                        <input type="text" name="com" id="comando" autocomplete="off">
+                        <button id="btn_comando"></button>
+                    </form>
+                    <div id="btnAyuda">
+                        <img src="../../img/programacion/ayuda.png" alt="">
+                        <div>
+                            <p><span class="enfasisCode">PinUp =</span> movimiento hacia arriba.</p>
+                            <p><span class="enfasisCode">PinDown =</span> movimiento hacia abajo.</p>
+                            <p><span class="enfasisCode">PinLeft =</span> movimiento hacia izquierda.</p>
+                            <p><span class="enfasisCode">PinRight =</span> movimiento hacia derecha.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+                <div class="zona__navegacion" style="display:none;">
+                    <button class="btn_siguiente" style="text-align:center;" disabled
+                        onclick="seguir()">Siguiente</button>
+                </div>
+
+            </div>
         </div>
 
-        <div class="pantalla preciclaje">
-          <div class="basura__elementos">
-
-          </div>
-
-          <div class="basura">
-            <div id="vidrio" class="bote" style="background-image: url('../../img/ciencias/vidrio.png')"></div>
-            <div id="plastico" class="bote" style="background-image: url('../../img/ciencias/plastico.png')"></div>
-            <div id="organico" class="bote" style="background-image: url('../../img/ciencias/organico.png')"></div>
-            <div id="papel" class="bote" style="background-image: url('../../img/ciencias/papel.png')"></div>
-          </div>
-        </div>
-
-
-      </div>
-      <div class="zona__navegacion" style="display:none;">
-        <button class="btn_siguiente" style="text-align:center;" disabled onclick="seguir()">Siguiente</button>
-      </div>
-
-    </div>
-  </div>
-
-  <!--Codigo de precarga -->
-  <script src="../lib/jquery.js"></script>
-  <script src="../lib/jquery-ui.min.js"></script>
-  <!--
+        <!--Codigo de precarga -->
+        <script src="../lib/jquery.js"></script>
+        <script src="../lib/jquery-ui.min.js"></script>
+        <!--
   <script src="../lib//colorMixer.js"></script>
  
   <script src="../lib/jquery.svg.js"></script>
@@ -64,140 +329,134 @@
   <script src="../lib/easeljs.js"></script>
 -->
 
-  <script src="../lib/preloadjs.js"></script>
-  <script src="../lib/soundjs.js"></script>
-  <script src="../js/timer.js"></script>
-  <script src="../js/resultados.js"></script>
-  <script src="../js/main.js"></script>
-  <script src="../js/pregunta.js"></script>
+        <script src="/lib/easeljs.js"></script>
+        <script src="/lib/preloadjs.js"></script>
+        <script src="/lib/soundjs.js"></script>
+        <script src="/js/timer.js"></script>
+        <script src="/js/resultados.js"></script>
+        <script src="/js/main.js"></script>
+        <script src="/js/pregunta.js"></script>
 
 
-  <!--Interacciones complejas-->
-  <script src="../js/reciclaje.js"></script>
-  <script src="/js/descartes.js"></script>
-
-  <script type="text/javascript">
-
-    $(document).ready(function () {
-
-      // irA("./formulario.html");
-
-
-    });
-
-
-    $('.cont-principal').css("background-image", "url('../img/background-claro.png')");
-
-
-    let contenedor = new Contenedor();
-    let navegacion = new Navegable(contenedor);
-
-    let reciclaje = new Clasificar();
-
-    loadJson("../../data/ciencias/reciclaje.json", (r) => {
-
-      let recursos = r.recursos;
-      reciclaje.incluirEn(".basura__elementos");
-
-      for (let i = 0; i < recursos.length; i++) {
-        let rec = recursos[i];
-        let e = document.createElement("div");
-        e.className = "elemento_basura";
-        e.innerHTML = `<img src="${rec.url}" alt="" class="recurso">`;
-
-        reciclaje.agregar(e, rec.categoria);
-      }
-
-
-      reciclaje.almacenaje(["#vidrio", "#plastico", "#organico", "#papel"], ".basura__elementos div");
-      reciclaje.arrastrables("div", ".basura__elementos");
-      reciclaje.setResetear((s) => {
-        s.style.display = "none";
-      });
-    });
-
-    reciclaje.setIntentoAcierto(() => {
-      console.log("bien")
-      resultados.agregarResultados([{ area: "Ciencia", valor: 10 }]);
-    });
-
-    reciclaje.setIntentoFallo(() => {
-      console.log("mal")
-    });
-
-    reciclaje.setValidacion(() => {
-      console.log("Validado")
-    });
-
-    reciclaje.setValidar(() => {
-      resultados.agregarMaximo([{ area: "Ciencia", valor: 200 }]);
-    });
-
-    /*-------------------------------------------*/
-
-
-    let c = matrixFija("../img/ciencias/ojo/ojo1.png", 100, 50, 4, 4);
-    let descartes = [];
-    descartes.push(new Descartes());
-
-    let matrix = [
-    false,true,false,false,
-    false,false,true,false,
-    true,false,false,false,
-    false,false,false,true];
-
-    for (let i = 0; i < c.length; i++) {
-      let e = c[i];
-      let m = matrix[i];
-      descartes[0].agregar(e, m);
-    }
-
-   // descartes[0].incluirEn(".principal");
-
-    descartes[0].setIntentoAcierto(() => {
-      console.log("Acierto");
-    });
-
-    descartes[0].setIntentoFallo(() => {
-      console.log("Fallo");
-    });
-
-    descartes[0].setValidacion(() => {
-      console.log("Valido");
-    });
-
-    /*-------------------------------------------*/
-
-
-    contenedor.agregarHTML(document.querySelector(".pinicio"));
-    contenedor.agregar(new Contenido(document.querySelector(".preciclaje"), reciclaje));
+        <!--Interacciones complejas-->
+        <script src="/js/programacion.js"></script>
 
 
 
-    contenedor.incluirEn(document.querySelector(".ppreguntas"));
-    navegacion.iniciar();
 
-    var siguiente = document.querySelector('.btn_siguiente');
+        <script type="text/javascript">
 
-    ocultar(".zona__navegacion");
+            $(document).ready(function () {
 
-    function seguir() {
-      navegacion.setPermitir(true);
-      navegacion.siguiente();
-      mostrar(".zona__navegacion");
-      siguiente.disabled = false;
-
-    }
+                // irA("./formulario.html");
 
 
-    $(".opcion_check").click(() => {
-      siguiente.disabled = false;
-    });
+            });
 
-    navegacion.setFinal(() => {
-            goTo("bresultados");
-        });
-  </script>
+
+            $('.cont-principal').css("background-image", "url('../img/background-claro.png')");
+
+
+            let contenedor = new Contenedor();
+            let navegacion = new Navegable(contenedor);
+
+
+
+
+            let pantallas = new Contenedor();
+            pantallas.agregarHTMLAll(document.querySelectorAll(".pantalla"));
+            let navegable = new Navegable(pantallas);
+            navegable.iniciar();
+            navegable.setPermitirAll(true);
+            function seguir() {
+                navegable.siguiente();
+            }
+
+            let comando = document.querySelector("#comando");
+            let btn_comando = document.querySelector("#btn_comando");
+
+            let tablero = new Tablero_hielo();
+
+            let pinguino = new Piguino(tablero);
+
+            function validacion(texto) {
+                let t = texto.value.split(".");
+                texto.setCustomValidity("");
+                if (t.length == 2) {
+                    let coman = t[0];
+                    let numero = t[1];
+                    if (numero > 0 && numero < 6) {
+                        if (coman == "PinUp") {
+                            pinguino.up(numero);
+                            return;
+                        } else if (coman == "PinDown") {
+                            pinguino.down(numero);
+                            return;
+                        } else if (coman == "PinLeft") {
+                            pinguino.left(numero);
+                            return;
+                        } else if (coman == "PinRight") {
+                            pinguino.right(numero);
+                            return;
+                        }
+                        texto.setCustomValidity("El numero de pasos excede lo permitido. Intente de nuevo");
+                    }
+                }
+
+                texto.setCustomValidity("No se reconoce el comando. Intente de nuevo");
+
+
+            }
+
+            comando.addEventListener('keyup', (e) => {
+                comando.setCustomValidity("");
+                console.log(e);
+                if (e.key == "Enter") {
+                    validacion(comando);
+                    comando.value = "";
+                }
+            });
+
+            btn_comando.addEventListener('click', (e) => {
+                validacion(comando);
+                comando.value = "";
+            });
+
+            $('#juegopinguino').append(tablero.canvas);
+
+
+            /*-------------------------------------------*/
+
+
+            contenedor.agregarHTML(document.querySelector(".pinicio"));
+           
+
+
+
+            contenedor.incluirEn(document.querySelector(".ppreguntas"));
+            navegacion.iniciar();
+
+            var siguiente = document.querySelector('.btn_siguiente');
+
+            ocultar(".zona__navegacion");
+
+            function seguir() {
+                navegacion.setPermitir(true);
+                navegacion.siguiente();
+                mostrar(".zona__navegacion");
+                siguiente.disabled = false;
+
+            }
+
+
+            $(".opcion_check").click(() => {
+                siguiente.disabled = false;
+            });
+
+            navegacion.setFinal(() => {
+                goTo("bresultados");
+            });
+        </script>
 
 
 </body>
