@@ -101,6 +101,26 @@
         colores["diseño"] = "#BA76F0";
         colores["ingenieria"] = "#6883E4";
 
+        let profesion = {};
+        profesion["ciencias"] = "cientifico";
+        profesion["arte"] = "artista";
+        profesion["fuerza"] = "militar";
+        profesion["educacion"] = "maestro/a";
+        profesion["deportes"] = "deportista";
+        profesion["salud"] = "especialista en la salud";
+        profesion["diseño"] = "diseñador";
+        profesion["ingenieria"] = "ingeniero/a";
+
+        let nombres = {};
+        nombres["ciencias"] = "ciencias";
+        nombres["arte"] = "arte";
+        nombres["fuerza"] = "fuerza";
+        nombres["educacion"] = "educación";
+        nombres["deportes"] = "deportes";
+        nombres["salud"] = "salud";
+        nombres["diseño"] = "diseño";
+        nombres["ingenieria"] = "ingeniería";
+
 
         let iconos = {};
         iconos["ciencia"] = "../includes/iconos/ciencias.svg";
@@ -119,6 +139,8 @@
             a.porcentaje = Math.round((a.valor * 100) / max.valor);
             a.color = colores[simpli[0]];
             a.icono = iconos[simpli[0]];
+            a.profesion = profesion[simpli[0]];
+            a.nombres = nombres[simpli[0]];
         });
 
 
@@ -143,12 +165,12 @@
 
             let name = e.area;
        
-            resultadoc.generar(name, e.porcentaje, e.icono);
+            resultadoc.generar(name, e.porcentaje, e.icono, e.nombres);
 
             $(".presultados").append(resultadoc.getElemento());
 
             if (index == 0) {
-                document.querySelector(".pmayorresultado").append(resultadoc.felicidades());
+                document.querySelector(".pmayorresultado").append(resultadoc.felicidades(e.profesion));
                 resultadoc.activar();
             }else if(index == 1){
                 resultadoc.activar();
