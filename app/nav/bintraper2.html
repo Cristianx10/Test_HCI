@@ -425,7 +425,12 @@
       siguiente.disabled = true;
     });
 
-
+    preguntas.forEach(p => {
+            contenedor.agregar(p.getPregunta(), 40);
+                navegacion.colocarTiempo();
+                navegacion.colocarProgreso();
+            
+        });
 
     contenedor.incluirEn(document.querySelector(".ppreguntas"));
     navegacion.iniciar();
