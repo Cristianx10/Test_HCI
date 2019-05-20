@@ -138,14 +138,11 @@ class Navegable {
         this.avance.style.display = "none";
     }
 
-
-
-
     colocarProgreso() {
         $(".principal").append(this.progress);
         this.progress.style.position = "absolute";
         this.progress.style.display = "block";
-        this.progress.style.left = "0px";
+        this.progress.style.left = "-50px";
         this.progress.style.bottom = "10px";
     }
 
@@ -223,20 +220,32 @@ class Navegable {
             createjs.Sound.play("seguir");
 
             this.ocultar(this.actualPantallaHtml());
-            if (this.actual < this.elementos.elementos.length - 1) {
+           
+            if (this.actual < this.elementos.elementos.length) {
                 if (this.inicio != null) {
                     this.inicio(this.actualPantalla(), this.actual);
                 }
                 this.actualPantalla().tiempoDefinido = true;
+           
                 this.actualPantalla().timer.stop();
 
-                this.actual++;
-                this.av.innerText = this.actual + 1 + "/" + this.elementos.elementos.length;
-                this.progreso.actualizarPosicion(this.actual);
-                this.mostrar(this.actualPantallaHtml());
+                if (this.actual + 1 < this.elementos.elementos.length) {
+                    this.actual++;
+                    this.av.innerText = this.actual + 1 + "/" + this.elementos.elementos.length;
+                    this.progreso.actualizarPosicion(this.actual);
+                    this.mostrar(this.actualPantallaHtml());
+                    this.actualPantalla().start();
+
+                } else {
+                    this.progreso.actualizarPosicion(this.actual + 1);
+                    if (this.final != null) {
+                        this.final();
+                    }
+                }
 
 
-                this.actualPantalla().start();
+
+
             } else {
                 this.progreso.actualizarPosicion(this.actual + 1);
                 if (this.final != null) {
@@ -404,9 +413,11 @@ class Contenido {
             this.segundos = segundos;
         }
 
+     
         this.setAccionFinal(() => {
             objeto.agregarResultados();
             objeto.registro();
+
         });
     }
 
@@ -850,7 +861,7 @@ class Interaccion implements Validable {
 
     elemento: HTMLElement;
 
-    puntos:number;
+    puntos: number;
     aciertos: number;
     fallos: number;
     intentos: number;
@@ -859,6 +870,7 @@ class Interaccion implements Validable {
     validacion?: Function;
     intentoFallo?: Function;
     intentoAcierto?: Function;
+    validar?: Function;
 
     tipoId: string;
     contenido: Contenido;
@@ -886,6 +898,10 @@ class Interaccion implements Validable {
         this.intentoAcierto = intentoAcierto;
     }
 
+    setValidar(validar: Function) {
+        this.validar = validar;
+    }
+
     incluirEn(ubicacion: string) {
         let u: HTMLElement = <HTMLElement>document.querySelector(ubicacion);
         u.append(this.elemento);
@@ -899,17 +915,20 @@ class Interaccion implements Validable {
         return this.contenido;
     }
 
-    agregarResultados(): void {
-
+    agregarResultados() {
+    
+        if (this.validar != null) {
+            this.validar();
+        }
     }
 
     registro() {
-        console.log("numero: " + this.intentos);
+        
         resultados.agregar(this.tipoId, [
             { id: "aciertos", valor: this.aciertos + "" },
             { id: "fallos", valor: this.fallos + "" },
             { id: "intentos", valor: this.intentos + "" },
-            { id: "puntuacion", valor:this.puntos + ""},
+            { id: "puntuacion", valor: this.puntos + "" },
             { id: "validacion", valor: this.valido + "" },
             { id: "Tiempo usado (segundos)", valor: this.contenido.getSegundos() + "" }
         ]);
@@ -931,6 +950,7 @@ class Actividad implements Validable {
     validacion?: Function;
     intentoFallo?: Function;
     intentoAcierto?: Function;
+    validar?: Function;
 
     tipoId: string;
     contenido: Contenido;
@@ -980,6 +1000,10 @@ class Actividad implements Validable {
         this.intentoAcierto = intentoAcierto;
     }
 
+    setValidar(validar: Function) {
+        this.validar = validar;
+    }
+
     getElemento(id?: string) {
         if (id != null) {
             this.elemento.id = id;
@@ -987,12 +1011,14 @@ class Actividad implements Validable {
         return this.elemento;
     }
 
-    agregarResultados(): void {
-
+    agregarResultados() {
+        if (this.validar != null) {
+            this.validar();
+        }
     }
 
     registro() {
-        console.log("numero: " + this.intentos);
+      
         resultados.agregar(this.tipoId, [
             { id: "aciertos", valor: this.aciertos + "" },
             { id: "fallos", valor: this.fallos + "" },
@@ -1007,6 +1033,8 @@ class Actividad implements Validable {
 this.pareja.tablero.intentos,this.pareja.tablero.aciertos,this.pareja.tablero.fallos, this.pareja.tablero.valido
 
 */
-
+/*
 resultados.agregarMaximo([{area:"matematicas", valor:50}, {area:"fuerza publica", valor:50}]);
 resultados.agregarResultados([{area:"matematicas", valor:50}, {area:"fuerza publica", valor:50}]);
+
+*/

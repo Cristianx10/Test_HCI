@@ -29,6 +29,7 @@ var Palillos = /** @class */ (function (_super) {
         _this.contenedor = new createjs.Container();
         _this.almacen = new Actividad();
         _this.almacen.size(420, 400);
+        _this.tipoId = "Palillos";
         return _this;
     }
     Palillos.prototype.almacenarEn = function (lugar) {
@@ -252,6 +253,7 @@ var EPalillos = /** @class */ (function () {
                 _this.palillo.stage.update();
             });
             this.palo.on("pressup", function (e) {
+                _this.palillo.intentos++;
                 if (_this.movido == false) {
                     _this.palo.x = _this.posx;
                     _this.palo.y = _this.posy;
@@ -286,6 +288,7 @@ var EPalillos = /** @class */ (function () {
             if (_this.palillo.palillos.indexOf(_this) != -1) {
                 _this.palillo.palillos.splice(_this.palillo.palillos.indexOf(_this), 1);
             }
+            _this.palillo.intentos++;
             _this.palillo.base.removeChild(_this.palo);
             _this.palillo.contenedor.addChild(_this.palo);
             _this.palillo.stage.update();
@@ -302,6 +305,7 @@ var EPalillos = /** @class */ (function () {
             if (_this.palillo.palillos.indexOf(_this) != -1) {
                 _this.palillo.palillos.splice(_this.palillo.palillos.indexOf(_this), 1);
             }
+            _this.palillo.intentos++;
             _this.palillo.base.removeChild(_this.palo);
             _this.palillo.contenedor.addChild(_this.palo);
             _this.palillo.stage.update();
@@ -318,6 +322,7 @@ var EPalillos = /** @class */ (function () {
             if (_this.palillo.palillos.indexOf(_this) != -1) {
                 _this.palillo.palillos.splice(_this.palillo.palillos.indexOf(_this), 1);
             }
+            _this.palillo.intentos++;
             _this.palillo.base.removeChild(_this.palo);
             _this.palillo.contenedor.addChild(_this.palo);
             _this.palillo.stage.update();
@@ -334,6 +339,7 @@ var EPalillos = /** @class */ (function () {
             if (_this.palillo.palillos.indexOf(_this) != -1) {
                 _this.palillo.palillos.splice(_this.palillo.palillos.indexOf(_this), 1);
             }
+            _this.palillo.intentos++;
             _this.palillo.base.removeChild(_this.palo);
             _this.palillo.contenedor.addChild(_this.palo);
             _this.palillo.stage.update();
@@ -348,6 +354,7 @@ var EPalillos = /** @class */ (function () {
             if (_this.palillo.palillos.indexOf(_this) != -1) {
                 _this.palillo.palillos.splice(_this.palillo.palillos.indexOf(_this), 1);
             }
+            _this.palillo.intentos++;
             _this.palillo.base.removeChild(_this.palo);
             _this.palillo.contenedor.addChild(_this.palo);
             _this.palillo.stage.update();
@@ -362,6 +369,7 @@ var EPalillos = /** @class */ (function () {
             if (_this.palillo.palillos.indexOf(_this) != -1) {
                 _this.palillo.palillos.splice(_this.palillo.palillos.indexOf(_this), 1);
             }
+            _this.palillo.intentos++;
             _this.palillo.base.removeChild(_this.palo);
             _this.palillo.contenedor.addChild(_this.palo);
             _this.palillo.stage.update();

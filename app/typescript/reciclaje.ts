@@ -33,7 +33,7 @@ class Clasificar_elemento implements ElementoClacificable {
     this.elemento.addEventListener("mousedown", () => {
       if (this.padre != null) {
         this.padre.seleccion = this;
-     
+
       }
     });
   }
@@ -90,7 +90,7 @@ class Clasificar extends Interaccion {
   }
 
   agregarImagen(elemento: Clasificar_elemento) {
-    
+
     elemento.padre = this;
     this.elementos.push(elemento);
     this.elemento.append(elemento.elemento);
@@ -126,12 +126,11 @@ class Clasificar extends Interaccion {
   validarelemento(comparacion: string) {
     if (this.seleccion != null) {
       this.seleccion.clasificado = true;
-      this.validar();
+
       if (this.seleccion.categoria == comparacion) {
-        this.aciertos++;
+
         return true;
       } else {
-        this.fallos++;
         return false;
       }
     }
@@ -139,7 +138,7 @@ class Clasificar extends Interaccion {
   }
 
 
-  validar() {
+  valida() {
     let num = 0;
     this.elementos.forEach((b) => {
       if (b.clasificado) {
@@ -154,25 +153,25 @@ class Clasificar extends Interaccion {
 
   }
 
-  almacenaje(lugares: Array<String>, div: string, zonas?:string) {
-    let contenedores:Array<any> = [];
+  almacenaje(lugares: Array<String>, div: string, zonas?: string) {
+    let contenedores: Array<any> = [];
 
     lugares.forEach(element => {
       let con = $(element);
       contenedores.push(con);
     });
-    
+
     contenedores.forEach((c: any) => {
       c.droppable({
         accept: div,
-        drop: (event: any, ui: any)=> {
+        drop: (event: any, ui: any) => {
           this.deleteImage(ui.draggable, c, zonas);
         }
       });
     });
   }
 
-  deleteImage($item: any, t: any, zonas?:string) {
+  deleteImage($item: any, t: any, zonas?: string) {
     $item.fadeIn(() => {
       $item.appendTo(t);
       $item.find(zonas).css("left", "0px");
@@ -181,28 +180,28 @@ class Clasificar extends Interaccion {
       if (this.seleccion != null) {
         if (this.validarelemento(t[0].id)) {
           this.aciertos++;
-          if(this.intentoAcierto != null){
+          if (this.intentoAcierto != null) {
             this.intentoAcierto();
           }
-  
+
         } else {
-          if(this.intentoFallo != null){
+          if (this.intentoFallo != null) {
             this.intentoFallo();
           }
           this.fallos++;
-     
+
         }
 
         if (this.resetear != null) {
           this.resetear(this.seleccion.elemento);
-         
+
         } else {
           this.reset();
         }
       }
 
-      if(this.clasificados >= this.elementos.length){
-        if(this.validacion != null){
+      if (this.clasificados >= this.elementos.length) {
+        if (this.validacion != null) {
           this.valido = true;
           this.validacion();
         }
@@ -221,9 +220,9 @@ class Clasificar extends Interaccion {
     });
   }
 
-  setResetear(t:Function){
+  setResetear(t: Function) {
     this.resetear = t;
-    
+
   }
 
 

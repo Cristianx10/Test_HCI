@@ -1,19 +1,17 @@
+class Palillos extends Actividad {
 
-
-class Palillos extends Actividad{
-    
     base: createjs.Container;
     basePalillos: Array<EPalillos>;
     palillos: Array<EPalillos>;
     seleccion?: EPalillos;
     fresultado?: Function;
-    intento?:Function;
-    contenedor:createjs.Container;
+    intento?: Function;
+    contenedor: createjs.Container;
     largo = 120;
     inicial = 0;
     fila = 0;
     conte = 0;
-    almacen:Actividad;
+    almacen: Actividad;
 
     constructor() {
         super();
@@ -26,15 +24,16 @@ class Palillos extends Actividad{
         this.contenedor = new createjs.Container()
         this.almacen = new Actividad();
         this.almacen.size(420, 400);
+        this.tipoId = "Palillos";
     }
 
-    almacenarEn(lugar:string){
+    almacenarEn(lugar: string) {
         this.almacen.stage.addChild(this.contenedor);
         let marco = new createjs.Shape();
         this.contenedor.addChild(marco);
         this.contenedor.x = 60;
         this.contenedor.y = 10;
-        marco.graphics.beginStroke("#FF9900").setStrokeStyle(5).drawRoundRect(-50,-10, 400, 350, 20);
+        marco.graphics.beginStroke("#FF9900").setStrokeStyle(5).drawRoundRect(-50, -10, 400, 350, 20);
         this.almacen.stage.addChild(this.contenedor);
         this.almacen.stage.update();
 
@@ -76,41 +75,41 @@ class Palillos extends Actividad{
     }
 
     crear(x: number, y: number, oriente: string) {
-       
+
         if (oriente == "diagonalLeftDown") {
             let p1 = new EPalillos(this, x, y, this.inicial, "#E64B75");
             p1.diagonalLeftDown();
             this.palillos.push(p1);
             this.inicial++;
-        }else if (oriente == "diagonalRightDown") {
+        } else if (oriente == "diagonalRightDown") {
             let p1 = new EPalillos(this, x, y, this.inicial, "#E64B75");
             p1.largo = 200;
             p1.diagonalRightDown();
             this.palillos.push(p1);
             this.inicial++;
-        }else if (oriente == "diagonalLeftTop") {
+        } else if (oriente == "diagonalLeftTop") {
             let p1 = new EPalillos(this, x, y, this.inicial, "#E64B75");
             p1.largo = 200;
             p1.diagonalLeftTop();
             this.palillos.push(p1);
             this.inicial++;
-        }else if (oriente == "diagonalRightTop") {
+        } else if (oriente == "diagonalRightTop") {
             let p1 = new EPalillos(this, x, y, this.inicial, "#E64B75");
             p1.largo = 200;
             p1.diagonalRightTop();
             this.palillos.push(p1);
             this.inicial++;
-        }else if (oriente == "vertical") {
+        } else if (oriente == "vertical") {
             let p1 = new EPalillos(this, x, y, this.inicial, "#E64B75");
             p1.verticalDown();
             this.palillos.push(p1);
             this.inicial++;
-        }else if (oriente == "horizontal") {
+        } else if (oriente == "horizontal") {
             let p1 = new EPalillos(this, x, y, this.inicial, "#E64B75");
             p1.horizontalLeft();
             this.palillos.push(p1);
             this.inicial++;
-        }else{
+        } else {
             console.log("no se reconoce")
         }
         this.stage.update();
@@ -152,7 +151,7 @@ class Palillos extends Actividad{
                 }
             }
         }
-        
+
         if (num == total && tex.length == com.length) {
             return true;
         }
@@ -265,7 +264,7 @@ class EPalillos {
             });
 
             this.palo.on("pressup", (e) => {
-
+                this.palillo.intentos++;
                 if (this.movido == false) {
                     this.palo.x = this.posx;
                     this.palo.y = this.posy;
@@ -292,7 +291,7 @@ class EPalillos {
                 }
             }
             this.palillo.stage.update();
-          
+
         });
     }
 
@@ -300,15 +299,18 @@ class EPalillos {
         this.largo = 140;
         this.palo.rotation = 65;
         this.vertical();
-        this.palo.on("click", ()=>{
-            if(this.palillo.palillos.indexOf(this) != -1){
-                this.palillo.palillos.splice(this.palillo.palillos.indexOf(this),1);
+        this.palo.on("click", () => {
+            if (this.palillo.palillos.indexOf(this) != -1) {
+                this.palillo.palillos.splice(this.palillo.palillos.indexOf(this), 1);
             }
+            this.palillo.intentos++;
             this.palillo.base.removeChild(this.palo);
             this.palillo.contenedor.addChild(this.palo);
             this.palillo.stage.update();
             this.palillo.resultado();
             this.palillo.almacen.stage.update();
+           
+            
         });
     }
 
@@ -316,10 +318,11 @@ class EPalillos {
         this.largo = 140;
         this.palo.rotation = -65;
         this.vertical();
-        this.palo.on("click", ()=>{
-            if(this.palillo.palillos.indexOf(this) != -1){
-                this.palillo.palillos.splice(this.palillo.palillos.indexOf(this),1);
+        this.palo.on("click", () => {
+            if (this.palillo.palillos.indexOf(this) != -1) {
+                this.palillo.palillos.splice(this.palillo.palillos.indexOf(this), 1);
             }
+            this.palillo.intentos++;
             this.palillo.base.removeChild(this.palo);
             this.palillo.contenedor.addChild(this.palo);
             this.palillo.stage.update();
@@ -332,11 +335,12 @@ class EPalillos {
         this.largo = 140;
         this.palo.rotation = 115;
         this.vertical();
-     
-        this.palo.on("click", ()=>{
-            if(this.palillo.palillos.indexOf(this) != -1){
-                this.palillo.palillos.splice(this.palillo.palillos.indexOf(this),1);
+
+        this.palo.on("click", () => {
+            if (this.palillo.palillos.indexOf(this) != -1) {
+                this.palillo.palillos.splice(this.palillo.palillos.indexOf(this), 1);
             }
+            this.palillo.intentos++;
             this.palillo.base.removeChild(this.palo);
             this.palillo.contenedor.addChild(this.palo);
             this.palillo.stage.update();
@@ -349,10 +353,11 @@ class EPalillos {
         this.largo = 140;
         this.palo.rotation = -115;
         this.vertical();
-        this.palo.on("click", ()=>{
-            if(this.palillo.palillos.indexOf(this) != -1){
-                this.palillo.palillos.splice(this.palillo.palillos.indexOf(this),1);
+        this.palo.on("click", () => {
+            if (this.palillo.palillos.indexOf(this) != -1) {
+                this.palillo.palillos.splice(this.palillo.palillos.indexOf(this), 1);
             }
+            this.palillo.intentos++;
             this.palillo.base.removeChild(this.palo);
             this.palillo.contenedor.addChild(this.palo);
             this.palillo.stage.update();
@@ -363,10 +368,11 @@ class EPalillos {
 
     verticalDown() {
         this.vertical();
-        this.palo.on("click", ()=>{
-            if(this.palillo.palillos.indexOf(this) != -1){
-                this.palillo.palillos.splice(this.palillo.palillos.indexOf(this),1);
+        this.palo.on("click", () => {
+            if (this.palillo.palillos.indexOf(this) != -1) {
+                this.palillo.palillos.splice(this.palillo.palillos.indexOf(this), 1);
             }
+            this.palillo.intentos++;
             this.palillo.base.removeChild(this.palo);
             this.palillo.contenedor.addChild(this.palo);
             this.palillo.stage.update();
@@ -377,10 +383,11 @@ class EPalillos {
 
     horizontalLeft() {
         this.horizontal();
-        this.palo.on("click", ()=>{
-            if(this.palillo.palillos.indexOf(this) != -1){
-                this.palillo.palillos.splice(this.palillo.palillos.indexOf(this),1);
+        this.palo.on("click", () => {
+            if (this.palillo.palillos.indexOf(this) != -1) {
+                this.palillo.palillos.splice(this.palillo.palillos.indexOf(this), 1);
             }
+            this.palillo.intentos++;
             this.palillo.base.removeChild(this.palo);
             this.palillo.contenedor.addChild(this.palo);
             this.palillo.stage.update();
