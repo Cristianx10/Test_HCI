@@ -51,7 +51,7 @@ class Resultados {
         }
     }
 
-    private save() {
+    save() {
         localStorage.setItem(this.id, JSON.stringify(this))
     }
 
@@ -266,7 +266,6 @@ class Resultados {
 
 
     */
-
 
 
     limpiarTodo() {
