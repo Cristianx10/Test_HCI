@@ -832,11 +832,21 @@ interface ResultadoA {
 var resultados = new Resultados("resultados");
 
 
-function cargar(){
-    loadJson("/carga.json", (result:any)=>{
-        resultados = result;
-        resultados.save();
-    });
+function cargar(name?:string){
+
+    if(name != null){
+        loadJson("/" + name, (result:any)=>{
+            let r = JSON.stringify(result);
+            localStorage.setItem(resultados.id, r);
+            location.reload();
+        });
+    }else{
+        loadJson("/carga.json", (result:any)=>{
+            let r = JSON.stringify(result);
+            localStorage.setItem(resultados.id, r);
+            location.reload();
+        });
+    }
 }
 
 
