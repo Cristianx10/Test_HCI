@@ -267,6 +267,9 @@ class Resultados {
 
     */
 
+    cargar(data:string){
+        localStorage.setItem(this.id, data);
+    }
 
 
     limpiarTodo() {
