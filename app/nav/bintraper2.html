@@ -14,25 +14,47 @@
   <link rel="stylesheet" href="../../sass/aplicaciones/pizarras.css" />
 
   <style>
-  
-  .tuberia_tutorial{
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+    .tuberia_tutorial {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
 
-  }
+    }
 
-  .tuberia_tutorial div{
-    width: 30%;
-    color: #FF9900;
-  }
+    .tuberia_tutorial div {
+      width: 30%;
+      color: #FF9900;
+    }
 
-  .tuberia_tutorial__info{
-    padding: 20px;
-    height: 85%;
-    border: 5px dashed #FF9900;
-  }
-  
+    .tuberia_tutorial__info {
+      padding: 20px;
+      height: 85%;
+      border: 5px dashed #FF9900;
+    }
+
+    .ptuberia {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .tuberia__titulo{
+      position: absolute;
+      left: 20px;
+      top: 20px;
+    }
+    .tuberia__titulo h1{
+     
+      font-style: normal;
+      font-weight: bold;
+      font-size: 48px;
+      line-height: 42px;
+      display: flex;
+      align-items: center;
+      color: #E64973;
+    
+    }
   </style>
 
 </head>
@@ -52,15 +74,37 @@
           </div>
         </div>
 
-        
-        <div class="tuberia_tutorial ">
-            <div id="tuberias__a"></div>
-            <div class="tuberia_tutorial__info">
-              <h1 id="tuberia_info">Da click al cuadro</h1>
-            </div>
+        <div class="pantalla ptuberiat" style="background-image: url('../img/Principal Intra personal.png')">
+          <div class="introduccion">
+            <h1 class="titulo">Camino a la meta</h1>
+            <p id="desc" class="descripcion">Completa la tubería desplazando las fichas en menos de 1 minuto. Entre más movimientos realices, menos puntos obtendrás.</p>
+            <button class="botonComenzar" onclick="seguir()">Comenzar</button>
+          </div>
         </div>
-        <div id="tuberias__b"></div>
-        <div id="tuberias__c"></div>
+
+        <div class="tuberia_tutorial ptuberia">
+          <div class="tuberia__titulo">
+            <h1>Tutorial</h1>
+          </div>
+          <div id="tuberias__a"></div>
+          <div class="tuberia_tutorial__info">
+            <h1 id="tuberia_info">Da click al cuadro</h1>
+          </div>
+        </div>
+        <div class="ptuberia ptuberia1">
+          <div class="tuberia__titulo">
+            <h1>Nivel 1</h1>
+          </div>
+          <div id="tuberias__b"></div>
+
+        </div>
+        <div class="ptuberia ptuberia2">
+          <div class="tuberia__titulo">
+            <h1>Nivel 2</h1>
+          </div>
+          <div id="tuberias__c"></div>
+        </div>
+
 
 
 
@@ -226,15 +270,15 @@
     tab.agregar(img[12], false, false, false, false, 12, 1);
     tab.agregar(img[13], true, false, false, false, 13, 1);
     tab.agregar(img[14], false, false, false, false, 14, 1);
-  
+
     tab.cargarTablero(3, 5, 110, 110);
 
     tab.setValidacion(() => {
       console.log("Validado");
       let e = document.querySelector("#tuberia_info");
       e.innerText = "¡Perfecto! Has completado la tuberia. Dale click a siguiente y probemos tu habilidad";
-     
-      
+      siguiente.disabled = false;
+
     });
 
     tab.setIntentoFallo(() => {
@@ -267,15 +311,14 @@
     tab2.agregar(img[17], false, false, true, true, 17, 0);
     tab2.agregar(img[18], true, false, true, false, 18, 0);
     tab2.agregar(img[19], false, false, false, false, 19, 0);
-  
+
     tab2.cargarTablero(5, 4, 110, 110);
 
     tab2.setValidacion(() => {
       console.log("Validado");
-      setTimeout(()=>{
-        seguir();
-      }, 1000);
-      
+      siguiente.disabled = false;
+
+
     });
 
     tab2.setIntentoFallo(() => {
@@ -307,15 +350,14 @@
     tab3.agregar(img[16], false, true, false, true, 16, 0);
     tab3.agregar(img[17], false, false, false, false, 17, 1);
 
-  
+
     tab3.cargarTablero(6, 3, 110, 110);
 
     tab3.setValidacion(() => {
       console.log("Validado");
-      setTimeout(()=>{
-        seguir();
-      }, 1000);
-      
+      siguiente.disabled = false;
+
+
     });
 
     tab3.setIntentoFallo(() => {
@@ -328,19 +370,13 @@
 
     /*Fin de la programacion de tuberias----------------------------------------------*/
 
-    contenedor.agregarHTML(document.querySelector('.pinicio'));
-
-    contenedor.agregar(new Contenido(document.querySelector(".tuberia_tutorial"), tab)).setAccion(()=>{
-      siguiente.disabled = true;
-      
-     
+    contenedor.agregarHTML(document.querySelector('.pinicio')).setAccionFinal(()=>{
+      mostrar(".zona__navegacion");
     });
 
-    
-    contenedor.agregar(new Contenido(document.querySelector("#tuberias__b"), tab2));
-    contenedor.agregar(new Contenido(document.querySelector("#tuberias__c"), tab3));
+   
 
-    
+
 
     shuffle(preguntas);
 
@@ -349,9 +385,22 @@
     });
 
     /*Aqui va la pizzarra**/
+    contenedor.agregarHTML(document.querySelector('.ptuberiat')).setAccion(() => {
+      ocultar(".zona__navegacion");
    
+    });
+    contenedor.agregar(new Contenido(document.querySelector(".tuberia_tutorial"), tab)).setAccion(() => {
+      siguiente.disabled = true;
+      mostrar(".zona__navegacion")
+    });
+    contenedor.agregar(new Contenido(document.querySelector(".ptuberia1"), tab2)).setAccion(() => {
+      siguiente.disabled = true;
+    });
+    contenedor.agregar(new Contenido(document.querySelector(".ptuberia2"), tab3)).setAccion(() => {
+      siguiente.disabled = true;
+    });
 
-   
+
 
     contenedor.incluirEn(document.querySelector(".ppreguntas"));
     navegacion.iniciar();
@@ -359,10 +408,10 @@
     ocultar(".zona__navegacion");
 
     function seguir() {
+      siguiente.disabled = false;
       navegacion.setPermitir(true);
       navegacion.siguiente();
-      mostrar(".zona__navegacion");
-      siguiente.disabled = false;
+ 
     }
 
 
