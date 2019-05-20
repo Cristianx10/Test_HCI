@@ -34,11 +34,8 @@
           </div>
         </div>
 
-        <div class="pantalla table__rompecabezas">
-
-        </div>
-
       </div>
+
 
 
 
@@ -59,9 +56,12 @@
             <h2>Retira 3 de los 13 palillos 7 haz que queden formados solo 3 triángulos</h2>
           </div>
         </div>
-        <div>
+        <div class="division_palillos">
           <div id="palillosn1"></div>
+          <div>
           <div id="palillosn1__almacen"></div>
+          <h3>Palillos retirados</h3>
+        </div>
         </div>
       </div>
 
@@ -77,23 +77,21 @@
 
 
       <div class="pantalla table__rompecabezas centrar">
-        <h1 class="titulo">Acomoda las fichas del rompecabezas, solo arrastra las fichas a la posición que consideres correcta</h1>
+        <h1 class="titulo">Acomoda las fichas del roompecabezas, solo arrrastra las fichas a la posicion que consideres correcta</h1>
         <hr>
         <br>
       </div>
 
       <div class="pantalla table__rompecabezas2 centrar">
-          <h1 class="titulo">Acomoda las fichas del rompecabezas, solo arrastra las fichas a la posición que consideres correcta</h1>
+          <h1>Acomoda las fichas del roompecabezas, solo arrrastra las fichas a la posicion que consideres correcta</h1>
           <hr>
           <br>
       </div>
+
+
       <div class="zona__navegacion">
         <button class="btn_siguiente" style="text-align:center;" onclick="seguir()">Siguiente</button>
       </div>
-
-
-
-
 
     </div>
   </div>
@@ -138,6 +136,8 @@
 
     let contenedor = new Contenedor();
     let navegacion = new Navegable(contenedor);
+    let siguiente = document.querySelector(".btn_siguiente");
+    ocultar(".zona__navegacion");
 
 
     let p1 = new PreguntaP(`<img style="width:100%; height="100%; src="../img/preguntasGenerales/VisualEspacial/secuenciaOctagono.png" alt="">`,
@@ -188,7 +188,9 @@
 
     let palo = new Palillos();
     palo.size(300, 350);
+    
 
+    //------------------------------------------------------------------------------------
     palo.almacenarEn("#palillosn1__almacen");
 
     palo.crear(0, 0, "vertical");
@@ -262,12 +264,7 @@
 
     let imagenes = cargarImagen("../img/diseno/rompecabeza2.png", width, width, columnas, filas);
 
-    let orden = [];
-  
-    for (let i = 0; i < imagenes.length; i++) {
-      orden.push(i);
-     
-    }
+    let orden = [1, 3, 9, 5, 11, 8, 0, 7, 15, 6, 13, 2, 4, 14, 10, 12];
 
     for (let i = 0; i < imagenes.length; i++) {
       let e = imagenes[i];
@@ -283,27 +280,57 @@
 
     tab.setValidacion(() => {
       alert("Felicitaciones Ganaste");
-      resultados.sumar("ingenieria", 5);
+      siguiente.disabled = false;
     });
 
     tab.setIntentoFallo((i) => {
       console.log("Sigue intentando: " + i);
       if (i > 5) {
-        resultados.sumar("ingenieria", -1);
-        resultados.sumar("diseño", 2);
+
       }
     });
 
 
+    width = 180;
+    columnas = 2;
+    filas = 3;
+    var tab2 = new Tablero(columnas, filas, width);
 
-    contenedor.agregar(new Contenido(document.querySelector(".table__rompecabezas"), tab));
+    imagenes = cargarImagen("../img/diseno/rompecabeza1.png", width, width, columnas, filas);
+
+    orden = [1, 2, 5, 0, 3, 4];
+    let rotacion = [1, 3, 1, 0, 2, 1];
+
+    for (let i = 0; i < imagenes.length; i++) {
+      let e = imagenes[i];
+      tab2.agregar(e, orden[i], i, rotacion[i] * 90);
+    }
+
+    tab2.iniciar();
+    tab2.incluirEn(".table__rompecabezas2");
+    tab2.activarArrastre();
+    tab2.activarRotacion();
+    //tab.setPlaceholder();
+
+
+    tab2.setValidacion(() => {
+      alert("Felicitaciones Ganaste");
+      siguiente.disabled = false;
+    });
+
+    tab2.setIntentoFallo((intentos) => {
+      console.log("Sigue intentando: " + intentos);
+
+    });
+
+
+
+  
 
     contenedor.agregarHTML(document.querySelector('.pinicio'));
     contenedor.agregar(p1.getPregunta()).setAccion(() => {
       siguiente.disabled = true;
       mostrar(".zona__navegacion");
-      navegacion.colocarTiempo();
-      navegacion.colocarProgreso();
     });
 
     contenedor.agregar(p2.getPregunta()).setAccion(() => {
@@ -325,20 +352,26 @@
     contenedor.agregarHTML(document.querySelector('.ppalillosn1'));
     contenedor.agregarHTML(document.querySelector('.ppalillosn2'));
 
+    contenedor.agregar(new Contenido(document.querySelector(".table__rompecabezas"), tab)).setAccion(()=>{
+      mostrar(".zona__navegacion");
+      siguiente.disabled = true;
+    });
+    contenedor.agregar(new Contenido(document.querySelector(".table__rompecabezas2"), tab2));
 
 
     contenedor.incluirEn(document.querySelector(".ppreguntas"));
 
     navegacion.iniciar();
 
-    let siguiente = document.querySelector(".btn_siguiente");
+   
 
-    ocultar(".zona__navegacion");
+    
 
 
     function seguir() {
       navegacion.setPermitir(true);
       navegacion.siguiente();
+      siguiente.disabled = true;
     }
 
     $(".opcion").click(() => {
