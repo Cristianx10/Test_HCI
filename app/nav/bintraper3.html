@@ -150,8 +150,11 @@
     shuffle(preguntas);
 
     preguntas.forEach(p => {
-      contenedor.agregar(p.getPregunta(), 40);
-    });
+            contenedor.agregar(p.getPregunta(), 40);
+                navegacion.colocarTiempo();
+                navegacion.colocarProgreso();
+            
+        });
 
 //-------------------Agregar fobias-------------
     contenedor.agregar(p1.getPregunta());
