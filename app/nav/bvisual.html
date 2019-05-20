@@ -30,7 +30,7 @@
             <p id="desc" class="descripcion">En esta sección de la prueba evaluaremos tus conocimientos en el area
               Visual Espacial
             </p>
-            <button class="botonComenzar" onclick="seguir()">Comenzar</button>
+            <button class="botonComenzar"  onclick="seguir()">Comenzar</button>
           </div>
         </div>
 
@@ -77,14 +77,14 @@
 
 
       <div class="pantalla table__rompecabezas centrar">
-        <h1 class="pregunta_titulo" style="width: 50%">Acomoda las fichas del rompecabezas, solo arrastra las fichas a
+        <h1 class="pregunta_titulo" style="width: 50%;  font-size: 25px">Acomoda las fichas del rompecabezas, solo arrastra las fichas a
           la posición que consideres correcta.</h1>
         <hr>
         <br>
       </div>
 
       <div class="pantalla table__rompecabezas2 centrar">
-        <h1 class="pregunta_titulo" style="width: 50%">Acomoda las fichas del rompecabezas, solo arrastra las fichas a
+        <h1 class="pregunta_titulo" style="width: 50%; font-size: 25px">Acomoda las fichas del rompecabezas, solo arrastra las fichas a
           la posición que consideres correcta.</h1>
         <hr>
         <br>
@@ -92,7 +92,7 @@
 
 
       <div class="zona__navegacion">
-        <button class="btn_siguiente" style="text-align:center;" onclick="seguir()">Siguiente</button>
+        <button class="btn_siguiente"  style="text-align:center;" onclick="seguir()">Siguiente</button>
       </div>
 
     </div>
@@ -381,23 +381,23 @@
 
 
     contenedor.agregarHTML(document.querySelector('.pinicio'));
-    contenedor.agregar(p1.getPregunta()).setAccion(() => {
+    contenedor.agregar(p1.getPregunta(),40).setAccion(() => {
       siguiente.disabled = true;
       mostrar(".zona__navegacion");
       navegacion.colocarTiempo();
       navegacion.colocarProgreso();
     });
 
-    contenedor.agregar(p2.getPregunta()).setAccion(() => {
+    contenedor.agregar(p2.getPregunta(),40).setAccion(() => {
       siguiente.disabled = true;
     });
-    contenedor.agregar(p3.getPregunta()).setAccion(() => {
+    contenedor.agregar(p3.getPregunta(),40).setAccion(() => {
       siguiente.disabled = true;
     });
-    contenedor.agregar(p4.getPregunta()).setAccion(() => {
+    contenedor.agregar(p4.getPregunta(),40).setAccion(() => {
       siguiente.disabled = true;
     });
-    contenedor.agregar(p5.getPregunta()).setAccion(() => {
+    contenedor.agregar(p5.getPregunta(),40).setAccion(() => {
       siguiente.disabled = true;
     });
 
@@ -422,10 +422,12 @@
     });
     contenedor.agregar(new Contenido(document.querySelector(".table__rompecabezas"), tab)).setAccion(() => {
       mostrar(".zona__navegacion");
-      siguiente.disabled = true;
+      siguiente.disabled = false;
     });
-    contenedor.agregar(new Contenido(document.querySelector(".table__rompecabezas2"), tab2));
-
+    contenedor.agregar(new Contenido(document.querySelector(".table__rompecabezas2"), tab2)).setAccion(() => {
+      mostrar(".zona__navegacion");
+      siguiente.disabled = false;
+    });
 
     contenedor.incluirEn(document.querySelector(".ppreguntas"));
 

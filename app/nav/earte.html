@@ -183,9 +183,6 @@
                 <button class="btn_siguiente" onclick="seguir()">Siguiente</button>
             </div>
 
-
-
-
         </div>
     </div>
 </body>
@@ -328,13 +325,14 @@
 
 
     contenedor.agregarHTML(document.querySelector(".pinicio")).setAccionFinal(() => {
-        mostrar(".zona__navegacion");
+        ocultar(".zona__navegacion");
     });
     contenedor.agregar(new Contenido(document.querySelector(".pdictado"), p5)).setAccion(() => {
-        ocultar(".zona__navegacion");
         ocultar(".pdictado__revisar");
     });
-    contenedor.agregarHTML(document.querySelector(".paudios"));
+    contenedor.agregarHTML(document.querySelector(".paudios")).setAccion(() => {
+        mostrar(".zona__navegacion");
+    });
     contenedor.agregar(p1.getPregunta());
     contenedor.agregar(p2.getPregunta());
     contenedor.agregar(p3.getPregunta());

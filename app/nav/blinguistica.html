@@ -477,6 +477,7 @@
     pinturac.setIntentoAcierto(() => {
       console.log("bien")
       siguiente.disabled = false;
+      seguir();
       //aqui agregar puntaje cuadno seleccione la imagen A
       resultados.agregarResultados([{
         area:"Arte", valor:100
@@ -485,6 +486,7 @@
 
     pinturac.setIntentoFallo(() => {
       console.log("mal")
+      seguir();
     });
 
     pinturac.setValidacion(() => {
@@ -512,27 +514,27 @@
 
 
 
-    contenedor.agregar(p2.getPregunta())
+    contenedor.agregar(p2.getPregunta(),120)
       .setAccion(() => {
         siguiente.disabled = false;
       });;
-    contenedor.agregar(p3.getPregunta())
+    contenedor.agregar(p3.getPregunta(),40)
       .setAccion(() => {
         siguiente.disabled = true;
       });
-    contenedor.agregar(p5.getPregunta());
-    contenedor.agregarHTML(document.querySelector('.pselecciona'));
-    contenedor.agregarHTML(document.querySelector('.pemperejado'))
+    contenedor.agregar(p5.getPregunta(),40);
+    contenedor.agregarHTML(document.querySelector('.pselecciona'),50);
+    contenedor.agregarHTML(document.querySelector('.pemperejado'),60)
       .setAccion(() => {
         ocultar(".zona__navegacion");
         navegable.colocarTiempo();
         navegable.colocarProgreso();
       });;
 
-    contenedor.agregar(tableros[0].getActividad());
-    contenedor.agregar(tableros[1].getActividad());
-    contenedor.agregar(tableros[2].getActividad());
-    contenedor.agregarHTML(document.querySelector(".ppintura")).setAccion(() => {
+    contenedor.agregar(tableros[0].getActividad(),80);
+    contenedor.agregar(tableros[1].getActividad(),100);
+    contenedor.agregar(tableros[2].getActividad(),120);
+    contenedor.agregarHTML(document.querySelector(".ppintura"),20).setAccion(() => {
       mostrar(".zona__navegacion");
       navegable.colocarTiempo();
       navegable.colocarProgreso();
