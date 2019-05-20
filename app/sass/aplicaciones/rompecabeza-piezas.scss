@@ -1,14 +1,7 @@
-.table__rompecabezas{
 
-    
-    width: 100%;
-    height: 100%;
 
     .rompecabeza{
         position: relative;
-        width: 80%;
-        height: 80%;
-
 
         &__zona, &__ficha{
             position: absolute;
@@ -23,7 +16,6 @@
                 background: blue;
             }
         }
-
 
         &__ficha{
                 
@@ -41,11 +33,4 @@
                 user-select: contain;
             }
         }
-
-        
-
-        
-
-
     }
-}

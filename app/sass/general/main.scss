@@ -444,6 +444,7 @@ form {
     flex-direction: column;
     text-align: center;
     color: black;
+    padding-top: 60px;
 
     height: 100%;
     margin: 0;
@@ -826,16 +827,15 @@ hr {
 
 .titulo {
     /*margin-left: 320px;*/
-    width: 550px;
-
-
-
+  
     font-family: 'Heebo', sans-serif;
     font-style: normal;
     font-weight: bold;
-    font-size: 64px;
-    line-height: 70px;
-    color: #EFF5FF;
+    color: #E64973;
+    font-size: 2em;
+    text-align: center;
+    
+ 
 }
 
 .descripcion {
