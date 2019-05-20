@@ -255,7 +255,7 @@
 
     /*Cargar actividad de tuberias----------------------------------------------**/
 
-    function sumarPalillos(pall) {
+    function sumarTuberia(pall) {
       if (pall.intentos <= 1) {
         resultados.agregarMaximo([{ area: "ingenieria", valor: 100 }]);
       }
@@ -340,8 +340,11 @@
     tab2.setValidacion(() => {
       console.log("Validado");
       siguiente.disabled = false;
+      sumarTuberia(tab2);
+    });
 
-
+    tab2.setValidar(()=>{
+      resultados.agregarMaximo([{area:"ingenieria", valor:100}]);
     });
 
     tab2.setIntentoFallo(() => {
@@ -379,11 +382,15 @@
     tab3.setValidacion(() => {
       console.log("Validado");
       siguiente.disabled = false;
-
+      sumarTuberia(tab3);
     });
 
     tab3.setIntentoFallo(() => {
       console.log("Intento");
+    });
+
+    tab3.setValidar(()=>{
+      resultados.agregarMaximo([{area:"ingenieria", valor:100}]);
     });
 
     tab3.incluirEn("#tuberias__c");

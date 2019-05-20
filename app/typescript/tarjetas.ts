@@ -133,7 +133,7 @@ class Bloque {
             this.ocultar();
           } else {
             this.mostrar();
-            this.pareja.tablero.intentos++;
+            
 
             if (this.pareja.tablero.bloqueActual != null) {
 
@@ -145,7 +145,7 @@ class Bloque {
                 this.pareja.tablero.aciertos++;
                 this.valido = true;
                 this.pareja.tablero.bloqueActual.valido = true;
-                
+                this.pareja.tablero.intentos++;
                 
                 if (this.pareja.tablero.intentoAcierto != null) {
                   this.pareja.tablero.intentoAcierto(this.pareja.tablero.intentos, this.pareja.tablero.aciertos, this.pareja.tablero.fallos, this.pareja.tablero.valido);
@@ -156,6 +156,7 @@ class Bloque {
               } else {
 
                 this.pareja.tablero.bloqueador = true;
+                this.pareja.tablero.intentos++;
                 this.pareja.tablero.fallos++;
                 if (this.pareja.tablero.intentoFallo != null) {
                   this.pareja.tablero.intentoFallo(this.pareja.tablero.intentos, this.pareja.tablero.aciertos, this.pareja.tablero.fallos, this.pareja.tablero.valido);

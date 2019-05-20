@@ -108,13 +108,13 @@ var Bloque = /** @class */ (function () {
                     }
                     else {
                         _this.mostrar();
-                        _this.pareja.tablero.intentos++;
                         if (_this.pareja.tablero.bloqueActual != null) {
                             if (_this.pareja.validar(_this.pareja.tablero.bloqueActual)) {
                                 _this.pareja.validado = true;
                                 _this.pareja.tablero.aciertos++;
                                 _this.valido = true;
                                 _this.pareja.tablero.bloqueActual.valido = true;
+                                _this.pareja.tablero.intentos++;
                                 if (_this.pareja.tablero.intentoAcierto != null) {
                                     _this.pareja.tablero.intentoAcierto(_this.pareja.tablero.intentos, _this.pareja.tablero.aciertos, _this.pareja.tablero.fallos, _this.pareja.tablero.valido);
                                 }
@@ -122,6 +122,7 @@ var Bloque = /** @class */ (function () {
                             }
                             else {
                                 _this.pareja.tablero.bloqueador = true;
+                                _this.pareja.tablero.intentos++;
                                 _this.pareja.tablero.fallos++;
                                 if (_this.pareja.tablero.intentoFallo != null) {
                                     _this.pareja.tablero.intentoFallo(_this.pareja.tablero.intentos, _this.pareja.tablero.aciertos, _this.pareja.tablero.fallos, _this.pareja.tablero.valido);
