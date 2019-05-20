@@ -162,6 +162,11 @@ class Resultados {
             }
         }
 
+        if(nombre == "ciencia"){
+            console.log("ciencia: " + valor, "Con un maximo de: " + this.getMaximo(nombre));
+
+        }
+
         this.save();
      
     }
