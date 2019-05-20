@@ -405,17 +405,21 @@
       navegacion.ocultarTiempo();
       navegacion.ocultarProgreso();
       ocultar(".zona__navegacion");
-      siguiente.disabled = true;
+      siguiente.disabled = false;
     });
     contenedor.agregar(new Contenido(document.querySelector('.ppalillosn1'), palo)).setAccion(() => {
       navegacion.colocarTiempo();
       navegacion.colocarProgreso();
       mostrar(".zona__navegacion");
-      siguiente.disabled = true;
+      siguiente.disabled = false;
     });
 
-    contenedor.agregar(new Contenido(document.querySelector('.ppalillosn2'), palo2) );
-
+    contenedor.agregar(new Contenido(document.querySelector('.ppalillosn2'), palo2) ).setAccion(() => {
+      navegacion.colocarTiempo();
+      navegacion.colocarProgreso();
+      mostrar(".zona__navegacion");
+      siguiente.disabled = false;
+    });
     contenedor.agregar(new Contenido(document.querySelector(".table__rompecabezas"), tab)).setAccion(() => {
       mostrar(".zona__navegacion");
       siguiente.disabled = true;
