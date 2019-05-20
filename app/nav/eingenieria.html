@@ -77,7 +77,7 @@
             width: 170px;
             height: 53px;
             left: 1033px;
-            top: 622px;
+            bottom: 50px;
         }
 
         #id_sintaxis {
@@ -143,7 +143,6 @@
             right: -73px;
             background-image: url('../../img/programacion/ejecutar.png');
             background-size: contain;
-
         }
 
         #btnAyuda {
@@ -195,7 +194,7 @@
                     <img id="id_leftcontenido_img" src="/img/programacion/pingui.png">
                 </div>
 
-                <div class="pantalla" style=" background-image: url('/img/background-oscuro.png')">
+                <div class="pantalla pinstruccion1" style=" background-image: url('/img/background-oscuro.png')">
                     <div id="id_conlistado">
                         <h1 id="id_titulo">Instrucciones</h1>
                         <ul id="id_listado">
@@ -246,7 +245,7 @@
                 </div>
 
 
-                <div class="pantalla" style=" background-image: url('/img/background-oscuro.png')">
+                <div class="pantalla pinstruccion2" style=" background-image: url('/img/background-oscuro.png')">
                     <div id="id_conlistado">
                         <h1 id="id_titulo">Instrucciones</h1>
                         <div style="height: 40px"></div>
@@ -287,7 +286,7 @@
                 </div>
 
 
-                <div id="juegopinguino" class="pantalla">
+                <div id="juegopinguino" class="pantalla pjuego">
 
                     <form id="cuadroComandos" method="dialog">
                         <input type="text" name="com" id="comando" autocomplete="off">
@@ -305,14 +304,6 @@
 
                 </div>
 
-
-
-
-                <div class="zona__navegacion" style="display:none;">
-                    <button class="btn_siguiente" style="text-align:center;" disabled
-                        onclick="seguir()">Siguiente</button>
-                </div>
-
             </div>
         </div>
 
@@ -325,10 +316,10 @@
   <script src="../lib/jquery.svg.js"></script>
   <script src="../lib/jquery.knob.js"></script>
   
-  <script src="../lib/tweenjs.js"></script>
+  
   <script src="../lib/easeljs.js"></script>
 -->
-
+        <script src="../lib/tweenjs.js"></script>
         <script src="/lib/easeljs.js"></script>
         <script src="/lib/preloadjs.js"></script>
         <script src="/lib/soundjs.js"></script>
@@ -359,18 +350,6 @@
 
             let contenedor = new Contenedor();
             let navegacion = new Navegable(contenedor);
-
-
-
-
-            let pantallas = new Contenedor();
-            pantallas.agregarHTMLAll(document.querySelectorAll(".pantalla"));
-            let navegable = new Navegable(pantallas);
-            navegable.iniciar();
-            navegable.setPermitirAll(true);
-            function seguir() {
-                navegable.siguiente();
-            }
 
             let comando = document.querySelector("#comando");
             let btn_comando = document.querySelector("#btn_comando");
@@ -404,8 +383,6 @@
                 }
 
                 texto.setCustomValidity("No se reconoce el comando. Intente de nuevo");
-
-
             }
 
             comando.addEventListener('keyup', (e) => {
@@ -429,32 +406,24 @@
 
 
             contenedor.agregarHTML(document.querySelector(".pinicio"));
-           
+            contenedor.agregarHTML(document.querySelector(".pinstruccion1"));
+            contenedor.agregarHTML(document.querySelector(".pinstruccion2"));
+            contenedor.agregarHTML(document.querySelector(".pjuego"));
+
 
 
 
             contenedor.incluirEn(document.querySelector(".ppreguntas"));
             navegacion.iniciar();
 
-            var siguiente = document.querySelector('.btn_siguiente');
-
-            ocultar(".zona__navegacion");
-
             function seguir() {
                 navegacion.setPermitir(true);
                 navegacion.siguiente();
-                mostrar(".zona__navegacion");
-                siguiente.disabled = false;
 
             }
 
-
-            $(".opcion_check").click(() => {
-                siguiente.disabled = false;
-            });
-
             navegacion.setFinal(() => {
-                goTo("bresultados");
+
             });
         </script>
 
