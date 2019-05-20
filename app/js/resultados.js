@@ -250,12 +250,15 @@ var VerResultado = /** @class */ (function () {
     VerResultado.prototype.cambiarColor = function (color) {
         this.color = color;
     };
-    VerResultado.prototype.generar = function (categoria, valor, src) {
+    VerResultado.prototype.generar = function (categoria, valor, src, name) {
         this.categoria = categoria;
         this.valor = valor;
         this.src = src;
         var simpli = categoria.split(" ");
         var nombre = MayusPrimera(this.categoria);
+        if (name != null) {
+            nombre = name;
+        }
         this.name = simpli[0];
         this.elemento.innerHTML = "\n        <div class=\"resultado__porcentaje\">\n        <div class=\"resultado__porcentaje__circulo\">\n            <input id=\"" + simpli[0] + "\" class=\"porcentaje\" type=\"text\" value=\"" + this.valor + "\" data-linecap=round data-angleOffset = \"" + this.init + "\">\n        </div>\n        <img class=\"icono\" src=\"" + this.src + "\" alt=\"\">\n        </div>\n        <div class=\"resultado__informacion\">\n            <h2 class=\"rtitulo\">" + nombre + "</h2>\n            <h3 class=\"rvalor\" style=\"color:" + this.color + ";\">" + this.valor + "%</h3>\n        </div>\n    ";
     };

@@ -323,12 +323,15 @@ class VerResultado {
         this.color = color;
     }
 
-    generar(categoria: string, valor: number, src: string) {
+    generar(categoria: string, valor: number, src: string, name?:string) {
         this.categoria = categoria;
         this.valor = valor;
         this.src = src;
         let simpli = categoria.split(" ");
         let nombre = MayusPrimera(this.categoria);
+        if(name != null){
+            nombre = name;
+        }
         this.name = simpli[0];
         this.elemento.innerHTML = `
         <div class="resultado__porcentaje">
