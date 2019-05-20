@@ -59,9 +59,9 @@
         <div class="division_palillos">
           <div id="palillosn1"></div>
           <div>
-          <div id="palillosn1__almacen"></div>
-          <h3>Palillos retirados</h3>
-        </div>
+            <div id="palillosn1__almacen"></div>
+            <h3>Palillos retirados</h3>
+          </div>
         </div>
       </div>
 
@@ -77,15 +77,17 @@
 
 
       <div class="pantalla table__rompecabezas centrar">
-        <h1 class="pregunta_titulo" style="width: 50%">Acomoda las fichas del roompecabezas, solo arrrastra las fichas a la posicion que consideres correcta</h1>
+        <h1 class="pregunta_titulo" style="width: 50%">Acomoda las fichas del rompecabezas, solo arrastra las fichas a
+          la posición que consideres correcta.</h1>
         <hr>
         <br>
       </div>
 
       <div class="pantalla table__rompecabezas2 centrar">
-          <h1 class="pregunta_titulo" style="width: 50%">Acomoda las fichas del roompecabezas, solo arrrastra las fichas a la posicion que consideres correcta</h1>
-          <hr>
-          <br>
+        <h1 class="pregunta_titulo" style="width: 50%">Acomoda las fichas del rompecabezas, solo arrastra las fichas a
+          la posición que consideres correcta.</h1>
+        <hr>
+        <br>
       </div>
 
 
@@ -188,7 +190,7 @@
 
     let palo = new Palillos();
     palo.size(300, 350);
-    
+
 
     //------------------------------------------------------------------------------------
     palo.almacenarEn("#palillosn1__almacen");
@@ -212,10 +214,33 @@
 
     palo.incluirEn('#palillosn1');
 
+    function sumarPalillos(pall) {
+      if(pall.intentos <= 1){
+        resultados.agregarMaximo([{ area: "ingenieria", valor: 100 }]);
+      }
+
+      if (pall.intentos == 3) {
+        resultados.agregarResultados([{ area: "ingenieria", valor: 100 }]);
+      } else if (pall.intentos >= 4 && pall.intentos <= 6) {
+        resultados.agregarResultados([{ area: "ingenieria", valor: 70 }]);
+      } else if (pall.intentos >= 7 && pall.intentos < 10) {
+        resultados.agregarResultados([{ area: "ingenieria", valor: 40 }]);
+      } else if (pall.intento == 10) {
+        resultados.agregarResultados([{ area: "ingenieria", valor: 10 }]);
+      } else if (pall.intento > 10) {
+        resultados.agregarResultados([{ area: "ingenieria", valor: 0 }]);
+      }
+      siguiente.disabled = false;
+    }
+
+    palo.setValidar(()=>{
+      resultados.agregarMaximo([{ area: "ingenieria", valor: 100 }]);
+    });
     palo.setResultado((r) => {
       console.log(r);
       if (palo.equals(r, "0,1,2,3,5,7,9,10,11,12")) {
-        console.log("gano");
+        console.log("gano");   
+        sumarPalillos(palo);
       }
     });
 
@@ -239,18 +264,25 @@
     palo2.incluirEn('#palillosn2');
 
 
+    palo2.setValidar(()=>{
+      resultados.agregarMaximo([{ area: "ingenieria", valor: 100 }]);
+    });
 
     palo2.setResultado((r) => {
+      
       console.log(r);
       if (palo.equals(r, "1,4,5,7,8,9,10,11,12,13,14,16")) {
         console.log("gano")
+        sumarPalillos(palo2);
       } else if (palo.equals(r, "5,19,1,8,15,22,4,11,18,7,14,10")) {
         console.log("gano")
-      }
-      else if (palo.equals(r, "5,12,19,1,8,15,22,4,18,9,16,13")) {
-        console.log("gano")
+        sumarPalillos(palo2);
+      } else if (palo.equals(r, "5,12,19,1,8,15,22,4,18,9,16,13")) {
+        console.log("gano");
+        sumarPalillos(palo2);
       } else if (palo.equals(r, "22,18,19,7,15,9,10,11,12,13,14,16")) {
-        console.log("gano")
+        console.log("gano");
+        sumarPalillos(palo2);
       }
     });
 
@@ -271,12 +303,23 @@
       tab.agregar(e, orden[i], i, 0);
     }
 
+    resultados.agregarMaximo([{area:"diseño", valor:200}]);
+
     tab.iniciar();
     tab.incluirEn(".table__rompecabezas");
     tab.activarArrastre();
     //tab.activarRotacion();
     //tab.setPlaceholder();
 
+    tab.setValidar(()=>{
+      if(tab.intentos  <= 15){
+        resultados.agregarResultados([{area:"diseño", valor:100}]);
+      }else if(tab.intentos  > 15 && tab.intentos <= 20){
+        resultados.agregarResultados([{area:"diseño", valor:75}]);
+      }else if(tab.intentos  > 20 && tab.intentos <= 30){
+        resultados.agregarResultados([{area:"diseño", valor:50}]);
+      }
+    });
 
     tab.setValidacion(() => {
       alert("Felicitaciones Ganaste");
@@ -323,9 +366,19 @@
 
     });
 
+    tab2.setValidar(()=>{
+      if(tab2.intentos  <= 15){
+        resultados.agregarResultados([{area:"diseño", valor:100}]);
+      }else if(tab2.intentos  > 15 && tab2.intentos <= 20){
+        resultados.agregarResultados([{area:"diseño", valor:75}]);
+      }else if(tab2.intentos  > 20 && tab2.intentos <= 30){
+        resultados.agregarResultados([{area:"diseño", valor:50}]);
+      }
+    });
 
 
-  
+
+
 
     contenedor.agregarHTML(document.querySelector('.pinicio'));
     contenedor.agregar(p1.getPregunta()).setAccion(() => {
@@ -349,11 +402,21 @@
     });
 
     contenedor.agregarHTML(document.querySelector('.ppalillos')).setAccion(() => {
+      navegacion.ocultarTiempo();
+      navegacion.ocultarProgreso();
+      ocultar(".zona__navegacion");
+      siguiente.disabled = true;
     });
-    contenedor.agregarHTML(document.querySelector('.ppalillosn1'));
-    contenedor.agregarHTML(document.querySelector('.ppalillosn2'));
+    contenedor.agregar(new Contenido(document.querySelector('.ppalillosn1'), palo)).setAccion(() => {
+      navegacion.colocarTiempo();
+      navegacion.colocarProgreso();
+      mostrar(".zona__navegacion");
+      siguiente.disabled = true;
+    });
 
-    contenedor.agregar(new Contenido(document.querySelector(".table__rompecabezas"), tab)).setAccion(()=>{
+    contenedor.agregar(new Contenido(document.querySelector('.ppalillosn2'), palo2) );
+
+    contenedor.agregar(new Contenido(document.querySelector(".table__rompecabezas"), tab)).setAccion(() => {
       mostrar(".zona__navegacion");
       siguiente.disabled = true;
     });
@@ -364,15 +427,15 @@
 
     navegacion.iniciar();
 
-   
 
-    
+
+
 
 
     function seguir() {
+      siguiente.disabled = true;
       navegacion.setPermitir(true);
       navegacion.siguiente();
-      siguiente.disabled = true;
     }
 
     $(".opcion").click(() => {

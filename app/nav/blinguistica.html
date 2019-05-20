@@ -336,65 +336,111 @@
     let tableros = [];
     tableros.push(new Tablero_tarjetas());
 
-    tableros[0].agregar("../img/emparejados/card-1.png", 19, "../img/emparejados/card-1.png", 1);
-    tableros[0].agregar("../img/emparejados/card-2.png", 2, "../img/emparejados/card-2.png", 3);
-    tableros[0].agregar("../img/emparejados/card-3.png", 4, "../img/emparejados/card-3.png", 5);
-    tableros[0].agregar("../img/emparejados/card-4.png", 6, "../img/emparejados/card-4.png", 7);
-    tableros[0].agregar("../img/emparejados/card-5.png", 8, "../img/emparejados/card-5.png", 9);
-    tableros[0].agregar("../img/emparejados/card-6.png", 10, "../img/emparejados/card-6.png", 11);
-    tableros[0].agregar("../img/emparejados/card-7.png", 12, "../img/emparejados/card-7.png", 13);
-    tableros[0].agregar("../img/emparejados/card-8.png", 14, "../img/emparejados/card-8.png", 15);
-    tableros[0].agregar("../img/emparejados/card-9.png", 16, "../img/emparejados/card-9.png", 17);
-    tableros[0].agregar("../img/emparejados/card-10.png", 18, "../img/emparejados/card-10.png", 0);
+    tableros[0].agregar("../img/emparejados/card-1.png", 0, "../img/emparejados/card-1.png", 2);
+    tableros[0].agregar("../img/emparejados/card-2.png", 4, "../img/emparejados/card-2.png", 5);
+    tableros[0].agregar("../img/emparejados/card-3.png", 1, "../img/emparejados/card-3.png", 3);
 
     tableros[0].iniciar();
-
-    tableros[0].setIntentoAcierto(() => {
-      console.log("acierto");
-    });
-
-    tableros[0].setIntentoFallo(() => {
-      console.log("fallo");
-    });
-
-
 
 
     tableros.push(new Tablero_tarjetas());
 
-    tableros[1].agregar("../img/emparejados/card-1.png", 0, "../img/emparejados/card-1.png", 1);
-    tableros[1].agregar("../img/emparejados/card-2.png", 2, "../img/emparejados/card-2.png", 3);
-    tableros[1].agregar("../img/emparejados/card-3.png", 4, "../img/emparejados/card-3.png", 5);
-    tableros[1].agregar("../img/emparejados/card-4.png", 6, "../img/emparejados/card-4.png", 7);
-    tableros[1].agregar("../img/emparejados/card-5.png", 8, "../img/emparejados/card-5.png", 9);
-    tableros[1].agregar("../img/emparejados/card-6.png", 10, "../img/emparejados/card-6.png", 11);
-    tableros[1].agregar("../img/emparejados/card-7.png", 12, "../img/emparejados/card-7.png", 13);
-    tableros[1].agregar("../img/emparejados/card-8.png", 14, "../img/emparejados/card-8.png", 15);
-    tableros[1].agregar("../img/emparejados/card-9.png", 16, "../img/emparejados/card-9.png", 17);
-    tableros[1].agregar("../img/emparejados/card-10.png", 18, "../img/emparejados/card-10.png", 19);
+    tableros[1].agregar("../img/emparejados/card-1.png", 0, "../img/emparejados/card-1.png", 2);
+    tableros[1].agregar("../img/emparejados/card-2.png", 6, "../img/emparejados/card-2.png", 4);
+    tableros[1].agregar("../img/emparejados/card-3.png", 3, "../img/emparejados/card-3.png", 8);
+    tableros[1].agregar("../img/emparejados/card-4.png", 7, "../img/emparejados/card-4.png", 5);
+    tableros[1].agregar("../img/emparejados/card-5.png", 9, "../img/emparejados/card-5.png", 1);
+
 
     tableros[1].iniciar();
 
     tableros.push(new Tablero_tarjetas());
 
-    tableros[2].agregar("../img/emparejados/card-1.png", 0, "../img/emparejados/card-1.png", 1);
-    tableros[2].agregar("../img/emparejados/card-2.png", 2, "../img/emparejados/card-2.png", 3);
-    tableros[2].agregar("../img/emparejados/card-3.png", 4, "../img/emparejados/card-3.png", 5);
-    tableros[2].agregar("../img/emparejados/card-4.png", 6, "../img/emparejados/card-4.png", 7);
-    tableros[2].agregar("../img/emparejados/card-5.png", 8, "../img/emparejados/card-5.png", 9);
-    tableros[2].agregar("../img/emparejados/card-6.png", 10, "../img/emparejados/card-6.png", 11);
-    tableros[2].agregar("../img/emparejados/card-7.png", 12, "../img/emparejados/card-7.png", 13);
-    tableros[2].agregar("../img/emparejados/card-8.png", 14, "../img/emparejados/card-8.png", 15);
-    tableros[2].agregar("../img/emparejados/card-9.png", 16, "../img/emparejados/card-9.png", 17);
-    tableros[2].agregar("../img/emparejados/card-10.png", 18, "../img/emparejados/card-10.png", 19);
+    tableros[2].agregar("../img/emparejados/card-1.png", 0, "../img/emparejados/card-1.png", 2);
+    tableros[2].agregar("../img/emparejados/card-2.png", 4, "../img/emparejados/card-2.png", 6);
+    tableros[2].agregar("../img/emparejados/card-3.png", 10, "../img/emparejados/card-3.png", 12);
+    tableros[2].agregar("../img/emparejados/card-4.png", 18, "../img/emparejados/card-4.png", 1);
+    tableros[2].agregar("../img/emparejados/card-5.png", 3, "../img/emparejados/card-5.png", 17);
+    tableros[2].agregar("../img/emparejados/card-6.png", 11, "../img/emparejados/card-6.png", 14);
+    tableros[2].agregar("../img/emparejados/card-7.png", 13, "../img/emparejados/card-7.png", 19);
+    tableros[2].agregar("../img/emparejados/card-8.png", 9, "../img/emparejados/card-8.png", 5);
+    tableros[2].agregar("../img/emparejados/card-9.png", 7, "../img/emparejados/card-9.png", 8);
+    tableros[2].agregar("../img/emparejados/card-10.png", 15, "../img/emparejados/card-10.png", 16);
 
     tableros[2].iniciar();
 
 
-    tableros.forEach(t => {
-      t.setValidacion(() => {
-        console.log("gano");
+
+
+    tableros[0].setValidacion(() => {
+      console.log("gano");
+      if (tableros[0].intentos <= 6) {
+        resultados.agregarResultados([{ area: "salud", valor: 100 }]);
+      } else if (tableros[0].intentos == 7) {
+        resultados.agregarResultados([{ area: "salud", valor: 75 }]);
+      } else if (tableros[0].intentos == 8) {
+        resultados.agregarResultados([{ area: "salud", valor: 50 }]);
+      } else if (tableros[0].intentos == 9) {
+        resultados.agregarResultados([{ area: "salud", valor: 25 }]);
+      } else if (tableros[0].intentos >= 10) {
+
+      }
+      setTimeout(() => {
         seguir();
+      }, 1000);
+
+    });
+
+    tableros[1].setValidacion(() => {
+      console.log("gano");
+      if (tableros[1].intentos <= 8) {
+        resultados.agregarResultados([{ area: "salud", valor: 100 }]);
+      } else if (tableros[1].intentos == 9) {
+        resultados.agregarResultados([{ area: "salud", valor: 83 }]);
+      } else if (tableros[1].intentos == 10) {
+        resultados.agregarResultados([{ area: "salud", valor: 67 }]);
+      } else if (tableros[1].intentos == 11) {
+        resultados.agregarResultados([{ area: "salud", valor: 50 }]);
+      } else if (tableros[1].intentos >= 12) {
+
+      }
+      setTimeout(() => {
+        seguir();
+      }, 1000);
+
+    });
+
+
+    tableros[2].setValidacion(() => {
+      console.log("gano");
+      if (tableros[2].intentos <= 10) {
+        resultados.agregarResultados([{ area: "salud", valor: 100 }]);
+      } else if (tableros[2].intentos == 11) {
+        resultados.agregarResultados([{ area: "salud", valor: 90 }]);
+      } else if (tableros[2].intentos == 12) {
+        resultados.agregarResultados([{ area: "salud", valor: 80 }]);
+      } else if (tableros[2].intentos == 13) {
+        resultados.agregarResultados([{ area: "salud", valor: 60 }]);
+      } else if (tableros[2].intentos >= 14) {
+
+      }
+      setTimeout(() => {
+        seguir();
+      }, 1000);
+
+    });
+
+    resultados.agregarMaximo([{area:"salud", valor:300}]);
+
+
+    tableros.forEach(t => {
+
+      t.setIntentoAcierto(() => {
+        console.log("acierto");
+      });
+
+      t.setIntentoFallo(() => {
+        console.log("fallo");
       });
     });
 
@@ -423,19 +469,26 @@
       s.style.right = "0";
       s.style.top = "0";
     });
-    pinturac.setIntentoAcierto(()=>{
-        console.log("bien")
-        siguiente.disabled = false;
-        //aqui agregar puntaje cuadno seleccione la imagen A
 
+    resultados.agregarMaximo([{
+        area:"Arte", valor:100
+      }]);
+
+    pinturac.setIntentoAcierto(() => {
+      console.log("bien")
+      siguiente.disabled = false;
+      //aqui agregar puntaje cuadno seleccione la imagen A
+      resultados.agregarResultados([{
+        area:"Arte", valor:100
+      }]);
     });
 
-    pinturac.setIntentoFallo(()=>{
+    pinturac.setIntentoFallo(() => {
       console.log("mal")
     });
-    
-    pinturac.setValidacion(()=>{
-        
+
+    pinturac.setValidacion(() => {
+
     });
 
 
@@ -480,10 +533,10 @@
     contenedor.agregar(tableros[1].getActividad());
     contenedor.agregar(tableros[2].getActividad());
     contenedor.agregarHTML(document.querySelector(".ppintura")).setAccion(() => {
-        mostrar(".zona__navegacion");
-        navegable.colocarTiempo();
-        navegable.colocarProgreso();
-      });;
+      mostrar(".zona__navegacion");
+      navegable.colocarTiempo();
+      navegable.colocarProgreso();
+    });;
 
 
     contenedor.incluirEn(document.querySelector(".ppreguntas"));

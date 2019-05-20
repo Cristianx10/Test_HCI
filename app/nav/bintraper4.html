@@ -62,15 +62,15 @@
           <div class="basura__elementos">
 
           </div>
-      
+
           <div class="basura">
-              <div id="vidrio" class="bote" style="background-image: url('../../img/ciencias/vidrio.png')"></div>
-              <div id="plastico" class="bote" style="background-image: url('../../img/ciencias/plastico.png')"></div>
-              <div id="organico" class="bote" style="background-image: url('../../img/ciencias/organico.png')"></div>
-              <div id="papel" class="bote" style="background-image: url('../../img/ciencias/papel.png')"></div>
+            <div id="vidrio" class="bote" style="background-image: url('../../img/ciencias/vidrio.png')"></div>
+            <div id="plastico" class="bote" style="background-image: url('../../img/ciencias/plastico.png')"></div>
+            <div id="organico" class="bote" style="background-image: url('../../img/ciencias/organico.png')"></div>
+            <div id="papel" class="bote" style="background-image: url('../../img/ciencias/papel.png')"></div>
           </div>
         </div>
-        
+
 
       </div>
       <div class="zona__navegacion" style="display:none;">
@@ -123,34 +123,41 @@
 
     loadJson("../../data/ciencias/reciclaje.json", (r) => {
 
-        let recursos = r.recursos;
-        reciclaje.incluirEn(".basura__elementos");
-        for (let i = 0; i < recursos.length; i++) {
-            let rec = recursos[i];
-            let e = document.createElement("div");
-            e.className = "elemento_basura";
-            e.innerHTML = `<img src="${rec.url}" alt="" class="recurso">`;
+      let recursos = r.recursos;
+      reciclaje.incluirEn(".basura__elementos");
 
-            reciclaje.agregar(e, rec.categoria);
-        }
+      for (let i = 0; i < recursos.length; i++) {
+        let rec = recursos[i];
+        let e = document.createElement("div");
+        e.className = "elemento_basura";
+        e.innerHTML = `<img src="${rec.url}" alt="" class="recurso">`;
 
-
-        reciclaje.almacenaje(["#vidrio", "#plastico", "#organico", "#papel"], ".basura__elementos div");
-        reciclaje.arrastrables("div", ".basura__elementos");
+        reciclaje.agregar(e, rec.categoria);
+      }
 
 
-        reciclaje.setIntentoAcierto(()=>{
-            console.log("bien")
-        });
+      reciclaje.almacenaje(["#vidrio", "#plastico", "#organico", "#papel"], ".basura__elementos div");
+      reciclaje.arrastrables("div", ".basura__elementos");
+      reciclaje.setResetear((s) => {
+        s.style.display = "none";
+      });
+    });
 
-        reciclaje.setIntentoFallo(()=>{
-            console.log("mal")
-        });
+    reciclaje.setIntentoAcierto(() => {
+      console.log("bien")
+      resultados.agregarResultados([{area:"Ciencia", valor:10}]);
+    });
 
+    reciclaje.setIntentoFallo(() => {
+      console.log("mal")
+    });
 
-        reciclaje.setResetear((s) => {
-            s.style.display = "none";
-        });
+    reciclaje.setValidacion(()=>{
+      console.log("Validado")
+    });
+
+    reciclaje.setValidar(()=>{
+      resultados.agregarMaximo([{area:"Ciencia", valor:200}]);
     });
 
 

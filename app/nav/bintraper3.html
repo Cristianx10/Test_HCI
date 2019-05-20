@@ -83,27 +83,27 @@
     var preguntas = [];
 
     let temp__pregunta = new PreguntaD("¿Cuántas veces he peleado físicamente con algún compañero del colegio?", "Ninguna", "3 veces o más")
-    temp__pregunta.agregar("1", []);
-    temp__pregunta.agregar("2", []);
-    temp__pregunta.agregar("3", []);
+    temp__pregunta.agregar("1", [{area:"Deportes",  valor:10},{area:"Educacion",  valor:20},{area:"Fuerza publica",  valor:20}]);
+    temp__pregunta.agregar("2", [{area:"Ingenieria",  valor:10}]);
+    temp__pregunta.agregar("3", [{area:"Deportes",  valor:-10},{area:"Educacion",  valor:-20},{area:"Fuerza publica",  valor:-10}]);
     preguntas.push(temp__pregunta);
 
     temp__pregunta = new PreguntaD("¿En el último año cuántas veces has evaluado tu progreso en el hobby que más te gusta?", "Ninguna vez", "Más de 2 veces");
-    temp__pregunta.agregar("1", []);
+    temp__pregunta.agregar("1", [{area:"Deportes",  valor:-10},{area:"Educacion",  valor:-10},{area:"Arte",  valor:-10}]);
     temp__pregunta.agregar("2", []);
-    temp__pregunta.agregar("3", []);
+    temp__pregunta.agregar("3", [{area:"Deportes",  valor:20},{area:"Arte",  valor:20}]);
     preguntas.push(temp__pregunta);
 
     temp__pregunta = new PreguntaD("Me considero una persona amigable ", "Totalmente de acuerdo", "En desacuerdo")
-    temp__pregunta.agregar("1", []);
-    temp__pregunta.agregar("2", []);
-    temp__pregunta.agregar("3", []);
+    temp__pregunta.agregar("1", [{area:"Diseño",  valor:10},{area:"Educacion",  valor:20},{area:"Fuerza publica",  valor:20}]);
+    temp__pregunta.agregar("2", [{area:"Ingenieria",  valor:20}]);
+    temp__pregunta.agregar("3", [{area:"Deportes",  valor:10},{area:"Arte",  valor:10}]);
     preguntas.push(temp__pregunta);
 
     temp__pregunta = new PreguntaD("Me considero una persona empatica", "Totalmente de acuerdo", "En desacuerdo")
-    temp__pregunta.agregar("1", []);
+    temp__pregunta.agregar("1", [{area:"Diseño",  valor:20},{area:"Salud",  valor:20},{area:"Educacion",  valor:20},{area:"Fuerza publica",  valor:10}]);
     temp__pregunta.agregar("2", []);
-    temp__pregunta.agregar("3", []);
+    temp__pregunta.agregar("3", [{area:"Ingenieria",  valor:10},{area:"Educacion",  valor:-20},{area:"Ciencia",  valor:20}]);
     preguntas.push(temp__pregunta);
 
 

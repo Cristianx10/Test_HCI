@@ -97,18 +97,15 @@ var Clasificar = /** @class */ (function (_super) {
     Clasificar.prototype.validarelemento = function (comparacion) {
         if (this.seleccion != null) {
             this.seleccion.clasificado = true;
-            this.validar();
             if (this.seleccion.categoria == comparacion) {
-                this.aciertos++;
                 return true;
             }
             else {
-                this.fallos++;
                 return false;
             }
         }
     };
-    Clasificar.prototype.validar = function () {
+    Clasificar.prototype.valida = function () {
         var num = 0;
         this.elementos.forEach(function (b) {
             if (b.clasificado) {

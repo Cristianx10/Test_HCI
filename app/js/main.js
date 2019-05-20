@@ -106,7 +106,7 @@ var Navegable = /** @class */ (function () {
         $(".principal").append(this.progress);
         this.progress.style.position = "absolute";
         this.progress.style.display = "block";
-        this.progress.style.left = "0px";
+        this.progress.style.left = "-50px";
         this.progress.style.bottom = "10px";
     };
     Navegable.prototype.colocarTiempo = function () {
@@ -166,17 +166,25 @@ var Navegable = /** @class */ (function () {
         if (this.permitir || this.permitirAll) {
             createjs.Sound.play("seguir");
             this.ocultar(this.actualPantallaHtml());
-            if (this.actual < this.elementos.elementos.length - 1) {
+            if (this.actual < this.elementos.elementos.length) {
                 if (this.inicio != null) {
                     this.inicio(this.actualPantalla(), this.actual);
                 }
                 this.actualPantalla().tiempoDefinido = true;
                 this.actualPantalla().timer.stop();
-                this.actual++;
-                this.av.innerText = this.actual + 1 + "/" + this.elementos.elementos.length;
-                this.progreso.actualizarPosicion(this.actual);
-                this.mostrar(this.actualPantallaHtml());
-                this.actualPantalla().start();
+                if (this.actual + 1 < this.elementos.elementos.length) {
+                    this.actual++;
+                    this.av.innerText = this.actual + 1 + "/" + this.elementos.elementos.length;
+                    this.progreso.actualizarPosicion(this.actual);
+                    this.mostrar(this.actualPantallaHtml());
+                    this.actualPantalla().start();
+                }
+                else {
+                    this.progreso.actualizarPosicion(this.actual + 1);
+                    if (this.final != null) {
+                        this.final();
+                    }
+                }
             }
             else {
                 this.progreso.actualizarPosicion(this.actual + 1);
@@ -623,6 +631,9 @@ var Interaccion = /** @class */ (function () {
     Interaccion.prototype.setIntentoAcierto = function (intentoAcierto) {
         this.intentoAcierto = intentoAcierto;
     };
+    Interaccion.prototype.setValidar = function (validar) {
+        this.validar = validar;
+    };
     Interaccion.prototype.incluirEn = function (ubicacion) {
         var u = document.querySelector(ubicacion);
         u.append(this.elemento);
@@ -634,9 +645,11 @@ var Interaccion = /** @class */ (function () {
         return this.contenido;
     };
     Interaccion.prototype.agregarResultados = function () {
+        if (this.validar != null) {
+            this.validar();
+        }
     };
     Interaccion.prototype.registro = function () {
-        console.log("numero: " + this.intentos);
         resultados.agregar(this.tipoId, [
             { id: "aciertos", valor: this.aciertos + "" },
             { id: "fallos", valor: this.fallos + "" },
@@ -683,6 +696,9 @@ var Actividad = /** @class */ (function () {
     Actividad.prototype.setIntentoAcierto = function (intentoAcierto) {
         this.intentoAcierto = intentoAcierto;
     };
+    Actividad.prototype.setValidar = function (validar) {
+        this.validar = validar;
+    };
     Actividad.prototype.getElemento = function (id) {
         if (id != null) {
             this.elemento.id = id;
@@ -690,9 +706,11 @@ var Actividad = /** @class */ (function () {
         return this.elemento;
     };
     Actividad.prototype.agregarResultados = function () {
+        if (this.validar != null) {
+            this.validar();
+        }
     };
     Actividad.prototype.registro = function () {
-        console.log("numero: " + this.intentos);
         resultados.agregar(this.tipoId, [
             { id: "aciertos", valor: this.aciertos + "" },
             { id: "fallos", valor: this.fallos + "" },
@@ -706,5 +724,8 @@ var Actividad = /** @class */ (function () {
 this.pareja.tablero.intentos,this.pareja.tablero.aciertos,this.pareja.tablero.fallos, this.pareja.tablero.valido
 
 */
-resultados.agregarMaximo([{ area: "matematicas", valor: 50 }, { area: "fuerza publica", valor: 50 }]);
-resultados.agregarResultados([{ area: "matematicas", valor: 50 }, { area: "fuerza publica", valor: 50 }]);
+/*
+resultados.agregarMaximo([{area:"matematicas", valor:50}, {area:"fuerza publica", valor:50}]);
+resultados.agregarResultados([{area:"matematicas", valor:50}, {area:"fuerza publica", valor:50}]);
+
+*/ 

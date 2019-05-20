@@ -60,7 +60,6 @@ class Casilla {
                         this.padre.intentoFallo();
                     }
                     this.padre.intentos++;
-                    
                 }
 
             }
