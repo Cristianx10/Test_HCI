@@ -230,6 +230,7 @@
         contenedor.incluirEn(document.querySelector(".ppreguntas"));
         navegacion.iniciar();
         var siguiente = document.querySelector('.btn_siguiente');
+
         function seguir() {
             navegacion.setPermitir(true);
             navegacion.siguiente();
@@ -237,9 +238,11 @@
                 siguiente.disabled = true;
             }
         }
+
         $(".opcion").click(() => {
             siguiente.disabled = false;
         });
+        
         navegacion.setFinal(() => {
             goTo("bintraper");
         });
