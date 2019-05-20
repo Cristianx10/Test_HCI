@@ -157,16 +157,16 @@
         matematica4.agregar("2", []);
         matematica4.agregar("3", []);
         contenedor.agregarHTML(document.querySelector('.pinicio'));
-        contenedor.agregar(matematica.getPregunta()).setAccion(function () {
+        contenedor.agregar(matematica.getPregunta(),40).setAccion(function () {
             navegacion.colocarTiempo();
             navegacion.colocarProgreso();
             mostrar(".zona__navegacion");
         });
-        contenedor.agregar(matematica2.getPregunta()).setAccion(function () {
+        contenedor.agregar(matematica2.getPregunta(),40).setAccion(function () {
         });
-        contenedor.agregar(matematica3.getPregunta()).setAccion(function () {
+        contenedor.agregar(matematica3.getPregunta(),40).setAccion(function () {
         });
-        contenedor.agregar(matematica4.getPregunta()).setAccion(function () {
+        contenedor.agregar(matematica4.getPregunta(),40).setAccion(function () {
             siguiente.disabled = false;
             console.log("aaa");
         });

@@ -587,6 +587,22 @@ function hsvToRgb(h, s, v) {
     ];
 }
 var resultados = new Resultados("resultados");
+function cargar(name) {
+    if (name != null) {
+        loadJson("/" + name, function (result) {
+            var r = JSON.stringify(result);
+            localStorage.setItem(resultados.id, r);
+            location.reload();
+        });
+    }
+    else {
+        loadJson("/carga.json", function (result) {
+            var r = JSON.stringify(result);
+            localStorage.setItem(resultados.id, r);
+            location.reload();
+        });
+    }
+}
 /*
 resultados.calcularMaximo([
 

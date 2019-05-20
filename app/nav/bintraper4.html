@@ -51,7 +51,7 @@
 
         <div class="pantalla pinicio" style="background-image: url('../img/Principal Intra personal.png')">
           <div class="introduccion">
-            <h1 class="titulo">Inteligencia Intrapersonal 3</h1>
+            <h1 class="titulo">Inteligencia Intrapersonal 4</h1>
             <p id="desc" class="descripcion">En esta sección de la prueba evaluaremos tus conocimientos en el area
               Intrapersonal</p>
             <button class="botonComenzar" onclick="seguir()">Comenzar</button>
@@ -100,8 +100,10 @@
   <script src="../js/main.js"></script>
   <script src="../js/pregunta.js"></script>
 
+
   <!--Interacciones complejas-->
   <script src="../js/reciclaje.js"></script>
+  <script src="/js/descartes.js"></script>
 
   <script type="text/javascript">
 
@@ -221,7 +223,9 @@
       siguiente.disabled = false;
     });
 
-
+    navegacion.setFinal(() => {
+            goTo("bresultados");
+        });
   </script>
 
 

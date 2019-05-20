@@ -398,12 +398,16 @@
 
 
     /*Fin de la programacion de tuberias----------------------------------------------*/
-
+  
     contenedor.agregarHTML(document.querySelector('.pinicio')).setAccionFinal(() => {
       mostrar(".zona__navegacion");
+      navegacion.colocarTiempo();
+                navegacion.colocarProgreso();
+  
     });
 
     shuffle(preguntas);
+
 
     preguntas.forEach(p => {
       contenedor.agregar(p.getPregunta(), 40);
@@ -412,10 +416,13 @@
     /*Aqui va la pizzarra**/
     contenedor.agregarHTML(document.querySelector('.ptuberiat')).setAccion(() => {
       ocultar(".zona__navegacion");
-
+      navegacion.ocultarTiempo();
+                navegacion.ocultarProgreso();
     });
     contenedor.agregar(new Contenido(document.querySelector(".tuberia_tutorial"), tab)).setAccion(() => {
       siguiente.disabled = true;
+      navegacion.colocarTiempo();
+                navegacion.colocarProgreso();
       mostrar(".zona__navegacion")
     });
     contenedor.agregar(new Contenido(document.querySelector(".ptuberia1"), tab2)).setAccion(() => {

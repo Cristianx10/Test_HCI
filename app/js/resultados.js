@@ -208,9 +208,6 @@ var Resultados = /** @class */ (function () {
 
 
     */
-    Resultados.prototype.cargar = function (data) {
-        localStorage.setItem(this.id, data);
-    };
     Resultados.prototype.limpiarTodo = function () {
         localStorage.clear();
     };
