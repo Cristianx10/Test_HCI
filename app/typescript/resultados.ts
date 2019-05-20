@@ -355,12 +355,16 @@ class VerResultado {
         return this.elemento;
     }
 
-    felicidades() {
+    felicidades(name:string) {
         let e = document.createElement("div");
+        let profesion = this.categoria;
+        if(name != null){
+            profesion = name;
+        }
         e.className = "cuadro_felicitaciones";
         e.innerHTML = `
         <div class="cuadro_bordes_lados">
-        <p><b>¡Felicitaciones!</b> tienes un <b>${this.valor}%</b> de aptitud de ser un gran <b>${this.categoria}</b></p>
+        <p><b>¡Felicitaciones!</b> tienes un <b>${this.valor}%</b> de aptitud de ser un gran <b>${profesion}</b></p>
 
         <div class="medalla_icon">
                 <img src="../../includes/iconos/medalla.svg" alt="">

@@ -269,10 +269,14 @@ var VerResultado = /** @class */ (function () {
     VerResultado.prototype.getElemento = function () {
         return this.elemento;
     };
-    VerResultado.prototype.felicidades = function () {
+    VerResultado.prototype.felicidades = function (name) {
         var e = document.createElement("div");
+        var profesion = this.categoria;
+        if (name != null) {
+            profesion = name;
+        }
         e.className = "cuadro_felicitaciones";
-        e.innerHTML = "\n        <div class=\"cuadro_bordes_lados\">\n        <p><b>\u00A1Felicitaciones!</b> tienes un <b>" + this.valor + "%</b> de aptitud de ser un gran <b>" + this.categoria + "</b></p>\n\n        <div class=\"medalla_icon\">\n                <img src=\"../../includes/iconos/medalla.svg\" alt=\"\">\n                <img class=\"icono\" src=\"" + this.src + "\" alt=\"\">\n            </div>\n        </div>\n        ";
+        e.innerHTML = "\n        <div class=\"cuadro_bordes_lados\">\n        <p><b>\u00A1Felicitaciones!</b> tienes un <b>" + this.valor + "%</b> de aptitud de ser un gran <b>" + profesion + "</b></p>\n\n        <div class=\"medalla_icon\">\n                <img src=\"../../includes/iconos/medalla.svg\" alt=\"\">\n                <img class=\"icono\" src=\"" + this.src + "\" alt=\"\">\n            </div>\n        </div>\n        ";
         return e;
     };
     return VerResultado;
