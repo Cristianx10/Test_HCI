@@ -180,11 +180,16 @@
 
         laberinto.setIntentoFallo(() => {
             console.log("Perdio");
-            laberinto.iniciar();
+            var contador =0;
+            contador += 1;
+            if (contador ==3){
+                seguir();
+            }
         });
 
         laberinto.setValidacion(() => {
             console.log("Gano");
+            seguir();
         });
 
         laberinto.incluirEn("#laberinto");
@@ -205,7 +210,9 @@
         });
 
 
-        contenedor.agregarHTML(document.querySelector('#laberinto'));
+        contenedor.agregarHTML(document.querySelector('#laberinto')).setAccion(() => {
+            ocultar(".zona__navegacion");
+        });
 
 
         /*/*//**/
