@@ -54,10 +54,13 @@ class Casilla {
                     || this.padre.down(this.padre.lider.posicion) == this.posicion
                     || this.padre.left(this.padre.lider.posicion) == this.posicion
                     || this.padre.right(this.padre.lider.posicion) == this.posicion) {
+                    
                     this.intercambiarPosicion(padre.lider);
                     if (this.padre.intentoFallo != null) {
                         this.padre.intentoFallo();
                     }
+                    this.padre.intentos++;
+                    
                 }
 
             }
@@ -100,6 +103,7 @@ class Casilla {
             if (this.padre.final != null && this.padre.final.validado) {
                 if (this.padre.validacion != null) {
                     this.padre.validacion();
+                    this.padre.valido = true;
                 }
                 // console.log("ganaste");
             }
@@ -203,6 +207,9 @@ class Pizarra extends Interaccion{
         this.width = width;
         this.height = height;
 
+        this.elemento.style.width = columnas*width + "px";
+        this.elemento.style.height = filas*height + "px";
+
         this.inicial = this.casillas[this.nInicial];
         this.final = this.casillas[this.nFinal];
         this.lider = this.casillas[this.nLider];
@@ -296,7 +303,7 @@ class Pizarra extends Interaccion{
                 c.contenido.style.background = "#C4C4C3";
             }
         });
-        
+
         if(this.inicial != null){
             this.inicial.secuencia();
         }

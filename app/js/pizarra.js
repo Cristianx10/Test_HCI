@@ -55,6 +55,7 @@ var Casilla = /** @class */ (function () {
                     if (_this.padre.intentoFallo != null) {
                         _this.padre.intentoFallo();
                     }
+                    _this.padre.intentos++;
                 }
             }
             if (_this.padre != null) {
@@ -85,6 +86,7 @@ var Casilla = /** @class */ (function () {
             if (this.padre.final != null && this.padre.final.validado) {
                 if (this.padre.validacion != null) {
                     this.padre.validacion();
+                    this.padre.valido = true;
                 }
                 // console.log("ganaste");
             }
@@ -159,6 +161,8 @@ var Pizarra = /** @class */ (function (_super) {
         this.filas = filas;
         this.width = width;
         this.height = height;
+        this.elemento.style.width = columnas * width + "px";
+        this.elemento.style.height = filas * height + "px";
         this.inicial = this.casillas[this.nInicial];
         this.final = this.casillas[this.nFinal];
         this.lider = this.casillas[this.nLider];

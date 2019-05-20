@@ -850,6 +850,7 @@ class Interaccion implements Validable {
 
     elemento: HTMLElement;
 
+    puntos:number;
     aciertos: number;
     fallos: number;
     intentos: number;
@@ -867,6 +868,7 @@ class Interaccion implements Validable {
         this.fallos = 0;
         this.intentos = 0;
         this.valido = true;
+        this.puntos = 0;
         this.elemento = document.createElement('div');
         this.tipoId = "pregunta";
         this.contenido = new Contenido(this.elemento, this);
@@ -902,11 +904,12 @@ class Interaccion implements Validable {
     }
 
     registro() {
-        console.log("Hola");
+        console.log("numero: " + this.intentos);
         resultados.agregar(this.tipoId, [
             { id: "aciertos", valor: this.aciertos + "" },
             { id: "fallos", valor: this.fallos + "" },
             { id: "intentos", valor: this.intentos + "" },
+            { id: "puntuacion", valor:this.puntos + ""},
             { id: "validacion", valor: this.valido + "" },
             { id: "Tiempo usado (segundos)", valor: this.contenido.getSegundos() + "" }
         ]);
@@ -989,7 +992,7 @@ class Actividad implements Validable {
     }
 
     registro() {
-        console.log("Hola");
+        console.log("numero: " + this.intentos);
         resultados.agregar(this.tipoId, [
             { id: "aciertos", valor: this.aciertos + "" },
             { id: "fallos", valor: this.fallos + "" },
