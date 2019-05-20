@@ -34,4 +34,69 @@
       -ms-user-select: contain;
           user-select: contain;
 }
+
+.division_palillos {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.division_palillos h3 {
+  color: #FF9900;
+  margin-top: -58px;
+}
+
+.ppalillosn1 {
+  border: dashed #FF9900 3px;
+  margin-top: 25px;
+  margin-left: 100px;
+  width: 1100px;
+  height: 500px;
+  padding: 20PX;
+}
+
+.ppalillosn1 h1 {
+  margin-top: 20px;
+  color: #E64973;
+}
+
+.ppalillosn1 h2 {
+  margin-bottom: 20px;
+}
+
+.ppalillosn2 {
+  border: dashed #FF9900 3px;
+  margin-top: 25px;
+  margin-left: 100px;
+  width: 1100px;
+  height: 460px;
+  padding: 20PX;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.ppalillosn2 h1 {
+  margin-top: 20px;
+  color: #E64973;
+}
+
+.ppalillosn2 palillos__info {
+  width: 500px;
+}
+
+.ppalillosn2 #palillosn2 {
+  border: dashed #FF9900 3px;
+}
 /*# sourceMappingURL=rompecabeza-piezas.css.map */

@@ -59,9 +59,12 @@
             <h2>Retira 3 de los 13 palillos 7 haz que queden formados solo 3 triángulos</h2>
           </div>
         </div>
-        <div>
+        <div class="division_palillos">
           <div id="palillosn1"></div>
+          <div>
           <div id="palillosn1__almacen"></div>
+          <h3>Palillos retirados</h3>
+        </div>
         </div>
       </div>
 
@@ -177,7 +180,9 @@
 
     let palo = new Palillos();
     palo.size(300, 350);
+    
 
+    //------------------------------------------------------------------------------------
     palo.almacenarEn("#palillosn1__almacen");
 
     palo.crear(0, 0, "vertical");
