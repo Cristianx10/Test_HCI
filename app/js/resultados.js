@@ -171,9 +171,9 @@ var Resultados = /** @class */ (function () {
             }
         });
         var categoria = 0;
-        var encontrado = false;
         var _loop_1 = function (h) {
             var v = valorTotal[h];
+            var encontrado = false;
             if (this_1.maximos != null) {
                 this_1.maximos.forEach(function (c, index) {
                     if (c.area == v.area) {

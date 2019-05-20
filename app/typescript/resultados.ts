@@ -232,10 +232,10 @@ class Resultados {
 
 
         let categoria: number = 0;
-        let encontrado = false;
+        
         for (let h = 0; h < valorTotal.length; h++) {
             let v = valorTotal[h];
-
+            let encontrado = false;
             if (this.maximos != null) {
                 this.maximos.forEach((c, index) => {
                     if (c.area == v.area) {
