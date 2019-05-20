@@ -175,6 +175,7 @@
             loadJson("../../data/ciencias/secuencias.json", (r) => {
                 let secuencias = [];
                 let actual = 0;
+                let nactual = 0;
                 let s = r.secuencias;
                 let base = document.querySelector(".secuencia");
                 for (let i = 0; i < s.length; i++) {
@@ -196,7 +197,9 @@
                     secuencia.setIntentoFallo(() => {
                         console.log("fallo");
                         secuencias[actual].terminar();
+
                         actual++;
+
                         if (actual < secuencias.length) {
                             secuencias[actual].start();
                             $(".secuencias").append(secuencias[actual].getElemento());
@@ -204,13 +207,21 @@
                            // seguir();
                         }
                     });
+                    
                     secuencia.setValidacion((vali) => {
                         console.log("validado");
 
                         if (vali) {
                             console.log("gano");
+                          //  seguir();
                         }
-                        seguir();
+                        nactual++;
+                        console.log(nactual)
+                        
+                        if(nactual >= 3){
+                            seguir();
+                        }
+                     
                         secuencias[actual].terminar();
                         actual++;
                         if (actual < secuencias.length) {

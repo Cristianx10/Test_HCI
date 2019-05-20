@@ -19,6 +19,7 @@ var Secuencias = /** @class */ (function (_super) {
         _this.elementos = new Array();
         _this.agregado = 0;
         _this.actual = 0;
+        _this.nactual = 0;
         _this.elemento.className = "secuencia";
         return _this;
     }
@@ -81,6 +82,7 @@ var SecuenciaElemento = /** @class */ (function (_super) {
         _this.contenedor.className = "contenedor__imagen";
         _this.orden = orden;
         _this.tipoId = "Secuencia";
+        _this.actual = 0;
         _this.elemento.addEventListener("click", function (e) {
             var clasname = _this.contenedor.className;
             if (_this.seleccionado == false) {
@@ -103,6 +105,7 @@ var SecuenciaElemento = /** @class */ (function (_super) {
                     }
                 }
                 _this.padre.actual++;
+                console.log(_this.padre.actual, _this.padre.elementos.length);
                 if (_this.padre.actual >= _this.padre.elementos.length) {
                     var respuesta = false;
                     if (_this.padre.aciertos >= _this.padre.elementos.length) {

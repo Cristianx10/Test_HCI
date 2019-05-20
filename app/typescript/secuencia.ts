@@ -5,6 +5,7 @@ class Secuencias extends Interaccion {
     contenedor?: Contenedor;
     agregado: number;
     actual: number;
+  
 
 
     constructor() {
@@ -12,6 +13,7 @@ class Secuencias extends Interaccion {
         this.elementos = new Array();
         this.agregado = 0;
         this.actual = 0;
+        this.nactual = 0;
         this.elemento.className = "secuencia";
     }
 
@@ -79,6 +81,7 @@ class SecuenciaElemento extends Interaccion {
     padre: Secuencias;
     tiempo: number;
     seleccionado = false;
+    actual:number;
 
     constructor(padre: Secuencias, elemento: HTMLElement, orden: number, tiempo: number) {
         super();
@@ -90,6 +93,7 @@ class SecuenciaElemento extends Interaccion {
         this.contenedor.className = "contenedor__imagen";
         this.orden = orden;
         this.tipoId = "Secuencia";
+        this.actual = 0;
 
         this.elemento.addEventListener("click", (e: any) => {
             let clasname = this.contenedor.className;
@@ -115,6 +119,7 @@ class SecuenciaElemento extends Interaccion {
                     }
                 }
                 this.padre.actual++;
+                console.log(this.padre.actual, this.padre.elementos.length)
                 if (this.padre.actual >= this.padre.elementos.length) {
 
                     let respuesta = false;
@@ -123,11 +128,15 @@ class SecuenciaElemento extends Interaccion {
                         this.padre.valido = true;
                         this.valido = true;
                         this.registroOpcional();
+
                     }
+                  
 
                     if (this.padre.validacion != null) {
                         this.padre.validacion(respuesta);
                     }
+
+                   
                 }
             }
             this.seleccionado = true;
