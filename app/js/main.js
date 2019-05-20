@@ -703,4 +703,6 @@ var Actividad = /** @class */ (function () {
 /*
 this.pareja.tablero.intentos,this.pareja.tablero.aciertos,this.pareja.tablero.fallos, this.pareja.tablero.valido
 
-*/ 
+*/
+resultados.agregarMaximo([{ area: "matematicas", valor: 50 }, { area: "fuerza publica", valor: 50 }]);
+resultados.agregarResultados([{ area: "matematicas", valor: 50 }, { area: "fuerza publica", valor: 50 }]);

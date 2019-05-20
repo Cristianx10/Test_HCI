@@ -116,7 +116,7 @@ var Casilla = /** @class */ (function () {
                 // console.log("right green  " + this.padre.casillas[this.padre.right(this.posicion)].posicion + "  pos de  " + this.posicion);
                 this.padre.casillas[this.padre.right(this.posicion)].secuencia();
             }
-            this.contenido.style.background = "green";
+            this.contenido.style.background = "#E64973";
         }
     };
     Casilla.prototype.setSalidas = function (up, down, left, right) {
@@ -183,7 +183,7 @@ var Pizarra = /** @class */ (function (_super) {
         });
         this.fichas.insertBefore(this.lider.contenido, this.casillas[0].contenido);
         this.guias.insertBefore(this.lider.placeholder, this.casillas[0].placeholder);
-        this.lider.contenido.style.background = "blue";
+        this.lider.contenido.style.background = "#C4C4C3";
         this.validarSecuencia();
     };
     Pizarra.prototype.up = function (posicion) {
@@ -238,7 +238,7 @@ var Pizarra = /** @class */ (function (_super) {
         this.casillas.forEach(function (c) {
             c.validado = false;
             if (c != _this.lider && c != _this.inicial) {
-                c.contenido.style.background = "#E4537A";
+                c.contenido.style.background = "#C4C4C3";
             }
         });
         if (this.inicial != null) {

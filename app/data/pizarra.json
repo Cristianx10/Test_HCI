@@ -1,210 +1,108 @@
 {
     "secciones": [
         {
-            "tablero": "../../img/pizarra/tabla.png",
+            "tablero": "/img/pizarra/tabla_tutorial.png",
             "lider":19,
             "inicio":3,
             "final":15,
             "fichas": [
                 {
                     "posicion": 0,
-                    "tipo":1,
-                    "entradas": {
-                        "up": false,
-                        "down": false,
-                        "left": false,
-                        "right": false
-                    }
+                    "tipo":1
                 },
                 {
                     "posicion": 1,
                     "tipo":1,
                     "entradas": {
-                        "up": false,
-                        "down": false,
-                        "left": false,
-                        "right": false
+                        "down": false
                     }
                 },
                 {
                     "posicion": 2,
-                    "tipo":1,
-                    "entradas": {
-                        "up": false,
-                        "down": false,
-                        "left": false,
-                        "right": false
-                    }
+                    "tipo":1
                 },
                 {
                     "posicion": 3,
-                    "tipo":1,
+                    "tipo":0,
                     "entradas": {
-                        "up": false,
-                        "down": true,
-                        "left": false,
-                        "right": false
+                        "left": true,
+                        "down": true
                     }
                 },
                 {
                     "posicion": 4,
-                    "tipo":1,
+                    "tipo":0,
                     "entradas": {
-                        "up": false,
-                        "down": false,
-                        "left": false,
-                        "right": false
+                        "up": true,
+                        "down": true
                     }
                 },
                 {
                     "posicion": 5,
-                    "tipo":1,
+                    "tipo":0,
                     "entradas": {
-                        "up": false,
-                        "down": false,
-                        "left": false,
-                        "right": false
+                        "left": true,
+                        "right": true
                     }
                 },
                 {
                     "posicion": 6,
                     "tipo":0,
                     "entradas": {
-                        "up": false,
-                        "down": true,
-                        "left": false,
-                        "right": true
+                        "up": true,
+                        "down": true
                     }
                 },
                 {
                     "posicion": 7,
                     "tipo":0,
                     "entradas": {
-                        "up": false,
-                        "down": false,
-                        "left": true,
-                        "right": true
+                        "down": true,
+                        "left": true
                     }
                 },
                 {
                     "posicion": 8,
-                    "tipo":0,
-                    "entradas": {
-                        "up": true,
-                        "down": true,
-                        "left": false,
-                        "right": false
-                    }
+                    "tipo":0
                 },
                 {
                     "posicion": 9,
                     "tipo":0,
                     "entradas": {
-                        "up": false,
                         "down": true,
-                        "left": true,
-                        "right": false
+                        "left": true
                     }
                 },
                 {
                     "posicion": 10,
-                    "tipo":1,
+                    "tipo":0,
                     "entradas": {
-                        "up": false,
-                        "down": false,
-                        "left": false,
-                        "right": false
+                        "up": true,
+                        "down": true
                     }
                 },
                 {
                     "posicion": 11,
                     "tipo":0,
                     "entradas": {
-                        "up": false,
                         "down": true,
-                        "left": false,
                         "right": true
                     }
                 },
                 {
                     "posicion": 12,
-                    "tipo":0,
-                    "entradas": {
-                        "up": false,
-                        "down": false,
-                        "left": true,
-                        "right": true
-                    }
+                    "tipo":0
                 },
                 {
                     "posicion": 13,
-                    "tipo":0,
+                    "tipo":1,
                     "entradas": {
-                        "up": true,
-                        "down": true,
-                        "left": false,
-                        "right": false
+                        "up": true
                     }
                 },
                 {
                     "posicion": 14,
-                    "tipo":0,
-                    "entradas": {
-                        "up": true,
-                        "down": false,
-                        "left": true,
-                        "right": false
-                    }
-                },
-                {
-                    "posicion": 15,
-                    "tipo":1,
-                    "entradas": {
-                        "up": false,
-                        "down": false,
-                        "left": false,
-                        "right": true
-                    }
-                },
-                {
-                    "posicion": 16,
-                    "tipo":0,
-                    "entradas": {
-                        "up": true,
-                        "down": false,
-                        "left": true,
-                        "right": false
-                    }
-                },
-                {
-                    "posicion": 17,
-                    "tipo":0,
-                    "entradas": {
-                        "up": false,
-                        "down": false,
-                        "left": true,
-                        "right": true
-                    }
-                },
-                {
-                    "posicion": 18,
-                    "tipo":0,
-                    "entradas": {
-                        "up": true,
-                        "down": false,
-                        "left": true,
-                        "right": false
-                    }
-                },
-                {
-                    "posicion": 19,
-                    "tipo":0,
-                    "entradas": {
-                        "up": false,
-                        "down": false,
-                        "left": false,
-                        "right": false
-                    }
+                    "tipo":0
                 }
             ]
         },

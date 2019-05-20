@@ -142,7 +142,7 @@ class Casilla {
                 this.padre.casillas[this.padre.right(this.posicion)].secuencia();
             }
 
-            this.contenido.style.background = "green";
+            this.contenido.style.background = "#E64973";
         }
 
     }
@@ -233,7 +233,7 @@ class Pizarra extends Interaccion{
         this.fichas.insertBefore(this.lider.contenido, this.casillas[0].contenido);
         this.guias.insertBefore(this.lider.placeholder, this.casillas[0].placeholder);
 
-        this.lider.contenido.style.background = "blue";
+        this.lider.contenido.style.background = "#C4C4C3";
 
         this.validarSecuencia();
 
@@ -293,9 +293,10 @@ class Pizarra extends Interaccion{
         this.casillas.forEach(c => {
             c.validado = false;
             if (c != this.lider && c != this.inicial) {
-                c.contenido.style.background = "#E4537A";
+                c.contenido.style.background = "#C4C4C3";
             }
         });
+        
         if(this.inicial != null){
             this.inicial.secuencia();
         }

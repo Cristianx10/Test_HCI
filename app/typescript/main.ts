@@ -545,10 +545,11 @@ function cargarImagen(url: string, width: number, height: number, columnas: numb
         let fragmentoImg: HTMLElement = <any>image.cloneNode();
 
         c++;
+
         fragmentoImg.style.left = -(c * width) + "px";
         fragmentoImg.style.top = f + "px";
-
         if ((c + 1) == columnas) {
+
             c = -1;
             f -= height;
         }
@@ -1003,3 +1004,6 @@ class Actividad implements Validable {
 this.pareja.tablero.intentos,this.pareja.tablero.aciertos,this.pareja.tablero.fallos, this.pareja.tablero.valido
 
 */
+
+resultados.agregarMaximo([{area:"matematicas", valor:50}, {area:"fuerza publica", valor:50}]);
+resultados.agregarResultados([{area:"matematicas", valor:50}, {area:"fuerza publica", valor:50}]);
