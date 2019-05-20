@@ -163,7 +163,7 @@
     }
 </style>
 
-<div class="pantalla" style=" background-image: url('../../img/programacion/fondo.png')">
+<div class="pantalla" style=" background-image: url('/img/background-oscuro.png')">
     <div id="id_leftcontenido">
         <h1>Encuentra las gafas de Pingui</h1>
         <br>
@@ -171,12 +171,12 @@
         <br>
         <button class="boton" onclick="seguir()">Comenzar</button>
     </div>
-    <img id="id_leftcontenido_img" src="../../img/programacion/pingui.png">
+    <img id="id_leftcontenido_img" src="/img/programacion/pingui.png">
 
 
 </div>
 
-<div class="pantalla" style=" background-image: url('../../img/programacion/fondoB.png')">
+<div class="pantalla" style=" background-image: url('/img/background-oscuro.png')">
     <div id="id_conlistado">
         <h1 id="id_titulo">Instrucciones</h1>
         <ul id="id_listado">
@@ -223,7 +223,7 @@
     <img id="id_sintaxis" src="../../img/programacion/sintaxis.png" alt="">
 </div>
 
-<div class="pantalla" style=" background-image: url('../../img/programacion/fondoB.png')">
+<div class="pantalla" style=" background-image: url('/img/background-oscuro.png')">
     <div id="id_conlistado">
         <h1 id="id_titulo">Instrucciones</h1>
         <div style="height: 40px"></div>
@@ -286,7 +286,7 @@
 
    
     let pantallas = new Contenedor();
-    pantallas.agregarHtmlAll(document.querySelectorAll(".pantalla"));
+    pantallas.agregarHTMLAll(document.querySelectorAll(".pantalla"));
     let navegable = new Navegable(pantallas);
     navegable.iniciar();
     navegable.setPermitirAll(true);
