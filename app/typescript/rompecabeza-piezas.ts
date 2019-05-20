@@ -77,7 +77,7 @@ class Ficha {
         this.cotenido.style.transform = `rotate(${this.angulo * 90}deg)`;
         setTimeout(() => {
           this.cotenido.style.transition = "none";
-          this.tablero.validar();
+          this.tablero.valida();
         }, 500);
         this.rotar = false;
       }
@@ -136,7 +136,7 @@ class Ficha {
           this.elemento.style.transition = "none";
           //temp_seleccion.elemento.style.transition = "none";
 
-          this.tablero.validar();
+          this.tablero.valida();
 
         }, 500);
 
@@ -252,7 +252,7 @@ class Tablero extends Interaccion {
 
   }
 
-  validar() {
+  valida() {
     let con = 0;
     for (let i = 0; i < this.fichas.length; i++) {
       let f = this.fichas[i];

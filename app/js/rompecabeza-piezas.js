@@ -72,7 +72,7 @@ var Ficha = /** @class */ (function () {
                 _this.cotenido.style.transform = "rotate(" + _this.angulo * 90 + "deg)";
                 setTimeout(function () {
                     _this.cotenido.style.transition = "none";
-                    _this.tablero.validar();
+                    _this.tablero.valida();
                 }, 500);
                 _this.rotar = false;
             }
@@ -117,7 +117,7 @@ var Ficha = /** @class */ (function () {
                 setTimeout(function () {
                     _this.elemento.style.transition = "none";
                     //temp_seleccion.elemento.style.transition = "none";
-                    _this.tablero.validar();
+                    _this.tablero.valida();
                 }, 500);
             }
             _this.tablero.sobre = false;
@@ -196,7 +196,7 @@ var Tablero = /** @class */ (function (_super) {
             f.soloRotacion();
         });
     };
-    Tablero.prototype.validar = function () {
+    Tablero.prototype.valida = function () {
         var con = 0;
         for (var i = 0; i < this.fichas.length; i++) {
             var f = this.fichas[i];
