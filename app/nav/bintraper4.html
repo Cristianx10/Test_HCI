@@ -145,26 +145,61 @@
 
     reciclaje.setIntentoAcierto(() => {
       console.log("bien")
-      resultados.agregarResultados([{area:"Ciencia", valor:10}]);
+      resultados.agregarResultados([{ area: "Ciencia", valor: 10 }]);
     });
 
     reciclaje.setIntentoFallo(() => {
       console.log("mal")
     });
 
-    reciclaje.setValidacion(()=>{
+    reciclaje.setValidacion(() => {
       console.log("Validado")
     });
 
-    reciclaje.setValidar(()=>{
-      resultados.agregarMaximo([{area:"Ciencia", valor:200}]);
+    reciclaje.setValidar(() => {
+      resultados.agregarMaximo([{ area: "Ciencia", valor: 200 }]);
     });
+
+    /*-------------------------------------------*/
+
+
+    let c = matrixFija("../img/ciencias/ojo/ojo1.png", 100, 50, 4, 4);
+    let descartes = [];
+    descartes.push(new Descartes());
+
+    let matrix = [
+    false,true,false,false,
+    false,false,true,false,
+    true,false,false,false,
+    false,false,false,true];
+
+    for (let i = 0; i < c.length; i++) {
+      let e = c[i];
+      let m = matrix[i];
+      descartes[0].agregar(e, m);
+    }
+
+   // descartes[0].incluirEn(".principal");
+
+    descartes[0].setIntentoAcierto(() => {
+      console.log("Acierto");
+    });
+
+    descartes[0].setIntentoFallo(() => {
+      console.log("Fallo");
+    });
+
+    descartes[0].setValidacion(() => {
+      console.log("Valido");
+    });
+
+    /*-------------------------------------------*/
 
 
     contenedor.agregarHTML(document.querySelector(".pinicio"));
     contenedor.agregar(new Contenido(document.querySelector(".preciclaje"), reciclaje));
 
-    /**/
+
 
     contenedor.incluirEn(document.querySelector(".ppreguntas"));
     navegacion.iniciar();
