@@ -24,7 +24,7 @@ var Descartes = /** @class */ (function (_super) {
         this.imagenes.push(ima);
         this.elemento.append(imagen);
     };
-    Descartes.prototype.validar = function () {
+    Descartes.prototype.valida = function () {
         var cont = 0;
         this.imagenes.forEach(function (i) {
             if (i.validado) {
@@ -52,20 +52,22 @@ var Descarte_elemento = /** @class */ (function () {
                 if (_this.tablero.intentoAcierto != null) {
                     _this.tablero.intentoAcierto();
                 }
-                console.log("acierto");
+                _this.tablero.aciertos++;
+                _this.tablero.intentos++;
             }
             if (_this.valor == false) {
                 if (_this.tablero.intentoFallo != null) {
                     _this.tablero.intentoFallo();
                 }
-                console.log("fallo");
+                tablero.fallos++;
+                _this.tablero.intentos++;
             }
             _this.validado = true;
-            if (_this.tablero.validar()) {
+            if (_this.tablero.valida()) {
                 if (_this.tablero.validacion != null) {
                     _this.tablero.validacion();
                 }
-                console.log("Gano");
+                tablero.valido = true;
             }
             _this.ocultar();
         });
@@ -75,31 +77,3 @@ var Descarte_elemento = /** @class */ (function () {
     };
     return Descarte_elemento;
 }());
-var c = matrixFija("../img/arte/ojoveloz1.png", 100, 50, 5, 5);
-var descartes = new Descartes();
-descartes.agregar(c[0], false);
-descartes.agregar(c[1], true);
-descartes.agregar(c[2], false);
-descartes.agregar(c[3], false);
-descartes.agregar(c[4], false);
-descartes.agregar(c[5], false);
-descartes.agregar(c[6], false);
-descartes.agregar(c[7], true);
-descartes.agregar(c[8], false);
-descartes.agregar(c[9], false);
-descartes.agregar(c[10], false);
-descartes.agregar(c[11], true);
-descartes.agregar(c[12], false);
-descartes.agregar(c[13], false);
-descartes.agregar(c[14], false);
-descartes.agregar(c[15], false);
-descartes.agregar(c[16], false);
-descartes.agregar(c[17], true);
-descartes.agregar(c[18], false);
-descartes.agregar(c[19], false);
-descartes.agregar(c[20], false);
-descartes.agregar(c[21], false);
-descartes.agregar(c[22], false);
-descartes.agregar(c[23], false);
-descartes.agregar(c[24], false);
-descartes.incluirEn(".principal");

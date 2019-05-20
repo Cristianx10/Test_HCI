@@ -244,16 +244,16 @@ var Contenedor = /** @class */ (function () {
     Contenedor.prototype.agregarHTML = function (elemeto, tiempo) {
         var e = new PantallaHTML(elemeto);
         if (tiempo != null) {
-            var c_1 = new Contenido(elemeto, e, tiempo);
-            c_1.ocultar();
-            this.elementos.push(c_1);
-            return c_1;
+            var c = new Contenido(elemeto, e, tiempo);
+            c.ocultar();
+            this.elementos.push(c);
+            return c;
         }
         else {
-            var c_2 = new Contenido(elemeto, e);
-            c_2.ocultar();
-            this.elementos.push(c_2);
-            return c_2;
+            var c = new Contenido(elemeto, e);
+            c.ocultar();
+            this.elementos.push(c);
+            return c;
         }
     };
     Contenedor.prototype.agregarHTMLAll = function (elemetos, tiempo) {
