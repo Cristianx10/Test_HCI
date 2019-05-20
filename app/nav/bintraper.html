@@ -184,14 +184,7 @@
 
     <script type="text/javascript">
 
-
-        var intentos = 0;
-        var puntuacion;
-        var minutosDeseados = 0;
-        var segundosDeseados = 60 * minutosDeseados;
-
         $('.cont-principal').css("background-image", "url('../img/background-claro.png')");
-
 
         let contenedor = new Contenedor();
         let navegacion = new Navegable(contenedor);
@@ -330,106 +323,6 @@
             
         });
 
-        contenedor.agregarHTML(document.querySelector('.pintroequilibrio')).setAccion(() => {
-            ocultar(".zona__navegacion");
-            navegacion.ocultarProgreso();
-            navegacion.ocultarTiempo();
-
-        });
-
-        contenedor.agregarHTML(document.querySelector('.pequilibrio')).setAccion(() => {
-            ocultar(".zona__navegacion");
-            navegacion.ocultarProgreso();
-            navegacion.ocultarTiempo();
-
-            function startTimer(duracion) {
-
-                var temporizador = duracion, minutos, segundos;
-
-                var refreshintervalID = setInterval(function () {
-                    minutos = parseInt(temporizador / 60, 10)
-                    segundos = parseInt(temporizador % 60, 10);
-
-                    minutos = minutos < 10 ? "0" + minutos : minutos;
-                    segundos = segundos < 10 ? "0" + segundos : segundos;
-
-                    document.getElementById("tiempo").innerHTML = minutos + ":" + segundos;
-                    document.getElementById("intentos").innerHTML = intentos;
-
-                    if (intentos <= 1) {
-                        puntuacion = 100;
-                    } else if (intentos == 2) {
-                        puntuacion = 80;
-                    } else if (intentos == 3) {
-                        puntuacion = 60;
-                    } else if (intentos == 4) {
-                        puntuacion = 40;
-                    } else if (intentos == 5) {
-                        puntuacion = 20;
-                    } else if (intentos == 6) {
-                        puntuacion = 0;
-                    }
-
-                    resultado.agregar("Equilibrio", [
-                        { id: "Puntuacion", valor: puntuacion },
-                        { id: "Intentos", valor: intentos }
-                    ]);
-
-                    resultado.sumar("Deportes", puntuacion);
-
-                    temporizador++;
-
-                    if (segundos === "00" && minutos == "01") {
-                        document.getElementById("tiempo").innerHTML = "00:00";
-                        document.getElementById("intentos").innerHTML = intentos;
-                        document.querySelector('.boton_next').disabled = false;
-                        document.getElementById("final").innerHTML = "La prueba ha terminado.";
-                        clearInterval(refreshintervalID);
-                        console.log(puntuacion);
-                    } else if (intentos >= 6) {
-                        document.getElementById("tiempo").innerHTML = "00:00";
-                        document.getElementById("intentos").innerHTML = intentos;
-                        document.querySelector('.boton_next').disabled = false;
-                        document.getElementById("final").innerHTML = "La prueba ha terminado.";
-                        clearInterval(refreshintervalID);
-                        console.log(puntuacion);
-                    }
-
-                    window.addEventListener('keyup', function (e) {
-                        var key = e.which || e.keyCode;
-                        if (key == 32) {
-                            clearInterval(refreshintervalID);
-                        }
-                    });
-                    window.addEventListener('keypress', function (e) {
-                        var key = e.which || e.keyCode;
-                        if (key == 32) {
-                            document.getElementById("tiempo").innerHTML = "00:00";
-                        }
-                    });
-                }, 1000);
-            }
-
-            window.addEventListener('keypress', function (e) {
-
-                var key = e.which || e.keyCode;
-                if (key == 13) {
-                    startTimer(segundosDeseados);
-                }
-
-            });
-
-            window.addEventListener('keyup', function (e) {
-                var key = e.which || e.keyCode;
-                if (key == 32) {
-                    intentos += 1;
-                    document.getElementById("intentos").innerHTML = intentos;
-                    console.log(intentos);
-                    startTimer(segundosDeseados);
-                }
-            });
-
-        });
 
         contenedor.agregarHTML(document.querySelector('#laberinto'));
 
