@@ -184,14 +184,7 @@
 
     <script type="text/javascript">
 
-
-        var intentos = 0;
-        var puntuacion;
-        var minutosDeseados = 0;
-        var segundosDeseados = 60 * minutosDeseados;
-
         $('.cont-principal').css("background-image", "url('../img/background-claro.png')");
-
 
         let contenedor = new Contenedor();
         let navegacion = new Navegable(contenedor);
@@ -205,7 +198,7 @@
 
         temp__pregunta = new PreguntaD("Suelo ser más apasionado que objetivo", "Apasionado", "Objetivo");
         temp__pregunta.agregar("1", [{area:"Arte",  valor:20}]);
-        temp__pregunta.agregar("2", [{area:"Diseño",  valor:10},{area:"Deportes",  valor:10},{area:"Salud",  valor:10}]);
+        temp__pregunta.agregar("2", [{area:"Diseño",  valor:10},{area:"Deportes",  valor:5},{area:"Salud",  valor:10}]);
         temp__pregunta.agregar("3", [{area:"Ingenieria",  valor:20},{area:"Ciencia",  valor:20}]);
         preguntas.push(temp__pregunta);
 
@@ -217,7 +210,7 @@
 
         temp__pregunta = new PreguntaD("A la hora de estudiar, me da tranquilidad organizar los temas antes de empezar", "Improvizar", "Organizado");
         temp__pregunta.agregar("1", [{area:"Arte",  valor:20}]);
-        temp__pregunta.agregar("2", [{area:"Deportes",  valor:10}]);
+        temp__pregunta.agregar("2", [{area:"Deportes",  valor:5}]);
         temp__pregunta.agregar("3", [{area:"Ingenieria",  valor:20},{area:"Educacion",  valor:20}]);
         preguntas.push(temp__pregunta);
 
@@ -236,13 +229,13 @@
         temp__pregunta = new PreguntaD("Me dan explosiones de inspiración mientas hago otra actividad", "Inspiración", "Actividad actual");
         temp__pregunta.agregar("1", [{area:"Arte",  valor:20}]);
         temp__pregunta.agregar("2", [{area:"Diseño",  valor:10},{area:"Ciencia",  valor:10}]);
-        temp__pregunta.agregar("3", [{area:"Deportes",  valor:20},{area:"Ingenieria",  valor:20}]);
+        temp__pregunta.agregar("3", [{area:"Deportes",  valor:10},{area:"Ingenieria",  valor:20}]);
         preguntas.push(temp__pregunta);
 
         temp__pregunta = new PreguntaD("Me agrada realizar las actividades a mi modo y no necesariamente como lo hacen los demas", "Mi modo", "El modo establecido");
         temp__pregunta.agregar("1", [{area:"Arte",  valor:20}]);
         temp__pregunta.agregar("2", [{area:"Diseño",  valor:10},{area:"Ingenieria",  valor:10}]);
-        temp__pregunta.agregar("3", [{area:"Deportes",  valor:20},{area:"Fuerza publica",  valor:20}]);
+        temp__pregunta.agregar("3", [{area:"Deportes",  valor:10},{area:"Fuerza publica",  valor:20}]);
         preguntas.push(temp__pregunta);
 
         temp__pregunta = new PreguntaD("Me gusta buscar patrones en el ambiente que me rodea", "Patrones", "Sin Patrones");
@@ -290,7 +283,7 @@
         temp__pregunta = new PreguntaD("Disfruto de hablar en publico, soy bueno exponiendo", "Comunicación", "No comunicación");
         temp__pregunta.agregar("1", [{area:"Educacion",  valor:20}]);
         temp__pregunta.agregar("2", [{area:"Diseño",  valor:10},{area:"Arte",  valor:10}]);
-        temp__pregunta.agregar("3", [{area:"Deportes",  valor:20},{area:"Fuerza publica",  valor:20}]);
+        temp__pregunta.agregar("3", [{area:"Deportes",  valor:10},{area:"Fuerza publica",  valor:20}]);
         preguntas.push(temp__pregunta);
 
 
@@ -330,106 +323,6 @@
             
         });
 
-        contenedor.agregarHTML(document.querySelector('.pintroequilibrio')).setAccion(() => {
-            ocultar(".zona__navegacion");
-            navegacion.ocultarProgreso();
-            navegacion.ocultarTiempo();
-
-        });
-
-        contenedor.agregarHTML(document.querySelector('.pequilibrio')).setAccion(() => {
-            ocultar(".zona__navegacion");
-            navegacion.ocultarProgreso();
-            navegacion.ocultarTiempo();
-
-            function startTimer(duracion) {
-
-                var temporizador = duracion, minutos, segundos;
-
-                var refreshintervalID = setInterval(function () {
-                    minutos = parseInt(temporizador / 60, 10)
-                    segundos = parseInt(temporizador % 60, 10);
-
-                    minutos = minutos < 10 ? "0" + minutos : minutos;
-                    segundos = segundos < 10 ? "0" + segundos : segundos;
-
-                    document.getElementById("tiempo").innerHTML = minutos + ":" + segundos;
-                    document.getElementById("intentos").innerHTML = intentos;
-
-                    if (intentos <= 1) {
-                        puntuacion = 100;
-                    } else if (intentos == 2) {
-                        puntuacion = 80;
-                    } else if (intentos == 3) {
-                        puntuacion = 60;
-                    } else if (intentos == 4) {
-                        puntuacion = 40;
-                    } else if (intentos == 5) {
-                        puntuacion = 20;
-                    } else if (intentos == 6) {
-                        puntuacion = 0;
-                    }
-
-                    resultado.agregar("Equilibrio", [
-                        { id: "Puntuacion", valor: puntuacion },
-                        { id: "Intentos", valor: intentos }
-                    ]);
-
-                    resultado.sumar("Deportes", puntuacion);
-
-                    temporizador++;
-
-                    if (segundos === "00" && minutos == "01") {
-                        document.getElementById("tiempo").innerHTML = "00:00";
-                        document.getElementById("intentos").innerHTML = intentos;
-                        document.querySelector('.boton_next').disabled = false;
-                        document.getElementById("final").innerHTML = "La prueba ha terminado.";
-                        clearInterval(refreshintervalID);
-                        console.log(puntuacion);
-                    } else if (intentos >= 6) {
-                        document.getElementById("tiempo").innerHTML = "00:00";
-                        document.getElementById("intentos").innerHTML = intentos;
-                        document.querySelector('.boton_next').disabled = false;
-                        document.getElementById("final").innerHTML = "La prueba ha terminado.";
-                        clearInterval(refreshintervalID);
-                        console.log(puntuacion);
-                    }
-
-                    window.addEventListener('keyup', function (e) {
-                        var key = e.which || e.keyCode;
-                        if (key == 32) {
-                            clearInterval(refreshintervalID);
-                        }
-                    });
-                    window.addEventListener('keypress', function (e) {
-                        var key = e.which || e.keyCode;
-                        if (key == 32) {
-                            document.getElementById("tiempo").innerHTML = "00:00";
-                        }
-                    });
-                }, 1000);
-            }
-
-            window.addEventListener('keypress', function (e) {
-
-                var key = e.which || e.keyCode;
-                if (key == 13) {
-                    startTimer(segundosDeseados);
-                }
-
-            });
-
-            window.addEventListener('keyup', function (e) {
-                var key = e.which || e.keyCode;
-                if (key == 32) {
-                    intentos += 1;
-                    document.getElementById("intentos").innerHTML = intentos;
-                    console.log(intentos);
-                    startTimer(segundosDeseados);
-                }
-            });
-
-        });
 
         contenedor.agregarHTML(document.querySelector('#laberinto'));
 

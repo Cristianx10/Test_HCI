@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Test Interactivo</title>
+    <link rel="shortcut icon" href="../includes/img/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../sass/general/main.css" />
+    <link href="../sass/tipographys/tipografias.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+
+    <link rel="stylesheet" href="../sass/aplicaciones/targetas.css" />
+
+</head>
+<body>
+    
+    <div class="cont-principal" style="background-image: url('../img/background_principal-2.png')">
+        <div class="principal" onselectstart="return false">
+
+            <div class="pantalla ppreguntas">
+
+                <div class="pantalla pintroequilibrio"
+                    style="background-image: url('../img/background_principal-2.png')">
+                    <div class="introduccion">
+                        <h1 class="titulo">Equilibrio</h1>
+                        <p id="desc" class="descripcion">Permanece en equilibrio estando parado en la plataforma en un
+                            solo pie, durante un minuto. Tienes 6 intentos para lograrlo, por cada vez que toques el
+                            suelo pierdes un intento y se reinicia el tiempo.</p>
+                        <button class="botonComenzar" onclick="seguir()">Comenzar</button>
+                    </div>
+                </div>
+
+                <div class="pantalla pequilibrio">
+
+                    <style>
+                        .contenedor {
+                            width: 1280px;
+                            height: 720px;
+                            background-position: center;
+                            background-repeat: no-repeat;
+                            background-size: cover;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                        }
+
+                        .contenido {
+                            width: 937px;
+                            height: 499px;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            margin-top: 80px;
+                            margin-bottom: 30px;
+                        }
+
+                        p {
+                            font-family: 'Heebo', sans-serif;
+                            font-weight: bold;
+                        }
+
+                        #time {
+                            font-size: 36px;
+                            color: rgba(0, 222, 211);
+                            margin-top: 50px;
+                            margin-bottom: 5px;
+                        }
+
+                        #tiempo {
+                            margin: 0;
+                            line-height: 1;
+                            height: 115px;
+                            font-size: 140px;
+                            color: rgba(0, 222, 211);
+                        }
+
+                        #titulo1 {
+                            margin-top: 75px;
+                            margin-bottom: 20px;
+                            font-size: 36px;
+                            color: rgba(230, 73, 115, 1);
+                        }
+
+                        #intentos {
+                            margin: 0;
+                            margin-bottom: 50px;
+                            font-size: 64px;
+                            line-height: 1;
+                            color: rgba(230, 73, 115, 1);
+                        }
+
+                        .boton_next:disabled {
+                            width: 170.38px;
+                            height: 52px;
+                            border: solid rgba(230, 73, 115, 1);
+                            border-radius: 10px;
+                            border-width: 2px;
+                            font-family: 'Heebo', sans-serif;
+                            font-size: 20px;
+                            text-decoration: none;
+                            line-height: 2.5;
+                            text-align: center;
+                            background-color: rgba(230, 73, 115, 0);
+                            color: rgba(230, 73, 115, 1);
+                        }
+
+                        .boton_next:enabled {
+                            width: 170.38px;
+                            height: 52px;
+                            border: solid rgba(230, 73, 115, 1);
+                            border-radius: 10px;
+                            border-width: 2px;
+                            font-family: 'Heebo', sans-serif;
+                            font-size: 20px;
+                            text-decoration: none;
+                            line-height: 2.5;
+                            text-align: center;
+                            background-color: rgba(230, 73, 115, 1);
+                            color: white;
+                        }
+
+                        .boton_next:enabled:hover {
+                            border: solid rgb(209, 54, 95);
+                            background-color: rgb(209, 54, 95);
+                        }
+                    </style>
+
+                    <div class="contenedor">
+                        <div class="contenido">
+                            <p id="time">Tiempo:</p>
+                            <p id="tiempo">00:00</p>
+                            <p id="titulo1">Intentos:</p>
+                            <p id="intentos">0</p>
+                            <p id="final"></p>
+                        </div>
+                        <button class="boton_next" disabled="disabled" onclick="seguir()">Siguiente</button>
+                    </div>
+                </div>
+
+                <div class="pantalla pguacainicio" style="background-image: url('../img/background_principal-2.png')">
+                    <div class="introduccion">
+                        <h1 class="titulo">Ojo Veloz</h1>
+                        <p id="desc" class="descripcion">Debes precionar lo más rapido que puedas el boton
+                            correspondiente a la figuras presentadas en pantalla. Al acertar 6 figuras termina la
+                            prueba.</p>
+                        <button class="botonComenzar" onclick="seguir()">Comenzar</button>
+                    </div>
+                </div>
+
+                <div class="pantalla pantallaGuaca">
+                    <style>
+                        #contenedor {
+                            width: 1280px;
+                            height: 720px;
+                            background-position: center;
+                            background-repeat: no-repeat;
+                            background-size: cover;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                        }
+
+                        .contenidogua {
+                            width: 937px;
+                            height: 499px;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: space-between;
+                            margin-top: 80px;
+                            margin-bottom: 30px;
+                        }
+
+                        p {
+                            font-family: 'Heebo', sans-serif;
+                            font-weight: bold;
+                        }
+
+                        .tituloGuaca {
+                            font-size: 36px;
+                            color: rgba(230, 73, 115, 1);
+                        }
+
+                        #final {
+                            font-size: 25px;
+                            color: rgba(0, 222, 211);
+                        }
+
+                        #estimulo {
+                            width: 300px;
+                            flex-basis: 300px;
+                            height: 300px;
+                        }
+
+                        #aciertos {
+                            font-size: 50px;
+                            text-align: center;
+                            color: rgb(81, 222, 0);
+                        }
+
+                        .boton_next:enabled {
+                            width: 170.38px;
+                            height: 52px;
+                            border: solid rgba(230, 73, 115, 1);
+                            border-radius: 10px;
+                            border-width: 2px;
+                            font-family: 'Heebo', sans-serif;
+                            font-size: 20px;
+                            text-decoration: none;
+                            line-height: 2.5;
+                            text-align: center;
+                            background-color: rgba(230, 73, 115, 1);
+                            color: white;
+                        }
+
+                        .boton_next:enabled:hover {
+                            border: solid rgb(209, 54, 95);
+                            background-color: rgb(209, 54, 95);
+                        }
+                    </style>
+
+                    <div id="contenedor">
+                        <div class="contenidogua">
+                            <img src="" alt="" id="estimulo">
+                            <p id="aciertos">Aciertos:<br><br>0</p>
+                            <p id="final"></p>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="zona__navegacion" style="display:none;">
+                <button class="btn_siguiente" style="text-align:center;" disabled onclick="seguir()">Siguiente</button>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!--Codigo de precarga -->
+    <script src="../lib/jquery.js"></script>
+
+    <!--
+  <script src="../lib//colorMixer.js"></script>
+    <script src="../lib/jquery-ui.min.js"></script>
+  <script src="../lib/jquery.svg.js"></script>
+  <script src="../lib/jquery.knob.js"></script>
+ 
+  
+  <script src="../lib/tweenjs.js"></script>
+-->
+
+    <script src="../lib/preloadjs.js"></script>
+    <script src="../lib/easeljs.js"></script>
+    <script src="../lib/soundjs.js"></script>
+    <script src="../js/timer.js"></script>
+    <script src="../js/resultados.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/pregunta.js"></script>
+
+
+    <script type="text/javascript">
+
+
+        var intentos = 0;
+        var puntuacionEqui;
+        var minutosDeseados = 0;
+        var segundosDeseados = 60 * minutosDeseados;
+
+        $('.cont-principal').css("background-image", "url('../img/background-claro.png')");
+        var aciertos = 0;
+        var puntuacion;
+        var imagen, url;
+        var centesimas = 0;
+        var segundos = 0;
+        var tiempo1, tiempo2, tiempo3, tiempo4, tiempo5, tiempo6;
+        var siguiente = document.querySelector('.btn_siguiente');
+
+        function inicio() {
+            control = setInterval(cronometro, 10);
+            console.log("empezo");
+        }
+        function reinicio() {
+            document.querySelector(".contenidogua").innerHTML = '<img src="" alt="" id="estimulo"><p id="aciertos">Aciertos:<br><br>' + aciertos + '</p><p id="final"></p>'
+            clearInterval(control);
+            var tiempo = segundos + (centesimas / 100);
+            console.log(tiempo);
+            if (aciertos == 1) {
+                tiempo1 = tiempo;
+            } else if (aciertos == 2) {
+                tiempo2 = tiempo;
+            } else if (aciertos == 3) {
+                tiempo3 = tiempo;
+            } else if (aciertos == 4) {
+                tiempo4 = tiempo;
+            } else if (aciertos == 5) {
+                tiempo5 = tiempo;
+            } else if (aciertos == 6) {
+                tiempo6 = tiempo;
+            }
+            centesimas = 0;
+            segundos = 0;
+            if (aciertos < 6) {
+                startTimer();
+            }
+        }
+        function cronometro() {
+            if (centesimas < 99) {
+                centesimas++;
+            }
+            if (centesimas == 99) {
+                centesimas = -1;
+            }
+            if (centesimas == 0) {
+                segundos++;
+            }
+            if (segundos == 59) {
+                segundos = -1;
+            }
+        }
+        function puntaje() {
+            var promedio = (tiempo1 + tiempo2 + tiempo3 + tiempo4 + tiempo5 + tiempo6) / 6
+            console.log("promedio = " + promedio);
+            if (promedio <= 0.50) {
+                puntuacion = 100;
+            } else if (promedio >= 0.51 && promedio < 1) {
+                puntuacion = 75;
+            } else if (promedio >= 1 && promedio < 1.5) {
+                puntuacion = 62.5;
+            } else if (promedio >= 1.5 && promedio < 2) {
+                puntuacion = 50;
+            } else if (promedio >= 2 && promedio < 2.5) {
+                puntuacion = 37.5;
+            } else if (promedio >= 2.5 && promedio < 3) {
+                puntuacion = 25;
+            } else if (promedio >= 3 && promedio < 3.5) {
+                puntuacion = 12.5;
+            } else if (promedio >= 3.5) {
+                puntuacion = 0;
+            }
+
+            resultados.agregar("Ojos veloz", [
+                { id: "Puntuacion", valor: puntuacion },
+                { id: "Promedio", valor: promedio }
+            ]);
+            mostrar(".zona__navegacion");
+
+            resultados.sumar("Deportes", puntuacion);
+
+            console.log("puntuacion = " + puntuacion);
+        }
+        function startTimer() {
+            var duracion = Math.floor((Math.random() * 9) + 1);
+            var temporizador = duracion, minutos, segundos;
+            var random = Math.floor((Math.random() * 5) + 1);
+            console.log(random);
+            console.log(duracion);
+            if (random >= 1 && random < 2) {
+                imagen = 1;
+                url = "/img/deporte/cuadrado.png";
+            } else if (random >= 2 && random < 3) {
+                imagen = 2;
+                url = "/img/deporte/elipse.png";
+            } else if (random >= 3 && random < 4) {
+                imagen = 3;
+                url = "/img/deporte/equis.png";
+            } else if (random >= 4 && random <= 5) {
+                imagen = 4;
+                url = "/img/deporte/triangulo.png";
+            }
+            var refreshintervalID = setInterval(function () {
+                segundos = parseInt(temporizador % 60, 10);
+                segundos = segundos < 10 ? "0" + segundos : segundos;
+                document.getElementById("aciertos").innerHTML = '<p id="aciertos">Aciertos:<br><br>' + aciertos + '</p>';
+                temporizador--;
+                console.log(segundos);
+                if (segundos === "00") {
+                    console.log("ya");
+                    document.querySelector(".contenidogua").innerHTML = '<img src="'+url+'" alt="" id="estimulo"><p id="aciertos">Aciertos:<br><br>' + aciertos + '</p><p id="final">'
+                    clearInterval(refreshintervalID);
+                    inicio();
+                    // timerDos();
+                }
+            }, 1000);
+        }
+        function acierto() {
+            if (document.querySelector(".contenidogua").innerHTML == '<img src="' + url + '" alt="" id="estimulo"><p id="aciertos">Aciertos:<br><br>' + aciertos + '</p><p id="final"></p>') {
+                aciertos += 1;
+            }
+        }
+  
+
+        let contenedor = new Contenedor();
+        let navegacion = new Navegable(contenedor);
+
+        contenedor.agregarHTML(document.querySelector('.pintroequilibrio')).setAccion(() => {
+            navegacion.ocultarProgreso();
+            navegacion.ocultarTiempo();
+
+        });
+
+        contenedor.agregarHTML(document.querySelector('.pequilibrio')).setAccion(() => {
+            navegacion.ocultarProgreso();
+            navegacion.ocultarTiempo();
+
+            function startTimer2(duracion) {
+
+                var temporizador = duracion, minutos, segundos;
+
+                var refreshintervalID = setInterval(function () {
+                    minutos = parseInt(temporizador / 60, 10)
+                    segundos = parseInt(temporizador % 60, 10);
+
+                    minutos = minutos < 10 ? "0" + minutos : minutos;
+                    segundos = segundos < 10 ? "0" + segundos : segundos;
+
+                    document.getElementById("tiempo").innerHTML = minutos + ":" + segundos;
+                    document.getElementById("intentos").innerHTML = intentos;
+
+                    if (intentos <= 1) {
+                        puntuacionEqui = 100;
+                    } else if (intentos == 2) {
+                        puntuacionEqui = 80;
+                    } else if (intentos == 3) {
+                        puntuacionEqui = 60;
+                    } else if (intentos == 4) {
+                        puntuacionEqui = 40;
+                    } else if (intentos == 5) {
+                        puntuacionEqui = 20;
+                    } else if (intentos == 6) {
+                        puntuacionEqui = 0;
+                    }
+
+
+                    temporizador++;
+
+                    if(puntuacionEqui !=null){
+                        resultados.agregar("Equilibrio", [
+                        { id: "puntuacionEqui", valor: puntuacionEqui },
+                        { id: "Intentos", valor: intentos }
+                    ]);
+
+                    resultados.sumar("Deportes", puntuacionEqui);
+
+                    }
+
+                    if (segundos === "00" && minutos == "01") {
+                        document.getElementById("tiempo").innerHTML = "00:00";
+                        document.getElementById("intentos").innerHTML = intentos;
+                        document.querySelector('.boton_next').disabled = false;
+                        document.getElementById("final").innerHTML = "La prueba ha terminado.";
+                        clearInterval(refreshintervalID);
+                        console.log(puntuacionEqui);
+                    } else if (intentos >= 6) {
+                        document.getElementById("tiempo").innerHTML = "00:00";
+                        document.getElementById("intentos").innerHTML = intentos;
+                        document.querySelector('.boton_next').disabled = false;
+                        document.getElementById("final").innerHTML = "La prueba ha terminado.";
+                        clearInterval(refreshintervalID);
+                        console.log(puntuacionEqui);
+                    }
+
+                    window.addEventListener('keyup', function (e) {
+                        var key = e.which || e.keyCode;
+                        if (key == 32) {
+                            clearInterval(refreshintervalID);
+                        }
+                    });
+                    window.addEventListener('keypress', function (e) {
+                        var key = e.which || e.keyCode;
+                        if (key == 32) {
+                            document.getElementById("tiempo").innerHTML = "00:00";
+                        }
+                    });
+                }, 1000);
+            }
+
+            window.addEventListener('keypress', function (e) {
+
+                var key = e.which || e.keyCode;
+                if (key == 13) {
+                    startTimer2(segundosDeseados);
+                }
+
+            });
+
+            window.addEventListener('keyup', function (e) {
+                var key = e.which || e.keyCode;
+                if (key == 32) {
+                    if(intentos <6){
+                        intentos += 1;
+                    }
+                    document.getElementById("intentos").innerHTML = intentos;
+                    console.log(intentos);
+                    startTimer2(segundosDeseados);
+                }
+            });
+
+        });        
+        
+        contenedor.agregarHTML(document.querySelector('.pguacainicio')).setAccion(() => {
+            ocultar(".zona__navegacion");
+            navegacion.ocultarProgreso();
+            navegacion.ocultarTiempo();
+        });
+        contenedor.agregarHTML(document.querySelector('.pantallaGuaca')).setAccion(() => {
+            ocultar(".zona__navegacion");
+            siguiente.disabled = false;
+            window.addEventListener("keydown", function (e) {
+                var key = e.which || e.keyCode;
+                if (key == 13) {
+                    startTimer();
+                }
+                if (key == 32) {
+                    console.log(aciertos);
+                }
+                // 37 izquierda imagen 1 cuadrado /// 38 arriba imagen 2 circulo /// 39 derecha imagen 3 x /// 40 abajo imagen 4 triangulo
+            });
+            window.addEventListener("keydown", function (e) {
+                var key = e.which || e.keyCode;
+                if (key == 37 && imagen == 1 && aciertos <= 5) {
+                    acierto();
+                    reinicio();
+                } else if (key == 38 && imagen == 2 && aciertos <= 5) {
+                    acierto();
+                    reinicio();
+                } else if (key == 39 && imagen == 3 && aciertos <= 5) {
+                    acierto();
+                    reinicio();
+                } else if (key == 40 && imagen == 4 && aciertos <= 5) {
+                    acierto();
+                    reinicio();
+                }
+                if ((key == 37 || key == 38 || key == 39 || key == 40) && aciertos > 5) {
+                    puntaje();
+                    siguiente.disabled = false;
+                    document.getElementById("final").innerHTML = "La prueba ha terminado.";
+                }
+            });
+            window.addEventListener("keydown", function (e) {
+                // space and arrow keys
+                if ([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+                    e.preventDefault();
+                }
+            }, false);
+        });
+  
+        contenedor.incluirEn(document.querySelector(".ppreguntas"));
+        navegacion.iniciar();
+
+
+        function seguir() {
+            navegacion.setPermitir(true);
+            navegacion.siguiente();
+            siguiente.disabled = false;
+
+        }
+
+        $(".opcion_check").click(() => {
+            siguiente.disabled = false;
+        });
+
+        navegacion.setFinal(() => {
+           // goTo("bintraper2");
+        });
+
+    </script>
+
+</body>
+</html>

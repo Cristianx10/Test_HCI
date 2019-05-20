@@ -98,6 +98,9 @@
     temp__pregunta.agregar("1", [{ area: "Diseño", valor: 10 }, { area: "Educacion", valor: 20 }, { area: "Fuerza publica", valor: 20 }]);
     temp__pregunta.agregar("2", [{ area: "Ingenieria", valor: 20 }]);
     temp__pregunta.agregar("3", [{ area: "Deportes", valor: 10 }, { area: "Arte", valor: 10 }]);
+    temp__pregunta.agregar("1", [{area:"Deportes",  valor:5},{area:"Educacion",  valor:20},{area:"Fuerza publica",  valor:20}]);
+    temp__pregunta.agregar("2", [{area:"Ingenieria",  valor:10}]);
+    temp__pregunta.agregar("3", [{area:"Deportes",  valor:-120},{area:"Educacion",  valor:-20},{area:"Fuerza publica",  valor:-10}]);
     preguntas.push(temp__pregunta);
 
     temp__pregunta = new PreguntaD("Me considero una persona empatica", "Totalmente de acuerdo", "En desacuerdo")
@@ -107,7 +110,7 @@
     preguntas.push(temp__pregunta);
 
 
-    /****--------------------------------------------------------*/iniciar
+    /****--------------------------------------------------------*/
 
 
     let p3 = new PreguntaP(`<h1>3. Elige la imagen que continúa la secuencia (IMG3)</h1>`,
