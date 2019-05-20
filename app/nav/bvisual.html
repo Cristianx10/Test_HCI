@@ -77,13 +77,13 @@
 
 
       <div class="pantalla table__rompecabezas centrar">
-        <h1 class="titulo">Acomoda las fichas del roompecabezas, solo arrrastra las fichas a la posicion que consideres correcta</h1>
+        <h1 class="pregunta_titulo" style="width: 50%">Acomoda las fichas del roompecabezas, solo arrrastra las fichas a la posicion que consideres correcta</h1>
         <hr>
         <br>
       </div>
 
       <div class="pantalla table__rompecabezas2 centrar">
-          <h1>Acomoda las fichas del roompecabezas, solo arrrastra las fichas a la posicion que consideres correcta</h1>
+          <h1 class="pregunta_titulo" style="width: 50%">Acomoda las fichas del roompecabezas, solo arrrastra las fichas a la posicion que consideres correcta</h1>
           <hr>
           <br>
       </div>
@@ -331,6 +331,8 @@
     contenedor.agregar(p1.getPregunta()).setAccion(() => {
       siguiente.disabled = true;
       mostrar(".zona__navegacion");
+      navegacion.colocarTiempo();
+      navegacion.colocarProgreso();
     });
 
     contenedor.agregar(p2.getPregunta()).setAccion(() => {
@@ -347,7 +349,6 @@
     });
 
     contenedor.agregarHTML(document.querySelector('.ppalillos')).setAccion(() => {
-      ocultar(".zona__navegacion");
     });
     contenedor.agregarHTML(document.querySelector('.ppalillosn1'));
     contenedor.agregarHTML(document.querySelector('.ppalillosn2'));
