@@ -435,8 +435,6 @@
 
     tableros.forEach(t => {
 
-    
-
       t.setIntentoAcierto(() => {
         console.log("acierto");
       });
@@ -471,11 +469,18 @@
       s.style.right = "0";
       s.style.top = "0";
     });
+
+    resultados.agregarMaximo([{
+        area:"Arte", valor:100
+      }]);
+
     pinturac.setIntentoAcierto(() => {
       console.log("bien")
       siguiente.disabled = false;
       //aqui agregar puntaje cuadno seleccione la imagen A
-
+      resultados.agregarResultados([{
+        area:"Arte", valor:100
+      }]);
     });
 
     pinturac.setIntentoFallo(() => {

@@ -303,12 +303,23 @@
       tab.agregar(e, orden[i], i, 0);
     }
 
+    resultados.agregarMaximo([{area:"diseño", valor:200}]);
+
     tab.iniciar();
     tab.incluirEn(".table__rompecabezas");
     tab.activarArrastre();
     //tab.activarRotacion();
     //tab.setPlaceholder();
 
+    tab.setValidar(()=>{
+      if(tab.intentos  <= 15){
+        resultados.agregarResultados([{area:"diseño", valor:100}]);
+      }else if(tab.intentos  > 15 && tab.intentos <= 20){
+        resultados.agregarResultados([{area:"diseño", valor:75}]);
+      }else if(tab.intentos  > 20 && tab.intentos <= 30){
+        resultados.agregarResultados([{area:"diseño", valor:50}]);
+      }
+    });
 
     tab.setValidacion(() => {
       alert("Felicitaciones Ganaste");
@@ -353,6 +364,16 @@
     tab2.setIntentoFallo((intentos) => {
       console.log("Sigue intentando: " + intentos);
 
+    });
+
+    tab2.setValidar(()=>{
+      if(tab2.intentos  <= 15){
+        resultados.agregarResultados([{area:"diseño", valor:100}]);
+      }else if(tab2.intentos  > 15 && tab2.intentos <= 20){
+        resultados.agregarResultados([{area:"diseño", valor:75}]);
+      }else if(tab2.intentos  > 20 && tab2.intentos <= 30){
+        resultados.agregarResultados([{area:"diseño", valor:50}]);
+      }
     });
 
 
