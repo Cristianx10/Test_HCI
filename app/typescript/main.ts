@@ -831,6 +831,15 @@ interface ResultadoA {
 
 var resultados = new Resultados("resultados");
 
+
+function cargar(){
+    loadJson("/carga.json", (result:any)=>{
+        resultados = result;
+        resultados.save();
+    });
+}
+
+
 /*
 resultados.calcularMaximo([
 

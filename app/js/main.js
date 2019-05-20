@@ -587,6 +587,12 @@ function hsvToRgb(h, s, v) {
     ];
 }
 var resultados = new Resultados("resultados");
+function cargar() {
+    loadJson("/carga.json", function (result) {
+        resultados = result;
+        resultados.save();
+    });
+}
 /*
 resultados.calcularMaximo([
 
