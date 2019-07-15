@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <!--Titulo de la pagina-->
+  <title>Matematicas</title>
+  <link rel="shortcut icon" href="/includes/img/favicon.png" type="image/x-icon" />
+  <link rel="stylesheet" href="/sass/main.css" />
+
+  <style>
+    .bote {
+      width: 144px;
+      height: 183px;
+    }
+
+    .basura__elementos>div {
+      display: flex;
+      width: 100%;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      height: 70%;
+    }
+
+    .elemento_basura {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 20%;
+      margin-bottom: 20px;
+    }
+
+    .basura {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      height: 30%;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="cont-principal" style="background-image: url('../img/background_principal-2.png')">
+    <div class="principal" onselectstart="return false">
+
+      <div class="pantalla ppreguntas">
+
+        <div class="pantalla pinicio" style="background-image: url('../img/Principal Intra personal.png')">
+          <div class="introduccion">
+            <h1 class="titulo">Inteligencia Intrapersonal 4</h1>
+            <p id="desc" class="descripcion">En esta sección de la prueba evaluaremos tus conocimientos en el area
+              Intrapersonal</p>
+            <button class="botonComenzar" onclick="seguir()">Comenzar</button>
+          </div>
+        </div>
+
+        <div class="pantalla preciclaje">
+          <div class="basura__elementos">
+
+          </div>
+
+          <div class="basura">
+            <div id="vidrio" class="bote" style="background-image: url('../../img/ciencias/vidrio.png')"></div>
+            <div id="plastico" class="bote" style="background-image: url('../../img/ciencias/plastico.png')"></div>
+            <div id="organico" class="bote" style="background-image: url('../../img/ciencias/organico.png')"></div>
+            <div id="papel" class="bote" style="background-image: url('../../img/ciencias/papel.png')"></div>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="zona__navegacion" style="display:none;">
+        <button class="btn_siguiente" style="text-align:center;" disabled onclick="seguir()">Siguiente</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!--Codigo de precarga -->
+  <script src="../lib/jquery.js"></script>
+  <script src="../lib/jquery-ui.min.js"></script>
+  <!--
+  <script src="../lib//colorMixer.js"></script>
+ 
+  <script src="../lib/jquery.svg.js"></script>
+  <script src="../lib/jquery.knob.js"></script>
+  
+  <script src="../lib/tweenjs.js"></script>
+  <script src="../lib/easeljs.js"></script>
+-->
+
+  <script src="../lib/preloadjs.js"></script>
+  <script src="../lib/soundjs.js"></script>
+  <script src="../js/timer.js"></script>
+  <script src="../js/resultados.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/pregunta.js"></script>
+
+
+  <!--Interacciones complejas-->
+  <script src="../js/reciclaje.js"></script>
+  <script src="/js/descartes.js"></script>
+
+  <script type="text/javascript">
+
+    $(document).ready(function () {
+
+      // irA("./formulario.html");
+
+
+    });
+
+
+    $('.cont-principal').css("background-image", "url('../img/background-claro.png')");
+
+
+    let contenedor = new Contenedor();
+    let navegacion = new Navegable(contenedor);
+
+    let reciclaje = new Clasificar();
+
+    loadJson("../../data/ciencias/reciclaje.json", (r) => {
+
+      let recursos = r.recursos;
+      reciclaje.incluirEn(".basura__elementos");
+
+      for (let i = 0; i < recursos.length; i++) {
+        let rec = recursos[i];
+        let e = document.createElement("div");
+        e.className = "elemento_basura";
+        e.innerHTML = `<img src="${rec.url}" alt="" class="recurso">`;
+
+        reciclaje.agregar(e, rec.categoria);
+      }
+
+
+      reciclaje.almacenaje(["#vidrio", "#plastico", "#organico", "#papel"], ".basura__elementos div");
+      reciclaje.arrastrables("div", ".basura__elementos");
+      reciclaje.setResetear((s) => {
+        s.style.display = "none";
+      });
+    });
+
+    reciclaje.setIntentoAcierto(() => {
+      console.log("bien")
+      resultados.agregarResultados([{ area: "Ciencia", valor: 10 }]);
+    });
+
+    reciclaje.setIntentoFallo(() => {
+      console.log("mal")
+    });
+
+    reciclaje.setValidacion(() => {
+      console.log("Validado")
+    });
+
+    reciclaje.setValidar(() => {
+      resultados.agregarMaximo([{ area: "Ciencia", valor: 200 }]);
+    });
+
+    /*-------------------------------------------*/
+
+
+    let c = matrixFija("../img/ciencias/ojo/ojo1.png", 100, 50, 4, 4);
+    let descartes = [];
+    descartes.push(new Descartes());
+
+    let matrix = [
+      false, true, false, false,
+      false, false, true, false,
+      true, false, false, false,
+      false, false, false, true];
+
+    for (let i = 0; i < c.length; i++) {
+      let e = c[i];
+      let m = matrix[i];
+      descartes[0].agregar(e, m);
+    }
+
+    // descartes[0].incluirEn(".principal");
+
+    descartes[0].setIntentoAcierto(() => {
+      console.log("Acierto");
+    });
+
+    descartes[0].setIntentoFallo(() => {
+      console.log("Fallo");
+    });
+
+    descartes[0].setValidacion(() => {
+      console.log("Valido");
+    });
+
+    /*-------------------------------------------*/
+
+
+    contenedor.agregarHTML(document.querySelector(".pinicio"));
+    contenedor.agregar(new Contenido(document.querySelector(".preciclaje"), reciclaje));
+
+
+
+    contenedor.incluirEn(document.querySelector(".ppreguntas"));
+    navegacion.iniciar();
+
+    var siguiente = document.querySelector('.btn_siguiente');
+
+    ocultar(".zona__navegacion");
+
+    function seguir() {
+      navegacion.setPermitir(true);
+      navegacion.siguiente();
+      mostrar(".zona__navegacion");
+      siguiente.disabled = false;
+
+    }
+
+
+    $(".opcion_check").click(() => {
+      siguiente.disabled = false;
+    });
+
+    navegacion.setFinal(() => {
+      goTo("bresultados");
+    });
+  </script>
+
+
+</body>
+
+</html>

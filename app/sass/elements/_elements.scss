@@ -1,0 +1,60 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: $font__main, sans-serif;
+}
+
+html, body {
+    height: 100%;
+}
+
+*,
+*:before,
+*:after { /* Inherit box-sizing to make it easier to change the property for components that leverage other behavior; see https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */
+	box-sizing: inherit;
+}
+
+body {
+	background: $color__background-body; /* Fallback for when there is no custom background color defined. */
+}
+
+hr {
+    width: 30%;
+    margin: 0 auto;
+    border: 1px solid #00DED3;
+}
+
+
+img {
+	height: auto; /* Make sure images are scaled correctly. */
+	max-width: 100%; /* Adhere to container width. */
+}
+
+figure {
+	margin: 1em 0; /* Extra wide images within figure tags don't overflow the content area. */
+}
+
+//Bloque de introduccion
+.introduccion {
+    position: absolute;
+    top: 150px;
+    left: 300px;
+
+    &>* {
+        margin: 50px 0;
+    }
+
+    h1, .titulo {
+        text-align: left;
+        color: $color__intro;
+        font-size: 3em;
+        line-height: 70px;
+    }
+
+    p, .descripcion{
+        color: $color__intro;
+    }
+}
+
+@import "lists";
+@import "tables";

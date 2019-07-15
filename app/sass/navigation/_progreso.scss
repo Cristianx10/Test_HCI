@@ -1,0 +1,251 @@
+
+.cont_intro {
+    position: absolute;
+    width: 396.38px;
+    height: 289px;
+    left: 272px;
+    top: 200px;
+}
+
+.progreso {
+    width: 100px;
+    height: 600px;
+
+}
+
+.cont_progreso {
+    position: relative;
+    width: 600px;
+    height: 100px;
+    transform: rotate(270deg);
+    overflow: hidden;
+    top: 250px;
+    right: 250px;
+
+}
+
+.progreso_barra {
+    position: relative;
+    left: 0;
+    top: 38px;
+    right: 0;
+    height: 25px;
+    width: 100%;
+    color: #00DED3;
+    background: #00DED3;
+    border-radius: 50px;
+    transition: all .5s ease;
+}
+
+.progreso_barra::-webkit-progress-value {
+    background: #00DED3;
+}
+
+.progreso_barra::-moz-progress-bar {
+    background: #00DED3;
+    background-color: white;
+}
+
+.progreso_barra[value]::-webkit-progress-bar {
+    background-color: #ededed;
+    border-radius: 40px;
+}
+
+.progreso_barra[value]::-webkit-progress-value {
+    border-radius: 40px;
+    background-color: #00DED3;
+}
+
+.progreso_numero {
+    position: relative;
+    color: white;
+    width: 50px;
+    height: 50px;
+    bottom: 3px;
+    background: #621AAA;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    transform: rotate(90deg);
+    transition: all .5s ease;
+}
+
+
+
+/*Pregunta con likert*/
+
+
+.likert__barra {
+
+    progress {
+        background: #00DED3;
+        border-radius: 40px;
+    }
+
+
+    progress::-webkit-progress-value {
+        background: #00DED3;
+    }
+
+    progress::-moz-progress-bar {
+        background: #00DED3;
+        background-color: white;
+    }
+
+    progress[value]::-webkit-progress-bar {
+        background-color: #ededed;
+        border-radius: 40px;
+    }
+
+    progress[value]::-webkit-progress-value {
+        border-radius: 40px;
+        background-color: #00DED3;
+    }
+
+
+    input[type=range]::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 8.8px;
+        cursor: pointer;
+        box-shadow: 1px 1px 1px transparent, 0px 0px 1px transparent;
+        background: transparent;
+        border-radius: 1.3px;
+        border: 0.2px solid transparent;
+    }
+
+
+    input[type=range]:focus::-webkit-slider-runnable-track {
+        background: transparent;
+    }
+
+    input[type=range]::-moz-range-track {
+        width: 100%;
+        height: 8.4px;
+        cursor: pointer;
+        background: transparent;
+        border-radius: 1.3px;
+        border: 0.2px solid transparent;
+    }
+
+    input[type=range]::-ms-track {
+        width: 100%;
+        height: 8.4px;
+        cursor: pointer;
+        background: transparent;
+        border-color: transparent;
+        border-width: 16px 0;
+        color: transparent;
+    }
+
+    input[type=range]::-ms-fill-lower {
+        background: transparent;
+        border: 0.2px solid transparent;
+        border-radius: 2.6px;
+        box-shadow: 1px 1px 1px transparent, 0px 0px 1px transparent;
+    }
+
+
+
+    input[type=range]:focus::-ms-fill-lower {
+        background: transparent;
+    }
+
+    input[type=range]::-ms-fill-upper {
+        background: transparent;
+        border: 0.2px solid transparent;
+        border-radius: 2.6px;
+        box-shadow: 1px 1px 1px transparent, 0px 0px 1px transparent;
+    }
+
+    input[type=range]:focus::-ms-fill-upper {
+        background: transparent;
+    }
+
+}
+
+
+.likert {
+    position: relative;
+    margin-top: 50px;
+    -webkit-appearance: unset;
+    background: transparent;
+    width: 100%;
+    margin: 0 0;
+    z-index: 1;
+    top: -5px;
+    height: 20px;
+    border: none;
+
+    &:focus {
+        outline: none;
+    }
+
+    &_label {
+        color: #E64973;
+        width: 15%;
+    }
+
+    &__lateral {
+        display: flex;
+        flex-direction: row;
+    }
+
+    &__barra {
+        position: relative;
+        width: 70%;
+
+        progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+    }
+
+    &__opciones {
+        width: 70%;
+        margin: 0 15%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &_escala {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 70%;
+        height: 70px;
+    }
+
+    &_valores {
+        width: 10px;
+        margin: 10px;
+        color: #00DED3
+    }
+
+    .likert::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 18.1px;
+        cursor: pointer;
+        box-shadow: 0px 0px 0px #00000000, 0px 0px 0px rgba(13, 13, 13, 0);
+        background: #fffaef;
+        border-radius: 25px;
+        border: 1px solid #00ded3;
+    }
+
+
+
+}
+
+.likert::-webkit-slider-thumb {
+    box-shadow: 0.2px 0.2px 3px #000000, 0px 0px 0.2px #0d0d0d;
+    border: 3px solid #00ded3;
+    height: 30px;
+    width: 30px;
+    border-radius: 50px;
+    background: #ffffff;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -5.95px;
+}

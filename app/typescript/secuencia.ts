@@ -5,9 +5,8 @@ class Secuencias extends Interaccion {
     contenedor?: Contenedor;
     agregado: number;
     actual: number;
+    nactual:number;
   
-
-
     constructor() {
         super();
         this.elementos = new Array();
@@ -60,7 +59,7 @@ class Secuencias extends Interaccion {
         this.navegable = new Navegable(this.contenedor);
 
         this.navegable.permitirAll = true;
-        this.contenedor.foreachElementos(this.elemento);
+        this.contenedor.incluirEn(this.elemento);
     }
 
     start() {

@@ -1,0 +1,182 @@
+.principal {
+  border: 0;
+}
+
+* {
+  font-family: 'Muli', sans-serif;
+}
+
+.titulo_resultados {
+  font-family: 'Heebo', sans-serif;
+  font-size: 48pt;
+  color: white;
+}
+
+.division_horizontal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.mayores .resultado__porcentaje {
+  width: 100px;
+}
+
+.mayores .resultado__porcentaje__circulo {
+  position: absolute;
+}
+
+.mayores .resultado__porcentaje .icono {
+  position: absolute;
+}
+
+.mayores .resultado__informacion {
+  padding: 20px;
+}
+
+.resultado__cuadro {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 17px;
+  background: rgba(255, 255, 255, 0.322);
+  padding: 10px;
+  margin: 20px;
+}
+
+.resultado__porcentaje {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #63D1B7;
+  width: 100px;
+}
+
+.resultado__porcentaje__circulo {
+  position: absolute;
+  display: block;
+}
+
+.resultado__informacion {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-left: 20px;
+}
+
+.resultado__informacion h2 {
+  color: white;
+  font-style: bold;
+}
+
+.resultado__informacion h3 {
+  font-size: 200%;
+  font-style: bold;
+  color: #FF7373;
+}
+
+.cuadro_felicitaciones {
+  width: 300px;
+  color: white;
+  font-size: 70%;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.452);
+  height: 92%;
+  border-radius: 5px;
+  border: 1px solid white;
+  padding: 25px;
+  margin: 20px;
+}
+
+.cuadro_felicitaciones .medalla_icon {
+  margin-top: 25px;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.cuadro_felicitaciones .medalla_icon .icono {
+  position: absolute;
+  display: block;
+  margin-top: 50px;
+}
+
+.cuadro_felicitaciones .cuadro_bordes_lados {
+  border-bottom: 1px solid white;
+  border-top: 1px solid white;
+  margin: 20px 0 20px 0;
+  padding: 20px 0 20px 0;
+}
+
+.resultado__cuadro {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.resultado__porcentaje {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.resultado__porcentaje__circulo {
+  position: absolute;
+  display: block;
+}
+
+.resultado__informacion {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  color: red;
+}
+
+.mayores .rtitulo,
+.mayores .rvalor {
+  font-size: 2em;
+}
+/*# sourceMappingURL=porcentaje.css.map */

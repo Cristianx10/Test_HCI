@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!--Titulo de la pagina-->
+    <title>Documentación</title>
+    <link rel="shortcut icon" href="/includes/img/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="/sass/main.css" />
+
+</head>
+
+<body>
+    <div class="cont-principal pagina" style="background-image: url('/includes/background/claro-personajes.png')">
+        <header class="cont-cabecera" style="background-image: url('/includes/background/oscuro.png');">
+            <div class="centrar cabecera">
+                <div class=cabecera__logo>
+                    <h1>TVI</h1>
+                </div>
+                <nav class="navegacion__principal">
+                    <ul>
+                        <li><a>Interacciones</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+
+        <h1>Test Vocacional Interactivo</h1>
+
+        <h2>Clase Navegable</h2>
+        <a href="/doc/generales/navegable.html">Ver Navegable</a>
+        <code><pre>
+                var contenedor = new Contenedor;
+                var navegable = new Navegable(contenedor: Contenedor);
+    
+                /*Se coloca al final de incluir todos los
+                contenedores que se visualizaran en la navegación*/
+                navegable.iniciar();
+            </pre>
+            </code>
+        <h2>Clase Contenido</h2>
+        <code><pre>
+            var contenedor = new Contenedor();
+
+            //Agrega un elemento de clase Contendio
+            //El tiempo es opcional
+            contenedor.agregar(elemeto: Contenido, tiempo?: number);
+
+            //Agrega un elemento de tipo HTML
+            //El tiempo es opcional
+            contenedor.agregarHTML(elemeto: HTMLElement, tiempo?: number);
+        </pre>
+        </code>
+
+    </div>
+</body>
+
+</html>

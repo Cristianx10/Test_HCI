@@ -1,0 +1,29 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    clear: both;
+}
+
+.titulo,
+h1 {
+    font-family: $font__main, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+
+    color: $color__h1;
+    font-size: 2em;
+    text-align: center;
+}
+
+p {
+    font-family: $font__second, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+
+    color: $color__p;
+    font-size: 24px;
+    line-height: 25px;
+}

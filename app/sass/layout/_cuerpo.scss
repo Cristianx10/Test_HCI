@@ -1,0 +1,82 @@
+.centrar{
+    max-width: $size__site-max;
+    margin: auto;
+}
+
+.cont-principal {
+    height: 100%;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.principal {
+    position: relative;
+    width: $size__site-max;
+    height: 720px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.pantalla {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.pantallaP {
+    margin: 0 auto;
+    width: 60%;
+}
+
+.pantallaN {
+    position: relative;
+    width: 100%;
+    height: 90%;
+    background-size: contain;
+    display: flex;
+    flex-direction: column;
+}
+
+.pantallaC {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.estatico {
+    display: contents;
+}
+
+.pantallaB {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.actividades{
+    width: 100%;
+    height: 100%;
+}
+
+.pagina{
+    justify-content: flex-start;
+}

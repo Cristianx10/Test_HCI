@@ -1,0 +1,43 @@
+
+/*Contero Reloj*/
+
+
+.avance {
+    flex-basis: 8%;
+    display: flex;
+    align-self: center;
+    width: 100px;
+    height: 60px;
+    align-items: center;
+    justify-content: center;
+    background-color: #00DED3;
+    border-radius: 20px;
+}
+
+.avance__p {
+    color: white;
+    font-size: 1.8em;
+}
+
+.conteo {
+    display: flex;
+    align-self: flex-start;
+    width: 165px;
+
+    height: 50px;
+    background-color: #EFEAE2;
+    border-radius: 20px;
+    align-items: center;
+}
+
+.conteo__reloj {
+    width: 40px;
+    margin-left: 9px;
+    height: 40px;
+}
+
+.conteo__p {
+    color: #E64973;
+    font-size: 2em;
+    margin-left: 12%;
+}

@@ -1,0 +1,198 @@
+.centrado {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    align-items: left;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.formulario{
+
+    h1{
+        color: white;
+    }
+
+    &__opciones{
+        width: 500px;
+    }
+
+}
+
+
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+
+    border-radius: 3px;
+    background: $color__background-button;
+    color: rgba(0, 0, 0, .8);
+    line-height: 1;
+    padding: .6em 1em .4em;
+
+    &:hover {
+        border-color: $color__border-button-hover;
+    }
+
+    &:active,
+    &:focus {
+        border-color: $color__border-button-focus;
+    }
+}
+
+
+input[type=radio] {
+    transform: scale(2);
+    cursor: pointer;
+}
+
+.btn_siguiente,
+.btn_comenzar,
+.boton,
+button {
+	@extend .centrado;
+    background: $color__background-button;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid $color__background-button;
+    border-radius: 10px;
+    width: 200px;
+    height: 40px;
+    font-weight: bold;
+    margin-top: 0;
+    font-size: 1.3em;
+    transition: all .5s ease;
+    color: $color__background-button-color;
+
+    &:hover {
+        background: $color__background-button-hover;
+        cursor: pointer;
+    }
+}
+
+.btn_comenzar {
+
+    background: $color__background-button-start;
+    border: 1px solid $color__background-button-start;
+    color: $color__background-button-start-color;
+	width: 170px;
+	height: 40px;
+
+    &:hover {
+        background: $color__background-button-start-hover;
+        border: 1px solid $color__background-button-start-hover;
+    }
+}
+
+.btn_siguiente:disabled,
+.boton__seleccion:disabled {
+
+    background: #ffffff00;
+    color: #d43e66;
+
+    &:hover {
+        cursor: not-allowed;
+    }
+}
+
+
+$color-decoracion: #17CCD7;
+$color-btn: #FFFA7C;
+
+
+h3 {
+    font-size: 18pt;
+    color: $color-decoracion;
+    margin-top: 10px;
+}
+
+input,
+select {
+    border-radius: 5px;
+    border: 2px solid $color-decoracion;
+	height: 35px;
+	width: 100%;
+}
+
+.sexo,
+.mano {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-content: center;
+    align-items: center;
+    color: white;
+    border-radius: 5px;
+    border: 2px solid $color-decoracion;
+    height: 60px;
+}
+
+
+.opcion {
+
+    display: flex;
+    flex-direction: row;
+    margin: 5px;
+    justify-content: center;
+    align-items: center;
+
+    &__check {
+        position: relative;
+        width: 25px;
+        height: 25px;
+        margin-right: 10px;
+
+
+        & input {
+            opacity: 0;
+
+            &:checked~.marcador {
+                background-color: #00DED3;
+
+                &::after {
+                    background: white;
+                }
+            }
+
+        }
+    }
+
+    .marcador {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #00DED3;
+        border-radius: 50px;
+        position: absolute;
+        left: 0;
+        top: -2px;
+        width: 100%;
+        height: 100%;
+        transition: all .4s ease;
+
+        &::after {
+            content: "";
+            width: 50%;
+            height: 50%;
+            display: block;
+            border-radius: 50px;
+        }
+    }
+
+    & .informacion {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+

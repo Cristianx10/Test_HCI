@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!--Titulo de la pagina-->
+    <title>Test Interactivo</title>
+    <link rel="shortcut icon" href="/includes/img/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="/sass/main.css" />
+
+    <!--Estilos css adicionales-->
+
+</head>
+
+<body>
+    <div class="cont-principal" style="background-image: url('/includes/background/claro.png')">
+        <div class="principal" onselectstart="return false" style="border: none;">
+
+            <!--Aqui va el codigo general de las actividades que se propongan-->
+
+            <div class="actividades">
+
+                <div class="pantalla pinicio"
+                    style="background-image: url('/includes/background/oscuro-personajes.png')">
+                    <div class="introduccion">
+                        <h1 class="titulo">Relaciona Terminos</h1>
+                        <p class="descripcion">En esta actividad deberas arrastrar con el mouse un termino con el que mas se relacione.</p>
+                        <button class="btn_comenzar continuar">Comenzar</button>
+                    </div>
+                </div>
+
+                <div class="pantalla prelacionar" style="text-align:center; ">
+                    <div class="pregunta_titulo"
+                        style="padding:0 190px;font-size: 30px; text-align: center; font-weight: bold; margin-top: 50px;">
+                        1. Las palabras están al azar , por favor enlaza una palabra de la izquierda con otra palabra de la derecha según sea su antónimo.
+                        <hr style="margin-top:20px;">
+                    </div>
+                    <div id="relacionAzar"></div>
+                </div>
+            </div>
+
+            <div class="zona__navegacion">
+                <button class="btn_siguiente">Siguiente</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!--Aqui van los archivo Javascript que permiten interactividad-->
+
+    <!--Codigo obligatorio -->
+    <script src="/lib/soundjs.js"></script>
+    <script src="/js/timer.js"></script>
+    <script src="/js/resultados.js"></script>
+    <script src="/js/main.js"></script>
+    <!------------------------------------>
+
+    <!--Interacciones con el canvas-->
+    <script src="/lib/easeljs.js"></script>
+    <!------------------------------------>
+
+    <!--Interacciones complejas-->
+    <script src="/js/relacionar.js"></script>
+    <!------------------------------------>
+
+    <!--Programacion de la interaccion-->
+    <script src="/doc/interacciones/js/relacionar.js"></script>
+
+</body>
+
+</html>

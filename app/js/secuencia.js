@@ -58,7 +58,7 @@ var Secuencias = /** @class */ (function (_super) {
         this.contenedor.agregarHTML(tabla);
         this.navegable = new Navegable(this.contenedor);
         this.navegable.permitirAll = true;
-        this.contenedor.foreachElementos(this.elemento);
+        this.contenedor.incluirEn(this.elemento);
     };
     Secuencias.prototype.start = function () {
         if (this.navegable != null) {

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <!--Titulo de la pagina-->
+  <title>Visual</title>
+  <link rel="shortcut icon" href="/includes/img/favicon.png" type="image/x-icon" />
+  <link rel="stylesheet" href="/sass/main.css" />
+
+  <!--Estilos css adicionales-->
+
+</head>
+
+<body>
+  <div class="cont-principal" style="background-image: url('/includes/background/claro.png')">
+    <div class="principal" onselectstart="return false">
+
+      <div class="pantalla ppreguntas">
+
+        <div class="pantalla pinicio" style="background-image: url('/includes/background/visual.png')">
+          <div class="introduccion">
+            <h1 class="titulo">Inteligencia Visual Espacial</h1>
+            <p id="desc" class="descripcion">En esta sección de la prueba evaluaremos tus conocimientos en el area
+              Visual Espacial
+            </p>
+            <button class="btn_comenzar continuar">Comenzar</button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pantalla ppalillos" style="background-image: url('/includes/background/oscuro-personajes.png')">
+        <div class="introduccion">
+          <h1 class="titulo">Los 3 palillos</h1>
+          <p id="desc" class="descripcion">Retira o mueve 3 de los palillos de lugar para formar las figuras que se
+            indican, en menos de 30 segundos. Entre más movimientos realices, menos puntos obtendrás
+          </p>
+          <button class="btn_comenzar continuar">Comenzar</button>
+        </div>
+      </div>
+
+      <div class="pantalla ppalillosn1">
+        <div>
+          <div class="palillos__info">
+            <h1>Nivel 1</h1>
+            <h2>Retira 3 de los 13 palillos y haz que queden formados solo 3 triángulos</h2>
+          </div>
+        </div>
+        <div class="division_palillos">
+          <div id="palillosn1"></div>
+          <div>
+            <div id="palillosn1__almacen"></div>
+            <h3>Palillos retirados</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="pantalla ppalillosn2">
+        <div class="palillos__info">
+          <h1>Nivel 2</h1>
+          <h2>Cambia de lugar 3 de los 12 palillos y haz que queden formados 3 cuadrados iguales</h2>
+        </div>
+        <div>
+          <div id="palillosn2"></div>
+        </div>
+      </div>
+
+
+      <div class="pantalla table__rompecabezas centrar">
+        <h1 class="pregunta_titulo" style="width: 50%;  font-size: 25px">Acomoda las fichas del rompecabezas, solo
+          arrastra las fichas a
+          la posición que consideres correcta.</h1>
+        <hr>
+        <br>
+      </div>
+
+      <div class="pantalla table__rompecabezas2 centrar">
+        <h1 class="pregunta_titulo" style="width: 50%; font-size: 25px">Acomoda las fichas del rompecabezas haciendo
+          click para rotarlas y arrastrándolas a su posición adecuada.</h1>
+        <hr>
+        <br>
+      </div>
+
+
+      <div class="zona__navegacion">
+        <button class="btn_siguiente continuar" style="text-align:center;">Siguiente</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!--Aqui van los archivo Javascript que permiten interactividad-->
+
+  <!--Codigo obligatorio -->
+  <script src="/lib/soundjs.js"></script>
+  <script src="/js/timer.js"></script>
+  <script src="/js/resultados.js"></script>
+  <script src="/js/main.js"></script>
+  <!------------------------------------>
+
+  <!--Preguntas generales-->
+  <script src="/js/pregunta.js"></script>
+  <!------------------------------------>
+
+  <!--Interacciones con el canvas-->
+  <script src="/lib/easeljs.js"></script>
+  <!------------------------------------>
+
+  <!--Interacciones complejas-->
+  <script src="/lib/jquery.js"></script>
+  <script src="/lib/jquery-ui.js"></script>
+  <script src="/js/palillos.js"></script>
+  <script src="/js/rompecabezas.js"></script>
+  <!------------------------------------>
+
+  <!--Programacion de la interaccion-->
+  <script src="js/visual.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

@@ -17,6 +17,7 @@ class Timer {
   constructor() {
     this.inicial__segundos = 0;
     this.cont__segundos = 0;
+
     this.time = 0;
     this.horas = 0;
     this.minutos = 0;
@@ -25,12 +26,8 @@ class Timer {
     this.enEjecucion = true;
   }
 
-  setProgreso(progreso?: Function) {
-    this.progreso = progreso;
-  }
-
+  //Inicia un cronometro
   start() {
-
     this.time = 0;
     this.horas = 0;
     this.minutos = 0;
@@ -39,13 +36,10 @@ class Timer {
 
     this.intervalo = setInterval(() => {
       this.comenzar();
-
-      //console.log("Hora:" + this.horas + " Minutos: " + this.minutos + " Segundos: "+ this.segundos + " Millis: " + this.milisegundos + " Total: " +this.time);
     }, 10);
-
-
   }
 
+  //Inicia un temporizador
   startTempo(segundos: number) {
 
     this.time = 0;
@@ -62,10 +56,10 @@ class Timer {
       if (this.progreso != null) {
         this.progreso(this.minutos, this.segundos);
       }
-      //console.log("Hora:" + this.horas + " Minutos: " + this.minutos + " Segundos: "+ this.segundos + " Millis: " + this.milisegundos + " Total: " +this.time);
     }, 10);
   }
 
+  //Detiene los intervalos
   stop() {
     if (this.terminado == false) {
 
@@ -151,6 +145,11 @@ class Timer {
     }
   }
 
+  setProgreso(progreso?: Function) {
+    this.progreso = progreso;
+  }
+
+
   setTermino(ter: Function) {
     this.termino = ter;
   }
@@ -160,9 +159,23 @@ class Timer {
   }
 
   getTiempo(){
-  
     return this.cont__segundos;
   }
-
-
 }
+
+/*
+class Observadores{
+
+  elementos:Array<HTMLElement>;
+
+  constructor(elemento:HTMLElement){
+    this.elementos = new Array();
+    this.elementos.push(elemento);
+  }
+
+  agregar(){
+    this.elementos[0].cloneNode();
+  }
+}
+
+*/

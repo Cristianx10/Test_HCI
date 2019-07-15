@@ -11,9 +11,7 @@ var Timer = /** @class */ (function () {
         this.milisegundos = 0;
         this.enEjecucion = true;
     }
-    Timer.prototype.setProgreso = function (progreso) {
-        this.progreso = progreso;
-    };
+    //Inicia un cronometro
     Timer.prototype.start = function () {
         var _this = this;
         this.time = 0;
@@ -23,9 +21,9 @@ var Timer = /** @class */ (function () {
         this.milisegundos = 0;
         this.intervalo = setInterval(function () {
             _this.comenzar();
-            //console.log("Hora:" + this.horas + " Minutos: " + this.minutos + " Segundos: "+ this.segundos + " Millis: " + this.milisegundos + " Total: " +this.time);
         }, 10);
     };
+    //Inicia un temporizador
     Timer.prototype.startTempo = function (segundos) {
         var _this = this;
         this.time = 0;
@@ -40,9 +38,9 @@ var Timer = /** @class */ (function () {
             if (_this.progreso != null) {
                 _this.progreso(_this.minutos, _this.segundos);
             }
-            //console.log("Hora:" + this.horas + " Minutos: " + this.minutos + " Segundos: "+ this.segundos + " Millis: " + this.milisegundos + " Total: " +this.time);
         }, 10);
     };
+    //Detiene los intervalos
     Timer.prototype.stop = function () {
         if (this.terminado == false) {
             this.terminado = true;
@@ -108,6 +106,9 @@ var Timer = /** @class */ (function () {
             }
         }
     };
+    Timer.prototype.setProgreso = function (progreso) {
+        this.progreso = progreso;
+    };
     Timer.prototype.setTermino = function (ter) {
         this.termino = ter;
     };
@@ -119,3 +120,19 @@ var Timer = /** @class */ (function () {
     };
     return Timer;
 }());
+/*
+class Observadores{
+
+  elementos:Array<HTMLElement>;
+
+  constructor(elemento:HTMLElement){
+    this.elementos = new Array();
+    this.elementos.push(elemento);
+  }
+
+  agregar(){
+    this.elementos[0].cloneNode();
+  }
+}
+
+*/ 

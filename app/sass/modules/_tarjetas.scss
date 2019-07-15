@@ -1,0 +1,60 @@
+.tablero {
+    display: flex;
+    width: 90%;
+    margin: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    &__bloque {
+        position: relative;
+        perspective: 1000px;
+        border-radius: 20px;
+
+        height: 130px;
+        width: 90px;
+        margin: 20px 10px;
+
+        .bloque {
+           
+            height: 100%;
+            width: 100%;
+
+            //border: 2px solid blue;
+            img{
+                width: 100%;
+                height: 100%;
+            }
+           
+
+            transform-style: preserve-3d;
+            transition: all 1s linear;
+            &__cara {
+
+                background-image: url("../../img/salud/fondoT.png");
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                position: absolute;
+                backface-visibility: hidden;
+                width: 100%;
+                height: 100%;
+            }
+            &__sello {
+
+                transform: rotateY(180deg);
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+    &__bloque:hover {
+        background: yellow;
+        .bloque {
+          //  transform: rotateY(180deg);
+        }
+    }
+}
+
+.tablerog:nth-child(2) > .tablero{
+    width: 50%;
+}

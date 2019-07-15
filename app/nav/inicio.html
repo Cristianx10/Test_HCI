@@ -2,38 +2,39 @@
 <html lang="es">
 
 <head>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <!--Titulo de la pagina-->
   <title>Test Interactivo</title>
-  <link rel="shortcut icon" href="../includes/img/favicon.png" type="image/x-icon" />
-  <link rel="stylesheet" href="../sass/general/main.css" />
-  <link href="../sass/tipographys/tipografias.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
-  <link rel="stylesheet" href="../../sass/general/datosUsuario.css" type="text/css">
+  <link rel="shortcut icon" href="/includes/img/favicon.png" type="image/x-icon" />
+  <link rel="stylesheet" href="/sass/main.css" />
 
 </head>
 
 <body>
-  <div class="cont-principal" style="background-image: url('../img/background_principal-2.png')">
+  <div class="cont-principal" style="background-image: url('/includes/background/oscuro-personajes.png')">
     <div class="principal" onselectstart="return false" style="border: none;">
+      <!---------------------------------------------------------------------------------------------------------------------------->
+      <!--Estructura basica de los archivos-->
 
       <div class="pantalla pinicio">
         <div class="introduccion">
           <h1 class="titulo">Orientación Vocacional</h1>
           <p id="desc" class="descripcion">A continuación, encontrarás un cuestionario que permite conocer tus intereses
             vocacionales.</p>
-          <button class="botonComenzar" onclick="seguir()">Comenzar</button>
+          <button class="btn_comenzar" onclick="seguir()">Comenzar</button>
         </div>
       </div>
 
 
-      <div class="pantalla pformulario">
+      <div class="pantalla centrado pformulario">
 
         <div class="formulario centrar">
           <h1 class="titulo" style="text-align: center; width: 100%; position: initial;">Datos del Usuario</h1>
 
-          <div class="formulario__opciones">
+          <div class="formulario__opciones" onsubmit="return false">
             <div class="datos_input">
               <h3>Nombre</h3>
               <input id="form-nombre" autocomplete="off" spellcheck="false" type="text" name="" class="input-nombre"
@@ -86,38 +87,38 @@
                   <option value="19">Música</option>
                 </optgroup>
                 <optgroup label="Ciencias sociales">
-                    <option value="20">Antropologia</option>
-                    <option value="21">Ciencia Politica</option>
-                    <option value="22">Derecho</option>
-                    <option value="23">Psicologia</option>
-                    <option value="24">Sociologia</option>
-                    <option value="25">Musica</option>
-                  </optgroup>
-                  <optgroup label="Ciencias administrativas y eco.">
-                      <option value="26">Administracion de empresas</option>
-                      <option value="27">Economia</option>
-                      <option value="28">Mercadeo y Publicidad</option>
-                      <option value="29">Economia</option>
-                      <option value="30">Finanzas</option>
-                    </optgroup>
-                    <optgroup label="Ciencias de la educacion">
-                        <option value="20">Lic. Basica Primaria</option>
-                        <option value="20">Lic. Literatura</option>
-                        <option value="20">Lic. Artes</option>
-                        <option value="20">Lic. Lenguas</option>
-                        <option value="20">Lic. Ciencias Naturales</option>
-                        <option value="20">Lic. Ciencias Sociales</option>
-                      </optgroup>
+                  <option value="20">Antropologia</option>
+                  <option value="21">Ciencia Politica</option>
+                  <option value="22">Derecho</option>
+                  <option value="23">Psicologia</option>
+                  <option value="24">Sociologia</option>
+                  <option value="25">Musica</option>
+                </optgroup>
+                <optgroup label="Ciencias administrativas y eco.">
+                  <option value="26">Administracion de empresas</option>
+                  <option value="27">Economia</option>
+                  <option value="28">Mercadeo y Publicidad</option>
+                  <option value="29">Economia</option>
+                  <option value="30">Finanzas</option>
+                </optgroup>
+                <optgroup label="Ciencias de la educacion">
+                  <option value="20">Lic. Basica Primaria</option>
+                  <option value="20">Lic. Literatura</option>
+                  <option value="20">Lic. Artes</option>
+                  <option value="20">Lic. Lenguas</option>
+                  <option value="20">Lic. Ciencias Naturales</option>
+                  <option value="20">Lic. Ciencias Sociales</option>
+                </optgroup>
                 <optgroup label="Otro">
                   <option value="20">Bachiller</option>
                 </optgroup>
               </select>
             </div>
 
+
             <div class="datos_input">
               <h3>Sexo</h3>
               <form class="sexo" onsubmit="return false">
-
                 <label class="opcion">
                   <div class="opcion__check">
                     <input id="form-sexo-hombre" class="marcador__input" type="radio" name="opcion"></input><span
@@ -141,13 +142,13 @@
                   </div>
                   <div class="informacion">Otro</div>
                 </label>
-
               </form>
             </div>
 
+
             <div class="datos_input">
               <h3>Mano de Preferencia</h3>
-              <form class="mano">
+              <form class="mano" onsubmit="return false">
 
                 <label class="opcion">
                   <div class="opcion__check">
@@ -167,7 +168,6 @@
 
               </form>
             </div>
-
           </div>
           <div class="zona__navegacion" style="margin-top: 40px;">
             <button class="btn_siguiente">Continuar</button>
@@ -184,31 +184,18 @@
 
   <script>
     localStorage.clear();
-    </script>
+  </script>
 
-  <!--Codigo de precarga -->
-
-
-  <!--
-  <script src="../lib//colorMixer.js"></script>
-  <script src="../lib/jquery-ui.min.js"></script>
-  <script src="../lib/jquery.svg.js"></script>
-  <script src="../lib/jquery.knob.js"></script>
-  
-  <script src="../lib/easeljs.js"></script>
-  <script src="../lib/tweenjs.js"></script>
-  -->
 
   <!--Obligatorio -->
-  <script src="../lib/preloadjs.js"></script>
-  <script src="../lib/jquery.js"></script>
-  <script src="../lib/soundjs.js"></script>
-  <script src="../js/timer.js"></script>
-  <script src="../js/resultados.js"></script>
-  <script src="../js/main.js"></script>
+  <script src="/lib/jquery.js"></script>
+  <script src="/lib/soundjs.js"></script>
+  <script src="/js/timer.js"></script>
+  <script src="/js/resultados.js"></script>
+  <script src="/js/main.js"></script>
 
 
- 
+
 
   <script type="text/javascript">
 
@@ -293,7 +280,7 @@
     }
 
     navegable.setFinal(() => {
-      goTo("bintroduccion");
+      goTo("/nav/general/introduccion");
     });
 
 
@@ -301,7 +288,8 @@
 
   </script>
 
-
+  <!---------------------------------------------------------------------------------------------------------------------------->
+  <!--Fine de la estructura basica de los archivos-->
 
 </body>
 

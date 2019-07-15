@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <!--Titulo de la pagina-->
+  <title>Linguistica</title>
+  <link rel="shortcut icon" href="/includes/img/favicon.png" type="image/x-icon" />
+  <link rel="stylesheet" href="/sass/main.css" />
+
+  <!--Estilos css adicionales-->
+  <link rel="stylesheet" href="css/linguistica.css">
+
+
+
+</head>
+
+<body>
+  <div class="cont-principal" style="background-image: url('/includes/background/claro.png')">
+    <div class="principal" onselectstart="return false">
+
+      <!--Aqui va el codigo general de las actividades que se propongan-->
+
+      <div class="pantalla ppreguntas">
+
+        <div class="pantalla ppintura" style="flex-direction: row">
+          <div class="contenido-pintura">
+            <div id="correcto" class="pregunta__pintura">
+              <img src="/img/arte/pinturaParcial.png" alt="">
+              <div id="pintura__casilla1"></div>
+            </div>
+
+            <div>
+              <div class="pregunta_titulo">
+                <h2>Arrastra a la pintura la sección que le hace falta </h2>
+              </div>
+
+              <div class="pregunta__opciones">
+                <img class="ima__opcion" src="/img/arte/fragmentoA.png" alt="">
+                <img class="ima__opcion" src="/img/arte/fragmentoB.png" alt="">
+                <img class="ima__opcion" src="/img/arte/fragmentoC.png" alt="">
+                <img class="ima__opcion" src="/img/arte/fragmentoD.png" alt="">
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="pantalla pinicio" style="background-image: url('/includes/background/oscuro-personajes.png')">
+          <div class="introduccion">
+            <h1 class="titulo">Inteligencia Lingüística</h1>
+            <p id="desc" class="descripcion">En esta sección de la prueba se evaluará tus conocimientos en el área
+              Lingüística.</p>
+            <button class="btn_comenzar continuar">Comenzar</button>
+          </div>
+        </div>
+
+        <div class="pantalla prelacionar" style="text-align:center; ">
+          <div class="pregunta_titulo"
+            style="padding:0 190px;font-size: 30px; text-align: center; font-weight: bold; margin-top: 50px;">
+            1. Las palabras están al azar , por favor enlaza una palabra de la izquierda con otra palabra de la derecha
+            según sea su antónimo.
+            <hr style="margin-top:20px;">
+          </div>
+          <div id="relacionAzar"></div>
+
+        </div>
+
+
+        <div class="pantalla pselecciona">
+
+          <div class="pregunta_titulo"
+            style="padding:0 190px;font-size: 30px; text-align: center; font-weight: bold; margin-top: 50px;">
+            Agrega signos de puntuación
+            <hr>
+          </div>
+          <div style="width: 50%; text-align: center; margin-left: 25%; margin-top: 230px;">
+            <p>Allí <span id="s1"></span> a lo lejos<span id="s2"></span> canta un <span id="s3"></span>ruiseñor <span
+                id="s4"></span> ahí
+              cerca<span id="s5"></span> ronronea un gato <span id="s6"></span> aquí mismo<span id="s7"></span> Suspira
+              un
+              enamorado<span id="s8"></span></p>
+          </div>
+
+        </div>
+
+        <div class="pantalla pemperejado" style="background-image: url('/includes/background/oscuro-personajes.png')">
+          <div class="introduccion">
+            <h1 class="titulo">Emparejados</h1>
+            <p id="desc" class="descripcion">Presiona click sobre cada una de las tarjetas para que se muestre la
+              imagen. Deberás unir las imágenes similares con el menor tiempo e intentos posibles.</p>
+            <button class="btn_comenzar continuar">Comenzar</button>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="zona__navegacion">
+        <button class="btn_siguiente continuar">Siguiente</button>
+      </div>
+
+
+    </div>
+  </div>
+
+  <script src="/js/principal.js"></script>
+
+  <!--Aqui van los archivo Javascript que permiten interactividad-->
+
+  <!--Codigo obligatorio -->
+  <script src="/lib/soundjs.js"></script>
+  <script src="/js/timer.js"></script>
+  <script src="/js/resultados.js"></script>
+  <script src="/js/main.js"></script>
+  <!------------------------------------>
+
+  <!--Preguntas generales-->
+  <script src="/js/pregunta.js"></script>
+  <!------------------------------------>
+
+  <!--Interacciones con el canvas-->
+  <script src="/lib/easeljs.js"></script>
+  <!------------------------------------>
+
+  <!--Interacciones complejas-->
+  <script src="/lib/jquery.js"></script>
+  <script src="/lib/jquery-ui.js"></script>
+  <script src="/js/tarjetas.js"></script>
+  <script src="/js/reciclaje.js"></script>
+  <script src="/js/relacionar.js"></script>
+  <!------------------------------------>
+
+  <!--Programacion de la interaccion-->
+  <script src="js/linguistica.js"></script>
+
+</body>
+
+</html>

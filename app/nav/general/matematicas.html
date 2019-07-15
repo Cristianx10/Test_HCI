@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!--Titulo de la pagina-->
+    <title>Matematicas</title>
+    <link rel="shortcut icon" href="/includes/img/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="/sass/main.css" />
+
+     <!--Estilos css adicionales-->
+
+</head>
+
+<body>
+    <div class="cont-principal" style="background-image: url('/includes/background/claro.png')">
+        <div class="principal" onselectstart="return false">
+
+            <div class="pantalla ppreguntas">
+
+                <div class="pantalla pinicio" style="background-image: url('/includes/background/matematicas.png');
+                background-position: 100px;">
+                    <div class="introduccion">
+                        <h1 class="titulo">Inteligencia Lógico Matemática</h1>
+                        <p id="desc" class="descripcion">En esta sección de la prueba se evaluará tus conocimientos en
+                            el área Lógico Matemática</p>
+                        <button class="btn_comenzar continuar">Comenzar</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="secuencias">
+            
+            </div>
+            <div class="zona__navegacion" style="display:none;">
+                <button class="btn_siguiente continuar" style="text-align:center;" disabled >Siguiente</button>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!--Aqui van los archivo Javascript que permiten interactividad-->
+
+    <!--Codigo obligatorio -->
+    <script src="/lib/soundjs.js"></script>
+    <script src="/js/timer.js"></script>
+    <script src="/js/resultados.js"></script>
+    <script src="/js/main.js"></script>
+    <!------------------------------------>
+
+    <!--Preguntas generales-->
+    <script src="/js/pregunta.js"></script>
+    <!------------------------------------>
+
+    <!--Interacciones con el canvas-->
+    <script src="/lib/easeljs.js"></script>
+    <script src="/lib/preloadjs.js"></script>
+    <!------------------------------------>
+
+    <!--Interacciones complejas-->
+    <script src="/lib/jquery.js"></script>
+    <script src="/js/secuencia.js"></script>
+    <!------------------------------------>
+
+    <!--Programacion de la interaccion-->
+    <script src="js/matematicas.js"></script>
+
+</body>
+
+</html>

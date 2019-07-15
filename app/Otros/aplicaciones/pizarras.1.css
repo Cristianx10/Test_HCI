@@ -1,0 +1,50 @@
+.pizarras {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.pizarra {
+  position: relative;
+  min-width: 570px;
+  min-height: 550px;
+  overflow: auto;
+}
+
+.pizarra__ficha, .pizarra__click {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+}
+
+.pizarra__fichas, .pizarra__clicks {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.pizarra__click {
+  background: rgba(0, 128, 0, 0.219);
+}
+
+.pizarra__ficha {
+  -webkit-transition: all .5s ease;
+  transition: all .5s ease;
+  position: absolute;
+  background: red;
+}
+
+.pizarra__ficha:hover {
+  cursor: pointer;
+}
+/*# sourceMappingURL=pizarras.1.css.map */

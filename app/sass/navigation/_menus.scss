@@ -1,0 +1,28 @@
+.navegacion__principal {
+    color: white;
+ 
+
+    ul {
+        display: flex;
+        li {
+            list-style: none;
+            a {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: #FFF97C;
+                width: 200px;
+                height: 70px;
+                transition: all .5s ease;
+
+                font-size: 1.5em;
+
+                &:hover{
+                    background:#FFF5E1; 
+                    cursor: pointer;
+                }
+
+            }
+        }
+    }
+}
