@@ -75,6 +75,7 @@ class Timer {
         this.accionFinal();
       }
     }
+    console.log("Termino");
     //console.log("Hora:" + this.horas + " Minutos: " + this.minutos + " Segundos: "+ this.segundos + " Millis: " + this.milisegundos + " Total: " +this.time);
   }
 

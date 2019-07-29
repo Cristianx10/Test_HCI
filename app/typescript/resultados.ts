@@ -111,7 +111,7 @@ class Resultados {
         return max;
     }
 
-    agregarResultados(resultados: Array<ResultadoA>){
+    agregarResultados(resultados: Array<ResultadoA>) {
 
         resultados.forEach((m) => {
 
@@ -162,13 +162,13 @@ class Resultados {
             }
         }
 
-        if(nombre == "ciencia"){
+        if (nombre == "ciencia") {
             console.log("ciencia: " + valor, "Con un maximo de: " + this.getMaximo(nombre));
 
         }
 
         this.save();
-     
+
     }
 
     agregarMaximo(maximos: Array<ResultadoA>) {
@@ -208,31 +208,31 @@ class Resultados {
 
         valores.forEach((v) => {
 
-            if (valorTotal != null) {
-                for (let i = 0; i < v.valores.length; i++) {
-                    let val = v.valores[i];
-                    let encontro: boolean = false;
+            for (let i = 0; i < v.valores.length; i++) {
+                let val = v.valores[i];
+                let encontro: boolean = false;
 
-                    for (let j = 0; j < valorTotal.length; j++) {
-                        let t = valorTotal[j];
-                        let nombre = t.area.toLowerCase();
-                        if (val.area == nombre) {
-                            encontro = true;
-                            if (val.valor > t.valor) {
-                                t.valor = val.valor;
-                            }
+                for (let j = 0; j < valorTotal.length; j++) {
+                    let t = valorTotal[j];
+                    let nombre = t.area.toLowerCase();
+                    let ref = val.area.toLowerCase();
+                    if (ref == nombre) {
+                        encontro = true;
+                        if (val.valor > t.valor) {
+                            t.valor = val.valor;
                         }
                     }
-                    if (encontro == false) {
-                        valorTotal.push({ area: val.area.toLowerCase(), valor: val.valor });
-                    }
+                }
+                if (encontro == false) {
+                    valorTotal.push({ area: val.area.toLowerCase(), valor: val.valor });
                 }
             }
+
         });
 
 
         let categoria: number = 0;
-        
+
         for (let h = 0; h < valorTotal.length; h++) {
             let v = valorTotal[h];
             let encontrado = false;
@@ -254,6 +254,7 @@ class Resultados {
         }
 
         this.save();
+        return valorTotal;
 
     }
     /*
@@ -323,13 +324,13 @@ class VerResultado {
         this.color = color;
     }
 
-    generar(categoria: string, valor: number, src: string, name?:string) {
+    generar(categoria: string, valor: number, src: string, name?: string) {
         this.categoria = categoria;
         this.valor = valor;
         this.src = src;
         let simpli = categoria.split(" ");
         let nombre = MayusPrimera(this.categoria);
-        if(name != null){
+        if (name != null) {
             nombre = name;
         }
         this.name = simpli[0];
@@ -347,9 +348,9 @@ class VerResultado {
     `;
     }
 
-    activar(){
+    activar() {
         this.elemento.classList.add("clickeable");
-        this.elemento.addEventListener("click", ()=>{
+        this.elemento.addEventListener("click", () => {
             window.location.href = "e" + this.name + ".html";
         });
     }
@@ -358,10 +359,10 @@ class VerResultado {
         return this.elemento;
     }
 
-    felicidades(name:string) {
+    felicidades(name: string) {
         let e = document.createElement("div");
         let profesion = this.categoria;
-        if(name != null){
+        if (name != null) {
             profesion = name;
         }
         e.className = "cuadro_felicitaciones";

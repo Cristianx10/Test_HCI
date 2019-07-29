@@ -3,38 +3,38 @@
     display: block;
     width: 114px;
     height: 115px;
-    top: 267px;
-    left: 290px;
-  }
+    top: 166px;
+    left: 178px;
+}
 
-  .ppintura .pregunta__opciones {
+.ppintura .pregunta__opciones {
     flex-direction: column;
     width: 500px;
     height: 500px;
-  }
+}
 
-  .ima__opcion {
+.ima__opcion {
     width: 114px;
     height: 115px;
-  }
+}
 
-  .ppintura .contenido-pintura {
+.ppintura .contenido-pintura {
     margin-top: 100px;
     display: flex;
     padding: 0;
-  }
+}
 
-  .ppintura .contenido-pintura h2 {
+.ppintura .contenido-pintura h2 {
     margin: 30px;
     text-align: center;
-  }
+}
 
-  .ppintura .pregunta__opciones>div {
+.ppintura .pregunta__opciones>div {
     flex-wrap: wrap;
     padding: 30px;
-  }
+}
 
-  .ppintura .pregunta__opciones>div img {
+.ppintura .pregunta__opciones>div img {
     margin-top: 40px;
     margin-left: 40px;
-  }
+}

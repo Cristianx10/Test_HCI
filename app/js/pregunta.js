@@ -22,6 +22,7 @@ var Pregunta = /** @class */ (function () {
         }
         this.tipoId = "pregunta";
         this.valores = new Array();
+        this.maximos = new Array();
         this.elemento = document.createElement('div');
         this.contenido = new Contenido(this.getElemento(), this);
     }
@@ -48,7 +49,7 @@ var Pregunta = /** @class */ (function () {
         else {
             if (this.seleccion != null) {
                 this.seleccion.validacion();
-                resultados.calcularMaximo(this.valores);
+                this.maximos = resultados.calcularMaximo(this.valores);
             }
         }
         console.log("Validadndo");
@@ -57,16 +58,29 @@ var Pregunta = /** @class */ (function () {
         this.validacion = validar;
     };
     Pregunta.prototype.registro = function () {
+        console.log(this.seleccion);
         if (this.seleccion != null) {
             resultados.agregar(this.tipoId, [
                 { id: "pregunta", valor: this.informacion },
                 { id: "respuesta", valor: this.seleccion.informacion },
-                { id: "Tiempo usado (segundos)", valor: this.contenido.getSegundos() + "" }
+                { id: "Tiempo usado (segundos)", valor: this.contenido.getSegundos() + "" },
+                { id: "Valor de respuesta", valor: JSON.stringify(this.seleccion.valor) + "" },
+                { id: "Valores maximos", valor: JSON.stringify(this.maximos) + "" }
             ]);
         }
     };
     Pregunta.prototype.getPregunta = function () {
         return this.contenido;
+    };
+    Pregunta.prototype.setAccionInicial = function (accionInicial) {
+        this.contenido.setAccionInicialActividad(accionInicial);
+    };
+    Pregunta.prototype.setAccionFinal = function (accionFinal) {
+        this.contenido.setAccionFinalActividad(accionFinal);
+    };
+    Pregunta.prototype.setContenedor = function (ruta) {
+        var elemento = document.querySelector(ruta);
+        this.contenido.setElemento(elemento);
     };
     return Pregunta;
 }());
@@ -86,6 +100,8 @@ var Opcion = /** @class */ (function () {
         });
     }
     Opcion.prototype.validacion = function () {
+        console.log("El valor es:");
+        console.log(this.valor);
         this.valor.forEach(function (v) {
             resultados.sumar(v.area, v.valor);
         });
@@ -183,9 +199,9 @@ var OpcionB = /** @class */ (function (_super) {
     Inicio de la pregunta C
 
 */
-var PreguntaC = /** @class */ (function (_super) {
-    __extends(PreguntaC, _super);
-    function PreguntaC(informacion) {
+var Escribir = /** @class */ (function (_super) {
+    __extends(Escribir, _super);
+    function Escribir(informacion) {
         var _this = _super.call(this, informacion) || this;
         _this.tipoId = "P AreaTexto";
         _this.elemento.className = "pregunta";
@@ -193,7 +209,6 @@ var PreguntaC = /** @class */ (function (_super) {
         var div_seccionA = document.createElement('section');
         var div_seccionA_h1 = document.createElement('h2');
         _this.div_seccionB = document.createElement('section');
-        var formulario = document.createElement('div');
         div_seccionA.className = "pregunta__titulo";
         _this.div_seccionB.className = "pregunta__opciones";
         div_seccionA_h1.innerHTML = _this.informacion;
@@ -203,54 +218,58 @@ var PreguntaC = /** @class */ (function (_super) {
         div_seccionA.appendChild(document.createElement('hr'));
         return _this;
     }
-    PreguntaC.prototype.agregar = function (info, valor) {
-        var opcion = new OpcionC(this, info, valor);
+    Escribir.prototype.agregar = function (info) {
+        var opcion = new OpcionEscribir(this, info);
+        this.seleccion = opcion;
         this.div_seccionB.appendChild(opcion.areaTexto);
         this.opciones.push(opcion);
         this.valores.push({ id: this.tipoId, valores: opcion.valor });
     };
-    PreguntaC.prototype.validarCon = function (original, acciones) {
-        var usuario = this.getTexto();
-        var texto = new Texto_validar(original, usuario);
-        var error_general = (texto.getErrores());
-        //Da los errores de coincidencia exacta
-        var error_coincidencia = (texto.getErroresStrict());
-        //Da los errores de Mayusculas
-        var error_mayuscula = (texto.getErroresMayusculas());
-        //Da los errores de Puntuacion, solo "," y "."
-        var error_puntuacion = (texto.getErroresPuntuacion());
-        //Da los errores de palabras que faltaron
-        var error_falto = (texto.getErroresFalto());
-        acciones(error_general, error_coincidencia, error_mayuscula, error_puntuacion, error_falto);
+    Escribir.prototype.validarCon = function (original, acciones) {
+        var _this = this;
+        this.setValidacion(function () {
+            var usuario = _this.getTexto();
+            var texto = new Texto_validar(original, usuario);
+            var error_general = (texto.getErrores());
+            //Da los errores de coincidencia exacta
+            var error_coincidencia = (texto.getErroresStrict());
+            //Da los errores de Mayusculas
+            var error_mayuscula = (texto.getErroresMayusculas());
+            //Da los errores de Puntuacion, solo "," y "."
+            var error_puntuacion = (texto.getErroresPuntuacion());
+            //Da los errores de palabras que faltaron
+            var error_falto = (texto.getErroresFalto());
+            acciones(error_general, error_coincidencia, error_mayuscula, error_puntuacion, error_falto);
+        });
     };
-    PreguntaC.prototype.placeholder = function (info) {
+    Escribir.prototype.placeholder = function (info) {
         this.opciones.forEach(function (o) {
             o.areaTexto.placeholder = info;
         });
     };
-    PreguntaC.prototype.focus = function () {
+    Escribir.prototype.focus = function () {
         this.opciones.forEach(function (o) {
             o.areaTexto.focus();
         });
     };
-    PreguntaC.prototype.getTexto = function () {
+    Escribir.prototype.getTexto = function () {
         var texto = "";
         this.opciones.forEach(function (o) {
             texto = o.areaTexto.value;
         });
         return texto;
     };
-    PreguntaC.prototype.isEscritura = function (escritura) {
+    Escribir.prototype.isEscritura = function (escritura) {
         this.opciones.forEach(function (o) {
             o.escribiendo(escritura);
         });
     };
-    return PreguntaC;
+    return Escribir;
 }(Pregunta));
-var OpcionC = /** @class */ (function (_super) {
-    __extends(OpcionC, _super);
-    function OpcionC(pregunta, info, valor) {
-        var _this = _super.call(this, pregunta, valor) || this;
+var OpcionEscribir = /** @class */ (function (_super) {
+    __extends(OpcionEscribir, _super);
+    function OpcionEscribir(pregunta, info) {
+        var _this = _super.call(this, pregunta, []) || this;
         _this.elemento.className = "opcionC";
         _this.areaTexto = document.createElement("textarea");
         _this.areaTexto.className = "pregunta__parrafo";
@@ -264,17 +283,17 @@ var OpcionC = /** @class */ (function (_super) {
         });
         return _this;
     }
-    OpcionC.prototype.placeholder = function (info) {
+    OpcionEscribir.prototype.placeholder = function (info) {
         this.areaTexto.placeholder = info;
     };
-    OpcionC.prototype.escribiendo = function (escritura) {
+    OpcionEscribir.prototype.escribiendo = function (escritura) {
         this.areaTexto.addEventListener("keydown", function () {
             if (escritura != null) {
                 escritura();
             }
         });
     };
-    return OpcionC;
+    return OpcionEscribir;
 }(Opcion));
 /* Escala de linker
 */
@@ -431,8 +450,8 @@ var OpcionI = /** @class */ (function (_super) {
 }(Opcion));
 var PreguntaS = /** @class */ (function (_super) {
     __extends(PreguntaS, _super);
-    function PreguntaS() {
-        var _this = _super.call(this) || this;
+    function PreguntaS(informacion) {
+        var _this = _super.call(this, informacion) || this;
         _this.tipoId = "P Seleccion";
         _this.opciones = new Array();
         _this.texto = document.createElement("p");
@@ -488,6 +507,20 @@ var OpcionS = /** @class */ (function (_super) {
     }
     return OpcionS;
 }(Opcion));
+var PreguntaSall = /** @class */ (function (_super) {
+    __extends(PreguntaSall, _super);
+    function PreguntaSall(preguntas) {
+        var _this = _super.call(this) || this;
+        _this.preguntas = preguntas;
+        _this.setValidacion(function () {
+            _this.preguntas.forEach(function (pregunta) {
+                pregunta.contenido.timer.stop();
+            });
+        });
+        return _this;
+    }
+    return PreguntaSall;
+}(Pregunta));
 var PreguntaR = /** @class */ (function (_super) {
     __extends(PreguntaR, _super);
     function PreguntaR(informacion) {

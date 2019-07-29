@@ -80,3 +80,11 @@
 .pagina{
     justify-content: flex-start;
 }
+
+.pregunta__pintura {
+    position: relative;
+
+    &>div>img {
+        margin: 0;
+    }
+}

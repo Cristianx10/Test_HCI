@@ -1,4 +1,3 @@
-
 class Tablero_tarjetas extends Interaccion {
 
   fichas: Array<Pareja>;

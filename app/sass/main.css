@@ -853,6 +853,14 @@ select {
   cursor: pointer;
 }
 
+.formulario__opciones__imagen {
+  width: 100%;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
 /*--------------------------------------------------------------
 # Navigation
 --------------------------------------------------------------*/
@@ -1419,6 +1427,7 @@ a:hover, a:active {
       -ms-flex-direction: column;
           flex-direction: column;
   height: 20%;
+  margin: auto;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -1979,13 +1988,12 @@ a:hover, a:active {
   height: 250px;
 }
 
+/*
 img {
-  -webkit-transition: all .5s ease;
-  transition: all .5s ease;
-  width: 150px;
-  height: 150px;
-}
-
+    transition: all .5s ease;
+    width: 150px;
+    height: 150px;
+}*/
 .contenedor__imagen img:hover {
   -webkit-transition: all .5s ease;
   transition: all .5s ease;
@@ -2176,5 +2184,13 @@ img {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
+}
+
+.pregunta__pintura {
+  position: relative;
+}
+
+.pregunta__pintura > div > img {
+  margin: 0;
 }
 /*# sourceMappingURL=main.css.map */

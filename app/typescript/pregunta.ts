@@ -6,7 +6,8 @@ class Pregunta implements Validable {
     tipoId: string;
     contenido: Contenido;
     valores: Array<Respuesta>;
-    validacion?:Function;
+    validacion?: Function;
+    maximos: Array<ResultadoA>;
 
     constructor(informacion?: string) {
 
@@ -17,6 +18,7 @@ class Pregunta implements Validable {
         }
         this.tipoId = "pregunta";
         this.valores = new Array();
+        this.maximos = new Array();
 
         this.elemento = document.createElement('div');
 
@@ -44,35 +46,52 @@ class Pregunta implements Validable {
     }
 
     agregarResultados() {
-        if(this.validacion != null){
+
+        if (this.validacion != null) {
             this.validacion();
-        }else{
+        } else {
             if (this.seleccion != null) {
                 this.seleccion.validacion();
-    
-                resultados.calcularMaximo(this.valores);
+
+                this.maximos = resultados.calcularMaximo(this.valores);
             }
         }
 
         console.log("Validadndo")
     }
 
-    setValidacion(validar:Function){
+    setValidacion(validar: Function) {
         this.validacion = validar;
     }
 
     registro() {
+        console.log(this.seleccion)
         if (this.seleccion != null) {
             resultados.agregar(this.tipoId, [
                 { id: "pregunta", valor: this.informacion },
                 { id: "respuesta", valor: this.seleccion.informacion },
-                { id: "Tiempo usado (segundos)", valor: this.contenido.getSegundos() + "" }
+                { id: "Tiempo usado (segundos)", valor: this.contenido.getSegundos() + "" },
+                { id: "Valor de respuesta", valor: JSON.stringify(this.seleccion.valor) + "" },
+                { id: "Valores maximos", valor: JSON.stringify(this.maximos) + "" }
             ]);
         }
     }
 
     getPregunta() {
         return this.contenido;
+    }
+
+    setAccionInicial(accionInicial: Function) {
+        this.contenido.setAccionInicialActividad(accionInicial);
+    }
+
+    setAccionFinal(accionFinal: Function) {
+        this.contenido.setAccionFinalActividad(accionFinal);
+    }
+
+    setContenedor(ruta: string) {
+        let elemento: HTMLElement = <HTMLElement>document.querySelector(ruta);
+        this.contenido.setElemento(elemento);
     }
 
 }
@@ -100,6 +119,9 @@ class Opcion {
     }
 
     validacion() {
+        console.log("El valor es:")
+        console.log(this.valor)
+
         this.valor.forEach(v => {
             resultados.sumar(v.area, v.valor);
         });
@@ -233,9 +255,9 @@ class OpcionB extends Opcion {
 
 */
 
-class PreguntaC extends Pregunta {
+class Escribir extends Pregunta {
 
-    opciones: Array<OpcionC>;
+    opciones: Array<OpcionEscribir>;
     private div_seccionB: HTMLElement;
 
     constructor(informacion: string) {
@@ -247,7 +269,6 @@ class PreguntaC extends Pregunta {
         let div_seccionA = document.createElement('section');
         let div_seccionA_h1 = document.createElement('h2');
         this.div_seccionB = document.createElement('section');
-        let formulario = document.createElement('div');
 
         div_seccionA.className = "pregunta__titulo";
         this.div_seccionB.className = "pregunta__opciones";
@@ -261,35 +282,44 @@ class PreguntaC extends Pregunta {
         div_seccionA.appendChild(document.createElement('hr'));
     }
 
-    agregar(info: string, valor: Array<ResultadoA>) {
-        let opcion = new OpcionC(this, info, valor);
+    agregar(info: string) {
+        let opcion = new OpcionEscribir(this, info);
+        this.seleccion = opcion;
         this.div_seccionB.appendChild(opcion.areaTexto);
         this.opciones.push(opcion);
         this.valores.push({ id: this.tipoId, valores: opcion.valor });
     }
 
-    validarCon(original: string, acciones:Function) {
-        let usuario = this.getTexto();
-        let texto = new Texto_validar(original, usuario);
+    validarCon(original: string, acciones: Function) {
 
-        let error_general = (texto.getErrores());
+        this.setValidacion(() => {
 
-        //Da los errores de coincidencia exacta
-        let error_coincidencia = (texto.getErroresStrict());
+            let usuario = this.getTexto();
+            let texto = new Texto_validar(original, usuario);
 
-        //Da los errores de Mayusculas
-        let error_mayuscula = (texto.getErroresMayusculas());
+            let error_general = (texto.getErrores());
 
-        //Da los errores de Puntuacion, solo "," y "."
-        let error_puntuacion = (texto.getErroresPuntuacion());
+            //Da los errores de coincidencia exacta
+            let error_coincidencia = (texto.getErroresStrict());
 
-        //Da los errores de palabras que faltaron
-        let error_falto = (texto.getErroresFalto());
+            //Da los errores de Mayusculas
+            let error_mayuscula = (texto.getErroresMayusculas());
 
-        acciones(error_general, error_coincidencia, error_mayuscula, error_puntuacion, error_falto);
+            //Da los errores de Puntuacion, solo "," y "."
+            let error_puntuacion = (texto.getErroresPuntuacion());
+
+            //Da los errores de palabras que faltaron
+            let error_falto = (texto.getErroresFalto());
+
+            acciones(error_general, error_coincidencia, error_mayuscula, error_puntuacion, error_falto);
+
+
+        });
+
+
     }
 
-  
+
 
     placeholder(info: string) {
         this.opciones.forEach((o) => {
@@ -318,17 +348,14 @@ class PreguntaC extends Pregunta {
             o.escribiendo(escritura);
         });
     }
-
-
-
 }
 
-class OpcionC extends Opcion {
+class OpcionEscribir extends Opcion {
 
     areaTexto: HTMLTextAreaElement;
 
-    constructor(pregunta: Pregunta, info: string, valor: Array<ResultadoA>) {
-        super(pregunta, valor);
+    constructor(pregunta: Pregunta, info: string) {
+        super(pregunta, []);
 
         this.elemento.className = "opcionC";
         this.areaTexto = document.createElement("textarea");
@@ -491,7 +518,7 @@ class PreguntaD extends Pregunta {
         this.valores.push({ id: this.tipoId, valores: opcion.valor });
     }
 
-  
+
 
 }
 
@@ -591,8 +618,8 @@ class PreguntaS extends Pregunta {
     lista: HTMLElement;
     opciones: Array<OpcionS>;
 
-    constructor() {
-        super();
+    constructor(informacion?: string) {
+        super(informacion);
         this.tipoId = "P Seleccion";
         this.opciones = new Array();
         this.texto = document.createElement("p");
@@ -630,6 +657,7 @@ class PreguntaS extends Pregunta {
         this.opciones.push(opcion);
         this.lista.append(opcion.elemento);
         this.valores.push({ id: this.tipoId, valores: opcion.valor });
+
     }
 
 }
@@ -661,6 +689,23 @@ class OpcionS extends Opcion {
     }
 }
 
+class PreguntaSall extends Pregunta {
+    preguntas: Array<PreguntaS>;
+
+    constructor(preguntas: Array<PreguntaS>) {
+        super();
+        this.preguntas = preguntas;
+
+        this.setValidacion(() => {
+            this.preguntas.forEach(pregunta => {
+
+                pregunta.contenido.timer.stop();
+            });
+        });
+    }
+
+
+}
 
 class PreguntaR extends Pregunta {
 
@@ -1021,7 +1066,7 @@ class Texto_validar {
         this.palabras_texto.forEach(p => {
 
             if (p.coincidencia_mayus) {
-               
+
                 erroresMayus++;
             }
 

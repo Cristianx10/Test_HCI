@@ -111,6 +111,9 @@ var Contenido = /** @class */ (function () {
         if (this.accion != null) {
             this.accion(this.objeto);
         }
+        if (this.accionInicial != null) {
+            this.accionInicial(this.objeto);
+        }
         if (this.segundos != null) {
             this.timer.startTempo(this.segundos);
         }
@@ -138,8 +141,24 @@ var Contenido = /** @class */ (function () {
         this.timer.termino = termino;
         return this;
     };
+    Contenido.prototype.setAccionFinalActividad = function (accionFinal) {
+        this.accionFinal = accionFinal;
+    };
+    Contenido.prototype.setAccionInicialActividad = function (accionIncial) {
+        this.accionInicial = accionIncial;
+    };
     Contenido.prototype.setAccionFinal = function (accionFinal) {
-        this.timer.accionFinal = accionFinal;
+        var _this = this;
+        this.timer.accionFinal = function () {
+            console.log("finalizo");
+            accionFinal();
+            if (_this.accionFinal != null) {
+                _this.accionFinal();
+            }
+        };
+    };
+    Contenido.prototype.setElemento = function (elemento) {
+        this.elementoHTML = elemento;
     };
     Contenido.prototype.getElementoHTML = function () {
         return this.elementoHTML;
@@ -496,6 +515,19 @@ var Interaccion = /** @class */ (function () {
             { id: "Tiempo usado (segundos)", valor: this.contenido.getSegundos() + "" }
         ]);
     };
+    Interaccion.prototype.getContenido = function () {
+        return this.contenido;
+    };
+    Interaccion.prototype.setContenedor = function (ruta) {
+        var elemento = document.querySelector(ruta);
+        this.contenido.setElemento(elemento);
+    };
+    Interaccion.prototype.setAccionInicial = function (accionInicial) {
+        this.contenido.setAccionInicialActividad(accionInicial);
+    };
+    Interaccion.prototype.setAccionFinal = function (accionFinal) {
+        this.contenido.setAccionFinalActividad(accionFinal);
+    };
     return Interaccion;
 }());
 /*--------------------------------------------------------------
@@ -517,6 +549,13 @@ var Actividad = /** @class */ (function () {
         this.tipoId = "Interaccion";
         this.contenido = new Contenido(this.elemento, this);
     }
+    Actividad.prototype.getContenido = function () {
+        return this.contenido;
+    };
+    Actividad.prototype.setContenedor = function (ruta) {
+        var elemento = document.querySelector(ruta);
+        this.contenido.setElemento(elemento);
+    };
     Actividad.prototype.update = function () {
         this.stage.update();
     };
@@ -559,6 +598,12 @@ var Actividad = /** @class */ (function () {
             { id: "intentos", valor: this.intentos + "" },
             { id: "validacion", valor: this.valido + "" },
         ]);
+    };
+    Actividad.prototype.setAccionInicial = function (accionInicial) {
+        this.contenido.setAccionInicialActividad(accionInicial);
+    };
+    Actividad.prototype.setAccionFinal = function (accionFinal) {
+        this.contenido.setAccionFinalActividad(accionFinal);
     };
     return Actividad;
 }());

@@ -40,7 +40,7 @@ window.addEventListener("load", function() {
     `<h3>1. Elige la imagen que continúa la secuencia</h3>`
   );
   p2.agregar(
-    `<h2>a)</h2><img style="width:260px; margin: 15px;" src="/img/preguntasGenerales/VisualEspacial/centroazulA.png" alt="">`,
+    `<h2>a)</h2><img style="width:260px; margin: 10px 55px;" src="/img/preguntasGenerales/VisualEspacial/centroazulA.png" alt="">`,
     [
       { area: "Diseño", valor: 70 },
       { area: "Deportes", valor: 60 },
@@ -53,15 +53,15 @@ window.addEventListener("load", function() {
     ]
   );
   p2.agregar(
-    `<h2>b)</h2><img style="width:260px; margin: 15px;" src="/img/preguntasGenerales/VisualEspacial/centroazulB.png" alt="">`,
+    `<h2>b)</h2><img style="width:260px; margin: 10px 55px;" src="/img/preguntasGenerales/VisualEspacial/centroazulB.png" alt="">`,
     []
   );
   p2.agregar(
-    `<h2>c)</h2><img style="width:260px; margin: 15px;" src="/img/preguntasGenerales/VisualEspacial/centroazulC.png" alt="">`,
+    `<h2>c)</h2><img style="width:260px; margin: 10px 55px;" src="/img/preguntasGenerales/VisualEspacial/centroazulC.png" alt="">`,
     []
   );
   p2.agregar(
-    `<h2>d)</h2><img style="width:260px; margin: 15px;" src="/img/preguntasGenerales/VisualEspacial/centroazulD.png" alt="">`,
+    `<h2>d)</h2><img style="width:260px; margin: 10px 55px;" src="/img/preguntasGenerales/VisualEspacial/centroazulD.png" alt="">`,
     []
   );
 
@@ -222,6 +222,15 @@ window.addEventListener("load", function() {
     }
   });
 
+  palo.setContenedor(".ppalillosn1");
+
+  palo.setAccionInicial(function() {
+    navegacion.colocarTiempo();
+    navegacion.colocarProgreso();
+    mostrar(".zona__navegacion");
+    siguiente.disabled = false;
+  });
+
   let palo2 = new Palillos();
   palo2.size(400, 400);
   palo2.cuadrado();
@@ -260,6 +269,14 @@ window.addEventListener("load", function() {
       console.log("gano");
       sumarPalillos(palo2);
     }
+  });
+
+  palo2.setContenedor(".ppalillosn2");
+  palo2.setAccionInicial(function() {
+    navegacion.colocarTiempo();
+    navegacion.colocarProgreso();
+    mostrar(".zona__navegacion");
+    siguiente.disabled = false;
   });
 
   // rompecabezaCabeza 1
@@ -401,23 +418,9 @@ window.addEventListener("load", function() {
     ocultar(".zona__navegacion");
     siguiente.disabled = false;
   });
-  contenedor
-    .agregar(new Contenido(document.querySelector(".ppalillosn1"), palo))
-    .setAccion(() => {
-      navegacion.colocarTiempo();
-      navegacion.colocarProgreso();
-      mostrar(".zona__navegacion");
-      siguiente.disabled = false;
-    });
+  contenedor.agregar(palo.getContenido());
 
-  contenedor
-    .agregar(new Contenido(document.querySelector(".ppalillosn2"), palo2))
-    .setAccion(() => {
-      navegacion.colocarTiempo();
-      navegacion.colocarProgreso();
-      mostrar(".zona__navegacion");
-      siguiente.disabled = false;
-    });
+  contenedor.agregar(palo2.getContenido());
 
   contenedor.incluirEn(document.querySelector(".ppreguntas"));
 

@@ -150,23 +150,22 @@ var Resultados = /** @class */ (function () {
     Resultados.prototype.calcularMaximo = function (valores) {
         var valorTotal = [];
         valores.forEach(function (v) {
-            if (valorTotal != null) {
-                for (var i = 0; i < v.valores.length; i++) {
-                    var val = v.valores[i];
-                    var encontro = false;
-                    for (var j = 0; j < valorTotal.length; j++) {
-                        var t = valorTotal[j];
-                        var nombre = t.area.toLowerCase();
-                        if (val.area == nombre) {
-                            encontro = true;
-                            if (val.valor > t.valor) {
-                                t.valor = val.valor;
-                            }
+            for (var i = 0; i < v.valores.length; i++) {
+                var val = v.valores[i];
+                var encontro = false;
+                for (var j = 0; j < valorTotal.length; j++) {
+                    var t = valorTotal[j];
+                    var nombre = t.area.toLowerCase();
+                    var ref = val.area.toLowerCase();
+                    if (ref == nombre) {
+                        encontro = true;
+                        if (val.valor > t.valor) {
+                            t.valor = val.valor;
                         }
                     }
-                    if (encontro == false) {
-                        valorTotal.push({ area: val.area.toLowerCase(), valor: val.valor });
-                    }
+                }
+                if (encontro == false) {
+                    valorTotal.push({ area: val.area.toLowerCase(), valor: val.valor });
                 }
             }
         });
@@ -195,6 +194,7 @@ var Resultados = /** @class */ (function () {
             _loop_1(h);
         }
         this.save();
+        return valorTotal;
     };
     /*
     [

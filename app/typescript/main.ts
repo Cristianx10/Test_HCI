@@ -127,6 +127,8 @@ class Contenido {
     segundos?: number; //Tiempo inicial que se da para dar comienzo a la actividad
     tiempoDefinido: boolean; //Valida si la pantalla tiene un tiempo definido
     accion?: Function; //Es la primera acción que ocurre al comenzar la actividad
+    accionFinal?:Function; //Ultima accion programable desde el objeto de contenido
+    accionInicial?:Function; //Primera accion programable desde el objeto de contenido
 
     constructor(elementoHTML: HTMLElement, objeto: Validable, segundos?: number) {
         this.elementoHTML = elementoHTML;
@@ -148,6 +150,10 @@ class Contenido {
     start() {
         if (this.accion != null) {
             this.accion(this.objeto);
+        }
+
+        if(this.accionInicial != null){
+            this.accionInicial(this.objeto);
         }
 
         if (this.segundos != null) {
@@ -185,8 +191,30 @@ class Contenido {
         return this;
     }
 
+    setAccionFinalActividad(accionFinal: Function){
+        this.accionFinal = accionFinal;
+    }
+
+    setAccionInicialActividad(accionIncial: Function){
+        this.accionInicial = accionIncial;
+    }
+
     setAccionFinal(accionFinal: Function) {
-        this.timer.accionFinal = accionFinal;
+        this.timer.accionFinal = ()=>{
+
+            console.log("finalizo");
+
+            accionFinal();
+
+            if(this.accionFinal != null){
+                this.accionFinal();
+            }
+        }
+
+    }
+
+    setElemento(elemento:HTMLElement){
+        this.elementoHTML = elemento;
     }
 
     getElementoHTML() {
@@ -659,6 +687,24 @@ class Interaccion implements Validable {
             { id: "Tiempo usado (segundos)", valor: this.contenido.getSegundos() + "" }
         ]);
     }
+
+    getContenido(){
+        return this.contenido;
+    }
+
+    setContenedor(ruta:string){
+        let elemento:HTMLElement = <HTMLElement>document.querySelector(ruta); 
+        this.contenido.setElemento(elemento);
+    }
+
+    setAccionInicial(accionInicial: Function){
+        this.contenido.setAccionInicialActividad(accionInicial);
+    }
+
+    setAccionFinal(accionFinal: Function){
+        this.contenido.setAccionFinalActividad(accionFinal);
+    }
+
 }
 
 /*--------------------------------------------------------------
@@ -686,6 +732,8 @@ class Actividad implements Validable {
     tipoId: string;
     contenido: Contenido;
 
+    accionFinal?:Function;
+
 
     constructor() {
         this.canvas = document.createElement("canvas");
@@ -700,6 +748,15 @@ class Actividad implements Validable {
         this.valido = true;
         this.tipoId = "Interaccion";
         this.contenido = new Contenido(this.elemento, this);
+    }
+
+    getContenido(){
+        return this.contenido;
+    }
+
+    setContenedor(ruta:string){
+        let elemento:HTMLElement = <HTMLElement>document.querySelector(ruta); 
+        this.contenido.setElemento(elemento);
     }
 
     update() {
@@ -747,7 +804,6 @@ class Actividad implements Validable {
     }
 
     registro() {
-
         resultados.agregar(this.tipoId, [
             { id: "aciertos", valor: this.aciertos + "" },
             { id: "fallos", valor: this.fallos + "" },
@@ -755,6 +811,15 @@ class Actividad implements Validable {
             { id: "validacion", valor: this.valido + "" },
         ]);
     }
+
+    setAccionInicial(accionInicial: Function){
+        this.contenido.setAccionInicialActividad(accionInicial);
+    }
+
+    setAccionFinal(accionFinal: Function){
+        this.contenido.setAccionFinalActividad(accionFinal);
+    }
+
 }
 
 /*--------------------------------------------------------------
