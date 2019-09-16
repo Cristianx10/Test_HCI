@@ -1,6 +1,15 @@
 /*--------------------------------------------------------------
 ## Funciones Matematicas
 --------------------------------------------------------------*/
+function selector (ubicacion: string){
+    let u: HTMLElement = <HTMLElement>document.querySelector(ubicacion);
+    return u;
+}
+
+function selectorAll (ubicacion: string){
+    let u= document.querySelectorAll(ubicacion);
+    return u;
+}
 
 // Convierte de grados a radianes
 function radians(degrees: number) {
@@ -129,6 +138,8 @@ class Contenido {
     accion?: Function; //Es la primera acción que ocurre al comenzar la actividad
     accionFinal?:Function; //Ultima accion programable desde el objeto de contenido
     accionInicial?:Function; //Primera accion programable desde el objeto de contenido
+    accionInicialActividad?:Function;
+    accionFinalActividad?:Function;
 
     constructor(elementoHTML: HTMLElement, objeto: Validable, segundos?: number) {
         this.elementoHTML = elementoHTML;
@@ -154,6 +165,10 @@ class Contenido {
 
         if(this.accionInicial != null){
             this.accionInicial(this.objeto);
+        }
+
+        if(this.accionInicialActividad != null){
+            this.accionInicialActividad(this.objeto);
         }
 
         if (this.segundos != null) {
@@ -199,6 +214,14 @@ class Contenido {
         this.accionInicial = accionIncial;
     }
 
+    setAccionInicialActividadUnica(accionIncial: Function){
+        this.accionInicialActividad = accionIncial;
+    }
+
+    setAccionFinalActividadUnica(accionFinal: Function){
+        this.accionFinalActividad = accionFinal;
+    }
+
     setAccionFinal(accionFinal: Function) {
         this.timer.accionFinal = ()=>{
 
@@ -208,6 +231,10 @@ class Contenido {
 
             if(this.accionFinal != null){
                 this.accionFinal();
+            }
+
+            if(this.accionFinalActividad != null){
+                this.accionFinalActividad();
             }
         }
 
@@ -695,10 +722,19 @@ class Interaccion implements Validable {
     setContenedor(ruta:string){
         let elemento:HTMLElement = <HTMLElement>document.querySelector(ruta); 
         this.contenido.setElemento(elemento);
+        console.log(elemento);
     }
 
     setAccionInicial(accionInicial: Function){
         this.contenido.setAccionInicialActividad(accionInicial);
+    }
+
+    setAccionInicialActividad(accionInicial: Function){
+        this.contenido.setAccionInicialActividadUnica(accionInicial);
+    }
+
+    setAccionFinalActividad(accionFinal: Function){
+        this.contenido.setAccionFinalActividadUnica(accionFinal);
     }
 
     setAccionFinal(accionFinal: Function){

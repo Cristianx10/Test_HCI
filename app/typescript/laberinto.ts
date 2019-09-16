@@ -65,6 +65,7 @@ class Laberinto_cursor {
 
       if (this.inicio && this.activado == false) {
         this.mover(this.laberinto.stage.mouseX, this.laberinto.stage.mouseY);
+  
         this.laberinto.update();
       }
 

@@ -1,20 +1,18 @@
-class Tablero_hielo {
-    stage: createjs.Stage;
-    canvas: HTMLCanvasElement;
+class Tablero_hielo extends Actividad {
     carga: createjs.LoadQueue;
     lienzo?: createjs.Bitmap;
     negativo?: createjs.Bitmap;
     gafas?: createjs.Sprite;
 
     constructor() {
-        this.canvas = document.createElement('canvas');
+        super();
         this.canvas.width = 1280;
         this.canvas.height = 720;
-        this.stage = new createjs.Stage(this.canvas);
+    
         this.carga = new createjs.LoadQueue();
-        this.carga.loadFile({ id: "lienzo", src: "../img/programacion/juego.png" });
-        this.carga.loadFile({ id: "negativo", src: "../img/programacion/juego_bw.png" });
-        this.carga.loadFile({ id: "gafas", src: "../img/programacion/gafas.png" });
+        this.carga.loadFile({ id: "lienzo", src: "/img/programacion/juego.png" });
+        this.carga.loadFile({ id: "negativo", src: "/img/programacion/juego_bw.png" });
+        this.carga.loadFile({ id: "gafas", src: "/img/programacion/gafas.png" });
         this.carga.on("fileload", (r: any) => {
 
             if (r.item.id == "gafas") {
@@ -75,7 +73,7 @@ class Piguino {
     constructor(tablero: Tablero_hielo) {
         this.tablero = tablero;
 
-        this.tablero.carga.loadFile({ id: "pinguino", src: "../img/programacion/pinguino.png", personaje: this })
+        this.tablero.carga.loadFile({ id: "pinguino", src: "/img/programacion/pinguino.png", personaje: this })
 
     }
 
@@ -91,8 +89,8 @@ class Piguino {
                 up: [12, 15]
             },
             framerate: 10
-
         };
+
         let vista = new createjs.SpriteSheet(data);
         this.personaje = new createjs.Sprite(vista);
         this.personaje.x = 100;
@@ -113,7 +111,7 @@ class Piguino {
                         console.log("Ganaste");
                     }
                 }
-
+ 
                 if (this.m_up) {
                     if (this.personaje.y - (cor.height / 2) < 0) {
                         this.personaje.y++;
@@ -144,6 +142,9 @@ class Piguino {
 
                     if (this.tablero.negativo.hitTest(this.personaje.x, this.personaje.y+ (cor.height / 2))) {
                         console.log("Perdio abajo");
+                        if(this.tablero.intentoFallo != null){
+                            this.tablero.intentoFallo();
+                        }
                         this.m_down = false;
 
                         this.impacto.graphics.beginFill("red").drawCircle(this.personaje.x, this.personaje.y+ (cor.height / 2), 5);

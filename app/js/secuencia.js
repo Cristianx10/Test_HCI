@@ -12,30 +12,43 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var Secuencias = /** @class */ (function (_super) {
-    __extends(Secuencias, _super);
-    function Secuencias() {
+var Secuencia = /** @class */ (function (_super) {
+    __extends(Secuencia, _super);
+    function Secuencia() {
         var _this = _super.call(this) || this;
         _this.elementos = new Array();
         _this.agregado = 0;
         _this.actual = 0;
         _this.nactual = 0;
         _this.elemento.className = "secuencia";
+        _this.setAccionInicialActividad(function () {
+            _this.start();
+        });
+        _this.setAccionFinalActividad(function () {
+            _this.terminar();
+        });
         return _this;
     }
-    Secuencias.prototype.agregar = function (element, tiempo) {
+    Secuencia.prototype.agregar = function (element, tiempo) {
         var e = new SecuenciaElemento(this, element, this.agregado, tiempo);
         this.elementos.push(e);
         this.agregado++;
     };
-    Secuencias.prototype.terminar = function () {
+    Secuencia.prototype.agregarImg = function (ruta, tiempo) {
+        var ima = document.createElement("img");
+        ima.src = ruta;
+        var e = new SecuenciaElemento(this, ima, this.agregado, tiempo);
+        this.elementos.push(e);
+        this.agregado++;
+    };
+    Secuencia.prototype.terminar = function () {
         if (this.navegable != null) {
             this.navegable.siguiente();
             this.navegable.ocultarProgreso();
             this.elemento.style.display = "none";
         }
     };
-    Secuencias.prototype.crearTablero = function () {
+    Secuencia.prototype.crearTablero = function () {
         var _this = this;
         this.contenedor = new Contenedor();
         var elementos = [];
@@ -60,14 +73,14 @@ var Secuencias = /** @class */ (function (_super) {
         this.navegable.permitirAll = true;
         this.contenedor.incluirEn(this.elemento);
     };
-    Secuencias.prototype.start = function () {
+    Secuencia.prototype.start = function () {
         if (this.navegable != null) {
             this.navegable.iniciar();
             this.navegable.colocarProgreso();
             this.navegable.colocarTiempo();
         }
     };
-    return Secuencias;
+    return Secuencia;
 }(Interaccion));
 var SecuenciaElemento = /** @class */ (function (_super) {
     __extends(SecuenciaElemento, _super);
@@ -124,7 +137,6 @@ var SecuenciaElemento = /** @class */ (function (_super) {
         return _this;
     }
     SecuenciaElemento.prototype.registroOpcional = function () {
-        console.log("Hola");
         resultados.agregar(this.tipoId, [
             { id: "aciertos", valor: this.padre.aciertos + "" },
             { id: "fallos", valor: this.padre.fallos + "" },

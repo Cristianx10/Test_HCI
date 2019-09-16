@@ -1,0 +1,42 @@
+.tuberia_tutorial {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+  }
+
+  .tuberia_tutorial div {
+    width: 30%;
+    color: #FF9900;
+  }
+
+  .tuberia_tutorial__info {
+    padding: 20px;
+    height: 85%;
+    border: 5px dashed #FF9900;
+  }
+
+  .ptuberia {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .tuberia__titulo {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+  }
+
+  .tuberia__titulo h1 {
+
+    font-style: normal;
+    font-weight: bold;
+    font-size: 48px;
+    line-height: 42px;
+    display: flex;
+    align-items: center;
+    color: #E64973;
+
+  }

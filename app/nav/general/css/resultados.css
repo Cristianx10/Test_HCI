@@ -1,0 +1,24 @@
+.presultados {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.resultado__cuadro {
+    width: 215px;
+    height: 116px;
+}
+
+.mayores {
+    width: 325px;
+    height: 161px;
+}
+
+.presultados {
+    width: 770px;
+}
+
+.cont__resultados {
+    display: flex;
+
+}
+

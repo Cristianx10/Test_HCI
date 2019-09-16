@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!--Titulo de la pagina-->
+    <title>Matematicas</title>
+    <link rel="shortcut icon" href="/includes/img/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="/sass/main.css" />
+
+    <link rel="stylesheet" href="./css/ingenieria.css">
+
+</head>
+
+<body>
+
+    <div class="cont-principal" style="background-image: url('/includes/background/oscuro.png')">
+        <div class="principal" onselectstart="return false">
+
+            <div class="pantalla ppreguntas">
+                <div class="pantalla pinicio" style="background-image: url('/includes/background/oscuro.png')">
+                    <div class="introduccion">
+                        <h1 class="titulo">Encuentra las gafas de Pingui</h1>
+                        <p id="desc" class="descripcion">Ayuda a Pingui a encontrar sus gafas escribiendo codigo. No
+                            caigas en las trampas de los arcos</p>
+                        <button class="botonComenzar continuar">Comenzar</button>
+                    </div>
+                    <img id="id_leftcontenido_img" src="/img/programacion/pingui.png">
+                </div>
+
+                <div class="pantalla pinstruccion1"
+                    style=" background-image: url('/includes/background/claro.png')">
+                    <div id="id_conlistado">
+                        <h1 id="id_titulo">Instrucciones</h1>
+                        <ul id="id_listado">
+                            <li>
+                                <p>
+                                    1. Escribe código en la línea de comandos para mover a Pingui de lugar. El objetivo
+                                    es desplazarlo
+                                    hacia donde se encuentran sus gafas antes de que se agote el tiempo. No caigas en
+                                    los agujeros con
+                                    orcas.
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    2 . El comando que escribas debe estar compuesto de dos partes separadas por un
+                                    punto: la dirección
+                                    del movimiento y el número de pasos.
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    3. Estas son las direcciones de movimiento disponibles:
+                                </p>
+                                <br>
+                                <ul>
+                                    <li>
+                                        <p><span class="enfasisCode">PinUp =</span> movimiento hacia arriba.</p>
+                                    </li>
+                                    <li>
+                                        <p><span class="enfasisCode">PinDown =</span> movimiento hacia abajo.</p>
+                                    </li>
+                                    <li>
+                                        <p><span class="enfasisCode">PinLeft =</span> movimiento hacia izquierda.</p>
+                                    </li>
+                                    <li>
+                                        <p><span class="enfasisCode">PinRight =</span> movimiento hacia derecha.</p>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <div>
+                        <button id="id_siguiente" class="boton continuar">Siguiente</button>
+                    </div>
+                    <img id="id_cajaComando" src="/img/programacion/caja_comando.png">
+                    <img id="id_sintaxis" src="/img/programacion/sintaxis.png" alt="">
+                </div>
+
+
+                <div class="pantalla pinstruccion2" style="background-image: url('/includes/background/claro.png')">
+                    <div id="id_conlistado">
+                        <h1 id="id_titulo">Instrucciones</h1>
+                        <div style="height: 40px"></div>
+                        <ul id="id_listado2">
+                            <li>
+                                <p>
+                                    4. Puedes realizar de 1 a 5 pasos por comando.
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    5. Haz click en el botón de ayuda para recordar las direcciones de movimiento
+                                    disponibles
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    6. Cuando estés seguro de tu comando, haz click en la flecha para ejecutar el código
+                                    y prepárate
+                                    para escribir el siguiente comando
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    7. Se te indicará si tu comando está incorrecto para que lo escribas de nuevo
+                                </p>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <div>
+                        <button id="id_siguiente" class="boton continuar">Siguiente</button>
+                    </div>
+                    <img id="id_img_a" src="/img/programacion/sintaxis2.png">
+                    <img id="id_img_b" src="/img/programacion/ayuda.png">
+                    <img id="id_img_c" src="/img/programacion/ejecutar.png">
+                    <img id="id_img_d" src="/img/programacion/peligro.png">
+                </div>
+
+
+                <div id="juegopinguino" class="pantalla pjuego">
+
+                    <form id="cuadroComandos" method="dialog">
+                        <input type="text" name="com" id="comando" autocomplete="off">
+                        <button id="btn_comando"></button>
+                    </form>
+                    <div id="btnAyuda">
+                        <img src="/img/programacion/ayuda.png" alt="">
+                        <div>
+                            <p><span class="enfasisCode">PinUp =</span> movimiento hacia arriba.</p>
+                            <p><span class="enfasisCode">PinDown =</span> movimiento hacia abajo.</p>
+                            <p><span class="enfasisCode">PinLeft =</span> movimiento hacia izquierda.</p>
+                            <p><span class="enfasisCode">PinRight =</span> movimiento hacia derecha.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <!--Codigo obligatorio -->
+        <script src="/lib/soundjs.js"></script>
+        <script src="/js/timer.js"></script>
+        <script src="/js/resultados.js"></script>
+        <script src="/js/main.js"></script>
+        <!------------------------------------>
+
+        <!--Preguntas generales-->
+        <script src="/js/pregunta.js"></script>
+        <script src="/lib/jquery.js"></script>
+        <script src="/lib/jquery-ui.min.js"></script>
+        <!------------------------------------>
+
+        <!--Interacciones con el canvas-->
+        <script src="/lib/easeljs.js"></script>
+        <script src="/lib/tweenjs.js"></script>
+        <script src="/lib/preloadjs.js"></script>
+        <!------------------------------------>
+
+        <!--Interacciones complejas-->
+        <script src="/js/programacion.js"></script>
+        
+        <!--Programacion de la interaccion-->
+        <script src="./js/ingenieria.js"></script>
+
+
+        
+
+
+</body>
+
+</html>

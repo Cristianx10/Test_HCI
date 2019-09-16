@@ -1,10 +1,4 @@
 "use strict";
-/*
-interface RespuestaV {
-    id: string;
-    valor: number;
-}
-*/
 var Resultados = /** @class */ (function () {
     function Resultados(id) {
         this.id = id;

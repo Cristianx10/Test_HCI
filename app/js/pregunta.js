@@ -39,6 +39,12 @@ var Pregunta = /** @class */ (function () {
     Pregunta.prototype.agregarClase = function (clase) {
         this.elemento.classList.add(clase);
     };
+    Pregunta.prototype.agregarMaximos = function (maximos) {
+        resultados.agregarMaximo(maximos);
+        this.maximos = maximos;
+    };
+    Pregunta.prototype.agregarResultado = function (valores) {
+    };
     Pregunta.prototype.removerClase = function (clase) {
         this.elemento.classList.remove(clase);
     };
@@ -52,7 +58,7 @@ var Pregunta = /** @class */ (function () {
                 this.maximos = resultados.calcularMaximo(this.valores);
             }
         }
-        console.log("Validadndo");
+        console.log("Validado");
     };
     Pregunta.prototype.setValidacion = function (validar) {
         this.validacion = validar;

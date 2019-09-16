@@ -54,6 +54,43 @@ window.addEventListener("load", function() {
   matematica4.agregar("1", []);
   matematica4.agregar("2", []);
   matematica4.agregar("3", []);
+
+
+  let secuencias = [];
+
+  secuencias.push(new Secuencia());
+  secuencias[0].agregarImg("/img/ciencias/elementos/calcio.png", 5);
+  secuencias[0].agregarImg("/img/ciencias/elementos/sodio.png", 5);
+  secuencias[0].agregarImg("/img/ciencias/elementos/potasio.png", 5);
+  secuencias[0].crearTablero();
+  secuencias[0].incluirEn(".secuenciasa");
+
+
+  secuencias.push(new Secuencia());
+  secuencias[1].agregarImg("/img/ciencias/elementos/calcio.png", 3);
+  secuencias[1].agregarImg("/img/ciencias/elementos/sodio.png", 3);
+  secuencias[1].agregarImg("/img/ciencias/elementos/potasio.png", 3);
+  secuencias[1].agregarImg("/img/ciencias/elementos/carbon.png", 4);
+  secuencias[1].agregarImg("/img/ciencias/elementos/oro.png", 4); 
+  secuencias[1].crearTablero();
+  secuencias[1].incluirEn(".secuenciasb");
+
+  secuencias.push(new Secuencia());
+  secuencias[2].agregarImg("/img/ciencias/elementos/calcio.png", 2);
+  secuencias[2].agregarImg("/img/ciencias/elementos/sodio.png", 2);
+  secuencias[2].agregarImg("/img/ciencias/elementos/potasio.png", 2);
+  secuencias[2].agregarImg("/img/ciencias/elementos/carbon.png", 3);
+  secuencias[2].agregarImg("/img/ciencias/elementos/oro.png", 3); 
+  secuencias[2].agregarImg("/img/ciencias/elementos/fosforo.png",3);
+  secuencias[2].agregarImg("/img/ciencias/elementos/radio.png", 3);
+  secuencias[2].crearTablero();
+  secuencias[2].incluirEn(".secuenciasc");
+
+  secuencias.forEach((secuencia)=>{
+    secuencia.setValidacion(seguir);
+  });
+  
+
   contenedor.agregarHTML(document.querySelector(".pinicio"));
   contenedor.agregar(matematica.getPregunta(), 40).setAccion(function() {
     navegacion.colocarTiempo();
@@ -64,76 +101,12 @@ window.addEventListener("load", function() {
   contenedor.agregar(matematica3.getPregunta(), 40).setAccion(function() {});
   contenedor.agregar(matematica4.getPregunta(), 40).setAccion(function() {
     siguiente.disabled = false;
-    console.log("aaa");
   });
-  contenedor
-    .agregarHTML(document.querySelector(".secuencias"))
-    .setAccion(() => {
-      loadJson("/data/ciencias/secuencias.json", r => {
-        let secuencias = [];
-        let actual = 0;
-        let nactual = 0;
-        let s = r.secuencias;
 
-        for (let i = 0; i < s.length; i++) {
-          let e = s[i];
-          let se = new Secuencias();
-          for (let j = 0; j < e.recursos.length; j++) {
-            let re = e.recursos[j];
-            let ima = document.createElement("img");
-            ima.src = re.src;
-            se.agregar(ima, re.tiempo);
-          }
-          secuencias.push(se);
-        }
-        secuencias.forEach((secuencia, index) => {
-          secuencia.crearTablero();
-          secuencia.setIntentoAcierto(() => {
-            console.log("acierto");
-          });
-          secuencia.setIntentoFallo(() => {
-            console.log("fallo");
-            secuencias[actual].terminar();
+  contenedor.agregar(secuencias[0].getContenido());
+  contenedor.agregar(secuencias[1].getContenido());
+  contenedor.agregar(secuencias[2].getContenido());
 
-            actual++;
-
-            if (actual < secuencias.length) {
-              secuencias[actual].start();
-              $(".secuencias").append(secuencias[actual].getElemento());
-            } else {
-              // seguir();
-            }
-          });
-
-          secuencia.setValidacion(vali => {
-            console.log("validado");
-
-            if (vali) {
-              console.log("gano");
-              //  seguir();
-            }
-            nactual++;
-            console.log(nactual);
-
-            if (nactual >= 3) {
-              seguir();
-            }
-
-            secuencias[actual].terminar();
-            actual++;
-            if (actual < secuencias.length) {
-              secuencias[actual].start();
-              $(".secuencias").append(secuencias[actual].getElemento());
-            } else {
-            }
-          });
-          if (index == 0) {
-            secuencia.start();
-            $(".secuencias").append(secuencia.getElemento());
-          }
-        });
-      });
-    });
   contenedor.incluirEn(document.querySelector(".ppreguntas"));
   navegacion.iniciar();
   var siguiente = document.querySelector(".btn_siguiente");
@@ -151,7 +124,7 @@ window.addEventListener("load", function() {
   });
 
   navegacion.setFinal(() => {
-    goTo("bintraper");
+    goTo("intraper");
   });
 
   //Configuracion de el avance entre actividades
@@ -163,3 +136,4 @@ window.addEventListener("load", function() {
 
   siguientes.forEach(recorrerBotonesContinuar);
 });
+

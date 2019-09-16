@@ -2,6 +2,14 @@
 /*--------------------------------------------------------------
 ## Funciones Matematicas
 --------------------------------------------------------------*/
+function selector(ubicacion) {
+    var u = document.querySelector(ubicacion);
+    return u;
+}
+function selectorAll(ubicacion) {
+    var u = document.querySelectorAll(ubicacion);
+    return u;
+}
 // Convierte de grados a radianes
 function radians(degrees) {
     return degrees * Math.PI / 180;
@@ -114,6 +122,9 @@ var Contenido = /** @class */ (function () {
         if (this.accionInicial != null) {
             this.accionInicial(this.objeto);
         }
+        if (this.accionInicialActividad != null) {
+            this.accionInicialActividad(this.objeto);
+        }
         if (this.segundos != null) {
             this.timer.startTempo(this.segundos);
         }
@@ -147,6 +158,12 @@ var Contenido = /** @class */ (function () {
     Contenido.prototype.setAccionInicialActividad = function (accionIncial) {
         this.accionInicial = accionIncial;
     };
+    Contenido.prototype.setAccionInicialActividadUnica = function (accionIncial) {
+        this.accionInicialActividad = accionIncial;
+    };
+    Contenido.prototype.setAccionFinalActividadUnica = function (accionFinal) {
+        this.accionFinalActividad = accionFinal;
+    };
     Contenido.prototype.setAccionFinal = function (accionFinal) {
         var _this = this;
         this.timer.accionFinal = function () {
@@ -154,6 +171,9 @@ var Contenido = /** @class */ (function () {
             accionFinal();
             if (_this.accionFinal != null) {
                 _this.accionFinal();
+            }
+            if (_this.accionFinalActividad != null) {
+                _this.accionFinalActividad();
             }
         };
     };
@@ -521,9 +541,16 @@ var Interaccion = /** @class */ (function () {
     Interaccion.prototype.setContenedor = function (ruta) {
         var elemento = document.querySelector(ruta);
         this.contenido.setElemento(elemento);
+        console.log(elemento);
     };
     Interaccion.prototype.setAccionInicial = function (accionInicial) {
         this.contenido.setAccionInicialActividad(accionInicial);
+    };
+    Interaccion.prototype.setAccionInicialActividad = function (accionInicial) {
+        this.contenido.setAccionInicialActividadUnica(accionInicial);
+    };
+    Interaccion.prototype.setAccionFinalActividad = function (accionFinal) {
+        this.contenido.setAccionFinalActividadUnica(accionFinal);
     };
     Interaccion.prototype.setAccionFinal = function (accionFinal) {
         this.contenido.setAccionFinalActividad(accionFinal);

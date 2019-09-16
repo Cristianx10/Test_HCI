@@ -1,4 +1,4 @@
-class Secuencias extends Interaccion {
+class Secuencia extends Interaccion {
 
     elementos: Array<SecuenciaElemento>;
     navegable?: Navegable;
@@ -14,10 +14,26 @@ class Secuencias extends Interaccion {
         this.actual = 0;
         this.nactual = 0;
         this.elemento.className = "secuencia";
+
+        this.setAccionInicialActividad(()=>{
+            this.start();
+        });
+
+        this.setAccionFinalActividad(()=>{
+            this.terminar();
+        });
     }
 
     agregar(element: HTMLElement, tiempo: number) {
         let e = new SecuenciaElemento(this, element, this.agregado, tiempo);
+        this.elementos.push(e);
+        this.agregado++;
+    }
+
+    agregarImg(ruta: string, tiempo: number) {
+        let ima = document.createElement("img");
+        ima.src = ruta;
+        let e = new SecuenciaElemento(this, ima, this.agregado, tiempo);
         this.elementos.push(e);
         this.agregado++;
     }
@@ -60,6 +76,7 @@ class Secuencias extends Interaccion {
 
         this.navegable.permitirAll = true;
         this.contenedor.incluirEn(this.elemento);
+    
     }
 
     start() {
@@ -68,6 +85,8 @@ class Secuencias extends Interaccion {
             this.navegable.colocarProgreso();
             this.navegable.colocarTiempo();
         }
+
+       
     }
 
 
@@ -77,12 +96,12 @@ class SecuenciaElemento extends Interaccion {
 
     contenedor: HTMLElement;
     orden: number;
-    padre: Secuencias;
+    padre: Secuencia;
     tiempo: number;
     seleccionado = false;
     actual:number;
 
-    constructor(padre: Secuencias, elemento: HTMLElement, orden: number, tiempo: number) {
+    constructor(padre: Secuencia, elemento: HTMLElement, orden: number, tiempo: number) {
         super();
         this.padre = padre;
         this.tiempo = tiempo;
@@ -143,7 +162,7 @@ class SecuenciaElemento extends Interaccion {
     }
 
     registroOpcional(){
-        console.log("Hola");
+
         resultados.agregar(this.tipoId, [
             { id: "aciertos", valor: this.padre.aciertos + "" },
             { id: "fallos", valor: this.padre.fallos + "" },
@@ -157,3 +176,5 @@ class SecuenciaElemento extends Interaccion {
     }
 
 }
+
+

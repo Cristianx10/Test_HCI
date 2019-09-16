@@ -17,12 +17,7 @@ interface Respuesta {
     id: string;
     valores: Array<ResultadoA>;
 }
-/*
-interface RespuestaV {
-    id: string;
-    valor: number;
-}
-*/
+
 class Resultados {
 
     categorias?: Array<ResultadoA>;

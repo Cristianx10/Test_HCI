@@ -41,6 +41,15 @@ class Pregunta implements Validable {
         this.elemento.classList.add(clase);
     }
 
+    agregarMaximos(maximos:Array<ResultadoA>){
+        resultados.agregarMaximo(maximos);
+        this.maximos = maximos;
+    }
+
+    agregarResultado(valores:Array<ResultadoA>){
+        
+    }
+
     removerClase(clase: string) {
         this.elemento.classList.remove(clase);
     }
@@ -57,7 +66,7 @@ class Pregunta implements Validable {
             }
         }
 
-        console.log("Validadndo")
+        console.log("Validado");
     }
 
     setValidacion(validar: Function) {

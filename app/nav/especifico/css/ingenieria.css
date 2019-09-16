@@ -1,0 +1,161 @@
+#id_cajaComando {
+    position: absolute;
+    width: 319px;
+    height: 66px;
+    left: 856px;
+    top: 196px;
+
+}
+
+#id_leftcontenido {
+    position: absolute;
+    width: 396.38px;
+    height: 289px;
+    left: 272px;
+    top: 200px;
+}
+
+#id_leftcontenido_img {
+    position: absolute;
+    width: 307px;
+    height: 309px;
+    left: 857px;
+    top: 266px;
+}
+
+.pantalla {
+    width: 100%;
+    height: 100%;
+    color: white;
+}
+
+h1 {
+    font-size: 50px;
+}
+
+.enfasisCode {
+    color: #FF9900;
+    font-weight: bold;
+}
+
+#id_conlistado {
+    position: absolute;
+    width: 661px;
+    height: 571px;
+    left: 176px;
+    top: 51px;
+}
+
+#id_listado {}
+
+#id_listado>li,
+#id_conlistado>h1 {
+    margin-bottom: 60px;
+}
+
+#id_listado2>li,
+#id_conlistado2>h1 {
+    margin-bottom: 70px;
+}
+
+#id_siguiente {
+    position: absolute;
+    width: 170px;
+    height: 53px;
+    left: 1033px;
+    bottom: 50px;
+}
+
+#id_sintaxis {
+    position: absolute;
+    width: 232px;
+    height: 155.5px;
+    left: 910px;
+    top: 301px;
+}
+
+#id_img_a {
+    position: absolute;
+    width: 175px;
+    height: 100px;
+    left: 745px;
+    top: 175px;
+}
+
+#id_img_b {
+    position: absolute;
+    width: 63px;
+    height: 63px;
+    left: 863px;
+    top: 334px;
+}
+
+#id_img_c {
+    position: absolute;
+    width: 77px;
+    height: 70px;
+    left: 855px;
+    top: 438px;
+}
+
+#id_img_d {
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    left: 1094px;
+    top: 53px;
+}
+
+#cuadroComandos {
+    position: absolute;
+    display: flex;
+    width: 319px;
+    height: 66px;
+    left: 47px;
+    top: 59px;
+}
+
+#cuadroComandos input {
+    position: absolute;
+    width: 335px;
+    height: 54px;
+    font-size: 3em;
+}
+
+#cuadroComandos button {
+    position: absolute;
+    width: 64px;
+    height: 54px;
+    right: -73px;
+    background-image: url('/img/programacion/ejecutar.png');
+    background-size: contain;
+}
+
+#btnAyuda {
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    left: 1184px;
+    top: 32px;
+    width: 60px;
+    height: 60px;
+}
+
+#btnAyuda div {
+    display: none;
+    position: absolute;
+    background: #FF9900;
+    left: -330px;
+    font-size: 15px;
+    width: 400px;
+    text-align: left;
+}
+
+#btnAyuda:hover div {
+    display: block;
+
+}
+
+#btnAyuda span {
+    color: #F26469;
+}

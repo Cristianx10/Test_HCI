@@ -1,16 +1,28 @@
 "use strict";
-var Tablero_hielo = /** @class */ (function () {
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Tablero_hielo = /** @class */ (function (_super) {
+    __extends(Tablero_hielo, _super);
     function Tablero_hielo() {
-        var _this = this;
-        this.canvas = document.createElement('canvas');
-        this.canvas.width = 1280;
-        this.canvas.height = 720;
-        this.stage = new createjs.Stage(this.canvas);
-        this.carga = new createjs.LoadQueue();
-        this.carga.loadFile({ id: "lienzo", src: "../img/programacion/juego.png" });
-        this.carga.loadFile({ id: "negativo", src: "../img/programacion/juego_bw.png" });
-        this.carga.loadFile({ id: "gafas", src: "../img/programacion/gafas.png" });
-        this.carga.on("fileload", function (r) {
+        var _this = _super.call(this) || this;
+        _this.canvas.width = 1280;
+        _this.canvas.height = 720;
+        _this.carga = new createjs.LoadQueue();
+        _this.carga.loadFile({ id: "lienzo", src: "/img/programacion/juego.png" });
+        _this.carga.loadFile({ id: "negativo", src: "/img/programacion/juego_bw.png" });
+        _this.carga.loadFile({ id: "gafas", src: "/img/programacion/gafas.png" });
+        _this.carga.on("fileload", function (r) {
             if (r.item.id == "gafas") {
                 var data = {
                     images: [r.result],
@@ -44,10 +56,11 @@ var Tablero_hielo = /** @class */ (function () {
                 r.item.personaje.cargaArchivos(r.result);
             }
         });
-        createjs.Ticker.addEventListener("tick", this.stage);
+        createjs.Ticker.addEventListener("tick", _this.stage);
+        return _this;
     }
     return Tablero_hielo;
-}());
+}(Actividad));
 var Piguino = /** @class */ (function () {
     function Piguino(tablero) {
         this.velocidad = 90;
@@ -58,7 +71,7 @@ var Piguino = /** @class */ (function () {
         this.m_right = false;
         this.m_left = false;
         this.tablero = tablero;
-        this.tablero.carga.loadFile({ id: "pinguino", src: "../img/programacion/pinguino.png", personaje: this });
+        this.tablero.carga.loadFile({ id: "pinguino", src: "/img/programacion/pinguino.png", personaje: this });
     }
     Piguino.prototype.cargaArchivos = function (img) {
         var _this = this;
@@ -116,6 +129,9 @@ var Piguino = /** @class */ (function () {
                     }
                     if (_this.tablero.negativo.hitTest(_this.personaje.x, _this.personaje.y + (cor.height / 2))) {
                         console.log("Perdio abajo");
+                        if (_this.tablero.intentoFallo != null) {
+                            _this.tablero.intentoFallo();
+                        }
                         _this.m_down = false;
                         _this.impacto.graphics.beginFill("red").drawCircle(_this.personaje.x, _this.personaje.y + (cor.height / 2), 5);
                     }
